@@ -1052,7 +1052,7 @@ DQ
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="522" height="522"/>
+                                                    <size key="minSize" width="533" height="522"/>
                                                     <size key="maxSize" width="100000" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1079,7 +1079,7 @@ DQ
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="auburnBackground"/>
-                                                    <size key="minSize" width="271" height="522"/>
+                                                    <size key="minSize" width="276" height="522"/>
                                                     <size key="maxSize" width="846" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
@@ -1148,6 +1148,7 @@ DQ
                     <connections>
                         <outlet property="adviceContentView" destination="6UW-53-QHA" id="tot-ys-47J"/>
                         <outlet property="adviceScrollView" destination="hvJ-QJ-3T9" id="vM2-sm-tT6"/>
+                        <outlet property="adviceSplitView" destination="FNI-bT-lJX" id="acp-Ep-9Po"/>
                         <outlet property="adviceText" destination="09r-gg-lXH" id="krK-18-iuz"/>
                         <outlet property="adviceTextView" destination="09r-gg-lXH" id="KOe-WS-mmk"/>
                         <outlet property="lineText" destination="so8-f9-XAL" id="94h-cp-2JN"/>

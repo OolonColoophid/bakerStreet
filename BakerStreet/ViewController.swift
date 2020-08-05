@@ -31,7 +31,6 @@ class ViewController: NSViewController {
     //    |           10 |                        |             |
 
 
-
     // Line numbers, main text and advice views (as NSText)
     @IBOutlet private var lineText:    NSText!
     @IBOutlet private var mainText:    NSText!
@@ -854,7 +853,12 @@ extension ViewController {
             context.allowsImplicitAnimation = true
             context.duration = 0.75
 
-            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
+
+//            let item = splitView.subviews[1] as! NSSplitViewItem
+//            animator().setPosition(newPosition, ofDividerAt: 1)
+
+            // TODO: Put the splitviewcontroller into play
+//            adviceSplitView.animator().isCollapsed = false
         }
 
     }
@@ -868,7 +872,8 @@ extension ViewController {
             context.allowsImplicitAnimation = true
             context.duration = 0.75
 
-            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
+//            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
+//            adviceSplitView.animator().isCollapsed = false
 
         }
 
