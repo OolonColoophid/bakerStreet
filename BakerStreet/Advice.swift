@@ -114,6 +114,56 @@ public enum AdviceInstance {
         }
     }
 
+    public var priority: Int {
+
+        switch self {
+            case .proofProven:
+                return "Proof correct"
+            case .theoremProven:
+                return "Theorem proven"
+            case .theoremNotProven:
+                return "Theorem not proven"
+            case .justificationProven:
+                return "Justification proven"
+            case .justificationNotProven:
+                return "Justification not proven"
+            case .justifiedNeedsJustification:
+                return "Justification needed"
+            case .justifiedNeedsParentTheorem:
+                return "Parent theorem needed"
+            case .justificationNeedsJustified:
+                return "Justification needs assertion"
+            case .justificationNotRecognised:
+                return "Justification not recognised"
+            case .thereomNeedsNoJustification:
+                return "No justification needed"
+            case .theoremLHSandRHSsame:
+                return "LHS and RHS should differ"
+            case .invalidParameterPositionEarly:
+                return "All antecedent lines must be above"
+            case .invalidParemeterCountLowForJustification:
+                return "Too few antecedents"
+            case .invalidParemeterCountHighForJustification:
+                return "Too many antecedents"
+            case .justifiedFormulaPoorlyFormed:
+                return "Formula not well-formed"
+            case .theoremFormulaPoorlyFormed:
+                return "Theorem formula(s) not well-formed"
+            case .assumptionMustReferToTheorem:
+                return "Assumption must refer to theorem"
+            case .assumptionFormulaNotFound:
+                return "Assumption formula not found"
+            case .inferenceFailure:
+                return "Inference rule failure"
+            case .inferenceMustReferToTheorem:
+                return "Inference must refer to theorem"
+            case .inferenceRefersToUnprovenLine:
+                return "Antecedent or antecedents unproven"
+            case .unknownIssue:
+                return "Unknown issue"
+        }
+    }
+
     public var symbol: String {
         let warning = AdviceType.warning.symbolWhenActive
         let success = AdviceType.lineSuccess.symbolWhenActive
@@ -122,48 +172,11 @@ public enum AdviceInstance {
         switch self {
             case .proofProven:
                 return proofSuccess
-            case .theoremProven:
+            case .theoremProven, .justificationProven:
                 return success
-            case .theoremNotProven:
+            case .theoremNotProven, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
                 return warning
-            case .justificationProven:
-                return success
-            case .justificationNotProven:
-                return warning
-            case .justifiedNeedsJustification:
-                return warning
-            case .justifiedNeedsParentTheorem:
-                return warning
-            case .justificationNeedsJustified:
-                return warning
-            case .justificationNotRecognised:
-                return warning
-            case .thereomNeedsNoJustification:
-                return warning
-            case .theoremLHSandRHSsame:
-                return warning
-            case .invalidParameterPositionEarly:
-                return warning
-            case .invalidParemeterCountLowForJustification:
-                return warning
-            case .invalidParemeterCountHighForJustification:
-                return warning
-            case .justifiedFormulaPoorlyFormed:
-                return warning
-            case .theoremFormulaPoorlyFormed:
-                return warning
-            case .assumptionMustReferToTheorem:
-                return warning
-            case .assumptionFormulaNotFound:
-                return warning
-            case .inferenceFailure:
-                return warning
-            case .inferenceMustReferToTheorem:
-                return warning
-            case .inferenceRefersToUnprovenLine:
-                return warning
-            case .unknownIssue:
-                return warning
+
         }
 
 
