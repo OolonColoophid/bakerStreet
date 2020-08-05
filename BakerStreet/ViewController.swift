@@ -1,0 +1,1094 @@
+//
+//  ViewController.swift
+//
+//  Created by Ian Hocking on 26/05/2020.
+//  Copyright © 2020 Hoksoft Hocking. All rights reserved.
+//
+
+import Cocoa
+
+class ViewController: NSViewController {
+
+    // Our window controller
+    // Used to access the toolbar
+    //
+    // Note there may be no window; keep a cache in case it
+    // is nil, then we avoid forced unwrapping
+    var mWindow: NSWindow? = nil
+
+    func mainWindowCached() -> NSWindow? {
+        if let window = NSApplication.shared.mainWindow {
+            self.mWindow = window
+        }
+        return self.mWindow
+    }
+
+    //    | Line Numbers | Main Text              | Advice View |
+    //    |--------------+------------------------+-------------|
+    //    |            0 | p and q |- q and p     |             |
+    //    |            1 | p and q : Assumption 1 | Warning     |
+    //    |          ... | ...                    | ...         |
+    //    |           10 |                        |             |
+
+
+
+    // Line numbers, main text and advice views (as NSText)
+    @IBOutlet private var lineText:    NSText!
+    @IBOutlet private var mainText:    NSText!
+    @IBOutlet private var adviceText:  NSText!
+    
+    // Line numbers, main text and advice views (as NSTextViews)
+    @IBOutlet var lineTextView:   NSTextView!
+    @IBOutlet var mainTextView:   NSTextView!
+    @IBOutlet var adviceTextView: NSTextView!
+
+    private var lineCount: Int = 0
+
+    // Our status indicator (footer)
+    @IBOutlet weak var statusLight: NSImageView!
+    @IBOutlet weak var statusSpinner: NSProgressIndicator!
+    @IBOutlet weak var statusText: NSTextField!
+
+    @IBOutlet weak var splitView: NSSplitView!
+
+
+    // Content views
+    // Primarily used to notify us when scrolling occurs
+    @IBOutlet weak var linesContentView: NSClipView!
+    @IBOutlet weak var statementsContentView: NSClipView!
+    @IBOutlet weak var adviceContentView: NSClipView!
+
+    @IBOutlet weak var footerLine: NSBox!
+
+    // Scroll view
+    // We need this to help disable word wrap for the main view
+    @IBOutlet weak var mainScrollView: NSScrollView!
+
+
+    // When true, edits made to the main view are the result of the
+    // user, and are treated as such. When false, edits made are
+    // the result of the Baker Street
+    private var hasUserEditControl: Bool = false
+
+    // When true, scroll positions are being changed by
+    // BakerStreet; we use this to manage scroll syncing
+    // so that we don't trigger an infinite recursion
+    private var isScrollSyncing: Bool = false
+
+    // Content of main text view (i.e. the proof itself)
+    public var mainTextContent: String {
+        get {
+            return mainText.string
+        }
+    }
+
+    // Main Menu
+    private var mainMenu = NSApplication.shared.mainMenu!
+
+    // Popover for the contextualised help when user clicks
+    // on link in advice view
+    private let advicePopover = NSPopover()
+
+    // Panels for documentation
+    private let markdownPanel = NSPanel()
+    private let definitionsPanel = NSPanel()
+    private let rulesPanel = NSPanel()
+
+    // Panel for preview
+    private let previewPanel = NSPanel()
+
+    // The proof controller looks after proof operations
+    private var proofController = ProofController()
+
+    // Following a validation call, we could have an active proof
+    // if the main text has content. Activeness is lost once the
+    // user edits anything
+    private var isProofActive: Bool = false
+
+    // All completion strings
+    private var myCompletionMode = CompletionMode.justification
+
+    // Size of main text view
+    private var mainTextViewSizeInChars: Int {
+
+        // Note this is largely accurate but not
+        // precise; however, the inaccuracy is conservative
+        let myFont = OverallStyle.mainText.attributes[.font] as! NSFont
+
+        let fontWidth = myFont.boundingRectForFont.width
+        let viewWidth = mainTextView.bounds.width
+
+        // View width divided by font width gives approx
+        // count of characters that can fit
+        return Int(( viewWidth / fontWidth))
+    }
+
+    // MARK: ViewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("viewDidLoad()")
+
+        print(splitView.minPossiblePositionOfDivider(at: 0))
+
+        // Make this controller a delegate
+        // for the main text (where the proof text goes)
+        mainTextView.delegate = (self)
+
+        // Set the view controller for the advice popover
+        // i.e. the 'help' that appears if a user
+        // clicks a hyperlink next to a warning in the
+        // advice text view.
+        advicePopover.contentViewController =
+            AdviceViewController.freshController()
+
+        // View controllers documentation panels
+        markdownPanel.contentViewController =
+            DocumentViewController.freshController()
+        rulesPanel.contentViewController =
+            DocumentViewController.freshController()
+        definitionsPanel.contentViewController =
+            DocumentViewController.freshController()
+        // And the preview panel
+        previewPanel.contentViewController =
+            PreviewViewController.freshController()
+
+        // Set default attributes
+        mainTextView.typingAttributes = OverallStyle.mainTextInactive.attributes
+        mainTextView.insertionPointColor = BKPrefConstants.insertPColor
+        mainTextView.wrapsLines = false
+
+        // Set default behaviours
+        mainTextView.isAutomaticTextCompletionEnabled = false
+        mainTextView.isAutomaticDataDetectionEnabled = false
+        mainTextView.isAutomaticLinkDetectionEnabled = false
+        mainTextView.isAutomaticTextReplacementEnabled = false
+        mainTextView.isAutomaticDashSubstitutionEnabled = false
+        mainTextView.isAutomaticSpellingCorrectionEnabled = false
+        mainTextView.isAutomaticQuoteSubstitutionEnabled = false
+
+        // We want all scroll views to be in sync
+        setScrollSync()
+
+    }
+
+    override var representedObject: Any? {
+        didSet {
+            // Update the view, if already loaded.
+            validate()
+        }
+    }
+
+    // Tidy any open windows when the view closes
+    override func viewWillDisappear() {
+        markdownPanel.close()
+        rulesPanel.close()
+        definitionsPanel.close()
+        previewPanel.close()
+    }
+
+}
+
+// MARK: Scroll sync
+extension ViewController {
+
+    func setScrollSync() {
+
+        // Scroll detection
+        // ----------------
+        //
+        // We want to know when the bounds change (i.e. the user scrolls)
+        // for each view
+        linesContentView.postsBoundsChangedNotifications = true
+        statementsContentView.postsBoundsChangedNotifications = true
+        adviceContentView.postsBoundsChangedNotifications = true
+
+        // We'll now ask each content view to notify us when
+        // bounds change
+        setNotifications()
+
+    }
+
+    func setNotifications() {
+        // We'll now add ourself to the notification centre so
+        // we can be called when the bounds do change.
+        // When it does, (e.g.) lineContentDidScroll(notification:) is called
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(statementContentDidScroll(notification:)),
+            name: NSView.boundsDidChangeNotification,
+            object: self.statementsContentView)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(lineContentDidScroll(notification:)),
+            name: NSView.boundsDidChangeNotification,
+            object: self.linesContentView)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(adviceContentDidScroll(notification:)),
+            name: NSView.boundsDidChangeNotification,
+            object: self.adviceContentView)
+    }
+
+    // This is an objective C function and needs to be called as such
+    @objc func statementContentDidScroll(notification: Notification) {
+
+        // Bounds
+        // ------
+        // The content view has the .bounds member, which returns
+        // a rectangle: (x, y, width, height).
+        //
+        // x and y are the coordinates for the origin (top left point)
+        //
+        // When the top left point is in the 'natural' position and
+        // and we're looking at the top of the document, these will be
+        // x = 0
+        // y = 0
+        //
+        // We're interested in y, and get this with .origin.y
+
+        // Has this function been called while BakerStreet is
+        // updating the bounds of other views? We don't want to
+        // start again; early abort
+        if isScrollSyncing == true {
+            return
+        }
+
+        let myY = statementsContentView.bounds.origin.y
+
+        willBeginScrollSync()
+
+        setLineScroll(myY)
+
+        setAdviceScroll(myY)
+
+        willEndScrollSync()
+    }
+
+    @objc func lineContentDidScroll(notification: Notification) {
+
+        if isScrollSyncing == true {
+            return
+        }
+
+        let myY = linesContentView.bounds.origin.y
+
+        willBeginScrollSync()
+
+        setStatementScroll(myY)
+        setAdviceScroll(myY)
+
+        willEndScrollSync()
+
+
+    }
+
+    @objc func adviceContentDidScroll(notification: Notification) {
+
+        if isScrollSyncing == true {
+            return
+        }
+
+        let myY = adviceContentView.bounds.origin.y
+
+        willBeginScrollSync()
+
+        setStatementScroll(myY)
+        setLineScroll(myY)
+
+        willEndScrollSync()
+
+    }
+
+    func setStatementScroll(_ y: CGFloat) {
+
+        statementsContentView.bounds.origin.y = y
+
+    }
+
+    func setLineScroll(_ y: CGFloat) {
+
+        linesContentView.bounds.origin.y = y
+
+    }
+
+    func setAdviceScroll(_ y: CGFloat) {
+
+        adviceContentView.bounds.origin.y = y
+
+    }
+
+    func willBeginScrollSync() {
+        isScrollSyncing = true
+    }
+
+    func willEndScrollSync() {
+        isScrollSyncing = false
+    }
+
+
+}
+
+// MARK: NSTextViewDelegate
+extension ViewController: NSTextViewDelegate {
+
+    // Detect a link being clicked
+    // Currently used for the advice view
+    func textView(_ textView: NSTextView,
+                  clickedOnLink link: Any,
+                  at charIndex: Int) -> Bool {
+
+        // The hyperlink will point to resource using a UUID
+        let uuid = UUID(uuidString: link as! String)
+
+        guard uuid != nil else {
+
+            print("Internal Error - link didn't seem to be a UUID")
+            return false
+
+        }
+
+        toggleAdvicePopover(textView, forAdviceUUID: uuid!)
+
+        return true
+
+    }
+
+    // Detect any text changes
+    // Note only the main text view is editable
+    func textDidChange(_ obj: Notification)
+    {
+
+        print("textDidChange")
+
+        let insertPointLine = mainText.accessibilityInsertionPointLineNumber()
+
+        print("Line number: " + String(insertPointLine))
+
+        if isProofActive == true && hasUserEditControl == true {
+
+            hasUserEditControl = false
+
+            deactivateMainContent()
+
+            deactivateAdviceContent()
+
+            deactivateLineContent()
+
+            isProofActive = false
+
+            statusLightInactive()
+
+            statusTextInactive()
+
+        }
+
+    }
+}
+
+// MARK: Deactivate Content
+
+extension ViewController {
+
+    // Indicate main text looks inactive
+    func deactivateMainContent() {
+
+        let myScollOrigin = statementsContentView.bounds.origin.y
+
+        let myCaretIndex = caretIndex()
+
+        let currentContent = mainTextView.string
+
+        let myStyler = SyntaxStyler()
+
+        let inactiveText = myStyler.style(currentContent, with: OverallStyle.mainTextInactive.attributes)
+        
+        mainTextView.string = ""
+        
+        mainTextView.textStorage?.insert(inactiveText, at: 0)
+        
+        statementsContentView.bounds.origin.y = myScollOrigin
+        
+        mainTextView.selectedRange = myCaretIndex
+
+    }
+
+
+}
+
+// MARK: Caret and Selection
+
+extension ViewController {
+
+    func caretIndex() -> NSRange {
+        return mainTextView.selectedRange()
+    }
+
+    func caretLine() -> Int {
+
+        let caretLine = beforeCaretText().components(separatedBy:"\n")
+
+        return caretLine.count - 1
+    }
+
+    func beforeCaretText() -> String {
+
+        let myCaretIndex = caretIndex().location
+
+        let index = mainTextView.string
+            .index(mainTextView.string.startIndex,
+                   offsetBy: myCaretIndex)
+
+        return String(mainTextView.string[..<index])
+
+    }
+
+    func afterCaretText() -> String {
+
+        let myCaretIndex = caretIndex().location
+
+        let index = mainTextView.string
+            .index(mainTextView.string.startIndex,
+                   offsetBy: myCaretIndex)
+
+        return String(mainTextView.string[index...])
+
+    }
+
+    func getLineCount() -> Int {
+
+        var myLineCount = 0
+
+        for c in mainTextView.string {
+            if c == "\n" {
+                myLineCount = myLineCount + 1
+            }
+        }
+
+        // The final line won't have a \n
+        myLineCount += 1
+
+        return myLineCount
+
+    }
+
+}
+
+// MARK: Menus and Buttons
+extension ViewController {
+
+    @IBAction func menuProofCheck(_ sender: Any) {
+        validate()
+    }
+
+    @IBAction func menuOperatorCompletion(_ sender: Any) {
+        myCompletionMode = CompletionMode.logic
+        completion()
+    }
+
+    @IBAction func menuJustificationCompletion(_ sender: Any) {
+        myCompletionMode = CompletionMode.justification
+        completion()
+    }
+
+    @IBAction func menuDefinitions(_ sender: Any) {
+        toggleDefinitions()
+    }
+    @IBAction func menuRules(_ sender: Any) {
+        toggleRules()
+    }
+
+    @IBAction func menuMarkdown(_ sender: Any) {
+        toggleMarkdown()
+    }
+
+    @IBAction func toolbarDefinitions(_ sender: Any) {
+        toggleDefinitions()
+    }
+    @IBAction func toolbarRules(_ sender: Any) {
+        toggleRules()
+    }
+
+    @IBAction func toolbarMarkdown(_ sender: Any) {
+        toggleMarkdown()
+    }
+
+    @IBAction func toolbarZoom(_ sender: Any) {
+
+        let toolbarItem = sender as! NSSegmentedControl
+        let selectedSegment = toolbarItem.selectedSegment
+
+        if selectedSegment == 0 {
+            BKzoomIn([lineTextView, mainTextView, adviceTextView])
+            refreshLines()
+        } else {
+            BKzoomOut([lineTextView, mainTextView, adviceTextView])
+            refreshLines()
+        }
+
+    }
+
+    @IBAction func menuZoomIn(_ sender: Any) {
+
+        BKzoomIn([lineTextView, mainTextView, adviceTextView])
+        refreshLines()
+
+    }
+
+    @IBAction func menuZoomOut(_ sender: Any) {
+
+        BKzoomOut([lineTextView, mainTextView, adviceTextView])
+        refreshLines()
+
+    }
+
+    @IBAction func menuPreviw(_ sender: Any) {
+
+        togglePreview()
+
+    }
+
+    @IBAction func toolbarValidate(_ sender: Any) {
+        validate()
+
+    }
+
+    @IBAction func toolbarOperatorCompletion(_ sender: Any) {
+        myCompletionMode = CompletionMode.logic
+        completion()
+    }
+
+    @IBAction func toolbarJustificationCompletion(_ sender: Any) {
+        myCompletionMode = CompletionMode.justification
+        completion()
+    }
+
+    @IBAction func toolbarPreview(_ sender: Any) {
+
+        togglePreview()
+
+    }
+
+
+}
+
+// MARK: Completion
+extension ViewController {
+
+    // Do completion in main text view
+    // (sending self as delegate)
+    func completion() {
+        mainTextView.complete(self)
+    }
+
+    // Returns the actual completions for a partial word
+    // Our programme supplies the completions
+    // https://developer.apple.com/documentation/appkit/nstextviewdelegate/1449260-textview
+    func textView(_ textView: NSTextView,
+                  completions words: [String],
+                  forPartialWordRange charRange: NSRange,
+                  indexOfSelectedItem index: UnsafeMutablePointer<Int>?)
+        -> [String] {
+
+            // A list of all possible completions (logic symbol, justification)
+            return myCompletionMode.completions
+    }
+}
+
+// MARK: Document Windows
+extension ViewController {
+
+    func toggleMarkdown() {
+
+        let mPanel = markdownPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard mPanel.isVisible == false else {
+
+            mPanel.close()
+            return
+
+        }
+
+        let windowTitle = DocumentContent.markdown.windowTitle
+        let body = DocumentContent.markdown.body
+
+        let text = body
+
+        let size = NSSize(width: 750, height: 640)
+
+        setPanelAttributes(forPanel: mPanel,
+                           withTitle: windowTitle,
+                           withSize: size,
+                           withDocText: text.htmlToNSMAS())
+
+    }
+
+    func toggleDefinitions() {
+
+        let dPanel = definitionsPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard dPanel.isVisible == false else {
+
+            dPanel.close()
+            return
+
+        }
+
+        let windowTitle = DocumentContent.definitions.windowTitle
+        let body = DocumentContent.definitions.body
+
+        let text = body
+
+        let size = NSSize(width: 550, height: 640)
+
+
+        setPanelAttributes(forPanel: dPanel,
+                           withTitle: windowTitle,
+                           withSize: size,
+                           withDocText: text.htmlToNSMAS())
+    }
+
+    func toggleRules() {
+
+        let rPanel = rulesPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard rPanel.isVisible == false else {
+
+            rPanel.close()
+            return
+
+        }
+
+        let windowTitle = DocumentContent.rules.windowTitle
+        let body = DocumentContent.rules.body
+
+        let text = body
+
+        let size = NSSize(width: 400, height: 640)
+
+
+        setPanelAttributes(forPanel: rPanel,
+                           withTitle: windowTitle,
+                           withSize: size,
+                           withDocText: text.htmlToNSMAS())
+
+    }
+
+    func setPanelAttributes(forPanel panel: NSPanel,
+                            withTitle title: String,
+                            withSize size: NSSize,
+                            withDocText text: NSMutableAttributedString) {
+
+        let myViewController = panel.contentViewController as! DocumentViewController
+
+        panel.setContentSize(size)
+
+        panel.title = title
+
+
+        panel.isFloatingPanel = true
+
+        // By default, panels are not resizable
+        panel.styleMask.insert(.resizable)
+        panel.styleMask.remove(.closable)
+
+
+        // Set contents of panel
+        myViewController.set(text)
+
+        // Make visible
+        panel.makeKeyAndOrderFront(self)
+
+
+    }
+}
+
+// MARK: Preview
+extension ViewController {
+
+    func togglePreview() {
+
+        let pPanel = previewPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard pPanel.isVisible == false else {
+
+            pPanel.close()
+            return
+
+        }
+
+        var documentTitle = (self.view.window?.title ?? "")
+        if documentTitle != "" { documentTitle = ": " + documentTitle}
+
+        let windowTitle = "Baker Street Preview" + documentTitle
+
+        let text = "Preview text here (to be replaced by view controller)"
+
+        let size = NSSize(width: 400, height: 640)
+
+
+        setPreviewPanelAttributes(forPanel: pPanel,
+                                  withTitle: windowTitle,
+                                  withSize: size,
+                                  withDocText: text.htmlToNSMAS())
+
+    }
+
+    func setPreviewPanelAttributes(forPanel panel: NSPanel,
+                                   withTitle title: String,
+                                   withSize size: NSSize,
+                                   withDocText text: NSMutableAttributedString) {
+
+        panel.setContentSize(size)
+
+        panel.title = title
+
+
+        panel.isFloatingPanel = true
+
+        // By default, panels are not resizable
+        panel.styleMask.insert(.resizable)
+        panel.styleMask.remove(.closable)
+
+        // Make visible
+        panel.makeKeyAndOrderFront(self)
+
+
+    }
+}
+
+// MARK: Advice Popover
+extension ViewController {
+
+    func toggleAdvicePopover(_ textViewSender: NSTextView,
+                             forAdviceUUID uuid: UUID) {
+
+        let pop = advicePopover
+
+        // The clicked hyperlink points to a resource via a uuid
+        // Now ask the proof controller for the advice
+        let advice = proofController.getAdviceForUUID(uuid)!
+
+        // Create the advice view controller
+        let avc = pop.contentViewController as! AdviceViewController
+
+        // Only continue is the popover isn't showing
+        guard pop.isShown == false else {
+
+            pop.performClose(textViewSender)
+            return
+
+        }
+
+
+
+        pop.show(relativeTo: textViewSender.bounds,
+                 of: textViewSender,
+                 preferredEdge: NSRectEdge.minY)
+
+        // If the user clicks in the main view
+        // popover disappears
+        pop.behavior = .semitransient
+
+        // Set contents of popover
+        avc.set(advice)
+
+
+    }
+}
+
+// MARK: Appearance
+extension ViewController {
+
+    // Advice to look inactive
+    func deactivateAdviceContent() {
+
+        adviceTextView.alphaValue = CGFloat(0.4)
+
+    }
+
+    // Line numbers to look inactive
+    func deactivateLineContent() {
+
+        lineTextView.alphaValue = CGFloat(0.6)
+
+    }
+
+    // Advice to look active
+    func activateAdviceContent() {
+
+        adviceTextView.alphaValue = CGFloat(1.0)
+
+    }
+
+    // Line numbers to look active
+    func activateLineContent() {
+
+        lineTextView.alphaValue = CGFloat(1.0)
+
+    }
+
+    // Show or hide the advice view
+    func showAdviceView() {
+
+        // Our window
+        let windowSize = view.window?.frame.size.width
+
+        // A CGFloat proportion currently held as a constant
+        let adviceViewProportion = BKPrefConstants.adviceWindowSize
+
+        // Position is window size minus the proportion, since
+        // origin is top left
+        let newPosition = windowSize! - (windowSize! * adviceViewProportion)
+
+        NSAnimationContext.runAnimationGroup { context in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.75
+
+            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
+        }
+
+    }
+
+    func hideAdviceView() {
+
+        let windowSize = view.window?.frame.size.width
+        let newPosition = windowSize!
+
+        NSAnimationContext.runAnimationGroup{ context in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.75
+
+            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
+
+        }
+
+    }
+
+    // Status light
+    // Inactive (grey) - main view is blank or inactive
+    // Green - proof is correct
+    // Amber - proof is being checked
+    // Red - proof is not correct
+    func statusLightInactive() {
+        statusLight.image = NSImage(named: "NSStatusNone")
+    }
+
+    func statusLightGood() {
+        statusLight.image = NSImage(named: "NSStatusAvailable")
+    }
+
+    func statusLightChanging() {
+        statusLight.image = NSImage(named: "NSStatusPartiallyAvailable")
+    }
+
+    func statusLightBad() {
+        statusLight.image = NSImage(named: "NSStatusUnavailable")
+    }
+
+    func statusTextInactive() {
+        print("Blanking status text")
+        statusText.stringValue = " "
+    }
+
+    func statusTextCorrect() {
+        statusText.stringValue = "Proof Correct"
+    }
+
+    func statusTextChecking() {
+        statusText.stringValue = " "
+    }
+
+    func statusTextIncorrect() {
+        print("Setting proof incorrect")
+        statusText.stringValue = "Proof Incorrect"
+    }
+
+    func statusSpinnerStart() {
+        statusSpinner.startAnimation(self)
+    }
+
+    func statusSpinnerStop() {
+        statusSpinner.stopAnimation(self)
+
+    }
+
+}
+
+// MARK: Update Contents
+
+extension ViewController {
+
+    // Reset the proof and then reset all the views (make them look
+    // 'active'). User either the contents of the main text view or
+    // the supplied text.
+    //
+    // User-intitiated reset will probably use the main text
+    // When a new proof is loaded from a file, NSDocument will
+    // probably supply the text
+    public func validate(_ textSupplied: String = "") {
+
+        // Proof text if none supplied
+        var proofText = ""
+        let textSize = self.mainTextViewSizeInChars
+
+        proofText = textSupplied
+
+        // Was no text supplied to function? Then use what is
+        // currently in the main textview
+        if proofText == "" {
+
+            // Is the main textview empty?
+            // There is no proof. Abort, blanking
+            // the lines and the advice view
+            guard mainText.string.trim != "" else {
+                lineText.string = ""
+                adviceText.string = ""
+                return
+            }
+
+            proofText = self.mainText.string
+
+        }
+
+        // Let user know work is happening
+        statusSpinnerStart()
+        statusLightChanging()
+        statusTextChecking()
+
+        let concurrentQueue = DispatchQueue(
+            label: "bakerstreet.concurrent.queue",
+            attributes: .concurrent)
+
+        let previewPanel = self.previewPanel.contentViewController
+            as! BKProofDelegate
+
+        concurrentQueue.async {
+
+            // Perform proof validation on the background queue
+            self.proofController = ProofController(
+                proofText: proofText,
+                newTextViewSizeInChars: textSize,
+                withDelegate: previewPanel)
+
+            self.isProofActive = true
+
+            DispatchQueue.main.async {
+
+                // Set status light/text to indicate success
+                self.refreshStatus()
+
+                // Reload the contents of the view
+                self.refreshContent()
+
+                // Inform user
+                self.statusSpinnerStop()
+            }
+
+        }
+    }
+
+    func refreshStatus() {
+
+        // Get status of the proof
+        if proofController.proof.proven {
+            statusLightGood()
+            statusTextCorrect()
+            hideAdviceView()
+        } else {
+            statusLightBad()
+            statusTextIncorrect()
+            showAdviceView()
+        }
+
+    }
+
+    func refreshContent() {
+
+        // Store the y position
+        let myScollOrigin = statementsContentView.bounds.origin.y
+
+        activateLineContent()
+        activateAdviceContent()
+
+        // Note caret position
+        let myCaretIndex = caretIndex()
+
+        // Get styled content
+        let mainStyled = proofController.mainViewTextStyled
+        let adviceStyled = proofController.adviceViewTextStyled
+
+        // Disable any user-editing detection
+        hasUserEditControl = false
+
+        // Set the styled content in the views
+        setStyledTextView(mainTextView, mainStyled)
+        setStyledTextView(adviceTextView, adviceStyled)
+
+        // Get and set lines view
+        // (this is a separate function because it can be called
+        // when setting the zoom level)
+        refreshLines()
+
+        // Reset line count
+        lineCount = getLineCount()
+
+        // Restore caret position
+        mainTextView.selectedRange = myCaretIndex
+
+        // Restore scroll origin
+        statementsContentView.bounds.origin.y = myScollOrigin
+
+
+        // Enable any user-editing detection
+        hasUserEditControl = true
+
+    }
+
+    // Used mainly when we want to zoom:
+    // Becuase line numbers are right-justified, we need to
+    // refresh these to make sure they are aligned properly
+    func refreshLines() {
+        let lineStyled = proofController.lineViewTextStyled
+        setStyledTextView(lineTextView, lineStyled)
+
+    }
+
+    func setStyledTextView (_ textView: NSTextView,
+                            _ styledText: NSMutableAttributedString) {
+
+
+        // Tell the delegate that I'm about to change some text
+        // This brings it to the notice of other OS elements, like
+        // the undo manager
+        if textView.string.count > 0 {
+        let allTextLength = NSMakeRange(0, textView.textStorage!.length)
+        textView.shouldChangeText(in: allTextLength,
+                                  replacementString: styledText.string)
+        }
+        // Nuke
+        textView.string = ""
+
+        // And pave
+        textView.textStorage?.insert(styledText, at: 0)
+
+        // Tell the delegate I've finished changing
+        textView.didChangeText()
+
+    }
+
+}
+
+// MARK: Extension: BKZoomable
+extension ViewController: BKZoomable {
+
+}
