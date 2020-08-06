@@ -1031,7 +1031,6 @@ extension Proof: BKAdvising {
                 if adviceType == type &&
                     getLineNumberFromIdentifier(uuid) == thisLineNumber {
 
-                    print("isAdviceForLine found \(a.shortDescription)")
                     typeFound = true
 
                 }

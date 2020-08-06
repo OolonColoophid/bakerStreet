@@ -293,28 +293,21 @@ extension ProofController {
             return NSMutableAttributedString()
         }
 
-        print("Making advice...")
-
         let lines = proof.scope
         let viewAdviceText = NSMutableAttributedString()
 
         var i = 0
 
-        print("We have \(lines.count) lines")
-
         for l in lines {
 
-            print("Checking line \(i)...")
             if proof.isAdviceForLine(l.identifier, ofType: .warning) == true {
 
-                print("  Found warning advice! The line UUID is \(l.identifier). Advice is \(proof.getAdviceForLineUUID(withLineUUID: l.identifier)?.shortDescription)")
                 viewAdviceText.append(
                     getAdviceStringForLineStyled(withLineUUID: l.identifier,
                                                  suppressGlyphs: true))
 
             }
 
-            print("  Now adding CR")
             viewAdviceText.append(
                 mySyntaxHighlighter.style(
                     "\n", with: OverallStyle.adviceText.attributes))

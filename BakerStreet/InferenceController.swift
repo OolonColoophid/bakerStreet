@@ -38,10 +38,10 @@ public struct InferenceController: BKAdvising {
         }
     }
 
-    private var justificationTypeAndDescrpition: String {
+    private var justificationTypeAndPrettyDescription: String {
 
         let type = myLine.justification.type
-        let description = myLine.justification.description
+        let description = myLine.justification.prettyDescription
 
         return "\(type) \(description)"
     }
@@ -49,7 +49,7 @@ public struct InferenceController: BKAdvising {
     // Justification type and description
     private var jD: String {
         get {
-            return justificationTypeAndDescrpition
+            return justificationTypeAndPrettyDescription
         }
     }
 
@@ -266,7 +266,8 @@ public struct InferenceController: BKAdvising {
         }
 
         // Current line first child must be antecedent 1 or antecedent 2
-        guard checkAChildIsAnAntecedent(whereChildIs: "first") else {
+        guard checkAChildIsAnAntecedent(whereChildIs: "first") == true else {
+
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage
             )
@@ -274,7 +275,8 @@ public struct InferenceController: BKAdvising {
         }
 
         // Current line second child must be antecedent 1 or antecedent 2
-        guard checkAChildIsAnAntecedent(whereChildIs: "second") else {
+        guard checkAChildIsAnAntecedent(whereChildIs: "second") == true else {
+
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage
             )
@@ -1019,7 +1021,6 @@ public struct InferenceController: BKAdvising {
     }
 
 
-    // MARK: Not tested
     private mutating func checkAntecedentChildrenAreDifferent(
         antecedentLine: Int) -> Bool {
 
@@ -1038,20 +1039,18 @@ public struct InferenceController: BKAdvising {
 
     }
 
-
-    // MARK: Not tested
     private mutating func checkMyChildrenAreDifferent() -> Bool {
 
         let myTree = ii.getMyTree()
 
         let areDifferent = checkChildrenAreDifferent(myTree)
 
-        let myChildren = myTree.getFirstChild().getToken().description
+        let myChildrenDescription = myTree.getFirstChild().getToken().description
 
         if areDifferent == false {
 
             checkFunctionMessage = """
-                Your \(jD) requires that the formulas either side of the top level operator (i.e. logical connective) in line \(myLineNumberAsInt.noun) be different. However, they are both \(myChildren).
+                Your \(jD) requires that the formulas either side of the top level operator (i.e. logical connective) in the current line be different. However, they are both \(myChildrenDescription).
             """
         }
 
@@ -1060,7 +1059,6 @@ public struct InferenceController: BKAdvising {
 
     }
 
-    // MARK: Not tested
     private mutating func checkAntecedentsAreDifferent()
     -> Bool {
 
@@ -1074,7 +1072,7 @@ public struct InferenceController: BKAdvising {
         if areDifferent == false {
 
             checkFunctionMessage = """
-                Your \(jD) requires that the antecedents (lines \(antecedents[0].noun) and \(antecedents[1].noun) be different. However, they are both \(a1tree.getToken().description).
+                Your \(jD) requires that the antecedents at lines \(antecedents[0].noun) and \(antecedents[1].noun) be different. However, they are both \(a1tree.getToken().description).
                 """
         }
 
@@ -1082,7 +1080,6 @@ public struct InferenceController: BKAdvising {
 
     }
 
-    // MARK: Untested
     private mutating func checkAChildIsAnAntecedent(whereChildIs order: String) -> Bool {
 
         if order == "first" {
@@ -1095,18 +1092,17 @@ public struct InferenceController: BKAdvising {
             let al1 = ii.getAntecedentAsLine(forAntecedentLineNum: antecedents[0]) as! Justified
             let al2 = ii.getAntecedentAsLine(forAntecedentLineNum: antecedents[1]) as! Justified
 
-            let isAntecedentIsFalse = fc == a1 || fc == a2
+            let isAntecedentIsChild = (fc == a1) || (fc == a2)
 
-            if isAntecedentIsFalse {
+            if isAntecedentIsChild == false {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that line \(myLineNumberAsInt.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
+                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified).
                     """
-
 
             }
 
-            return isAntecedentIsFalse
+            return isAntecedentIsChild
 
         } else { // second
 
@@ -1119,17 +1115,17 @@ public struct InferenceController: BKAdvising {
             let al1 = ii.getAntecedentAsLine(forAntecedentLineNum: antecedents[0]) as! Justified
             let al2 = ii.getAntecedentAsLine(forAntecedentLineNum: antecedents[1]) as! Justified
 
-            let isAntecedentIsFalse = sc == a1 || sc == a2
+            let isAntecedentIsChild = (sc == a1) || (sc == a2)
 
-            if isAntecedentIsFalse {
+            if isAntecedentIsChild == false {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that line \(myLineNumberAsInt.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
+                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified).
                     """
 
             }
 
-            return isAntecedentIsFalse
+            return isAntecedentIsChild
 
 
         }
@@ -1227,7 +1223,7 @@ public struct InferenceController: BKAdvising {
 
                 checkFunctionMessage = """
 
-                    Any antecedent must come earlier in the proof than the current line. Your \(jD) is referencing line \(myLineNumberAsInt.noun).
+                    Any antecedent must come earlier in the proof than the current line, but your \(jD) is referencing line \(aLineNumber.noun).
 
                     """
 
@@ -1268,7 +1264,7 @@ public struct InferenceController: BKAdvising {
 
             checkFunctionMessage = """
 
-                Antecedents must refer to different lines. Your \(jD) is referencing lines \(allAntecedentsText.commaList()). There \(duplicateCount.isAre) \(duplicateCount.noun) duplicate\(duplicateCount.s).
+                Antecedents must refer to different lines. Your \(jD) is referencing lines \(allAntecedentsText.commaList()). In other words, there \(duplicateCount.isAre) \(duplicateCount.noun) duplicate\(duplicateCount.s).
 
                 """
 
@@ -1394,7 +1390,7 @@ public struct InferenceController: BKAdvising {
     // MARK: Untested
     private mutating func checkMyTopLevelOperator(isOperator op: OperatorType) -> Bool {
 
-        if checkHasTopLevelOperator(ii.getMyTree(), op) {
+        if checkHasTopLevelOperator(ii.getMyTree(), op) == true {
 
             return true
 
@@ -1443,7 +1439,7 @@ public struct InferenceController: BKAdvising {
         let antecedentTree = ii.getAntecedentAsTree(forAntecedentLineNum: antecedent)
 
         if checkIsTopLevelChild(forParent: antecedentTree,
-                                withChild: ii.getMyTree()) {
+                                withChild: ii.getMyTree()) == true {
             return true
 
         } else {
@@ -1467,7 +1463,7 @@ public struct InferenceController: BKAdvising {
         let myTLO = ii.getMyTree().description
 
         if checkIsTopLevelChild(forParent: ii.getMyTree(),
-                                withChild: antecedentTree) {
+                                withChild: antecedentTree) == true {
             return true
 
         } else {

@@ -782,8 +782,7 @@ extension ViewController {
 
         }
 
-
-
+        pop.appearance = NSAppearance(named: .accessibilityHighContrastVibrantLight)
         pop.show(relativeTo: textViewSender.bounds,
                  of: textViewSender,
                  preferredEdge: NSRectEdge.minY)
@@ -895,7 +894,6 @@ extension ViewController {
     }
 
     func statusTextInactive() {
-        print("Blanking status text")
         statusText.stringValue = " "
     }
 
@@ -908,7 +906,6 @@ extension ViewController {
     }
 
     func statusTextIncorrect() {
-        print("Setting proof incorrect")
         statusText.stringValue = "Proof Incorrect"
     }
 

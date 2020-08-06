@@ -39,7 +39,7 @@ class AdviceViewController: NSViewController {
             return lineLabel.stringValue
         }
         set (text) {
-            print("Wanting to set line to \(text)")
+
             lineLabel.stringValue = text
         }
     }

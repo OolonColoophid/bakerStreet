@@ -60,6 +60,41 @@ public enum Justification: CaseIterable {
         }
     }
 
+    var prettyDescription: String {
+        switch self {
+            case .empty:
+                return ""
+            case .assumption:
+                return ""
+            // e.g. "AND Introduction"
+            case .andIntroduction:
+                return OperatorType.lAnd.htmlEntity + "-Introduction"
+            case .orIntroduction:
+                return OperatorType.lOr.htmlEntity + "-Introduction"
+            case .notIntroduction:
+                return OperatorType.lNot.htmlEntity + "-Introduction"
+            case .ifIntroduction:
+                return OperatorType.lIf.htmlEntity + "-Introduction"
+            case .iffIntroduction:
+                return OperatorType.lIff.htmlEntity + "-Introduction"
+            case .andElimination:
+                return OperatorType.lAnd.htmlEntity + "-Elimination"
+            case .orElimination:
+                return OperatorType.lOr.htmlEntity + "-Elimination"
+            case .notElimination:
+                return OperatorType.lNot.htmlEntity + "-Elimination"
+            case .ifElimination:
+                return OperatorType.lIf.htmlEntity + "-Elimination"
+            case .iffElimination:
+                return OperatorType.lIff.htmlEntity + "-Elimination"
+
+            case .trueIntroduction:
+                return "true-Introduction"
+            case .falseElimination:
+                return "false-Elimination"
+        }
+    }
+
     // Primarily used for exporting proofs
     // We use HTML entities for glyphs
     var shortDescription: String {

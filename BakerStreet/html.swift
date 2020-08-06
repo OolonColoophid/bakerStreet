@@ -893,9 +893,7 @@ enum DocumentContent {
 
         static var theoremNotProven: String {
 
-            let s =
-                "Proving a Theorem".h1 +
-                    "A theorem is proven when each assertion in its scope is proven. Right now, one or more of the assertions in this scope are not proven.".p
+            let s = "A theorem is proven when each assertion in its scope is proven. Right now, one or more of the assertions in this scope are not proven.".p
 
             return s.asStyledHTML()
 
@@ -903,9 +901,7 @@ enum DocumentContent {
 
         static var assumptionMustReferToParentTheorem: String {
 
-            let s =
-                "Parent Theorem".h1 +
-                    "An assumption needs to be a formula present in the left hand side of a theorem, and that theorem needs to be the parent theorem of this part of the proof.".p
+            let s = "An assumption needs to be a formula present in the left hand side of a theorem, and that theorem needs to be the parent theorem of this part of the proof.".p
 
             return s.asStyledHTML()
         }
@@ -1181,7 +1177,8 @@ enum DocumentContent {
         func asStyledHTML() -> String {
 
             // Special format (e.g. italic) for definitiions in text
-            let body = emphasiseDefinitions(inString: self)
+            var body = emphasiseDefinitions(inString: self)
+            body = emphasiseJustifications(inString: body)
 
             // Add styling
             let style = DocumentStyles.baseStyle
@@ -1201,6 +1198,8 @@ enum DocumentContent {
             var body = ""
 
             var foundDefinitions = Set<HtmlDefinitions>()
+
+            let hColor = NSColor(named: "auburn")!.hexString
 
             let lines = text.split(separator: "\n")
 
@@ -1232,7 +1231,10 @@ enum DocumentContent {
                         // "assumption," contains "assumption".
                         if w.lowercased().contains(d.text.lowercased()) {
 
-                            myWord = myWord.em
+                            myWord = myWord.w("span", withAttr:
+                                """
+                                style = "color: \(hColor);"
+                                """)
 
                             foundDefinitions.insert(d)
 
@@ -1249,6 +1251,63 @@ enum DocumentContent {
 
         }
 
+        // This function is essentially a duplicate of
+        // emphasiseDefinitions
+          func emphasiseJustifications(inString text: String) -> String {
+
+            var body = ""
+
+            var foundJustifications = Set<Justification>()
+
+            let hColor = NSColor(named: "deepSpaceSparkle")!.hexString
+
+            let lines = text.split(separator: "\n")
+
+            for l in lines {
+
+                let words = l.split(separator: " ")
+
+                for w in words {
+
+                    var myWord = String(w)
+
+                    // Iterate over contents of our enum
+                    // i.e. look for what we can define
+                    let definitions = Justification.allCases
+
+                    for d in definitions {
+
+                        // We only want to emphasise the first
+                        // occurrence, so continue if we've seen
+                        // this before
+                        guard !foundJustifications.contains(d) else {
+                            continue
+                        }
+
+                        // Note that this check to see if e.g.
+                        // "assumption," contains "assumption".
+                        if w.contains(d.prettyDescription) {
+
+                            myWord = myWord.w("span", withAttr:
+                                """
+                                style = "color: \(hColor);"
+                                """
+                            )
+
+                            foundJustifications.insert(d)
+
+                        }
+
+                    }
+
+                    body = body + myWord + " "
+                }
+
+            }
+
+            return body
+
+        }
 
         // Prettify formulae for HTML
         var formulaToHTML: String {
