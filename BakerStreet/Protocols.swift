@@ -32,10 +32,14 @@ protocol BKSelfProvable {
 // Text of its main information can be rendered
 // human readable
 protocol BKInspectable {
+
     var inspectableText: String { get set }
 
     mutating func setInspectionText()
+
     func getInspectionText() -> String
+
+    func inspectableTextAppend(property: String, value: String) -> String
 }
 
 // Uniquely identifiable
@@ -43,12 +47,11 @@ protocol BKInspectable {
 protocol BKIdentifiable {
     var identifier: UUID { get set }
 
-    func getIdentifier() -> UUID
-
 }
 
-// Components are well formed
+// Components can be queries about their wellformedness
 protocol BKParseable {
+
     var wellFormed: Bool { get set }
 
     mutating func setWellFormed()
@@ -58,10 +61,10 @@ protocol BKParseable {
 
 // A line
 protocol BKLine: BKIdentifiable, BKInspectable {
+
     var lineType: LineType { get set }
     var scopeLevel: Int { get set }
-
-    func getLineType() -> LineType
+    var userText: String { get set }
 
 }
 
@@ -71,32 +74,37 @@ protocol BKEvaluatable: BKSelfProvable, BKParseable { }
 // Produces user-readable text about its state
 protocol BKAdvising {
 
-    func getMyLineNumber() -> Int
+    func getMyLineAsInt() -> Int
+    func getMyLineAsUUID() -> UUID
     func getProof() -> Proof
 
 }
 
 extension BKAdvising {
 
-    // Replace advise for a particular line
+    // Add advice for a particular line
     func advise(_ AdviceType: AdviceInstance,
-                lineNumber: Int = -1,
+                lineNumberAsInt: Int = -1,
+                lineNumberAsUUID: UUID = UUID(),
                 longDescription: String = "") {
 
         let proof = getProof()
 
-        if lineNumber == -1 {                 // Not provided
-            proof.replaceAdvice(Advice(
-                forLine: getMyLineNumber(),   // Determine line functionally
+        if lineNumberAsInt == -1 {                 // Not provided
+            proof.addAdviceToLine(Advice(
+                forLine: getMyLineAsInt(),   // Determine line as Int
+                forLineUUID: getMyLineAsUUID(),     // Determine line as UUID
                 ofType: AdviceType,
                 longDescription)) }
         else {                                // Provided
-            proof.replaceAdvice(Advice(
-                forLine: lineNumber,          // Use provided
+            proof.addAdviceToLine(Advice(
+                forLine: lineNumberAsInt,
+                forLineUUID: lineNumberAsUUID,
                 ofType: AdviceType,
                 longDescription))
         }
     }
+
 }
 
 // Allows the user to zoom in/out

@@ -266,15 +266,23 @@
 				5B473D9224AE344F0059AB25 /* Inference */,
 				5B8929D2249E731200897470 /* Advice.swift */,
 				5B8929D4249E73BC00897470 /* LineType.swift */,
+				5B9E299624DC01910040B0C8 /* BKLine */,
+				5B8929DD249E74AD00897470 /* Proof.swift */,
+				5BF4D6CA24D2B77000915CDE /* Export */,
+			);
+			name = Proof;
+			sourceTree = "<group>";
+		};
+		5B9E299624DC01910040B0C8 /* BKLine */ = {
+			isa = PBXGroup;
+			children = (
 				5B8929D6249E73F400897470 /* Justification.swift */,
 				5B8929DF249E74D600897470 /* Theorem.swift */,
 				5B8929E1249E750200897470 /* Justified.swift */,
 				5B8929E3249E75EB00897470 /* Inactive.swift */,
 				5B8929E5249E763500897470 /* Comment.swift */,
-				5B8929DD249E74AD00897470 /* Proof.swift */,
-				5BF4D6CA24D2B77000915CDE /* Export */,
 			);
-			name = Proof;
+			name = BKLine;
 			sourceTree = "<group>";
 		};
 		5BDD513A24ACE2BB0025ADFA /* examples */ = {

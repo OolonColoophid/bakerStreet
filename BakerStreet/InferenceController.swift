@@ -20,7 +20,8 @@ public struct InferenceController: BKAdvising {
     private var linesInScope: [BKLine]
     private var parentThereom: Theorem
     private var myLine: Justified
-    private var myLineNumber: Int
+    private var myLineNumberAsInt: Int
+    private var myLineNumberAsUUID: UUID
     private var antecedents: [Int]
 
     // Following a failure of checking (e.g. there are too
@@ -62,9 +63,10 @@ public struct InferenceController: BKAdvising {
         self.parentThereom = line.getParentTheorem()
         self.myLine = line
         self.proof = proof
-        self.myLineNumber = proof.getLineNumberFromIdentifier(
-            line.getIdentifier())
-        self.antecedents = line.getAntecedents()
+        self.myLineNumberAsInt = proof.getLineNumberFromIdentifier(
+            line.identifier)
+        self.myLineNumberAsUUID = proof.getIdentifierFromLineNumber(myLineNumberAsInt)
+        self.antecedents = line.antecedents
 
         self.ii = InferenceInspector(line: line, proof: proof)
 
@@ -1049,7 +1051,7 @@ public struct InferenceController: BKAdvising {
         if areDifferent == false {
 
             checkFunctionMessage = """
-                Your \(jD) requires that the formulas either side of the top level operator (i.e. logical connective) in line \(myLineNumber.noun) be different. However, they are both \(myChildren).
+                Your \(jD) requires that the formulas either side of the top level operator (i.e. logical connective) in line \(myLineNumberAsInt.noun) be different. However, they are both \(myChildren).
             """
         }
 
@@ -1098,7 +1100,7 @@ public struct InferenceController: BKAdvising {
             if isAntecedentIsFalse {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that line \(myLineNumber.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
+                    Your \(jD) requires that line \(myLineNumberAsInt.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
                     """
 
 
@@ -1122,7 +1124,7 @@ public struct InferenceController: BKAdvising {
             if isAntecedentIsFalse {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that line \(myLineNumber.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
+                    Your \(jD) requires that line \(myLineNumberAsInt.noun) is the first child element of either line \(antecedents[0].noun) or \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified)
                     """
 
             }
@@ -1171,7 +1173,7 @@ public struct InferenceController: BKAdvising {
 
     private mutating func checkAntecedentsTooFew() -> Bool {
 
-        let myCount = myLine.getAntecedents().count
+        let myCount = myLine.antecedents.count
         let arity = myLine.justification.arity
 
         let aDifference = myCount - arity
@@ -1195,7 +1197,7 @@ public struct InferenceController: BKAdvising {
 
     private mutating func checkAntecedentsTooMany() -> Bool {
 
-        let myCount = myLine.getAntecedents().count
+        let myCount = myLine.antecedents.count
         let arity = myLine.justification.arity
 
         let aDifference = myCount - arity
@@ -1221,11 +1223,11 @@ public struct InferenceController: BKAdvising {
 
         for aLineNumber in antecedents {
 
-            if aLineNumber >= myLineNumber {
+            if aLineNumber >= myLineNumberAsInt {
 
                 checkFunctionMessage = """
 
-                    Any antecedent must come earlier in the proof than the current line. Your \(jD) is referencing line \(myLineNumber.noun).
+                    Any antecedent must come earlier in the proof than the current line. Your \(jD) is referencing line \(myLineNumberAsInt.noun).
 
                     """
 
@@ -1471,7 +1473,7 @@ public struct InferenceController: BKAdvising {
         } else {
 
             checkFunctionMessage = """
-                        Your \(jD) requires that line \(antecedents[antecedent].noun) is a child element of line \(myLineNumber.noun). That is, \(antecdentLine.formula.tokenStringHTMLPrettified) must be to the left or right of the top level operator \(myTLO) (i.e. logical connective) in \(myLine.formula.tokenStringHTMLPrettified)
+                        Your \(jD) requires that line \(antecedents[antecedent].noun) is a child element of line \(myLineNumberAsInt.noun). That is, \(antecdentLine.formula.tokenStringHTMLPrettified) must be to the left or right of the top level operator \(myTLO) (i.e. logical connective) in \(myLine.formula.tokenStringHTMLPrettified)
                     """
 
 
@@ -1539,8 +1541,12 @@ public struct InferenceController: BKAdvising {
         return lNotTree
     }
 
-    func getMyLineNumber() -> Int {
-        return self.myLineNumber
+    func getMyLineAsInt() -> Int {
+        return self.myLineNumberAsInt
+    }
+
+    func getMyLineAsUUID() -> UUID {
+        return self.myLineNumberAsUUID
     }
 
     func getProof() -> Proof {

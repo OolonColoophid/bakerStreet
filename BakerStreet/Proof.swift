@@ -16,7 +16,7 @@ import Foundation
  # Testing
  - ProofTests
  */
-public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
+public class Proof: BKSelfProvable {
 
     var inspectableText = ""
 
@@ -31,25 +31,38 @@ public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
     // Return an Int telling us which line of the scope
     // contains the overall proof theorem
     // If we can't find it, return -1
-    var proofLine: Int {
+    var proofLineAsInt: Int {
 
         // If no lines, there can be no proof
         if scope.count == 0 {
             return -1
         }
 
+        let proofLine = getProofLine()
+
+        guard proofLine != nil else {
+            return -1
+        }
+
         var i = 0
         for l in scope {
 
-            if let _ = l as? Theorem {
+            if l.identifier == proofLine!.identifier {
                 return i
             }
-
             i = i + 1
-
         }
 
         return -1
+
+    }
+
+
+
+    var proofLineAsUUID: UUID {
+
+        // Didn't find anything? Return a dummy UUID
+        return getProofLine()?.identifier ?? UUID()
 
     }
 
@@ -57,7 +70,7 @@ public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
 
     // A convenience variable to access .htmlVLN, which
     // might be nil (saving callers from having to unwrap)
-    var htmlVLN: String {
+    public var htmlVLN: String {
 
         return eProof?.htmlVLN ?? ""
 
@@ -68,11 +81,11 @@ public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
     // a Proof object without advice
     var minimalVersion: Bool
 
-    var advice = [Advice]()
+    public var advice = [Advice]()
 
     // MARK: Init
 
-    init(_ text: String,
+    public init(_ text: String,
                 minimalVersion: Bool = false) {
 
         // Minimal version will suppress advice
@@ -130,85 +143,10 @@ public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
 
     }
 
-    // MARK: Advising
+}
 
-    public func getAdvice() -> [Advice] {
-        return advice
-    }
-
-
-    func appendAdvice(_ advice: Advice) {
-
-        guard minimalVersion != true else {
-            return
-        }
-
-        let lineCount = scope.count
-
-        // Requested line should exist
-        if advice.line > lineCount {
-            return
-        }
-
-        // Don't add the same advice twice
-        if self.advice.contains(advice) == false {
-            self.advice.append(advice)
-        }
-
-    }
-
-    func replaceAdvice(_ replacementAdvice: Advice) {
-
-        guard minimalVersion != true else {
-            return
-        }
-
-        let lineCount = scope.count
-
-        // Requested line should exist
-        if replacementAdvice.line > lineCount {
-            return
-        }
-
-        // Some advice should exist. If not, simply add
-        // the replacement advice instead of replacing
-        if getAdvice().count == 0 {
-            appendAdvice(replacementAdvice)
-            return
-        }
-
-
-        // If requested line doesn't exist in current advice list
-        // then add it
-        var replacementLineExists = false
-
-        for a in getAdvice() {
-            if a.line == replacementAdvice.line {
-                replacementLineExists = true
-            }
-        }
-
-        // Therefore add it
-        if replacementLineExists == false {
-            appendAdvice(replacementAdvice)
-            return
-        }
-
-        var myAdvice = [Advice]()
-
-        for a in getAdvice() {
-            if a.line == replacementAdvice.line {
-                myAdvice.append(replacementAdvice)
-            } else {
-                myAdvice.append(a)
-            }
-        }
-
-        self.advice = myAdvice
-
-    }
-
-    // MARK: Inpsection Text
+// MARK: BKInspectable
+extension Proof: BKInspectable {
 
     public func setInspectionText(){
 
@@ -234,6 +172,10 @@ public class Proof: BKSelfProvable, BKInspectable, BKAdvising {
         return self.inspectableText
     }
 
+    func inspectableTextAppend(property: String, value: String) -> String {
+        return "\t[ \(property): \(value) ]"
+    }
+
 }
 
 // MARK: Export
@@ -253,7 +195,7 @@ extension Proof {
 
         guard minimalVersion != true else {
             eProof = ExportedProof(withProofLines: proofLines,
-                                   withProofStatement: getLineFromNumber(proofLine),
+                                   withProofStatement: getLineFromNumber(proofLineAsInt),
                                    giveHtml: true,
                                    giveHtmlVLN: true)
             return
@@ -261,7 +203,7 @@ extension Proof {
 
         // Create an array of ProofExportData items from the proof
         eProof = ExportedProof(withProofLines: proofLines,
-                               withProofStatement: getLineFromNumber(proofLine),
+                               withProofStatement: getLineFromNumber(proofLineAsInt),
                                giveHtml: true,
                                giveHtmlVLN: true,
                                giveLatex: true,
@@ -359,7 +301,7 @@ extension Proof {
             if l.lineType == .justified {
                 let j = l as! Justified
 
-                if j.parentTheorem.getIdentifier() == uuid {
+                if j.parentTheorem.identifier == uuid {
 
                     matchedLines.append(j)
 
@@ -370,7 +312,7 @@ extension Proof {
             if l.lineType == .theorem {
                 let t = l as! Theorem
 
-                if t.parentTheorem?.getIdentifier() == uuid {
+                if t.parentTheorem?.identifier == uuid {
 
                     matchedLines.append(t)
 
@@ -386,9 +328,9 @@ extension Proof {
 
     private func getTheorem(forUUID uuid: UUID?) -> Theorem? {
         for l in scope {
-            if l.getLineType() == .theorem {
+            if l.lineType == .theorem {
                 let t = l as! Theorem
-                if t.getIdentifier() == uuid {
+                if t.identifier == uuid {
                     return t
                 }
             }
@@ -407,7 +349,7 @@ extension Proof {
 
     private func setTheorem(_ theorem: Theorem){
 
-        theorems[getScopeLevel()] = theorem.getIdentifier()
+        theorems[getScopeLevel()] = theorem.identifier
 
     }
 }
@@ -428,8 +370,6 @@ extension Proof {
         var justifiedFound = false
         var i = 0
 
-
-
         for l in scope {
 
             if let t = l as? Theorem {
@@ -445,7 +385,8 @@ extension Proof {
 
                     if minimalVersion != true {
 
-                        advise(.theoremNotProven, lineNumber: i,
+                        advise(AdviceInstance.theoremNotProven, lineNumberAsInt: i,
+                               lineNumberAsUUID: t.identifier,
                                longDescription: HtmlLongDesc.theoremNotProven)
 
                     }
@@ -454,7 +395,7 @@ extension Proof {
 
                     if minimalVersion != true {
 
-                        advise(.theoremProven, lineNumber: i)
+                        advise(.theoremProven, lineNumberAsInt: i, lineNumberAsUUID: t.identifier)
 
                     }
 
@@ -470,7 +411,7 @@ extension Proof {
                 // j.setInspectionText()
                 if j.proven == true && minimalVersion != true {
 
-                    advise(.justificationProven, lineNumber: i)
+                    advise(.justificationProven, lineNumberAsInt: i, lineNumberAsUUID: j.identifier)
 
                 } else {
 
@@ -491,9 +432,9 @@ extension Proof {
 
         if proofProven == true && minimalVersion != true {
 
-            replaceAdvice(Advice(
-                forLine: proofLine,
-                ofType: AdviceInstance.proofProven))
+            advise(.proofProven,
+                lineNumberAsInt: proofLineAsInt,
+                lineNumberAsUUID: proofLineAsUUID)
 
 
         } else {
@@ -509,9 +450,7 @@ extension Proof {
         return self.proven
     }
 
-    func getProof() -> Proof {
-        return self
-    }
+
 }
 
 // MARK: Line adding
@@ -544,10 +483,8 @@ extension Proof {
 
             guard !(text.contains(jS)) else {
 
-                appendAdvice(Advice(
-                    forLine: getMyLineNumber(),
-                    ofType: AdviceInstance.thereomNeedsNoJustification))
                 addInactive(text)
+                advise(AdviceInstance.thereomNeedsNoJustification)
                 setProven()
                 return
 
@@ -572,11 +509,8 @@ extension Proof {
             // then a part is missing
             guard parts.count > 1 else {
 
-                appendAdvice(
-                    Advice(forLine: getMyLineNumber(),
-                           ofType:
-                        AdviceInstance.justificationNeedsJustified))
                 addInactive(text)
+                advise(AdviceInstance.justificationNeedsJustified)
                 setProven()
                 return
 
@@ -632,22 +566,22 @@ extension Proof {
 
         } catch Theorem.Error.formulaPoorlyFormed {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.theoremFormulaPoorlyFormed))
             addToScope(il)
+            advise(AdviceInstance.theoremFormulaPoorlyFormed)
             // setInspectionText()
+
         } catch Theorem.Error.LHSandRHSsame {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.theoremLHSandRHSsame))
             addToScope(il)
+            advise(AdviceInstance.theoremLHSandRHSsame)
             // setInspectionText()
+
         } catch {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.unknownIssue))
             addToScope(il)
+            advise(AdviceInstance.unknownIssue)
             // setInspectionText()
+
         }
 
 
@@ -666,38 +600,50 @@ extension Proof {
 
         let il = Inactive(text, atScopeLevel: scopeLevel)
 
-        guard self.theorems.count > 0 else {
-
-            if !(Formula(infixFormula).isWellFormed) {
-
-                appendAdvice(Advice(forLine: getMyLineNumber(),
-                                    ofType: AdviceInstance.justifiedFormulaPoorlyFormed))
-
-            }
-
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.justifiedNeedsParentTheorem))
+        
+        guard Formula(infixFormula).isWellFormed == true else {
 
             addToScope(il)
+
+            advise(AdviceInstance.justifiedFormulaPoorlyFormed)
+
             // setInspectionText()
+
+            return
+
+        }
+
+        guard self.theorems.count > 0 else {
+
+            addToScope(il)
+
+            advise(AdviceInstance.justifiedNeedsParentTheorem)
+            // setInspectionText()
+
             return
 
         }
 
         guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.justifiedNeedsParentTheorem))
 
             addToScope(il)
+            appendAdvice(Advice(forLine: getMyLineAsInt(),
+                                forLineUUID: getMyLineAsUUID(),
+                                ofType: AdviceInstance.justifiedNeedsParentTheorem))
+
             // setInspectionText()
+
             return
         }
 
         if justification == "" {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.justifiedNeedsJustification))
+            addToScope(il)
+            advise(AdviceInstance.justifiedNeedsJustification)
 
+            // setInspectionTest()
+
+            return
         }
 
         do {
@@ -707,10 +653,11 @@ extension Proof {
                 self.scopeLevel -= 1
 
                 guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
-                    appendAdvice(Advice(forLine: getMyLineNumber(),
-                                        ofType: AdviceInstance.justifiedNeedsParentTheorem))
 
                     addToScope(il)
+
+                    advise(AdviceInstance.justifiedNeedsParentTheorem)
+
                     // setInspectionText()
                     return
                 }
@@ -739,23 +686,25 @@ extension Proof {
 
         } catch Justified.Error.formulaPoorlyFormed {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.justifiedFormulaPoorlyFormed))
+            addToScope(il)
+
+            advise(AdviceInstance.justifiedFormulaPoorlyFormed)
 
         } catch Justified.Error.justificationNotRecognised {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.justificationNotRecognised))
+            addToScope(il)
+
+            advise(AdviceInstance.justificationNotRecognised)
 
 
         } catch {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                ofType: AdviceInstance.unknownIssue))
+            addToScope(il)
+
+            advise(AdviceInstance.unknownIssue)
 
         }
 
-        addToScope(il)
         addToTheorem(il)
         // setInspectionText()
 
@@ -844,7 +793,7 @@ extension Proof {
         var i = 0
         for l in scope {
 
-            if l.getIdentifier() == line.getIdentifier() {
+            if l.identifier == line.identifier {
                 return i
 
             }
@@ -870,16 +819,24 @@ extension Proof {
 
     }
 
-    public func getLineCount() -> Int {
-        return scope.count
-    }
 
-    func getMyLineNumber() -> Int {
-        if scope.count == 0 {
-            return 0
-        } else {
-            return scope.count
+
+
+    func getProofLine() -> BKLine? {
+
+        var i = 0
+        for l in scope {
+
+            if l is Theorem {
+                return l
+            }
+
+            i = i + 1
+
         }
+
+        return nil
+
     }
 
 }
@@ -909,4 +866,211 @@ extension Proof {
         return subSet
 
     }
+}
+
+// MARK: BKAdvising
+extension Proof: BKAdvising {
+
+    func getMyLineAsUUID() -> UUID {
+
+        return getLineFromNumber(getMyLineAsInt()).identifier
+
+    }
+
+    func getMyLineAsInt() -> Int {
+
+        // We count from 0, so if we have 1 line,
+        // it is line 0
+        return scope.count - 1
+
+    }
+
+    func getProof() -> Proof {
+        return self
+    }
+
+    func addAdviceToLine(_ newAdvice: Advice) {
+
+        guard minimalVersion != true else {
+            return
+        }
+
+        // Requested line should exist
+        if newAdvice.lineAsInt > scope.count {
+            return
+        }
+
+        // Some advice should exist. If not, simply add
+        // the replacement advice instead of replacing
+        if advice.count == 0 {
+            appendAdvice(newAdvice)
+            return
+        }
+
+        // If requested line doesn't exist in current advice list
+        // then add it
+        var replacementLineExists = false
+
+        for a in advice {
+            if a.lineAsInt == newAdvice.lineAsInt {
+                replacementLineExists = true
+            }
+        }
+
+        // It doesn't exist yet - therefore add it
+        if replacementLineExists == false {
+            appendAdvice(newAdvice)
+            return
+        }
+
+        var myAdvice = [Advice]()
+
+        for a in advice {
+            if a.lineAsInt == newAdvice.lineAsInt {
+                myAdvice.append(newAdvice)
+            } else {
+                myAdvice.append(a)
+            }
+        }
+
+        self.advice = myAdvice
+
+    }
+
+    func appendAdvice(_ advice: Advice) {
+
+        guard minimalVersion != true else {
+            return
+        }
+
+        let lineCount = scope.count
+
+        // Requested line should exist
+        if advice.lineAsInt > lineCount {
+            return
+        }
+
+        // Don't add the same advice twice
+        if self.advice.contains(advice) == false {
+            self.advice.append(advice)
+        }
+
+    }
+
+    public func getAdviceForLineUUID(withLineUUID uuid: UUID) -> Advice? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        // Collect all advice for line
+        var myAdvice = [Advice]()
+        for a in advice {
+            if a.lineAsInt == getLineNumberFromIdentifier(uuid) {
+                myAdvice.append(a)
+            }
+        }
+
+        guard myAdvice.count > 0 else {
+            // No advice for line
+            return nil
+        }
+
+        // Of the advice, find the highest priority
+        var highestPriorityAdvice: Advice?
+        var currentPriority = 0
+        for a in myAdvice {
+
+            if a.instance.priority > currentPriority {
+                highestPriorityAdvice = a
+            }
+
+            currentPriority = a.instance.priority
+
+        }
+
+        return highestPriorityAdvice
+
+    }
+
+    public func getAdviceForAdviceUUID(withAdviceUUID uuid: UUID) -> Advice? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        for a in advice {
+            if a.id == uuid {
+                return a
+            }
+        }
+
+        return nil
+
+    }
+
+    // Do we have advice of a particular type (e.g.
+    // proof success) for a given line?
+    public func isAdviceForLine(_ uuid: UUID,
+                                ofType type: AdviceType)
+        -> Bool {
+
+            guard advice.count != 0 else {
+                // No advice
+                return false
+            }
+
+            var typeFound = false
+
+            for a in advice {
+                let adviceType = a.type
+                let thisLineNumber = a.lineAsInt
+
+                if adviceType == type &&
+                    getLineNumberFromIdentifier(uuid) == thisLineNumber {
+
+                    print("isAdviceForLine found \(a.shortDescription)")
+                    typeFound = true
+
+                }
+
+            }
+
+            return typeFound
+
+    }
+
+    public func getSuccessForLine(_ line: Int) -> [Advice]? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        var advice = [Advice]()
+        for a in advice {
+
+            guard a.type == .lineSuccess || a.type == .proofSuccess else {
+                continue
+            }
+
+            guard a.lineAsInt == line else {
+                continue
+            }
+
+            guard getLineFromNumber(line).lineType == .theorem else {
+                continue
+            }
+
+            advice.append(a)
+
+        }
+
+        return advice
+
+    }
+
+
 }

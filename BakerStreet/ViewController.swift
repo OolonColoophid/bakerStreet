@@ -339,16 +339,16 @@ extension ViewController: NSTextViewDelegate {
                   at charIndex: Int) -> Bool {
 
         // The hyperlink will point to resource using a UUID
-        let uuid = UUID(uuidString: link as! String)
+        let adviceUUID = UUID(uuidString: link as! String)
 
-        guard uuid != nil else {
+        guard adviceUUID != nil else {
 
             print("Internal Error - link didn't seem to be a UUID")
             return false
 
         }
 
-        toggleAdvicePopover(textView, forAdviceUUID: uuid!)
+        toggleAdvicePopover(textView, forAdviceUUID: adviceUUID!)
 
         return true
 
@@ -358,12 +358,6 @@ extension ViewController: NSTextViewDelegate {
     // Note only the main text view is editable
     func textDidChange(_ obj: Notification)
     {
-
-        print("textDidChange")
-
-        let insertPointLine = mainText.accessibilityInsertionPointLineNumber()
-
-        print("Line number: " + String(insertPointLine))
 
         if isProofActive == true && hasUserEditControl == true {
 
@@ -775,7 +769,7 @@ extension ViewController {
 
         // The clicked hyperlink points to a resource via a uuid
         // Now ask the proof controller for the advice
-        let advice = proofController.getAdviceForUUID(uuid)!
+        let advice = proofController.proof.getAdviceForAdviceUUID(withAdviceUUID: uuid)!
 
         // Create the advice view controller
         let avc = pop.contentViewController as! AdviceViewController

@@ -63,12 +63,12 @@ class ProofTests: XCTestCase {
     // Helper
     public func getAdviceTypes(_ proof: Proof, forLine: Int) -> [AdviceInstance] {
 
-        let advice = proof.getAdvice()
+        let advice = proof.advice
         let l = forLine
         var adviceTypes = [AdviceInstance]()
 
         for a in advice {
-            if a.line == l {
+            if a.lineAsInt == l {
                 adviceTypes.append(a.instance)
             }
         }
@@ -121,11 +121,63 @@ class ProofTests: XCTestCase {
             getAdviceTypes(p,
                            forLine:0)
                 .contains(AdviceInstance
-                    .justifiedNeedsParentTheorem))
+                    .justifiedFormulaPoorlyFormed))
+
+    }
+
+    func test_proof_with_poorlyFormedFormulaAndTooFewAntecedents_shoudGiveAdviceOnlyForFormula() {
+
+        let p = Proof(
+            """
+                |- ~(p OR q) -> ~p AND ~q
+                    ~(p OR q) |- ~p AND ~q
+                        ~(p OR q) : Assumption (1)
+                        p |- (p OR q) AND ~(p OR q)
+                            p : Assumption (3)
+                            p OR q : OR Introduction (4)
+                            (p OR q) AND ~(p OR q) : AND Introduction (5, 2)
+                        ~p : ~ Introduction (3)
+                        q |- (p OR q) AND ~(p OR q)
+                            q : Assumption (8)
+                            p OR q : OR Introduction (9)
+                            (p OR q) AND ~(p OR q) : AND Introduction (10, 2)
+                        ~q : ~ Introduction (8)
+                        ~p AND ~q : AND Introduction (7, 12)
+                        ~(p OR q) -> ~p ~q : -> Introduction ()
+            """)
 
         XCTAssertTrue(
             getAdviceTypes(p,
-                           forLine:0)
+                           forLine:14)
+                .contains(AdviceInstance
+                    .justifiedFormulaPoorlyFormed))
+
+    }
+
+    func test_proof_with_poorlyFormedFormulaAndUnknownJustification_shoudGiveAdviceOnlyForFormula() {
+
+        let p = Proof(
+            """
+                |- ~(p OR q) -> ~p AND ~q
+                    ~(p OR q) |- ~p AND ~q
+                        ~(p OR q) : Assumption (1)
+                        p |- (p OR q) AND ~(p OR q)
+                            p : Assumption (3)
+                            p  q : OR Introdduction (4)
+                            (p OR q) AND ~(p OR q) : AND Introduction (5, 2)
+                        ~p : ~ Introduction (3)
+                        q |- (p OR q) AND ~(p OR q)
+                            q : Assumption (8)
+                            p OR q : OR Introduction (9)
+                            (p OR q) AND ~(p OR q) : AND Introduction (10, 2)
+                        ~q : ~ Introduction (8)
+                        ~p AND ~q : AND Introduction (7, 12)
+                        ~(p OR q) -> ~p ~q : -> Introduction ()
+            """)
+
+        XCTAssertTrue(
+            getAdviceTypes(p,
+                           forLine:5)
                 .contains(AdviceInstance
                     .justifiedFormulaPoorlyFormed))
 

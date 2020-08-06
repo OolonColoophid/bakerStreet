@@ -10,44 +10,41 @@ import Foundation
 
 public class Comment: BKLine, BKInspectable {
 
-    var identifier = UUID()
+    // BKLine
     var lineType = LineType.comment
-    var inspectableText = ""
-    var text = ""
     var scopeLevel: Int
+    var userText: String
+
+    // BKIdentifiable
+    var identifier = UUID()
+
+    // BKInspectable
+    var inspectableText = ""
+
 
 
     public init(_ myText: String, atScopeLevel scopeLevel: Int) {
 
-        text = myText
+        userText = myText
 
         self.scopeLevel = scopeLevel
-
 
         // setInspectionText()
 
     }
 
     public func getWindowText() -> String {
-        return self.text
-    }
-
-    func setLineType() {
-        self.lineType = .inactive
-    }
-
-    func getLineType() -> LineType {
-        return self.lineType
+        return self.userText
     }
 
     func setInspectionText() {
         var s = String(scopeLevel)
 
-        s += self.text
+        s += self.userText
 
         s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
 
-        s += inspectableTextAppend(property: "Type", value: getLineType().description)
+        s += inspectableTextAppend(property: "Type", value: lineType.description)
 
         self.inspectableText = s
 

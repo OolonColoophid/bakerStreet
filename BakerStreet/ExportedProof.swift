@@ -68,7 +68,7 @@ public class ExportedProof {
         // Before we export, we want to remove the parent theorem
         self.lines = Array(self.lines.dropFirst())
 
-        print(dump())
+        // print(dump())
 
 
 
@@ -275,13 +275,10 @@ extension ExportedProof {
 
     func makePdf() {
 
-        print("The exporter was asked to make a PDF")
-
     }
 
     func makeImage() {
 
-print("The exporter was asked to make images")
 
     }
 
@@ -428,7 +425,7 @@ extension ExportedProof {
     // Given a theorem line, return it as HTML
     func getTheoremHTML (_ line: BKLine ) -> String {
 
-        guard line.getLineType() == .theorem else {
+        guard line.lineType == .theorem else {
             return ""
         }
 

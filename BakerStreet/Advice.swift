@@ -65,32 +65,33 @@ public enum AdviceInstance {
     case unknownIssue
 
     public var shortDescription: String {
-
+        // Maximum length 23 characters
+        //              xxxxxxxxxxxxxxxxxxxxxxx
         switch self {
             case .proofProven:
-                return "Proof correct"
+                return "Correct"
             case .theoremProven:
-                return "Theorem proven"
+                return "Proven"
             case .theoremNotProven:
                 return "Theorem not proven"
             case .justificationProven:
-                return "Justification proven"
+                return "Proven"
             case .justificationNotProven:
                 return "Justification not proven"
             case .justifiedNeedsJustification:
-                return "Justification needed"
+                return "Needs justification"
             case .justifiedNeedsParentTheorem:
-                return "Parent theorem needed"
+                return "Needs parent theorem"
             case .justificationNeedsJustified:
-                return "Justification needs assertion"
+                return "Needs assertion"
             case .justificationNotRecognised:
-            return "Justification not recognised"
+                return "Unknown justification"
             case .thereomNeedsNoJustification:
-                return "No justification needed"
+                return "Redundant justification"
             case .theoremLHSandRHSsame:
-                return "LHS and RHS should differ"
+                return "Same LHS and RHS"
             case .invalidParameterPositionEarly:
-                return "All antecedent lines must be above"
+                return "Antecedent must precede"
             case .invalidParemeterCountLowForJustification:
                 return "Too few antecedents"
             case .invalidParemeterCountHighForJustification:
@@ -98,19 +99,74 @@ public enum AdviceInstance {
             case .justifiedFormulaPoorlyFormed:
                 return "Formula not well-formed"
             case .theoremFormulaPoorlyFormed:
-                return "Theorem formula(s) not well-formed"
+                return "Theorem not well-formed"
             case .assumptionMustReferToTheorem:
-                return "Assumption must refer to theorem"
+                return "No referencing theorem"
             case .assumptionFormulaNotFound:
-                return "Assumption formula not found"
+                return "Formula not found"
             case .inferenceFailure:
                 return "Inference rule failure"
             case .inferenceMustReferToTheorem:
-                return "Inference must refer to theorem"
+                return "No referencing theorem"
             case .inferenceRefersToUnprovenLine:
-                return "Antecedent or antecedents unproven"
+                return "Antecedent not proven"
             case .unknownIssue:
                 return "Unknown issue"
+        }
+    }
+
+    public var priority: Int {
+
+        // Lower numbers indicate higher priority
+        switch self {
+            case .justifiedFormulaPoorlyFormed:
+                return 21
+            case .theoremFormulaPoorlyFormed:
+                return 20
+            case .justifiedNeedsJustification:
+                return 19
+            case .justifiedNeedsParentTheorem:
+                return 18
+            case .inferenceRefersToUnprovenLine:
+                return 17
+            case .justificationNeedsJustified:
+                return 16
+            case .justificationNotRecognised:
+                return 15
+            case .assumptionFormulaNotFound:
+                return 14
+            case .theoremLHSandRHSsame:
+                return 13
+            case .invalidParameterPositionEarly:
+                return 12
+
+            case .invalidParemeterCountLowForJustification:
+                return 11
+            case .invalidParemeterCountHighForJustification:
+                return 10
+            case .justificationNotProven:
+                return 9
+            case .theoremNotProven:
+                return 8
+            case .assumptionMustReferToTheorem:
+                return 7
+            case .inferenceMustReferToTheorem:
+                return 6
+            case .inferenceFailure:
+                return 5
+
+            case .proofProven:
+                return 4
+            case .theoremProven:
+                return 3
+            case .justificationProven:
+                return 2
+
+            case .thereomNeedsNoJustification:
+                return 1
+            case .unknownIssue:
+                return 0
+
         }
     }
 
@@ -122,48 +178,11 @@ public enum AdviceInstance {
         switch self {
             case .proofProven:
                 return proofSuccess
-            case .theoremProven:
+            case .theoremProven, .justificationProven:
                 return success
-            case .theoremNotProven:
+            case .theoremNotProven, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
                 return warning
-            case .justificationProven:
-                return success
-            case .justificationNotProven:
-                return warning
-            case .justifiedNeedsJustification:
-                return warning
-            case .justifiedNeedsParentTheorem:
-                return warning
-            case .justificationNeedsJustified:
-                return warning
-            case .justificationNotRecognised:
-                return warning
-            case .thereomNeedsNoJustification:
-                return warning
-            case .theoremLHSandRHSsame:
-                return warning
-            case .invalidParameterPositionEarly:
-                return warning
-            case .invalidParemeterCountLowForJustification:
-                return warning
-            case .invalidParemeterCountHighForJustification:
-                return warning
-            case .justifiedFormulaPoorlyFormed:
-                return warning
-            case .theoremFormulaPoorlyFormed:
-                return warning
-            case .assumptionMustReferToTheorem:
-                return warning
-            case .assumptionFormulaNotFound:
-                return warning
-            case .inferenceFailure:
-                return warning
-            case .inferenceMustReferToTheorem:
-                return warning
-            case .inferenceRefersToUnprovenLine:
-                return warning
-            case .unknownIssue:
-                return warning
+
         }
 
 
@@ -198,13 +217,14 @@ public struct Advice: Equatable {
         }
     }
 
-    // The line number
-    public let line: Int
+    // The line that the advice refers to
+    public let lineAsInt: Int
     var lineAsString: String {
         get {
-            return String(line)
+            return String(lineAsInt)
         }
     }
+    public let lineAsUUID: UUID
 
     public let instance: AdviceInstance
 
@@ -237,12 +257,14 @@ public struct Advice: Equatable {
     }
 
     init(forLine newLineNumber: Int,
+         forLineUUID newLineUUID: UUID,
          ofType newAdviceType: AdviceInstance,
          _ newLongDescription: String = "",
          _ newHyperlinkText: String = "more") {
 
         id = UUID()
-        line = newLineNumber
+        lineAsInt = newLineNumber
+        lineAsUUID = newLineUUID
         instance = newAdviceType
         type = instance.type
         hyper = newHyperlinkText
@@ -262,7 +284,7 @@ public struct Advice: Equatable {
 
     @available(*, deprecated, message: "Use .line or .lineAsString")
     public func getLineNumber() -> Int {
-        return line
+        return lineAsInt
     }
 
     @available(*, deprecated, message: "Use .type")
