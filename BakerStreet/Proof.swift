@@ -370,8 +370,6 @@ extension Proof {
         var justifiedFound = false
         var i = 0
 
-
-
         for l in scope {
 
             if let t = l as? Theorem {
@@ -485,10 +483,7 @@ extension Proof {
 
             guard !(text.contains(jS)) else {
 
-                appendAdvice(Advice(
-                    forLine: getMyLineNumber(),
-                    forLineUUID: getMyUUID(),
-                    ofType: AdviceInstance.thereomNeedsNoJustification))
+                advise(AdviceInstance.thereomNeedsNoJustification)
                 addInactive(text)
                 setProven()
                 return
@@ -514,11 +509,7 @@ extension Proof {
             // then a part is missing
             guard parts.count > 1 else {
 
-                appendAdvice(
-                    Advice(forLine: getMyLineNumber(),
-                           forLineUUID: getMyUUID(),
-                           ofType:
-                        AdviceInstance.justificationNeedsJustified))
+                advise(AdviceInstance.justificationNeedsJustified)
                 addInactive(text)
                 setProven()
                 return
@@ -575,23 +566,19 @@ extension Proof {
 
         } catch Theorem.Error.formulaPoorlyFormed {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.theoremFormulaPoorlyFormed))
+            advise(AdviceInstance.theoremFormulaPoorlyFormed)
+
             addToScope(il)
             // setInspectionText()
         } catch Theorem.Error.LHSandRHSsame {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.theoremLHSandRHSsame))
+            advise(AdviceInstance.theoremLHSandRHSsame)
+
             addToScope(il)
             // setInspectionText()
         } catch {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.unknownIssue))
+            advise(AdviceInstance.unknownIssue)
             addToScope(il)
             // setInspectionText()
         }
@@ -616,16 +603,12 @@ extension Proof {
 
             if !(Formula(infixFormula).isWellFormed) {
 
-                appendAdvice(Advice(forLine: getMyLineNumber(),
-                                    forLineUUID: getMyUUID(),
-                                    ofType: AdviceInstance.justifiedFormulaPoorlyFormed))
+                advise(AdviceInstance.justifiedFormulaPoorlyFormed)
                 print("Adding advice .justifiedFormulaPoorlyFormed")
 
             }
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.justifiedNeedsParentTheorem))
+            advise(AdviceInstance.justifiedNeedsParentTheorem)
 
             addToScope(il)
             // setInspectionText()
@@ -634,8 +617,8 @@ extension Proof {
         }
 
         guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
+            appendAdvice(Advice(forLine: getMyLineAsInt(),
+                                forLineUUID: getMyLineAsUUID(),
                                 ofType: AdviceInstance.justifiedNeedsParentTheorem))
 
             addToScope(il)
@@ -645,9 +628,7 @@ extension Proof {
 
         if justification == "" {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.justifiedNeedsJustification))
+            advise(AdviceInstance.justifiedNeedsJustification)
 
         }
 
@@ -658,9 +639,7 @@ extension Proof {
                 self.scopeLevel -= 1
 
                 guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
-                    appendAdvice(Advice(forLine: getMyLineNumber(),
-                                        forLineUUID: getMyUUID(),
-                                        ofType: AdviceInstance.justifiedNeedsParentTheorem))
+                    advise(AdviceInstance.justifiedNeedsParentTheorem)
 
                     addToScope(il)
                     // setInspectionText()
@@ -691,22 +670,16 @@ extension Proof {
 
         } catch Justified.Error.formulaPoorlyFormed {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.justifiedFormulaPoorlyFormed))
+            advise(AdviceInstance.justifiedFormulaPoorlyFormed)
 
         } catch Justified.Error.justificationNotRecognised {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.justificationNotRecognised))
+            advise(AdviceInstance.justificationNotRecognised)
 
 
         } catch {
 
-            appendAdvice(Advice(forLine: getMyLineNumber(),
-                                forLineUUID: getMyUUID(),
-                                ofType: AdviceInstance.unknownIssue))
+            advise(AdviceInstance.unknownIssue)
 
         }
 
@@ -877,13 +850,13 @@ extension Proof {
 // MARK: BKAdvising
 extension Proof: BKAdvising {
 
-    func getMyUUID() -> UUID {
+    func getMyLineAsUUID() -> UUID {
 
         return getLineFromNumber(scope.count).identifier
 
     }
 
-    func getMyLineNumber() -> Int {
+    func getMyLineAsInt() -> Int {
 
         return scope.count
 
@@ -960,5 +933,120 @@ extension Proof: BKAdvising {
         }
 
     }
+
+    public func getAdviceForLineUUID(withLineUUID uuid: UUID) -> Advice? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        // Collect all advice for line
+        var myAdvice = [Advice]()
+        for a in advice {
+            if a.lineAsUUID == uuid {
+                myAdvice.append(a)
+            }
+        }
+
+        guard myAdvice.count > 0 else {
+            // No advice for line
+            return nil
+        }
+
+        // Of the advice, find the highest priority
+        var highestPriorityAdvice: Advice?
+        var currentPriority = 0
+        for a in myAdvice {
+
+            if a.instance.priority > currentPriority {
+                highestPriorityAdvice = a
+            }
+
+            currentPriority = a.instance.priority
+
+        }
+
+        return highestPriorityAdvice
+
+    }
+
+    public func getAdviceForAdviceUUID(withAdviceUUID uuid: UUID) -> Advice? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        for a in advice {
+            if a.id == uuid {
+                return a
+            }
+        }
+
+        return nil
+
+    }
+
+    // Do we have advice of a particular type (e.g.
+    // proof success) for a given line?
+    public func isAdviceForLine(_ UUID: UUID,
+                                ofType type: AdviceType)
+        -> Bool {
+
+            guard advice.count != 0 else {
+                // No advice
+                return false
+            }
+
+            var typeFound = false
+
+            for a in advice {
+                let adviceType = a.type
+                let thisLineNumber = a.lineAsInt
+
+                if adviceType == type &&
+                    getLineNumberFromIdentifier(UUID) == thisLineNumber {
+
+                    typeFound = true
+
+                }
+
+            }
+
+            return typeFound
+
+    }
+
+    public func getSuccessForLine(_ line: Int) -> [Advice]? {
+
+        guard advice.count != 0 else {
+            // No advice
+            return nil
+        }
+
+        var advice = [Advice]()
+        for a in advice {
+
+            guard a.type == .lineSuccess || a.type == .proofSuccess else {
+                continue
+            }
+
+            guard a.lineAsInt == line else {
+                continue
+            }
+
+            guard getLineFromNumber(line).lineType == .theorem else {
+                continue
+            }
+
+            advice.append(a)
+
+        }
+
+        return advice
+
+    }
+
 
 }

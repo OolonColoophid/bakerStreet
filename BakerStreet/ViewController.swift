@@ -770,7 +770,7 @@ extension ViewController {
 
         // The clicked hyperlink points to a resource via a uuid
         // Now ask the proof controller for the advice
-        let advice = proofController.getAdviceForAdviceUUID(withAdviceUUID: uuid)!
+        let advice = proofController.proof.getAdviceForAdviceUUID(withAdviceUUID: uuid)!
 
         // Create the advice view controller
         let avc = pop.contentViewController as! AdviceViewController

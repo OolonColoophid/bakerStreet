@@ -92,7 +92,7 @@ extension ProofController {
 
             var successGlyphs = ""
 
-            if let successes = getSuccessForLine(i) {
+            if let successes = proof.getSuccessForLine(i) {
                 for s in successes {
                     successGlyphs = successGlyphs +
                         s.symbol
@@ -288,7 +288,7 @@ extension ProofController {
 
     public func makeAdviceViewTextStyled() -> NSMutableAttributedString {
 
-        guard isAdvice() == true else {
+        guard proof.advice.count > 0 else {
             // No advice
             return NSMutableAttributedString()
         }
@@ -305,7 +305,7 @@ extension ProofController {
         for l in lines {
 
             print("Checking line \(i)...")
-            if isAdviceForLine(l.identifier, ofType: .warning) == true {
+            if proof.isAdviceForLine(l.identifier, ofType: .warning) == true {
 
                 print("  Found warning advice! It's UUID is \(l.identifier)")
                 viewAdviceText.append(
@@ -326,47 +326,7 @@ extension ProofController {
 
     }
 
-    public func isAdvice() -> Bool {
 
-        // No advice
-        guard proof.advice.count != 0 else { return false }
-
-        // Zero-length proof, thus no advice
-        guard proof.scope.count != 0 else { return false }
-
-        return true
-
-    }
-
-    // Do we have advice of a particular type (e.g.
-    // proof success) for a given line?
-    public func isAdviceForLine(_ UUID: UUID,
-                                ofType type: AdviceType)
-        -> Bool {
-
-            guard proof.advice.count != 0 else {
-                // No advice
-                return false
-            }
-
-            var typeFound = false
-
-            for a in proof.advice {
-                let adviceType = a.type
-                let thisLineNumber = a.lineAsInt
-
-                if adviceType == type &&
-                    proof.getLineNumberFromIdentifier(UUID) == thisLineNumber {
-
-                    typeFound = true
-
-                }
-
-            }
-
-            return typeFound
-
-    }
 
     private func getAdviceStringForLineStyled(withLineUUID uuid: UUID,
                                               suppressGlyphs: Bool = false)
@@ -379,7 +339,7 @@ extension ProofController {
 
             let adviceString = NSMutableAttributedString()
 
-            let advice = getAdviceForLineUUID(withLineUUID: uuid)
+            let advice = proof.getAdviceForLineUUID(withLineUUID: uuid)
 
             guard advice != nil else {
                 return adviceString
@@ -418,96 +378,6 @@ extension ProofController {
 
 
 }
-
-// MARK: Advice Control
-extension ProofController {
-
-    public func getAdviceForLineUUID(withLineUUID uuid: UUID) -> Advice? {
-
-        guard proof.advice.count != 0 else {
-            // No advice
-            return nil
-        }
-
-        // Collect all advice for line
-        var myAdvice = [Advice]()
-        for a in proof.advice {
-            if a.lineAsUUID == uuid {
-                myAdvice.append(a)
-            }
-        }
-
-        guard myAdvice.count > 0 else {
-            // No advice for line
-            return nil
-        }
-
-        // Of the advice, find the highest priority
-        var highestPriorityAdvice: Advice?
-        var currentPriority = 0
-        for a in myAdvice {
-
-            if a.instance.priority > currentPriority {
-                highestPriorityAdvice = a
-            }
-
-            currentPriority = a.instance.priority
-
-        }
-
-        return highestPriorityAdvice
-
-    }
-
-    public func getAdviceForAdviceUUID(withAdviceUUID uuid: UUID) -> Advice? {
-
-        guard proof.advice.count != 0 else {
-            // No advice
-            return nil
-        }
-
-        for a in proof.advice {
-            if a.id == uuid {
-                return a
-            }
-        }
-
-        return nil
-
-    }
-
-    public func getSuccessForLine(_ line: Int) -> [Advice]? {
-
-        guard proof.advice.count != 0 else {
-            // No advice
-            return nil
-        }
-
-        var advice = [Advice]()
-        for a in proof.advice {
-
-            guard a.type == .lineSuccess || a.type == .proofSuccess else {
-                continue
-            }
-
-            guard a.lineAsInt == line else {
-                continue
-            }
-
-            guard proof.getLineFromNumber(line).lineType == .theorem else {
-                continue
-            }
-
-            advice.append(a)
-
-        }
-
-        return advice
-
-    }
-
-}
-
 
 // MARK: Indentation
 

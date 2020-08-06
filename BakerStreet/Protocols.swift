@@ -74,8 +74,8 @@ protocol BKEvaluatable: BKSelfProvable, BKParseable { }
 // Produces user-readable text about its state
 protocol BKAdvising {
 
-    func getMyLineNumber() -> Int
-    func getMyUUID() -> UUID
+    func getMyLineAsInt() -> Int
+    func getMyLineAsUUID() -> UUID
     func getProof() -> Proof
 
 }
@@ -92,8 +92,8 @@ extension BKAdvising {
 
         if lineNumberAsInt == -1 {                 // Not provided
             proof.addAdviceToLine(Advice(
-                forLine: getMyLineNumber(),   // Determine line as Int
-                forLineUUID: getMyUUID(),     // Determine line as UUID
+                forLine: getMyLineAsInt(),   // Determine line as Int
+                forLineUUID: getMyLineAsUUID(),     // Determine line as UUID
                 ofType: AdviceType,
                 longDescription)) }
         else {                                // Provided

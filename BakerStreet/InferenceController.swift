@@ -1541,11 +1541,11 @@ public struct InferenceController: BKAdvising {
         return lNotTree
     }
 
-    func getMyLineNumber() -> Int {
+    func getMyLineAsInt() -> Int {
         return self.myLineNumberAsInt
     }
 
-    func getMyUUID() -> UUID {
+    func getMyLineAsUUID() -> UUID {
         return self.myLineNumberAsUUID
     }
 
