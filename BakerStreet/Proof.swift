@@ -385,7 +385,7 @@ extension Proof {
 
                     if minimalVersion != true {
 
-                        advise(.theoremNotProven, lineNumberAsInt: i,
+                        advise(AdviceInstance.theoremNotProven, lineNumberAsInt: i,
                                lineNumberAsUUID: t.identifier,
                                longDescription: HtmlLongDesc.theoremNotProven)
 
@@ -483,8 +483,8 @@ extension Proof {
 
             guard !(text.contains(jS)) else {
 
-                advise(AdviceInstance.thereomNeedsNoJustification)
                 addInactive(text)
+                advise(AdviceInstance.thereomNeedsNoJustification)
                 setProven()
                 return
 
@@ -509,8 +509,8 @@ extension Proof {
             // then a part is missing
             guard parts.count > 1 else {
 
-                advise(AdviceInstance.justificationNeedsJustified)
                 addInactive(text)
+                advise(AdviceInstance.justificationNeedsJustified)
                 setProven()
                 return
 
@@ -566,21 +566,22 @@ extension Proof {
 
         } catch Theorem.Error.formulaPoorlyFormed {
 
-            advise(AdviceInstance.theoremFormulaPoorlyFormed)
-
             addToScope(il)
+            advise(AdviceInstance.theoremFormulaPoorlyFormed)
             // setInspectionText()
+
         } catch Theorem.Error.LHSandRHSsame {
 
-            advise(AdviceInstance.theoremLHSandRHSsame)
-
             addToScope(il)
+            advise(AdviceInstance.theoremLHSandRHSsame)
             // setInspectionText()
+
         } catch {
 
-            advise(AdviceInstance.unknownIssue)
             addToScope(il)
+            advise(AdviceInstance.unknownIssue)
             // setInspectionText()
+
         }
 
 
@@ -599,37 +600,50 @@ extension Proof {
 
         let il = Inactive(text, atScopeLevel: scopeLevel)
 
-        guard self.theorems.count > 0 else {
-
-            if !(Formula(infixFormula).isWellFormed) {
-
-                advise(AdviceInstance.justifiedFormulaPoorlyFormed)
-                print("Adding advice .justifiedFormulaPoorlyFormed")
-
-            }
-
-            advise(AdviceInstance.justifiedNeedsParentTheorem)
+        
+        guard Formula(infixFormula).isWellFormed == true else {
 
             addToScope(il)
+
+            advise(AdviceInstance.justifiedFormulaPoorlyFormed)
+
             // setInspectionText()
+
+            return
+
+        }
+
+        guard self.theorems.count > 0 else {
+
+            addToScope(il)
+
+            advise(AdviceInstance.justifiedNeedsParentTheorem)
+            // setInspectionText()
+
             return
 
         }
 
         guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
+
+            addToScope(il)
             appendAdvice(Advice(forLine: getMyLineAsInt(),
                                 forLineUUID: getMyLineAsUUID(),
                                 ofType: AdviceInstance.justifiedNeedsParentTheorem))
 
-            addToScope(il)
             // setInspectionText()
+
             return
         }
 
         if justification == "" {
 
+            addToScope(il)
             advise(AdviceInstance.justifiedNeedsJustification)
 
+            // setInspectionTest()
+
+            return
         }
 
         do {
@@ -639,9 +653,11 @@ extension Proof {
                 self.scopeLevel -= 1
 
                 guard let _ = getCurrentTheorem(forScopeLevel: scopeLevel) else {
-                    advise(AdviceInstance.justifiedNeedsParentTheorem)
 
                     addToScope(il)
+
+                    advise(AdviceInstance.justifiedNeedsParentTheorem)
+
                     // setInspectionText()
                     return
                 }
@@ -670,20 +686,25 @@ extension Proof {
 
         } catch Justified.Error.formulaPoorlyFormed {
 
+            addToScope(il)
+
             advise(AdviceInstance.justifiedFormulaPoorlyFormed)
 
         } catch Justified.Error.justificationNotRecognised {
+
+            addToScope(il)
 
             advise(AdviceInstance.justificationNotRecognised)
 
 
         } catch {
 
+            addToScope(il)
+
             advise(AdviceInstance.unknownIssue)
 
         }
 
-        addToScope(il)
         addToTheorem(il)
         // setInspectionText()
 
@@ -852,13 +873,15 @@ extension Proof: BKAdvising {
 
     func getMyLineAsUUID() -> UUID {
 
-        return getLineFromNumber(scope.count).identifier
+        return getLineFromNumber(getMyLineAsInt()).identifier
 
     }
 
     func getMyLineAsInt() -> Int {
 
-        return scope.count
+        // We count from 0, so if we have 1 line,
+        // it is line 0
+        return scope.count - 1
 
     }
 
@@ -944,7 +967,7 @@ extension Proof: BKAdvising {
         // Collect all advice for line
         var myAdvice = [Advice]()
         for a in advice {
-            if a.lineAsUUID == uuid {
+            if a.lineAsInt == getLineNumberFromIdentifier(uuid) {
                 myAdvice.append(a)
             }
         }
@@ -990,7 +1013,7 @@ extension Proof: BKAdvising {
 
     // Do we have advice of a particular type (e.g.
     // proof success) for a given line?
-    public func isAdviceForLine(_ UUID: UUID,
+    public func isAdviceForLine(_ uuid: UUID,
                                 ofType type: AdviceType)
         -> Bool {
 
@@ -1006,8 +1029,9 @@ extension Proof: BKAdvising {
                 let thisLineNumber = a.lineAsInt
 
                 if adviceType == type &&
-                    getLineNumberFromIdentifier(UUID) == thisLineNumber {
+                    getLineNumberFromIdentifier(uuid) == thisLineNumber {
 
+                    print("isAdviceForLine found \(a.shortDescription)")
                     typeFound = true
 
                 }

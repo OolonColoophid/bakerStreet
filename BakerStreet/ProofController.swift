@@ -307,7 +307,7 @@ extension ProofController {
             print("Checking line \(i)...")
             if proof.isAdviceForLine(l.identifier, ofType: .warning) == true {
 
-                print("  Found warning advice! It's UUID is \(l.identifier)")
+                print("  Found warning advice! The line UUID is \(l.identifier). Advice is \(proof.getAdviceForLineUUID(withLineUUID: l.identifier)?.shortDescription)")
                 viewAdviceText.append(
                     getAdviceStringForLineStyled(withLineUUID: l.identifier,
                                                  suppressGlyphs: true))
