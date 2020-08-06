@@ -10,11 +10,14 @@ import Foundation
 
 public class Inactive: BKLine, BKInspectable {
 
-    var identifier = UUID()
+    // BKLine
     var lineType = LineType.inactive
-    var inspectableText = ""
-    var userText: String
     var scopeLevel: Int
+    var userText: String
+
+    var identifier = UUID()
+    var inspectableText = ""
+
 
 
     public init(_ text: String, atScopeLevel scopeLevel: Int) {

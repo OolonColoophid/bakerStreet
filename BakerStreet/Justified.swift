@@ -10,15 +10,18 @@ import Foundation
 
 public class Justified: BKLine, BKEvaluatable, BKSelfProvable, Equatable {
 
+    // BKLine
+    var lineType = LineType.justified
+    var scopeLevel: Int
+    var userText: String
+
+
+
     var proven = false
     var identifier = UUID()
     var wellFormed = false
-    var lineType = LineType .justified
     var inspectableText = ""
     var scope = [BKLine]()
-    var scopeLevel: Int
-
-    var userText: String
 
     var parentTheorem: Theorem
 

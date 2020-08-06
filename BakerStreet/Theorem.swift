@@ -8,45 +8,67 @@
 
 import Foundation
 
-public class Theorem: BKLine, BKEvaluatable, Equatable {
+public class Theorem {
 
-    var proven = false
-    var identifier = UUID()
-    var wellFormed = false
+    // BKLine
     var lineType = LineType.theorem
-    var inspectableText = ""
-    var scope = [BKLine]()
     var scopeLevel: Int
     var userText: String
 
+    // BKInspectable
+    var inspectableText = ""
+
+    // BKIdentifiable
+    var identifier = UUID()
+
+
+    // BKSelfProvable
+    var proven = false
+    var scope = [BKLine]()
+
+    // BKParseable
+    var wellFormed = false
+
+    // The theorem whose scope includes this theorem
     var parentTheorem: Theorem?
+    // The proof to which this theorem belongs
     var proof: Proof
 
+    // Formula(s) left of turnstile
     var lhsFormula = [Formula]()
+    // Formula right of turnstile
     var rhsFormula = Formula("")
 
-    var lhsAndRhsDiffer = true
-    var lhsWellFormed = false
-    var rhsWellFormed = false
+    var lhsAndRhsDiffer: Bool
+    var lhsWellFormed: Bool
+    var rhsWellFormed: Bool
 
     public enum Error: Swift.Error {
         case formulaPoorlyFormed
         case LHSandRHSsame
     }
 
-    init(_ text: String,
-         atScopeLevel scopeLevel: Int,
-         parentTheorem: Theorem?,
-         proof: Proof) throws {
+    init(_ text: String,                // What the user wrote
+        atScopeLevel scopeLevel: Int,  // The current scope level
+        parentTheorem: Theorem?,       // We may have a parent theorem
+        proof: Proof                   // The current proof
+    ) throws {
 
         if parentTheorem != nil {
             self.parentTheorem = parentTheorem
         }
 
+        // Sensible defaults for later things to check
+        lhsAndRhsDiffer = true
+        lhsWellFormed = false
+        rhsWellFormed = false
+
+        // Set properties according to parameters
         self.userText = text
         self.scopeLevel = scopeLevel
         self.proof = proof
 
+        // Determine LHS and RHS
         setLhsAndRhs(text)
 
         guard lhsAndRhsDiffer == true else {
@@ -64,7 +86,7 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
         //setInspectionText()
     }
 
-// MARK: Scope
+    // MARK: Scope
 
     func addToScope(_ line: BKLine) {
         self.scope.append(line)
@@ -75,7 +97,7 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
     }
 
 
-// MARK: Parse
+    // MARK: Parse
 
     func setLhsAndRhs(_ text: String) {
 
@@ -102,8 +124,6 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
     public func getRhsFormula() -> Formula {
         return self.rhsFormula
     }
-
-
 
     private func getLhsString(fromText text: String) -> String {
 
@@ -132,10 +152,11 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
 
     }
 
-    private func getRangeOfTurnStile(forText text: String) -> Range<String.Index> {
+    private func getRangeOfTurnStile(forText text: String)
+        -> Range<String.Index> {
 
-        let turnstile = MetaType.turnStile.description
-        return text.uppercased().range(of: turnstile)!
+            let turnstile = MetaType.turnStile.description
+            return text.uppercased().range(of: turnstile)!
 
     }
 
@@ -182,7 +203,7 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
 
     }
 
-// MARK: Description
+    // MARK: Description
 
     func shortDescription() -> String {
 
@@ -208,8 +229,65 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
         }
     }
 
-    // MARK: Provability
+    // MARK: Helper
 
+    func getFormulae() -> [Formula] {
+        var formulae = lhsFormula
+        formulae.append(rhsFormula)
+        return formulae
+    }
+
+}
+
+// MARK: BKLine (BKIdentifiable, BKInspectable)
+extension Theorem: BKLine {
+
+    // MARK: BKLine
+    func getLineType() -> LineType {
+        return self.lineType
+    }
+
+
+    // MARK: BKIdentifiable
+    func getIdentifier() -> UUID {
+        return self.identifier
+    }
+
+    // MARK: BKInspectable
+    func setInspectionText() {
+
+        var s = String(scopeLevel)
+
+        s = s + " " + shortDescription()
+
+        s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
+
+        s += inspectableTextAppend(property: "Type",
+                                   value: getLineType().description)
+        s += inspectableTextAppend(property: "Well formed",
+                                   value: getWellFormed().description)
+        s += inspectableTextAppend(property: "Proven",
+                                   value: getProven().description)
+
+        self.inspectableText = s
+
+    }
+
+    func getInspectionText() -> String {
+        return self.inspectableText
+
+    }
+
+    func inspectableTextAppend(property: String, value: String) -> String {
+        return "\t[ \(property): \(value) ]"
+    }
+
+}
+
+// MARK: BKEvaluatable (BKSelfProvable, BKParseable)
+extension Theorem: BKEvaluatable {
+
+    // MARK: BKSelfProvable
     func setProven() {
 
         // Our theorem is true if:
@@ -271,21 +349,7 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
         return self.proven
     }
 
-    func getFormulae() -> [Formula] {
-        var formulae = lhsFormula
-        formulae.append(rhsFormula)
-        return formulae
-    }
-
-    // MARK: Equatableness
-
-    public static func == (lhs: Theorem, rhs: Theorem) -> Bool {
-        return lhs.lhsFormula == rhs.lhsFormula &&
-            lhs.rhsFormula == rhs.rhsFormula
-    }
-
-    // MARK: Wellformedness
-
+    // MARK: BKParseable
     func setWellFormed() {
 
         if rhsFormula.isWellFormed != true {
@@ -311,44 +375,16 @@ public class Theorem: BKLine, BKEvaluatable, Equatable {
         return self.wellFormed
     }
 
-    // MARK: Identification
+}
 
+// MARK: Equatable
+extension Theorem: Equatable {
 
-    func getIdentifier() -> UUID {
-        return self.identifier
-    }
+    public static func == (lhs: Theorem, rhs: Theorem) -> Bool {
 
-    // MARK: Type
+        return lhs.lhsFormula == rhs.lhsFormula &&
+            lhs.rhsFormula == rhs.rhsFormula
 
-    func getLineType() -> LineType {
-        return self.lineType
-    }
-
-
-    // MARK: Inspection
-
-    func setInspectionText() {
-
-        var s = String(scopeLevel)
-
-        s = s + " " + shortDescription()
-
-        s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
-
-        s += inspectableTextAppend(property: "Type", value: getLineType().description)
-        s += inspectableTextAppend(property: "Well formed", value: getWellFormed().description)
-        s += inspectableTextAppend(property: "Proven", value: getProven().description)
-
-        self.inspectableText = s
-
-    }
-
-    func getInspectionText() -> String {
-        return self.inspectableText
-    }
-
-    func inspectableTextAppend(property: String, value: String) -> String {
-        return "\t[ \(property): \(value) ]"
     }
 
 }

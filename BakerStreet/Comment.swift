@@ -10,16 +10,19 @@ import Foundation
 
 public class Comment: BKLine, BKInspectable {
 
-    var identifier = UUID()
+    // BKLine
     var lineType = LineType.comment
-    var inspectableText = ""
-    var text = ""
     var scopeLevel: Int
+    var userText: String
+
+    var identifier = UUID()
+    var inspectableText = ""
+
 
 
     public init(_ myText: String, atScopeLevel scopeLevel: Int) {
 
-        text = myText
+        userText = myText
 
         self.scopeLevel = scopeLevel
 
@@ -29,7 +32,7 @@ public class Comment: BKLine, BKInspectable {
     }
 
     public func getWindowText() -> String {
-        return self.text
+        return self.userText
     }
 
     func setLineType() {
@@ -43,7 +46,7 @@ public class Comment: BKLine, BKInspectable {
     func setInspectionText() {
         var s = String(scopeLevel)
 
-        s += self.text
+        s += self.userText
 
         s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
 

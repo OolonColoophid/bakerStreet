@@ -63,12 +63,12 @@ class ProofTests: XCTestCase {
     // Helper
     public func getAdviceTypes(_ proof: Proof, forLine: Int) -> [AdviceInstance] {
 
-        let advice = proof.getAdvice()
+        let advice = proof.advice
         let l = forLine
         var adviceTypes = [AdviceInstance]()
 
         for a in advice {
-            if a.line == l {
+            if a.lineAsInt == l {
                 adviceTypes.append(a.instance)
             }
         }

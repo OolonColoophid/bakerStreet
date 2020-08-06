@@ -8,13 +8,8 @@
 
 import Foundation
 
-public enum Justification: CaseIterable, Comparable {
-
-    public static func < (lhs: Justification, rhs: Justification) -> Bool {
-
-        return lhs.order < rhs.order
-    }
-
+public enum Justification: CaseIterable {
+    
     case empty
     case assumption
     case andIntroduction
@@ -394,4 +389,11 @@ public enum Justification: CaseIterable, Comparable {
         }
     }
 
+}
+
+extension Justification: Comparable {
+    public static func < (lhs: Justification, rhs: Justification) -> Bool {
+
+        return lhs.order < rhs.order
+    }
 }
