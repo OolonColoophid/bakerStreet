@@ -494,7 +494,7 @@ extension ProofController {
                 continue
             }
 
-            guard proof.getLineFromNumber(line).getLineType() == .theorem else {
+            guard proof.getLineFromNumber(line).lineType == .theorem else {
                 continue
             }
 

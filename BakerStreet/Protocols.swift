@@ -47,8 +47,6 @@ protocol BKInspectable {
 protocol BKIdentifiable {
     var identifier: UUID { get set }
 
-    func getIdentifier() -> UUID
-
 }
 
 // Components can be queries about their wellformedness
@@ -67,8 +65,6 @@ protocol BKLine: BKIdentifiable, BKInspectable {
     var lineType: LineType { get set }
     var scopeLevel: Int { get set }
     var userText: String { get set }
-
-    func getLineType() -> LineType
 
 }
 

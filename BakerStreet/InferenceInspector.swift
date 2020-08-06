@@ -32,8 +32,8 @@ public struct InferenceInspector {
         self.myLine = line
         self.parentThereom = line.getParentTheorem()
         self.myLineNumber = proof.getLineNumberFromIdentifier(
-            line.getIdentifier())
-        self.antecedents = myLine.getAntecedents()
+            line.identifier)
+        self.antecedents = myLine.antecedents
 
     }
 
@@ -82,7 +82,7 @@ public struct InferenceInspector {
     }
 
     func getMyTree() -> Tree {
-        return self.myLine.getFormula().tree
+        return self.myLine.formula.tree
     }
 
     func getMyParent() -> Theorem {

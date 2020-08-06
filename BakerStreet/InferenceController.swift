@@ -64,9 +64,9 @@ public struct InferenceController: BKAdvising {
         self.myLine = line
         self.proof = proof
         self.myLineNumberAsInt = proof.getLineNumberFromIdentifier(
-            line.getIdentifier())
+            line.identifier)
         self.myLineNumberAsUUID = proof.getIdentifierFromLineNumber(myLineNumberAsInt)
-        self.antecedents = line.getAntecedents()
+        self.antecedents = line.antecedents
 
         self.ii = InferenceInspector(line: line, proof: proof)
 
@@ -1173,7 +1173,7 @@ public struct InferenceController: BKAdvising {
 
     private mutating func checkAntecedentsTooFew() -> Bool {
 
-        let myCount = myLine.getAntecedents().count
+        let myCount = myLine.antecedents.count
         let arity = myLine.justification.arity
 
         let aDifference = myCount - arity
@@ -1197,7 +1197,7 @@ public struct InferenceController: BKAdvising {
 
     private mutating func checkAntecedentsTooMany() -> Bool {
 
-        let myCount = myLine.getAntecedents().count
+        let myCount = myLine.antecedents.count
         let arity = myLine.justification.arity
 
         let aDifference = myCount - arity

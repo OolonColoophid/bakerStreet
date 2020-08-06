@@ -428,7 +428,7 @@ extension ExportedProof {
     // Given a theorem line, return it as HTML
     func getTheoremHTML (_ line: BKLine ) -> String {
 
-        guard line.getLineType() == .theorem else {
+        guard line.lineType == .theorem else {
             return ""
         }
 

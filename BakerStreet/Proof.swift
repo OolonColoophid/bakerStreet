@@ -301,7 +301,7 @@ extension Proof {
             if l.lineType == .justified {
                 let j = l as! Justified
 
-                if j.parentTheorem.getIdentifier() == uuid {
+                if j.parentTheorem.identifier == uuid {
 
                     matchedLines.append(j)
 
@@ -312,7 +312,7 @@ extension Proof {
             if l.lineType == .theorem {
                 let t = l as! Theorem
 
-                if t.parentTheorem?.getIdentifier() == uuid {
+                if t.parentTheorem?.identifier == uuid {
 
                     matchedLines.append(t)
 
@@ -328,9 +328,9 @@ extension Proof {
 
     private func getTheorem(forUUID uuid: UUID?) -> Theorem? {
         for l in scope {
-            if l.getLineType() == .theorem {
+            if l.lineType == .theorem {
                 let t = l as! Theorem
-                if t.getIdentifier() == uuid {
+                if t.identifier == uuid {
                     return t
                 }
             }
@@ -349,7 +349,7 @@ extension Proof {
 
     private func setTheorem(_ theorem: Theorem){
 
-        theorems[getScopeLevel()] = theorem.getIdentifier()
+        theorems[getScopeLevel()] = theorem.identifier
 
     }
 }
@@ -799,7 +799,7 @@ extension Proof {
         var i = 0
         for l in scope {
 
-            if l.getIdentifier() == line.getIdentifier() {
+            if l.identifier == line.identifier {
                 return i
 
             }

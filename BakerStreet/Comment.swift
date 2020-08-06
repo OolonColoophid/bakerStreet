@@ -15,7 +15,10 @@ public class Comment: BKLine, BKInspectable {
     var scopeLevel: Int
     var userText: String
 
+    // BKIdentifiable
     var identifier = UUID()
+
+    // BKInspectable
     var inspectableText = ""
 
 
@@ -26,21 +29,12 @@ public class Comment: BKLine, BKInspectable {
 
         self.scopeLevel = scopeLevel
 
-
         // setInspectionText()
 
     }
 
     public func getWindowText() -> String {
         return self.userText
-    }
-
-    func setLineType() {
-        self.lineType = .inactive
-    }
-
-    func getLineType() -> LineType {
-        return self.lineType
     }
 
     func setInspectionText() {
@@ -50,7 +44,7 @@ public class Comment: BKLine, BKInspectable {
 
         s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
 
-        s += inspectableTextAppend(property: "Type", value: getLineType().description)
+        s += inspectableTextAppend(property: "Type", value: lineType.description)
 
         self.inspectableText = s
 

@@ -8,14 +8,17 @@
 
 import Foundation
 
-public class Inactive: BKLine, BKInspectable {
+public class Inactive: BKLine {
 
     // BKLine
     var lineType = LineType.inactive
     var scopeLevel: Int
     var userText: String
 
+    // BKIdentifiable
     var identifier = UUID()
+
+    // BKInspectable
     var inspectableText = ""
 
 
@@ -33,13 +36,6 @@ public class Inactive: BKLine, BKInspectable {
         return self.userText
     }
 
-    func setLineType() {
-        self.lineType = .inactive
-    }
-
-    func getLineType() -> LineType {
-        return self.lineType
-    }
 
     func setInspectionText() {
 
@@ -49,7 +45,7 @@ public class Inactive: BKLine, BKInspectable {
 
         s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
 
-        s += inspectableTextAppend(property: "Type", value: getLineType().description)
+        s += inspectableTextAppend(property: "Type", value: lineType.description)
 
         self.inspectableText = s
     }
@@ -62,8 +58,6 @@ public class Inactive: BKLine, BKInspectable {
         return self.inspectableText
     }
 
-    func getIdentifier() -> UUID {
-        return self.identifier
-    }
+
 
 }

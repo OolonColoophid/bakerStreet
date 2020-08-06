@@ -48,7 +48,7 @@ public class Theorem {
         case LHSandRHSsame
     }
 
-    init(_ text: String,                // What the user wrote
+    init(_ text: String,               // What the user wrote
         atScopeLevel scopeLevel: Int,  // The current scope level
         parentTheorem: Theorem?,       // We may have a parent theorem
         proof: Proof                   // The current proof
@@ -242,17 +242,6 @@ public class Theorem {
 // MARK: BKLine (BKIdentifiable, BKInspectable)
 extension Theorem: BKLine {
 
-    // MARK: BKLine
-    func getLineType() -> LineType {
-        return self.lineType
-    }
-
-
-    // MARK: BKIdentifiable
-    func getIdentifier() -> UUID {
-        return self.identifier
-    }
-
     // MARK: BKInspectable
     func setInspectionText() {
 
@@ -263,7 +252,7 @@ extension Theorem: BKLine {
         s = s.padding(toLength: 30, withPad: " ", startingAt: 0)
 
         s += inspectableTextAppend(property: "Type",
-                                   value: getLineType().description)
+                                   value: lineType.description)
         s += inspectableTextAppend(property: "Well formed",
                                    value: getWellFormed().description)
         s += inspectableTextAppend(property: "Proven",
