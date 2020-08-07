@@ -1224,7 +1224,7 @@ DQ
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="NSTouchBarGetInfoTemplate" width="18" height="30"/>
-        <image name="Natural Deduction formulas" width="170.06399536132812" height="113.61599731445312"/>
+        <image name="Natural Deduction formulas" width="566.927978515625" height="378.864013671875"/>
         <namedColor name="auburnBackground">
             <color red="0.62000000476837158" green="0.16500000655651093" blue="0.16899999976158142" alpha="0.076999999582767487" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

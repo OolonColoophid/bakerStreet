@@ -844,7 +844,6 @@ extension ViewController {
 
         }
 
-        pop.appearance = NSAppearance(named: .accessibilityHighContrastVibrantLight)
         pop.show(relativeTo: textViewSender.bounds,
                  of: textViewSender,
                  preferredEdge: NSRectEdge.minY)
@@ -855,7 +854,6 @@ extension ViewController {
 
         // Set contents of popover
         avc.set(advice)
-
 
     }
 }

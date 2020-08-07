@@ -1048,7 +1048,7 @@ extension Proof: BKAdvising {
             return nil
         }
 
-        var advice = [Advice]()
+        var myAdvice = [Advice]()
         for a in advice {
 
             guard a.type == .lineSuccess || a.type == .proofSuccess else {
@@ -1063,11 +1063,11 @@ extension Proof: BKAdvising {
                 continue
             }
 
-            advice.append(a)
+            myAdvice.append(a)
 
         }
 
-        return advice
+        return myAdvice
 
     }
 
