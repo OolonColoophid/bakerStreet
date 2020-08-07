@@ -19,7 +19,9 @@
 		5B4114C224AB1997007843D4 /* AdviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4114C124AB1997007843D4 /* AdviceViewController.swift */; };
 		5B473D9624AE34AC0059AB25 /* InferenceInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473D9524AE34AC0059AB25 /* InferenceInspector.swift */; };
 		5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B8573EB247D14DB00E1C613 /* Assets.xcassets */; };
+		5B6DD31B24DD35EA00317745 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DD31924DD35EA00317745 /* ImageViewController.swift */; };
 		5B79FD6C24D1F26300218CB1 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79FD6B24D1F26300218CB1 /* PreviewViewController.swift */; };
+		5B8263F924DD685100EE17B3 /* Natural Deduction formulas.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B8263F824DD685100EE17B3 /* Natural Deduction formulas.png */; };
 		5B8573E6247D14DB00E1C613 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8573E5247D14DB00E1C613 /* AppDelegate.swift */; };
 		5B8573E8247D14DB00E1C613 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8573E7247D14DB00E1C613 /* ViewController.swift */; };
 		5B8573EA247D14DB00E1C613 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8573E9247D14DB00E1C613 /* Document.swift */; };
@@ -75,7 +77,9 @@
 		5B3571B024AB3C590055AB55 /* ProtocolsAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolsAppearance.swift; sourceTree = "<group>"; };
 		5B4114C124AB1997007843D4 /* AdviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewController.swift; sourceTree = "<group>"; };
 		5B473D9524AE34AC0059AB25 /* InferenceInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceInspector.swift; sourceTree = "<group>"; };
+		5B6DD31924DD35EA00317745 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageViewController.swift; path = ../ImageViewController.swift; sourceTree = "<group>"; };
 		5B79FD6B24D1F26300218CB1 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		5B8263F824DD685100EE17B3 /* Natural Deduction formulas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Natural Deduction formulas.png"; sourceTree = "<group>"; };
 		5B84803B24A1EEDA006726E3 /* Baker StreetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Baker StreetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B84803F24A1EEDA006726E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B8573E2247D14DB00E1C613 /* Baker Street.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Baker Street.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +145,7 @@
 				5B8573E7247D14DB00E1C613 /* ViewController.swift */,
 				5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */,
 				5B79FD6B24D1F26300218CB1 /* PreviewViewController.swift */,
+				5B6DD31924DD35EA00317745 /* ImageViewController.swift */,
 				5BAB832524A097AB0057D09D /* ProofController.swift */,
 				5B4114C124AB1997007843D4 /* AdviceViewController.swift */,
 			);
@@ -154,6 +159,14 @@
 				5B473D9524AE34AC0059AB25 /* InferenceInspector.swift */,
 			);
 			name = Inference;
+			sourceTree = "<group>";
+		};
+		5B6DD31F24DD38E300317745 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5B8263F824DD685100EE17B3 /* Natural Deduction formulas.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		5B84803C24A1EEDA006726E3 /* Baker StreetTests */ = {
@@ -205,6 +218,7 @@
 				5B8573EB247D14DB00E1C613 /* Assets.xcassets */,
 				5B8573ED247D14DB00E1C613 /* Main.storyboard */,
 				5B8573F0247D14DB00E1C613 /* Info.plist */,
+				5B6DD31F24DD38E300317745 /* Images */,
 				5B8573F1247D14DB00E1C613 /* BakerStreet.entitlements */,
 			);
 			path = BakerStreet;
@@ -391,6 +405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B8263F924DD685100EE17B3 /* Natural Deduction formulas.png in Resources */,
 				5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */,
 				5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */,
 				5BA6600624BDEC2100B8DEC2 /* proofTemplate.html in Resources */,
@@ -425,6 +440,7 @@
 				5B8929D3249E731200897470 /* Advice.swift in Sources */,
 				5B8929E2249E750200897470 /* Justified.swift in Sources */,
 				5B8929D5249E73BC00897470 /* LineType.swift in Sources */,
+				5B6DD31B24DD35EA00317745 /* ImageViewController.swift in Sources */,
 				5B9205DB24816C4300CF6D45 /* Preferences.swift in Sources */,
 				5B8573E8247D14DB00E1C613 /* ViewController.swift in Sources */,
 				5B8573E6247D14DB00E1C613 /* AppDelegate.swift in Sources */,

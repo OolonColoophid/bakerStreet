@@ -499,16 +499,22 @@ DQ
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Info Panels" id="Cqh-44-kpa" userLabel="Info Panels">
                                                 <items>
-                                                    <menuItem title="Show/Hide Rules" keyEquivalent="r" id="wUT-qR-Sbp" userLabel="Rules">
+                                                    <menuItem title="Show/Hide Rules Overview" keyEquivalent="r" id="6bu-mv-JGR" userLabel="Rules Overview">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
-                                                            <action selector="menuRules:" target="Ady-hI-5gd" id="ZEx-wp-kBu"/>
+                                                            <action selector="menuRulesOverview:" target="Ady-hI-5gd" id="Ka8-Fs-vy2"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Show/Hide Markdown" keyEquivalent="m" id="zDd-KH-aMQ" userLabel="Markdown">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuMarkdown:" target="Ady-hI-5gd" id="wL2-lR-AEx"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Show/Hide Rules in Full" keyEquivalent="f" id="wUT-qR-Sbp" userLabel="Rules in Full">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="menuRulesFull:" target="Ady-hI-5gd" id="ZEx-wp-kBu"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Show/Hide Definitions" keyEquivalent="d" id="TGb-3h-41e" userLabel="Definitions">
@@ -591,10 +597,10 @@ DQ
                                         <action selector="toolbarJustificationCompletion:" target="6f7-a7-6o1" id="gDc-bR-T4f"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Look up Definitions" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
+                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
-                                        <rect key="frame" x="13" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="19" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -619,10 +625,10 @@ DQ
                                         <action selector="toolbarMarkdown:" target="6f7-a7-6o1" id="zuj-BB-Pta"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules" paletteLabel="Look up Inference Rules" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules">
+                                <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
-                                        <rect key="frame" x="25" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="16" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -630,7 +636,21 @@ DQ
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="toolbarRules:" target="6f7-a7-6o1" id="Kj3-hz-OGX"/>
+                                        <action selector="toolbarRulesFull:" target="6f7-a7-6o1" id="Kj3-hz-OGX"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
+                                        <rect key="frame" x="31" y="14" width="83" height="24"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="menuRulesOverview:" target="6f7-a7-6o1" id="0SS-Ga-cIe"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
@@ -688,9 +708,10 @@ DQ
                                 <toolbarItem reference="db6-UV-KM0"/>
                                 <toolbarItem reference="kWz-tT-EN5"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
-                                <toolbarItem reference="D6m-yK-9ak"/>
-                                <toolbarItem reference="rc9-FH-PVy"/>
+                                <toolbarItem reference="cPl-hx-aHx"/>
                                 <toolbarItem reference="jDd-mw-gKS"/>
+                                <toolbarItem reference="rc9-FH-PVy"/>
+                                <toolbarItem reference="D6m-yK-9ak"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="ESJ-cm-P4V"/>
                                 <toolbarItem reference="kKA-Av-hRm"/>
@@ -1001,6 +1022,34 @@ DQ
             </objects>
             <point key="canvasLocation" x="1730.5" y="374"/>
         </scene>
+        <!--Image View Controller-->
+        <scene sceneID="KGq-ZN-bFn">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewController" id="r4o-bU-O21" customClass="ImageViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Wf-Q6a">
+                        <rect key="frame" x="0.0" y="0.0" width="669" height="448"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-zh-pIf">
+                                <rect key="frame" x="0.0" y="0.0" width="669" height="448"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Natural Deduction formulas" id="4dv-96-Be4"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="u9C-zh-pIf" secondAttribute="bottom" id="5E0-UU-qFV"/>
+                            <constraint firstItem="u9C-zh-pIf" firstAttribute="top" secondItem="eLh-Wf-Q6a" secondAttribute="top" id="7gs-lS-5Ud"/>
+                            <constraint firstAttribute="trailing" secondItem="u9C-zh-pIf" secondAttribute="trailing" id="KQN-2T-vMa"/>
+                            <constraint firstItem="u9C-zh-pIf" firstAttribute="leading" secondItem="eLh-Wf-Q6a" secondAttribute="leading" id="tZM-oV-fze"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="image" destination="u9C-zh-pIf" id="Kwd-Ui-Y41"/>
+                        <outlet property="imageCell" destination="4dv-96-Be4" id="qpd-0C-4LE"/>
+                    </connections>
+                </viewController>
+                <customObject id="ZIi-b0-7NP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2378.5" y="246"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
@@ -1175,6 +1224,7 @@ DQ
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="NSTouchBarGetInfoTemplate" width="18" height="30"/>
+        <image name="Natural Deduction formulas" width="170.06399536132812" height="113.61599731445312"/>
         <namedColor name="auburnBackground">
             <color red="0.62000000476837158" green="0.16500000655651093" blue="0.16899999976158142" alpha="0.076999999582767487" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1182,7 +1232,7 @@ DQ
             <color red="0.20000000298023224" green="0.36100000143051147" blue="0.40400001406669617" alpha="0.087999999523162842" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="rosewood">
-            <color red="0.32941176470588235" green="0.043137254901960784" blue="0.054901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.32549019607843138" green="0.039215686274509803" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

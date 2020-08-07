@@ -368,7 +368,7 @@ public struct InferenceController: BKAdvising {
 
         guard lhs.count == 1 else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem at line \(antecedents[0].noun) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -380,7 +380,7 @@ public struct InferenceController: BKAdvising {
 
         guard checkTreesEquivalent(lhs[0].tree, negatedCurrentTree) else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem at line \(antecedents[0].noun), \(lhs[0].tokenStringHTMLPrettified), is a negated form of the current line (\(myLine.formula.tokenStringHTMLPrettified)."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLPrettified), is a negated form of the current line (\(myLine.formula.tokenStringHTMLPrettified)."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -412,7 +412,7 @@ public struct InferenceController: BKAdvising {
 
         guard lhs.count == 1 else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem at line \(antecedents[0].noun) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -424,7 +424,7 @@ public struct InferenceController: BKAdvising {
 
         guard checkTreesAreDifferent(lhs[0].tree, rhs.tree) == true else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand and right-hand sides of the theorem at line \(antecedents[0].noun) must be different. Currently, they are the same."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand and right-hand sides of the theorem (line \(antecedents[0].noun)) must be different. Currently, they are the same."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -457,7 +457,7 @@ public struct InferenceController: BKAdvising {
         // Antecedent LHS must match current line first child
         guard lhs[0].tree == ii.getMyTree().getFirstChild() else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem at line \(antecedents[0].noun), \(lhs[0].tokenStringHTMLPrettified), matches the current line."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLPrettified), matches the current line."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -470,7 +470,7 @@ public struct InferenceController: BKAdvising {
 
         guard rhs.tree == currentLineSC else {
 
-            checkFunctionMessage = "Your \(jD) requires that the right-hand side of the theorem at line \(antecedents[0].noun), \(rhs.tokenStringHTMLPrettified), matches the current line's second child element (i.e. that part to the right of the top level operator, or \(currentLineSC.description))."
+            checkFunctionMessage = "Your \(jD) requires that the right-hand side of the theorem (line \(antecedents[0].noun)), \(rhs.tokenStringHTMLPrettified), matches the current line's second child element (i.e. that part to the right of the top level operator, or \(currentLineSC.description))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -567,7 +567,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[0]) ==
             ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[1]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent at line \(antecedents[0].noun) is the second child of the second antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent (line \(antecedents[0].noun)) is the second child of the second antecedent (line \(antecedents[1].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -580,7 +580,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[0]) ==
             ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[1]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent at line \(antecedents[0].noun) is the first child of the second antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent (line \(antecedents[0].noun)) is the first child of the second antecedent (line \(antecedents[1].noun))."
 
 
                 advise(AdviceInstance.inferenceFailure,
@@ -594,7 +594,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getMyFirstChild() ==
             ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[0]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the first child of the current line is the first child of the first antecedent at line \(antecedents[0].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the first child of the current line is the first child of the first antecedent (line \(antecedents[0].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -606,7 +606,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getMySecondChild() ==
             ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[0]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the second child of the current line is the second child of the first antecedent at line \(antecedents[0].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the second child of the current line is the second child of the first antecedent (\(antecedents[0].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -730,7 +730,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[0]) ==
             ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[1]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent at line \(antecedents[0].noun) is the second child of the second antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent (line \(antecedents[0].noun)) is the second child of the second antecedent (line \(antecedents[1].noun))."
 
 
                 advise(AdviceInstance.inferenceFailure,
@@ -742,7 +742,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[0]) ==
             ii.getAntecedentFirstChild(forAntecedentLineNum: antecedents[2]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent at line \(antecedents[0].noun) is the first child of the third antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent (line \(antecedents[0].noun)) is the first child of the third antecedent (line \(antecedents[1].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -753,7 +753,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[1]) ==
             ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[2]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the second child of the second antecedent at line \(antecedents[0].noun) is the second child of the third antecedent at line \(antecedents[2].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the second child of the second antecedent (line \(antecedents[0].noun)) is the second child of the third antecedent (line \(antecedents[2].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -764,7 +764,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getMyTree() ==
             ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[1]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the current line is the second child of the second antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the current line is the second child of the second antecedent (line \(antecedents[1].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -776,7 +776,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getMyTree() ==
             ii.getAntecedentSecondChild(forAntecedentLineNum: antecedents[2]) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the current line is the second child of the third antecedent at line \(antecedents[2].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the current line is the second child of the third antecedent (line \(antecedents[2].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -828,7 +828,7 @@ public struct InferenceController: BKAdvising {
 
         guard lhs.count == 1 else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem at line \(antecedents[0].noun) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)) contain one formula. At the moment, this line contains \(antecedents[0].adjective) element\(antecedents[0].s)."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -839,7 +839,7 @@ public struct InferenceController: BKAdvising {
 
         guard checkTreesEquivalent(negatedLhs, ii.getMyTree()) == true else {
 
-            checkFunctionMessage = "Your \(jD) requires that the negated left-hand side formula of the theorem line \(antecedents[0].noun) is a negated form of the current line."
+            checkFunctionMessage = "Your \(jD) requires that the negated left-hand side formula of the theorem (line \(antecedents[0].noun)) is a negated form of the current line."
 
             return false
         }
@@ -880,7 +880,7 @@ public struct InferenceController: BKAdvising {
                 forAntecedentLineNum: antecedents[1]
             ) else {
 
-                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent at line \(antecedents[0].noun) is the second antecedent at line \(antecedents[1].noun)."
+                checkFunctionMessage = "Your \(jD) requires that the first child of the first antecedent (line \(antecedents[0].noun)) is the second antecedent (line \(antecedents[1].noun))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -894,7 +894,7 @@ public struct InferenceController: BKAdvising {
         guard ii.getMyTree() == ii.getAntecedentSecondChild(
             forAntecedentLineNum: antecedents[0]) else {
 
-              checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent at line \(antecedents[0].noun) is the current line."
+              checkFunctionMessage = "Your \(jD) requires that the second child of the first antecedent (line \(antecedents[0].noun)) is the current line."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage)
@@ -930,7 +930,7 @@ public struct InferenceController: BKAdvising {
             )
             else {
 
-                checkFunctionMessage = "Your \(jD) requires that a child of the antecedent at line \(antecedents[0].noun) is the first child of the current line."
+                checkFunctionMessage = "Your \(jD) requires that a child of the antecedent (line \(antecedents[0].noun)) is the first child of the current line."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -951,7 +951,7 @@ public struct InferenceController: BKAdvising {
             )
             else {
 
-                checkFunctionMessage = "Your \(jD) requires that a child of the antecedent at line \(antecedents[0].noun) is the second child of the current line."
+                checkFunctionMessage = "Your \(jD) requires that a child of the antecedent (line \(antecedents[0].noun)) is the second child of the current line."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -1072,7 +1072,7 @@ public struct InferenceController: BKAdvising {
         if areDifferent == false {
 
             checkFunctionMessage = """
-                Your \(jD) requires that the antecedents at lines \(antecedents[0].noun) and \(antecedents[1].noun) be different. However, they are both \(a1tree.getToken().description).
+                Your \(jD) requires that the antecedents (lines \(antecedents[0].noun) and \(antecedents[1].noun)) be different. However, they are both \(a1tree.getToken().description).
                 """
         }
 
@@ -1399,7 +1399,7 @@ public struct InferenceController: BKAdvising {
             let myTLO = ii.getMyTree().getToken().operatorToken
 
             checkFunctionMessage = """
-            Your \(jD) requires that the top level operator (i.e. logical connective) for this line is \(op.description) (i.e. \(op.htmlEntity)). However, the top level operator is \(myTLO?.description ?? "unknown").
+            Your \(jD) requires that the top level operator (i.e. logical connective) for the current line is \(op.description) (i.e. \(op.htmlEntity)). However, the top level operator is \(myTLO?.description ?? "a variable").
             """
 
             return false
@@ -1424,7 +1424,7 @@ public struct InferenceController: BKAdvising {
             let antTLO = ii.getAntecedentAsTree(forAntecedentLineNum: antecedent).getToken().operatorToken
 
             checkFunctionMessage = """
-                Your \(jD) requires that the top level operator (i.e. logical connective) for line \(antecedent.noun) is \(op.description) (i.e. \(op.htmlEntity)). However, the top level operator is \(antTLO?.description ?? "unknown").
+                Your \(jD) requires that the top level operator (i.e. logical connective) for one of your antecedents is \(op.description) (i.e. \(op.htmlEntity)).
             """
 
             return false
@@ -1444,7 +1444,7 @@ public struct InferenceController: BKAdvising {
 
         } else {
 
-            checkFunctionMessage = "Your \(jD) requires that the antecedent at line \(antecedent.noun) has the current line as a child formula (i.e. is left or right of the top level operator in the antecedent)."
+            checkFunctionMessage = "Your \(jD) requires that the antecedent (line \(antecedent.noun)) has the current line as a child formula (i.e. is left or right of the top level operator in the antecedent)."
 
             return false
 
@@ -1471,7 +1471,6 @@ public struct InferenceController: BKAdvising {
             checkFunctionMessage = """
                         Your \(jD) requires that line \(antecedents[antecedent].noun) is a child element of line \(myLineNumberAsInt.noun). That is, \(antecdentLine.formula.tokenStringHTMLPrettified) must be to the left or right of the top level operator \(myTLO) (i.e. logical connective) in \(myLine.formula.tokenStringHTMLPrettified)
                     """
-
 
             return false
 

@@ -91,7 +91,8 @@ class ViewController: NSViewController {
     // Panels for documentation
     private let markdownPanel = NSPanel()
     private let definitionsPanel = NSPanel()
-    private let rulesPanel = NSPanel()
+    private let rulesFullPanel = NSPanel()
+    private let rulesOverviewPanel = NSPanel()
 
     // Panel for preview
     private let previewPanel = NSPanel()
@@ -143,10 +144,13 @@ class ViewController: NSViewController {
         // View controllers documentation panels
         markdownPanel.contentViewController =
             DocumentViewController.freshController()
-        rulesPanel.contentViewController =
+        rulesFullPanel.contentViewController =
             DocumentViewController.freshController()
         definitionsPanel.contentViewController =
             DocumentViewController.freshController()
+        // An image panel
+        rulesOverviewPanel.contentViewController =
+            ImageViewController.freshController()
         // And the preview panel
         previewPanel.contentViewController =
             PreviewViewController.freshController()
@@ -180,7 +184,8 @@ class ViewController: NSViewController {
     // Tidy any open windows when the view closes
     override func viewWillDisappear() {
         markdownPanel.close()
-        rulesPanel.close()
+        rulesFullPanel.close()
+        rulesOverviewPanel.close()
         definitionsPanel.close()
         previewPanel.close()
     }
@@ -488,8 +493,13 @@ extension ViewController {
     @IBAction func menuDefinitions(_ sender: Any) {
         toggleDefinitions()
     }
-    @IBAction func menuRules(_ sender: Any) {
-        toggleRules()
+
+    @IBAction func menuRulesFull(_ sender: Any) {
+        toggleRulesFull()
+    }
+
+    @IBAction func menuRulesOverview(_ sender: Any) {
+        toggleRulesOverview()
     }
 
     @IBAction func menuMarkdown(_ sender: Any) {
@@ -499,8 +509,13 @@ extension ViewController {
     @IBAction func toolbarDefinitions(_ sender: Any) {
         toggleDefinitions()
     }
-    @IBAction func toolbarRules(_ sender: Any) {
-        toggleRules()
+
+    @IBAction func toolbarRulesFull(_ sender: Any) {
+        toggleRulesFull()
+    }
+
+    @IBAction func toolbarRulesOverview(_ sender: Any) {
+        toggleRulesOverview()
     }
 
     @IBAction func toolbarMarkdown(_ sender: Any) {
@@ -513,11 +528,15 @@ extension ViewController {
         let selectedSegment = toolbarItem.selectedSegment
 
         if selectedSegment == 0 {
+
             BKzoomIn([lineTextView, mainTextView, adviceTextView])
             refreshLines()
+
         } else {
+
             BKzoomOut([lineTextView, mainTextView, adviceTextView])
             refreshLines()
+
         }
 
     }
@@ -612,7 +631,7 @@ extension ViewController {
 
         let size = NSSize(width: 750, height: 640)
 
-        setPanelAttributes(forPanel: mPanel,
+        setDocumentPanelAttributes(forPanel: mPanel,
                            withTitle: windowTitle,
                            withSize: size,
                            withDocText: text.htmlToNSMAS())
@@ -640,15 +659,15 @@ extension ViewController {
         let size = NSSize(width: 550, height: 640)
 
 
-        setPanelAttributes(forPanel: dPanel,
+        setDocumentPanelAttributes(forPanel: dPanel,
                            withTitle: windowTitle,
                            withSize: size,
                            withDocText: text.htmlToNSMAS())
     }
 
-    func toggleRules() {
+    func toggleRulesFull() {
 
-        let rPanel = rulesPanel
+        let rPanel = rulesFullPanel
 
         // Only set up the panel if isn't visible; otherwise
         // make it the key window and return
@@ -667,14 +686,16 @@ extension ViewController {
         let size = NSSize(width: 400, height: 640)
 
 
-        setPanelAttributes(forPanel: rPanel,
+        setDocumentPanelAttributes(forPanel: rPanel,
                            withTitle: windowTitle,
                            withSize: size,
                            withDocText: text.htmlToNSMAS())
 
     }
 
-    func setPanelAttributes(forPanel panel: NSPanel,
+
+
+    func setDocumentPanelAttributes(forPanel panel: NSPanel,
                             withTitle title: String,
                             withSize size: NSSize,
                             withDocText text: NSMutableAttributedString) {
@@ -684,7 +705,6 @@ extension ViewController {
         panel.setContentSize(size)
 
         panel.title = title
-
 
         panel.isFloatingPanel = true
 
@@ -701,6 +721,48 @@ extension ViewController {
 
 
     }
+}
+
+// MARK: Rules Overview (Image Panel)
+extension ViewController {
+
+    func toggleRulesOverview() {
+
+        let rPanel = rulesOverviewPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard rPanel.isVisible == false else {
+
+            rPanel.close()
+            return
+
+        }
+
+        let windowTitle = "Baker Street Rules Overview"
+
+        setImagePanelAttributes(forPanel: rPanel,
+                                withTitle: windowTitle)
+
+    }
+
+    func setImagePanelAttributes(forPanel panel: NSPanel,
+                                    withTitle title: String) {
+
+        panel.title = title
+
+        panel.isFloatingPanel = true
+
+        // By default, panels are not resizable
+        panel.styleMask.insert(.resizable)
+        panel.styleMask.remove(.closable)
+
+        // Make visible
+        panel.makeKeyAndOrderFront(self)
+
+
+    }
+
 }
 
 // MARK: Preview
