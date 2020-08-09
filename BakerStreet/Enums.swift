@@ -119,20 +119,21 @@ public enum TokenType: CustomStringConvertible {
     /// Returns the string of the operator type.
     public var description: String {
         switch self {
-        case .openBracket:
-            return "("
-        case .closeBracket:
-            return ")"
-        case .Operator(let operatorToken):
-            return operatorToken.description
-        case .operand(let value):
-            return "\(value)"
-        case .poorlyFormed:
-            return "PF"
-        case .empty:
-            return ""
+            case .openBracket:
+                return "("
+            case .closeBracket:
+                return ")"
+            case .Operator(let operatorToken):
+                return operatorToken.description
+            case .operand(let value):
+                return "\(value)"
+            case .poorlyFormed:
+                return "PF"
+            case .empty:
+                return ""
         }
     }
+
 }
 
 public enum CompletionMode: String {

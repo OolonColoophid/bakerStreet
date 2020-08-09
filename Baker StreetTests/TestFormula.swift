@@ -72,4 +72,11 @@ class TestFormula: XCTestCase {
         XCTAssertEqual(f.infixText, "p <-> p")
     }
 
+    func test_formula_shouldHaveTruthTable() {
+        let formula = "p and q and r"
+        let f = Formula(formula)
+        print("TruthTable is: >\(f.truthTable)<")
+        XCTAssertEqual(f.truthTable, "true, false, false, and false")
+    }
+
 }

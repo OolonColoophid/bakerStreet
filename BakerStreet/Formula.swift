@@ -20,6 +20,9 @@ public struct Formula: Equatable {
     public let postfixText:               String // e.g. `p p AND`
     public let isWellFormed:              Bool   // e.g. `true`
     public let tree:                      Tree   // `Tree` representation
+    public var truthTable:                String // e.g. "t t f", empty if
+                                                 //   not well formed
+
     // e.g. 'An invalidStringLength error occured'
     public var error =       ""
     public var tokens =      [Token(tokenType: .empty)]
@@ -59,6 +62,11 @@ public struct Formula: Equatable {
             self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
             self.isWellFormed = rpn.getIsWellFormed() // e.g. `true`
             self.tree = rpn.getRpnTree()!             // Obtain tree
+            self.truthTable = "" // set truth table
+
+            if self.isWellFormed == true {
+                self.truthTable = rpn.truthTable
+            }
 
         } catch {
             self.error = "An \(error.localizedDescription) occured"
@@ -69,6 +77,7 @@ public struct Formula: Equatable {
             self.tokenStringHTMLPrettified = ""
             self.tokenStringHTMLPrettifiedUppercased = ""
             self.isWellFormed = false
+            self.truthTable = ""
             let emptyToken = Token(tokenType: .poorlyFormed)
             self.tree = Tree(emptyToken)
         }

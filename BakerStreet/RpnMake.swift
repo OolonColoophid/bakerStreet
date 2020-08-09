@@ -49,6 +49,35 @@ public struct RpnMake {
     private var rpnTokens = [Token]()
     private var rpnWellFormed: Bool
 
+    // This is the final column of a truth table
+    // generated from all permutations of the
+    // formula. For example, "p AND q" will give us:
+    //
+    //  p   q   AND
+    //  -----------
+    //  T   T   T
+    //  T   F   F
+    //  F   T   F
+    //  F   F   F
+    //
+    // Making truthTable = ["false","false","false"]
+    private var truthTableData = [Token]()
+
+    public var truthTable: String {
+        get {
+            guard truthTableData.count > 0 else {
+                return ""
+            }
+
+            // map to string array
+            let truthAsString = truthTableData.map { $0.description }
+
+            return truthAsString.commaList()
+
+        }
+        set { }
+    }
+
     public enum Error: Swift.Error {
         case invalidTokenArrayLength
         case invalidRpnTokensArrayLength
@@ -253,7 +282,20 @@ public struct RpnMake {
             //If tree not well formed, return tree with PF
             if self.rpnWellFormed == true {
 
-                self.rpnTree = myRpnEvaluator.getTopmostTree() }
+                self.rpnTree = myRpnEvaluator.getTopmostTree()
+
+                // Generate truth table
+                //
+                let myPermuter = SemanticPermuter(withTokens: rpnTokens)
+
+                print("Formula permutations are: \(myPermuter)")
+
+                // Now we have these, evaluate each and store their
+                // final token in an array (but before doing that,
+                // I'll need to change the evaluator so it's truly
+                // evaluating
+
+            }
 
             else {
 
@@ -264,6 +306,8 @@ public struct RpnMake {
 
         }
     }
+
+
 
     /// Returns `true` if the formula is well formed in its entirety
     public func getIsWellFormed() -> Bool {
@@ -305,6 +349,10 @@ public struct RpnMake {
 
                 if phraseIsWellFormed(operat: operat, operands: operands) == true {
                     // a variable representing a well formed use of a connective
+
+                    // For generating the truth table:
+                    // Return a true or false operand here
+
                     return Token(operand: "WF")
                 } else {
                     return Token(tokenType: .poorlyFormed)
