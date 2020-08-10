@@ -10,7 +10,28 @@ import Foundation
 
 struct SemanticPermuter {
 
-    var permutations = [[Token]]()
+    private var permutations = [[Token]]()
+
+    public var permutationAsStrings: [String] {
+
+        var allPermutations = [String]()
+
+        for p in permutations { // for permutation
+
+            var thisPermutation = ""
+
+            for t in p { // for token in permutation
+
+                thisPermutation = thisPermutation + t.description + " "
+
+            }
+
+            allPermutations.append(thisPermutation)
+
+        }
+
+        return allPermutations
+    }
 
     // Get semantic permutations of a formula (as a array of tokens)
     // that can be used to create a truth table
@@ -70,6 +91,25 @@ struct SemanticPermuter {
         allPermutations.append(contentsOf: bot)
 
         self.permutations = allPermutations
+
+    }
+
+    init (withTokens tokens: [Token], singlePermutation: Bool) {
+
+        // Special case:
+        // Create a single semantic permutation for testing whether
+        // the formula is well formed
+
+        // Iterate over our variables
+        let variables = tokens.filter { $0.isOperand == true }
+        var mySinglePermutation = [tokens]
+        for v in variables {
+            findAndReplaceVarWithSemantics(forVar: v,
+                                           permutations: &mySinglePermutation,
+                                           isFirstTrue: true)
+        }
+
+        permutations = mySinglePermutation
 
     }
 

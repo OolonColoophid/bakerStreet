@@ -50,8 +50,8 @@ public struct RpnMake {
     private var rpnWellFormed: Bool
 
     // This is the final column of a truth table
-    // generated from all permutations of the
-    // formula. For example, "p AND q" will give us:
+    // row from a given semantic permutation.
+    // For example, "p AND q" will give us:
     //
     //  p   q   AND
     //  -----------
@@ -59,24 +59,8 @@ public struct RpnMake {
     //  T   F   F
     //  F   T   F
     //  F   F   F
-    //
-    // Making truthTable = ["false","false","false"]
-    private var truthTableData = [Token]()
-
-    public var truthTable: String {
-        get {
-            guard truthTableData.count > 0 else {
-                return ""
-            }
-
-            // map to string array
-            let truthAsString = truthTableData.map { $0.description }
-
-            return truthAsString.commaList()
-
-        }
-        set { }
-    }
+    // See the Formula struct for more on how this is used
+    public var truthResult: String
 
     public enum Error: Swift.Error {
         case invalidTokenArrayLength
@@ -93,14 +77,16 @@ public struct RpnMake {
     public init (infixFormula: [Token]) throws {
         if infixFormula.count == 0 {
             throw RpnMake.Error.invalidTokenArrayLength } else {
-            self.infixTokens = infixFormula
-            self.rpnString = ""
-            self.rpnWellFormed = false
+            infixTokens = infixFormula
+            rpnString = ""
+            rpnWellFormed = false
+            truthResult = ""
 
             rpnToTokens()
 
-            self.rpnString = self.rpnTokens.map(
+            rpnString = rpnTokens.map(
                 {token in token.description}).joined(separator: " ")
+
         }
     }
 
@@ -279,25 +265,21 @@ public struct RpnMake {
 
             self.rpnWellFormed = myRpnEvaluator.isWellFormed()
 
-            //If tree not well formed, return tree with PF
             if self.rpnWellFormed == true {
 
                 self.rpnTree = myRpnEvaluator.getTopmostTree()
 
-                // Generate truth table
-                //
-                let myPermuter = SemanticPermuter(withTokens: rpnTokens)
+                // Note the result of any truth calculations
+                // (only for semantic evaluation)
+                if myRpnEvaluator.evaluationMode == .semantic {
 
-                print("Formula permutations are: \(myPermuter)")
+                    truthResult = rpnTokens[0].description
 
-                // Now we have these, evaluate each and store their
-                // final token in an array (but before doing that,
-                // I'll need to change the evaluator so it's truly
-                // evaluating
+                }
 
             }
 
-            else {
+            else { //If not well formed, return tree with PF
 
                 let poorlyFormedToken = Token(tokenType: .poorlyFormed)
                 let poorlyFormedTree = Tree(poorlyFormedToken)
@@ -317,6 +299,13 @@ public struct RpnMake {
     /// We evaluate our Reverse Polish Notation
     struct RpnEvaluater {
 
+        var evaluationMode: Mode = .syntactic
+
+        enum Mode {
+            case semantic  // parse "true AND true for form and meaning"
+            case syntactic // parse "p AND q for form only"
+        }
+
         var tokenStack = Stack<Token>()
         var reversePolishNotation = [Token]()
         var treeStack = Stack<Tree>()
@@ -325,7 +314,31 @@ public struct RpnMake {
         /// in RPN
         public init(_ formula: [Token]) {
             self.reversePolishNotation = formula
+
+            determineEvaluationMode(formula)
+
             evaluateFormula()
+        }
+
+        private mutating func determineEvaluationMode(_ formula: [Token]) {
+
+            // Are we evaluating for semantics or syntax?
+            // For semantics, we'll see "true AND true"
+            // For syntax, we'll see "p AND q"
+
+            // Get operands only
+            let operands = formula.filter { $0.isOperand == true }
+
+            // If one of them is a neither true nor false, we must
+            // have a variable, and are thus in syntactic mode
+            for o in operands {
+                if (o.description != "true") && (o.description != "false") {
+                    evaluationMode = .syntactic
+                }
+            }
+
+            evaluationMode = .semantic
+
         }
 
         private func getTopmostElement() -> Token? {
@@ -341,6 +354,9 @@ public struct RpnMake {
         private func evaluatePhrase(operat: OperatorToken, operands: [Token]) ->
             Token {
 
+                // Is 'poorly formed' anywhere in the tokens?
+                // If so, we have detected a poorly formed formula
+                // already; early abort
                 for operand in operands {
                     if operand.isPoorlyFormed == true {
                         return operand
@@ -348,15 +364,66 @@ public struct RpnMake {
                 }
 
                 if phraseIsWellFormed(operat: operat, operands: operands) == true {
-                    // a variable representing a well formed use of a connective
 
-                    // For generating the truth table:
-                    // Return a true or false operand here
+                    if evaluationMode == .syntactic {
+                        return Token(operand: "WF")
+                    } else {
+                    return Token(operand:
+                        evalForSemantics(operat: operat,
+                             operands: operands)
+                            .description)
+                    }
 
-                    return Token(operand: "WF")
                 } else {
                     return Token(tokenType: .poorlyFormed)
                 }
+        }
+
+        private func evalForSemantics(operat: OperatorToken, operands: [Token]) -> Bool {
+
+            // Convert all the tokens true/false strings
+            // to Bools
+            let operandsBool = operands.map { op in
+
+                op.description == "true"
+
+            }
+
+            let op1 = operandsBool[0]
+
+            switch operat.operatorType {
+                case .lAnd:
+                    let op2 = operandsBool[1]
+                    return (op1 && op2)
+
+                case .lIf:
+                    let op2 = operandsBool[1]
+
+                    if op1 == true && op2 == true { return true }
+                    if op1 == true && op2 == false { return false }
+                    if op1 == false && op2 == true { return true }
+                    if op1 == false && op2 == false { return true }
+
+                case .lIff:
+                    let op2 = operandsBool[1]
+
+                    if op1 == true && op2 == true { return true }
+                    if op1 == true && op2 == false { return false }
+                    if op1 == false && op2 == true { return false }
+                    if op1 == false && op2 == false { return true }
+
+                case .lNot:
+                    return !(op1)
+
+                case .lOr:
+                    let op2 = operandsBool[1]
+
+                    return (op1 || op2)
+            }
+
+            // This line will never be executed
+            return true
+
         }
 
         /// Checks well-formedness; cf. `evaluatePhrase()`

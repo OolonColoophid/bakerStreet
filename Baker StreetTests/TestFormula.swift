@@ -73,10 +73,17 @@ class TestFormula: XCTestCase {
     }
 
     func test_formula_shouldHaveTruthTable() {
-        let formula = "p and q and r"
-        let f = Formula(formula)
-        print("TruthTable is: >\(f.truthTable)<")
+        let formula = "p and q"
+        let f = Formula(formula, withTruthTable: true)
+        f.debug()
+
         XCTAssertEqual(f.truthTable, "true, false, false, and false")
     }
+
+// That  formula with withTruthTable = false doesn't produce truth table
+
+    // That formula with withTruthTable = true does produce truth table
+
+    // One or two particular truth tables
 
 }

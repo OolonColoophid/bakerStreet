@@ -108,7 +108,12 @@ public enum OperatorType: CustomStringConvertible, CaseIterable {
  This is useful when we want to initialise a Token type without filling it
  with something meaningful.
  */
-public enum TokenType: CustomStringConvertible {
+public enum TokenType: CustomStringConvertible, Hashable {
+
+    public static func == (lhs: TokenType, rhs: TokenType) -> Bool {
+        lhs.description == rhs.description
+    }
+
     case openBracket
     case closeBracket
     case Operator(OperatorToken)

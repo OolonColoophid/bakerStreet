@@ -18,10 +18,11 @@ public struct Formula: Equatable {
     public var tokenStringHTMLPrettified: String // e.g. `<em>p</em> ∧ <em>q</em>`
     public var tokenStringHTMLPrettifiedUppercased: String
     public let postfixText:               String // e.g. `p p AND`
-    public let isWellFormed:              Bool   // e.g. `true`
+    public var isWellFormed:              Bool   // e.g. `true`
     public let tree:                      Tree   // `Tree` representation
-    public var truthTable:                String // e.g. "t t f", empty if
+    public var truthResult:               String // e.g. "true", empty if
                                                  //   not well formed
+    public var truthTable:                String // e.g. "true, false, true"
 
     // e.g. 'An invalidStringLength error occured'
     public var error =       ""
@@ -36,14 +37,15 @@ public struct Formula: Equatable {
     ///   - `invalidTokenArrayLength` from `reversePolish()`
     ///   - `invalidRpnTokensArrayLength` from
     ///   `reversePolish.rpnEvaluate()`
-    public init (_ infixText: String) {
+    public init (_ infixText: String,
+                 withTruthTable: Bool = false) {
 
         do {
             var l = try Lexer(text: infixText) // Initialise
             let t = l.getTokenised()           // Get array of Token
 
-            // Convert to RPN
             var rpn = try RpnMake(infixFormula: t)
+
             try rpn.rpnEvaluate() // Evaluate RPN
 
             self.infixText = l.getTokenString()       // e.g. `p AND p`
@@ -57,15 +59,30 @@ public struct Formula: Equatable {
             self.tokenStringHTMLPrettifiedUppercased =
                 l.tokenStringHTMLPrettifiedUppercased
 
-
             self.tokens = t                           // tokenised
-            self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
             self.isWellFormed = rpn.getIsWellFormed() // e.g. `true`
+            self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
             self.tree = rpn.getRpnTree()!             // Obtain tree
-            self.truthTable = "" // set truth table
 
-            if self.isWellFormed == true {
-                self.truthTable = rpn.truthTable
+            // Now, perhaps, we can compute the truth table if needed
+            // using our semanticPermuter and the same RpnMake, which
+            // will detect when it's been given a semantics version
+            self.truthResult = rpn.truthResult
+            self.truthTable = ""
+
+            if withTruthTable == true {
+
+                let myPermuter = SemanticPermuter(withTokens: t)
+                let myPermutationsAsStrings = myPermuter.permutationAsStrings
+
+                print(myPermutationsAsStrings)
+                for p in myPermutationsAsStrings {
+
+                    let myTruthResult = Formula(p).truthResult
+                    truthTable = truthTable + myTruthResult + " "
+
+                }
+
             }
 
         } catch {
@@ -77,6 +94,7 @@ public struct Formula: Equatable {
             self.tokenStringHTMLPrettified = ""
             self.tokenStringHTMLPrettifiedUppercased = ""
             self.isWellFormed = false
+            self.truthResult = ""
             self.truthTable = ""
             let emptyToken = Token(tokenType: .poorlyFormed)
             self.tree = Tree(emptyToken)
@@ -91,6 +109,8 @@ public struct Formula: Equatable {
         print("Infix string:   >\(self.infixText)<")
         print("Postfix string: >\(self.postfixText)<")
         print("Well formed?    >\(self.isWellFormed)<")
+        print("Truth result    >\(self.truthResult)<")
+        print("Truth table:    >\(self.truthTable)<")
         print("Graph of: \(self.infixText)\n\(self.tree.getTreeGraph())")
     }
 }

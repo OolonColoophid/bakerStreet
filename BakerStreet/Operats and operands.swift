@@ -17,7 +17,7 @@ import Foundation
  - ∧ has higher precedence than ∨;
  - and ∨ has higher precedence than ⇒ and ⇔.
  */
-public struct OperatorToken: CustomStringConvertible {
+public struct OperatorToken: CustomStringConvertible, Hashable {
     let operatorType: OperatorType
 
     public init(operatorType: OperatorType) {
@@ -127,7 +127,12 @@ public func < (left: OperatorToken, right: OperatorToken) -> Bool {
 }
 
 /// The Token type, e.g. operand
-public struct Token: CustomStringConvertible {
+public struct Token: CustomStringConvertible, Hashable {
+
+    public static func == (lhs: Token, rhs: Token) -> Bool {
+        return lhs.description == rhs.description
+    }
+
     let tokenType: TokenType
 
     /// Returns the specified `TokenType`
