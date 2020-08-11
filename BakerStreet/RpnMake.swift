@@ -273,7 +273,7 @@ public struct RpnMake {
                 // (only for semantic evaluation)
                 if myRpnEvaluator.evaluationMode == .semantic {
 
-                    truthResult = rpnTokens[0].description
+                    truthResult = myRpnEvaluator.result()!.description
 
                 }
 
@@ -389,34 +389,43 @@ public struct RpnMake {
 
             }
 
-            let op1 = operandsBool[0]
+            // Note that the oeprand order appears to be reversed below
+            // but this is a correction
+            // (i.e. our operandsBool[0] is serially the second operator
+            // our ooperandsBool[1] is serially the first operator)
 
             switch operat.operatorType {
                 case .lAnd:
-                    let op2 = operandsBool[1]
+                    let op1 = operandsBool[1]
+                    let op2 = operandsBool[0]
                     return (op1 && op2)
 
                 case .lIf:
-                    let op2 = operandsBool[1]
 
-                    if op1 == true && op2 == true { return true }
-                    if op1 == true && op2 == false { return false }
-                    if op1 == false && op2 == true { return true }
-                    if op1 == false && op2 == false { return true }
+                    let op1 = operandsBool[1]
+                    let op2 = operandsBool[0]
+
+                    if (op1 == true) && (op2 == true) { return true }
+                    if (op1 == true) && (op2 == false) { return false }
+                    if (op1 == false) && (op2 == true) { return true }
+                    if (op1 == false) && (op2 == false) { return true }
 
                 case .lIff:
-                    let op2 = operandsBool[1]
 
-                    if op1 == true && op2 == true { return true }
-                    if op1 == true && op2 == false { return false }
-                    if op1 == false && op2 == true { return false }
-                    if op1 == false && op2 == false { return true }
+                    let op1 = operandsBool[1]
+                    let op2 = operandsBool[0]
+
+                    if (op1 == true) && (op2 == true) { return true }
+                    if (op1 == true) && (op2 == false) { return false }
+                    if (op1 == false) && (op2 == true) { return false }
+                    if (op1 == false) && (op2 == false) { return true }
 
                 case .lNot:
-                    return !(op1)
+                    return !(operandsBool[0])
 
                 case .lOr:
-                    let op2 = operandsBool[1]
+                    let op1 = operandsBool[1]
+                    let op2 = operandsBool[0]
 
                     return (op1 || op2)
             }
@@ -506,23 +515,36 @@ public struct RpnMake {
             return
         }
 
+        /// Returns the final token on the token stack (this should be
+        /// the result of evaluation, if the formula is well-formed)
+        public func result() -> Token? {
+
+            guard tokenStack.count == 1 else {
+                return nil
+            }
+
+            return tokenStack.top!
+
+        }
+
         /// Returns `true` if the formula successfully evaluated
         public func isWellFormed() -> Bool{
 
             // If the stack has two or more items after
             // we finish, there is no single root node, therefore
             // the structure is not well formed
-            if self.tokenStack.count > 1 {
+            if tokenStack.count > 1 {
                 return false
             }
 
             // We might be left with one stack token
             // that is poorly formed
-            if self.tokenStack.top?.isPoorlyFormed == false {
+            if tokenStack.top?.isPoorlyFormed == false {
 
                 return true
 
             } else {
+
                 return false
             }
 

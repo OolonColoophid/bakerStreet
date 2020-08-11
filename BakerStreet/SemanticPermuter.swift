@@ -45,7 +45,8 @@ struct SemanticPermuter {
     //  F   F   F (permutation n)
     //
 
-    init (withTokens tokens: [Token]) {
+    init (withTokens tokens: [Token],
+          forVariableCount overrideVariableCount: Int = -1) {
         // -> [[Token]] {
         // Algorithm:
         // 2. Create two sets of new permutations, representing
@@ -86,30 +87,23 @@ struct SemanticPermuter {
 
         }
 
+        // EXPERIMENTAL
+        let expansionFactor = overrideVariableCount - variables.count
+        if (expansionFactor > 0) && (overrideVariableCount != -1) {
+
+            var i = 0
+            while i < expansionFactor {
+                duplicateEachElement(permutations: &top)
+                duplicateEachElement(permutations: &bot)
+                i = i + 1
+            }
+        }
+
         // Top and bottom are now complete. Let's combine them
         var allPermutations = top
         allPermutations.append(contentsOf: bot)
 
         self.permutations = allPermutations
-
-    }
-
-    init (withTokens tokens: [Token], singlePermutation: Bool) {
-
-        // Special case:
-        // Create a single semantic permutation for testing whether
-        // the formula is well formed
-
-        // Iterate over our variables
-        let variables = tokens.filter { $0.isOperand == true }
-        var mySinglePermutation = [tokens]
-        for v in variables {
-            findAndReplaceVarWithSemantics(forVar: v,
-                                           permutations: &mySinglePermutation,
-                                           isFirstTrue: true)
-        }
-
-        permutations = mySinglePermutation
 
     }
 

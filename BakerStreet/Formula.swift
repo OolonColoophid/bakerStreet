@@ -12,17 +12,17 @@ import Foundation
 /// Holds a formula, e.g. `p AND p`
 public struct Formula: Equatable {
 
-    public let identifier =               UUID() // i.e. 4 random bytes
-    public var infixText:                 String // e.g. `p AND p`
-    public var tokenStringHTML:           String // e.g. `<em>p</em>`
-    public var tokenStringHTMLPrettified: String // e.g. `<em>p</em> ∧ <em>q</em>`
+    public let identifier =               UUID()  // i.e. 4 random bytes
+    public var infixText:                 String  // e.g. `p AND p`
+    public var tokenStringHTML:           String  // e.g. `<em>p</em>`
+    public var tokenStringHTMLPrettified: String  // e.g. `<em>p</em>∧<em>q</em>`
     public var tokenStringHTMLPrettifiedUppercased: String
-    public let postfixText:               String // e.g. `p p AND`
-    public var isWellFormed:              Bool   // e.g. `true`
-    public let tree:                      Tree   // `Tree` representation
-    public var truthResult:               String // e.g. "true", empty if
-                                                 //   not well formed
-    public var truthTable:                String // e.g. "true, false, true"
+    public let postfixText:               String  // e.g. `p p AND`
+    public var isWellFormed:              Bool    // e.g. `true`
+    public let tree:                      Tree    // `Tree` representation
+    public var truthResult:               String  // e.g. "true", empty if
+                                                  //   not well formed
+    public var truthTable:                [String] // e.g. ["true", "false"]
 
     // e.g. 'An invalidStringLength error occured'
     public var error =       ""
@@ -38,7 +38,8 @@ public struct Formula: Equatable {
     ///   - `invalidRpnTokensArrayLength` from
     ///   `reversePolish.rpnEvaluate()`
     public init (_ infixText: String,
-                 withTruthTable: Bool = false) {
+                 withTruthTable: Bool = false,
+                 forNTruthTableVariables: Int = 0) {
 
         do {
             var l = try Lexer(text: infixText) // Initialise
@@ -68,20 +69,11 @@ public struct Formula: Equatable {
             // using our semanticPermuter and the same RpnMake, which
             // will detect when it's been given a semantics version
             self.truthResult = rpn.truthResult
-            self.truthTable = ""
+            self.truthTable = [String]()
 
-            if withTruthTable == true {
+            if withTruthTable == true && isWellFormed == true {
 
-                let myPermuter = SemanticPermuter(withTokens: t)
-                let myPermutationsAsStrings = myPermuter.permutationAsStrings
-
-                print(myPermutationsAsStrings)
-                for p in myPermutationsAsStrings {
-
-                    let myTruthResult = Formula(p).truthResult
-                    truthTable = truthTable + myTruthResult + " "
-
-                }
+                makeTruthTable(forNTruthTableVariables)
 
             }
 
@@ -95,7 +87,7 @@ public struct Formula: Equatable {
             self.tokenStringHTMLPrettifiedUppercased = ""
             self.isWellFormed = false
             self.truthResult = ""
-            self.truthTable = ""
+            self.truthTable = [String]()
             let emptyToken = Token(tokenType: .poorlyFormed)
             self.tree = Tree(emptyToken)
         }
@@ -103,6 +95,36 @@ public struct Formula: Equatable {
 
     public static func == (lhs: Formula, rhs: Formula) -> Bool {
         return lhs.tree == rhs.tree
+    }
+
+    mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
+
+        // Note that a truth table is sorted by semantics
+        // That is, for "p AND q", our order is:
+        //
+        //  p   q  AND
+        //  T   T   T
+        //  T   F   F
+        //  F   F   T
+        //  F   T   F
+
+        let myPermuter = SemanticPermuter(withTokens: self.tokens,
+                                          forVariableCount: forNTruthTableVariables)
+        let myPermutationsAsStrings = myPermuter.permutationAsStrings
+
+        var myTokensAsStrings = [String]()
+
+        for p in myPermutationsAsStrings {
+
+            let myTruthResult = Formula(p).truthResult
+            print("Permutation: \(p.debugDescription), with result \(myTruthResult)")
+            myTokensAsStrings.append(myTruthResult)
+
+        }
+
+        // e.g. ["true", "true", "false", "false"]
+        truthTable = myTokensAsStrings
+
     }
 
     public func debug() {
