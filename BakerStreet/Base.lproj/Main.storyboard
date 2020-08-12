@@ -931,9 +931,8 @@ DQ
                                     <action selector="buttonZoom:" target="0no-Vd-g3C" id="TrE-FH-7Zm"/>
                                 </connections>
                             </segmentedControl>
-                            <popUpButton verticalHuggingPriority="750" id="5zr-Pa-KhT" userLabel="Export">
-                                <rect key="frame" x="295" y="17" width="171" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5zr-Pa-KhT" userLabel="Export">
+                                <rect key="frame" x="357" y="17" width="109" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="DsT-wb-him" id="Kka-cT-lr9" userLabel="Copy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -950,9 +949,8 @@ DQ
                                     <action selector="buttonExportAs:" target="0no-Vd-g3C" id="pYO-fP-Pz4"/>
                                 </connections>
                             </popUpButton>
-                            <popUpButton verticalHuggingPriority="750" id="Kcm-35-6Sz" userLabel="Copy">
-                                <rect key="frame" x="113" y="17" width="171" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kcm-35-6Sz" userLabel="Copy">
+                                <rect key="frame" x="254" y="17" width="101" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="8dV-ZE-uT7" userLabel="Copy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -971,12 +969,16 @@ DQ
                             </popUpButton>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="QBa-E0-VPS" secondAttribute="trailing" constant="2" id="Iy5-8Y-Lq9"/>
-                            <constraint firstItem="QBa-E0-VPS" firstAttribute="top" secondItem="Czu-up-s6p" secondAttribute="top" id="LuF-eS-uUp"/>
-                            <constraint firstItem="QiE-t2-Xih" firstAttribute="leading" secondItem="Czu-up-s6p" secondAttribute="leading" constant="20" symbolic="YES" id="ZbZ-CR-QON"/>
-                            <constraint firstItem="QiE-t2-Xih" firstAttribute="baseline" secondItem="Kcm-35-6Sz" secondAttribute="baseline" id="azC-0R-Ruc"/>
-                            <constraint firstItem="QiE-t2-Xih" firstAttribute="top" secondItem="QBa-E0-VPS" secondAttribute="bottom" constant="20" id="v3w-tR-rOP"/>
-                            <constraint firstItem="QBa-E0-VPS" firstAttribute="leading" secondItem="Czu-up-s6p" secondAttribute="leading" id="vhN-Xb-1eg"/>
+                            <constraint firstItem="QBa-E0-VPS" firstAttribute="top" secondItem="Czu-up-s6p" secondAttribute="top" id="C5U-rG-aD3"/>
+                            <constraint firstAttribute="bottom" secondItem="5zr-Pa-KhT" secondAttribute="bottom" constant="20" id="IoC-bb-fHZ"/>
+                            <constraint firstAttribute="bottom" secondItem="QBa-E0-VPS" secondAttribute="bottom" constant="61" id="LMb-HG-y7W"/>
+                            <constraint firstItem="QBa-E0-VPS" firstAttribute="leading" secondItem="Czu-up-s6p" secondAttribute="leading" id="ReX-SZ-AUX"/>
+                            <constraint firstAttribute="trailing" secondItem="5zr-Pa-KhT" secondAttribute="trailing" constant="20" id="ahQ-1S-YSS"/>
+                            <constraint firstAttribute="trailing" secondItem="QBa-E0-VPS" secondAttribute="trailing" constant="2" id="fp6-tx-XHs"/>
+                            <constraint firstAttribute="trailing" secondItem="Kcm-35-6Sz" secondAttribute="trailing" constant="131" id="hnW-F6-87z"/>
+                            <constraint firstItem="QiE-t2-Xih" firstAttribute="top" secondItem="QBa-E0-VPS" secondAttribute="bottom" constant="20" id="kCy-Pi-BJo"/>
+                            <constraint firstAttribute="bottom" secondItem="Kcm-35-6Sz" secondAttribute="bottom" constant="20" id="lOc-tO-4os"/>
+                            <constraint firstItem="QiE-t2-Xih" firstAttribute="leading" secondItem="Czu-up-s6p" secondAttribute="leading" constant="20" symbolic="YES" id="y6R-tK-VpT"/>
                         </constraints>
                     </view>
                     <connections>

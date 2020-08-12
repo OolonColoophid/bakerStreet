@@ -177,7 +177,9 @@ extension PreviewViewController {
                 let filename = savePanel.url
 
                 do {
-                    try text.write(to: filename!, atomically: true, encoding: String.Encoding.utf8)
+                    try text.write(to: filename!,
+                                   atomically: true,
+                                   encoding: String.Encoding.utf8)
                 } catch {
                     // failed to write file (bad permissions, bad filename etc.)
                 }
@@ -185,6 +187,7 @@ extension PreviewViewController {
             }
 
         }
+        
     }
 
 }
