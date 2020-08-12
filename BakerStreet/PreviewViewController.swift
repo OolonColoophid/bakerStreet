@@ -102,20 +102,36 @@ extension PreviewViewController {
 
     }
 
-
-
     private func copyTextToClipboard(_ text: String) {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(text, forType: .string)
     }
-
-
 
 }
 
 // MARK: Export As
 
 extension PreviewViewController {
+
+    enum exportActions: String {
+        case pdf
+        case latex
+        case html
+        case markdown
+
+        var description: String {
+            switch self {
+                case .pdf:
+                    return "PDF"
+                case .latex:
+                    return "LaTeX"
+                case .html:
+                    return "HTML"
+                case .markdown:
+                    return "Markdown"
+            }
+        }
+    }
 
     enum exportExtensions: String {
         case latex
@@ -141,32 +157,29 @@ extension PreviewViewController {
 
         switch myAction {
 
-            case copyActions.html.description:
+            case exportActions.html.description:
 
-                exportFile(withText: eProof?.htmlVLN ?? "",
+                exportText(withText: eProof?.htmlVLN ?? "",
                            withExtension: exportExtensions.html.description)
                 break
 
-            case copyActions.markdown.description:
+            case exportActions.markdown.description:
 
-                exportFile(withText: eProof?.markdown ?? "",
+                exportText(withText: eProof?.markdown ?? "",
                            withExtension: exportExtensions.markdown.description)
                 break
 
             default: // latex
 
-                exportFile(withText: eProof?.latex ?? "",
+                exportText(withText: eProof?.latex ?? "",
                            withExtension: exportExtensions.latex.description)
 
         }
 
     }
 
-    private func exportFile(withText text: String,
+    private func exportText(withText text: String,
                             withExtension myExtension: String) {
-
-        // Todo: Set
-        // savePanel.allowedFileTypes
 
         let savePanel = NSSavePanel()
         savePanel.nameFieldStringValue = "export.\(myExtension)"
@@ -181,14 +194,19 @@ extension PreviewViewController {
                                    atomically: true,
                                    encoding: String.Encoding.utf8)
                 } catch {
-                    // failed to write file (bad permissions, bad filename etc.)
+
+                    let _ = self.dialogOKCancel(
+                        title: "Export Failed",
+                        text: "There was an error when writing to the file.")
+
                 }
 
             }
 
         }
-        
+
     }
+
 
 }
 
@@ -232,6 +250,21 @@ extension PreviewViewController {
         }
 
     }
+
+}
+
+// MARK: Alert
+extension PreviewViewController {
+
+    func dialogOKCancel(title: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+
 
 }
 
