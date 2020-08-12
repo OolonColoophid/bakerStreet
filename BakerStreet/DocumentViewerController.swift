@@ -159,7 +159,7 @@ extension DocumentViewController {
         let selectedSegment = button.selectedSegment
 
         if selectedSegment == 0 {
-            BKzoomIn(documentTextView)
+            BKZoomIn(documentTextView)
             updateDocumentContent()
         } else {
             BKzoomOut(documentTextView)

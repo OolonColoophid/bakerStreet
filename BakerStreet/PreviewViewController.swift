@@ -53,10 +53,147 @@ extension PreviewViewController: BKProofDelegate {
     }
 }
 
+// MARK: Copy As
+
+extension PreviewViewController {
+
+    enum copyActions: String {
+        case latex
+        case html
+        case markdown
+
+        var description: String {
+            switch self {
+                case .latex:
+                    return "LaTeX"
+                case .html:
+                    return "HTML"
+                case .markdown:
+                    return "Markdown"
+            }
+        }
+    }
+
+    @IBAction func buttonCopyAs(_ sender: NSPopUpButton) {
+
+        let myAction = sender.selectedItem!.title
+
+        switch myAction {
+            case copyActions.latex.description:
+
+                copyTextToClipboard(eProof?.latex ?? "")
+                break
+
+            case copyActions.html.description:
+
+                copyTextToClipboard(eProof?.htmlVLN ?? "")
+                break
+
+            case copyActions.markdown.description:
+
+                copyTextToClipboard(eProof?.markdown ?? "")
+                break
+
+            default:
+
+                copyTextToClipboard(eProof?.markdown ?? "")
+
+        }
+
+    }
+
+
+
+    private func copyTextToClipboard(_ text: String) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+    }
+
+
+
+}
+
+// MARK: Export As
+
+extension PreviewViewController {
+
+    enum exportExtensions: String {
+        case latex
+        case markdown
+        case html
+
+        public var description: String {
+            switch self {
+                case .latex:
+                    return "tex"
+                case .markdown:
+                    return "md"
+                case .html:
+                    return "html"
+            }
+        }
+
+    }
+
+    @IBAction func buttonExportAs(_ sender: NSPopUpButton) {
+
+        let myAction = sender.selectedItem!.title
+
+        switch myAction {
+
+            case copyActions.html.description:
+
+                exportFile(withText: eProof?.htmlVLN ?? "",
+                           withExtension: exportExtensions.html.description)
+                break
+
+            case copyActions.markdown.description:
+
+                exportFile(withText: eProof?.markdown ?? "",
+                           withExtension: exportExtensions.markdown.description)
+                break
+
+            default: // latex
+
+                exportFile(withText: eProof?.latex ?? "",
+                           withExtension: exportExtensions.latex.description)
+
+        }
+
+    }
+
+    private func exportFile(withText text: String,
+                            withExtension myExtension: String) {
+
+        // Todo: Set
+        // savePanel.allowedFileTypes
+
+        let savePanel = NSSavePanel()
+        savePanel.nameFieldStringValue = "export.\(myExtension)"
+
+        savePanel.begin {
+
+            if $0 == .OK {
+                let filename = savePanel.url
+
+                do {
+                    try text.write(to: filename!, atomically: true, encoding: String.Encoding.utf8)
+                } catch {
+                    // failed to write file (bad permissions, bad filename etc.)
+                }
+
+            }
+
+        }
+    }
+
+}
+
+
 // MARK: Storyboard Instantiation
 
 extension PreviewViewController {
-    // MARK: Storyboard instantiation
+
     static func freshController() -> PreviewViewController {
         //1. Get a reference to Main.storyboard.
         let storyboard = NSStoryboard(
@@ -84,7 +221,7 @@ extension PreviewViewController {
         let selectedSegment = button.selectedSegment
 
         if selectedSegment == 0 {
-            BKzoomIn(previewTextView)
+            BKZoomIn(previewTextView)
             updateDocumentContent()
         } else {
             BKzoomOut(previewTextView)

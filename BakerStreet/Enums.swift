@@ -19,7 +19,7 @@ public enum MetaType: CustomStringConvertible {
     case turnStile
     case justificationSeparator
 
-    /// Returns the string of the operator type.
+    /// Returns the string
     public var description: String {
         switch self {
         case .turnStile:
@@ -29,13 +29,33 @@ public enum MetaType: CustomStringConvertible {
         }
     }
 
-    /// Returns the string of the operator type.
+    /// Returns the HTML string
     public var htmlEntity: String {
         switch self {
         case .turnStile:
             return " &#8870; "
         case .justificationSeparator:
             return ":"
+        }
+    }
+
+    /// Returns the Latex string
+    public var latexEntity: String {
+        switch self {
+            case .turnStile:
+                return " \\vdash "
+            case .justificationSeparator:
+                return ":"
+        }
+    }
+
+    /// Returns the glyph
+    public var glyph: String {
+        switch self {
+            case .turnStile:
+                return "⊦"
+            case .justificationSeparator:
+                return ":"
         }
     }
 
@@ -67,7 +87,23 @@ public enum OperatorType: CustomStringConvertible, CaseIterable {
         }
     }
 
-    /// Returns the string of the operator type.
+    /// Returns the glyph of the operator type.
+    public var glyph: String {
+        switch self {
+            case .lAnd:
+                return "∧"
+            case .lOr:
+                return "∨"
+            case .lNot:
+                return "¬"
+            case .lIff:
+                return "↔"
+            case .lIf:
+                return "→"
+        }
+    }
+
+    /// Returns the HTML string of the operator type.
     public var htmlEntity: String {
         switch self {
             case .lAnd:
@@ -80,6 +116,22 @@ public enum OperatorType: CustomStringConvertible, CaseIterable {
                 return "&harr;"
             case .lIf:
                 return "&rarr;"
+        }
+    }
+
+    /// Returns the Latex string of the operator type.
+    public var latexEntity: String {
+        switch self {
+            case .lAnd:
+                return "\\land"
+            case .lOr:
+                return "\\lor"
+            case .lNot:
+                return "\\lnot"
+            case .lIff:
+                return "\\Leftrightarrow"
+            case .lIf:
+                return "\\Rightarrow"
         }
     }
 

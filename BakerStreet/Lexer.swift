@@ -57,18 +57,22 @@ public struct Lexer {
         return s
     }
 
-    /// The formula in prettified HTML with uppcase, e.g. "<em>A</em> ∧ <em>B</em>"
-    public var tokenStringHTMLPrettifiedUppercased: String {
+    /// The formula in Latex
+    public var tokenStringLatex: String {
 
-        var s = tokenStringHTML.uppercased()
+        var s = tokenString
 
         let operators = OperatorType.allCases
 
         for o in operators {
-            s = s.replacingOccurrences(of: o.description, with: o.htmlEntity)
+            s = s.replacingOccurrences(of: o.description, with: " " + o.latexEntity + " ")
         }
 
+        // Latex commands to start and stop maths environment
+        s = "\\(" + s + "\\)"
+
         return s
+
     }
 
     public enum Error: Swift.Error {

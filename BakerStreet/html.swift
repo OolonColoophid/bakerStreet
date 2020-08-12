@@ -779,7 +779,7 @@ enum DocumentContent {
 
                 // If we have a stored example, show it here
                 if rule.example != "" {
-                    inferenceText += "For example, see below (\(rule.shortDescription)):"
+                    inferenceText += "For example, see below (\(rule.htmlEntityShortDescription)):"
                     inferenceText += rule.example
 
                 }
@@ -1084,31 +1084,45 @@ enum DocumentContent {
         // Any attribute should take the form "class="number""
         func wrap(_ text: String,
                   withTag tag: String,
-                  withAttr attribute: String = "") -> String {
+                  withAttr attribute: String = "",
+                  withNewLine: Bool = true) -> String {
+
+            var newLine = ""
+            if withNewLine == true {
+                newLine = "\n"
+            } else {
+                newLine = ""
+            }
 
             guard attribute != "" else {
 
                 return "<" + tag + ">" +
                     text
-                    + "</" + tag + ">"
+                    + "</" + tag + ">" +
+                    newLine
 
             }
 
             return "<" + tag + " " + attribute + ">" +
                 text
-                + "</" + tag + ">"
+                + "</" + tag + ">" +
+                newLine
 
         }
 
         // For "hello world".h("p") return "<p>hello world</p>"
         func w(_ tag: String,
-               withAttr attribute: String = "") -> String {
+               withAttr attribute: String = "",
+               withNewLine: Bool = true) -> String {
 
             guard attribute != "" else {
-                return self.wrap(self, withTag: tag)
+                return self.wrap(self, withTag: tag,
+                                 withNewLine: withNewLine)
             }
 
-            return self.wrap(self, withTag: tag, withAttr: attribute)
+            return self.wrap(self, withTag: tag,
+                             withAttr: attribute,
+                             withNewLine: withNewLine)
 
         }
 
@@ -1135,7 +1149,7 @@ enum DocumentContent {
         }
 
         var em: String {
-            return self.w("em")
+            return self.w("em", withNewLine: false)
         }
 
         var li: String {
@@ -1286,7 +1300,7 @@ enum DocumentContent {
 
                         // Note that this check to see if e.g.
                         // "assumption," contains "assumption".
-                        if w.contains(d.prettyDescription) {
+                        if w.contains(d.htmlEntityDescription) {
 
                             myWord = myWord.w("span", withAttr:
                                 """
@@ -1317,7 +1331,7 @@ enum DocumentContent {
                 return self
             }
 
-            return f.tokenStringHTMLPrettifiedUppercased
+            return f.tokenStringHTMLWithGlyphs.uppercased()
 
         }
 

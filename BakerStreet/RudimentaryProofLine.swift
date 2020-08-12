@@ -8,9 +8,9 @@
 
 import Foundation
 
-// This struct contains a proof line in rudimentary form (i.e. just
-// its data). It can be used to create any visual form of the
-// proof:
+// This struct contains a proof line in rudimentary form.
+// It can be used to create any visual form of the
+// proof
 public struct RudimentaryProofLine {
 
     // A int representing scope depth
@@ -24,8 +24,31 @@ public struct RudimentaryProofLine {
     // e.g. 0
     var intLineNumber: Int = 0
 
-    // e.g. p AND q
-    var statement: String = ""
+    // e.g. "<em>p</em> ∧ <em>q</em>"
+    var statementHTMLWithGlyphs: String = ""
+
+    // e.g. "p ∧ q"
+    var statementWithGlyphs: String {
+        statementHTMLWithGlyphs.htmlToNSMAS().string
+    }
+
+    // e.g. "(p \lor q)"
+    var statementLatex: String {
+
+        let operators = OperatorType.allCases
+        var s = statementWithGlyphs
+
+        // Replace ∧ etc.
+        for o in operators {
+            s = s.replacingOccurrences(of: o.glyph, with: " " + o.latexEntity + " ")
+        }
+
+        // Replace the ⊦
+        s = s.replacingOccurrences(of: MetaType.turnStile.glyph, with: MetaType.turnStile.latexEntity)
+
+        return "\\(" + s + "\\)"
+
+    }
 
     var justification: Justification = .empty
 
@@ -38,13 +61,13 @@ public struct RudimentaryProofLine {
     var visualLineNumbersAntecedents: String = ""
 
     var debugDescription: String {
-        return
-            "@visualLineNumber: \(visuaLineNumberSelf), " +
-                "@statement: \(statement), " +
-                "@UUID: \(lineNumberUUID), " +
-                "@scopeLevel: \(scopeLevel), " +
-                "@antecedentUUIDs: \(antecedentsUUIDs), " +
-        "@vAnt: \(visualLineNumbersAntecedents) \n"
+        return "@visualLineNumber: \(visuaLineNumberSelf), " +
+            "@statementHTML: \(statementHTMLWithGlyphs), " +
+            "@statement: \(statementWithGlyphs), " +
+            "@UUID: \(lineNumberUUID), " +
+            "@scopeLevel: \(scopeLevel), " +
+            "@antecedentUUIDs: \(antecedentsUUIDs), " +
+            "@vAnt: \(visualLineNumbersAntecedents) \n"
     }
 
     init (withLineNumberUUID uuid: UUID) {

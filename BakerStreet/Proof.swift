@@ -207,8 +207,7 @@ extension Proof {
                                giveHtml: true,
                                giveHtmlVLN: true,
                                giveLatex: true,
-                               giveMarkdown: true,
-                               givePlainText: true)
+                               giveMarkdown: true)
 
         // Ask for pdf and images asynchronously, then notify delegate
         let concurrentQueue = DispatchQueue(label: "bakerstreet.concurrent.queue",

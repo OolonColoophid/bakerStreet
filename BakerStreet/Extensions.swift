@@ -268,7 +268,7 @@ extension Array where Array.Element == String {
             else { // Last comma reached
 
                 guard onlyCommas == false else {
-                    myList = myList + " , "
+                    myList = myList + ", "
                     continue
                 }
 
@@ -312,13 +312,13 @@ extension Array where Array.Element == Formula {
 
         guard self.count > 0 else { return "" }
 
-        guard self.count > 1 else { return self[0].tokenStringHTMLPrettified }
+        guard self.count > 1 else { return self[0].tokenStringHTMLWithGlyphs }
 
         var myIntArrayAsStrings = [String]()
 
         for i in self {
 
-            myIntArrayAsStrings.append(i.tokenStringHTMLPrettified)
+            myIntArrayAsStrings.append(i.tokenStringHTMLWithGlyphs)
 
         }
 

@@ -28,11 +28,10 @@ public class ExportedProof {
     var scopeTally = Dictionary<Int,Int>()
 
     // These variables contain exported versions of the proof
-    var latex: String = "Latex data here"
+    var latex: String = ""
     var html: String = ""
     var htmlVLN: String = ""
-    var markdown: String = "Markdown data here"
-    var plainText: String = "PlainText data here"
+    var markdown: String = ""
 
     // var pdf: Pdf
 
@@ -51,8 +50,7 @@ public class ExportedProof {
          giveHtml: Bool = false,
          giveHtmlVLN: Bool = false,
          giveLatex: Bool = false,
-         giveMarkdown: Bool = false,
-         givePlainText: Bool = false) {
+         giveMarkdown: Bool = false) {
 
         proofStatement = pStatement
 
@@ -85,9 +83,6 @@ public class ExportedProof {
 
         // Markdown
             if giveMarkdown == true { markdown = makeMarkdown() }
-
-        // Plaintext
-            if givePlainText == true { plainText = makePlainText() }
 
         // Note: PDF and images are requested directly using
         // public methods. It's expected that these are called
@@ -127,9 +122,10 @@ extension ExportedProof {
                     continue
                 }
 
-                thisRow.statement = t.lhsFormula[0].tokenStringHTMLPrettified
-                thisRow.statement += MetaType.turnStile.htmlEntity
-                thisRow.statement += t.rhsFormula.tokenStringHTMLPrettified
+                // Build the HTML version
+                thisRow.statementHTMLWithGlyphs = t.lhsFormula[0].tokenStringHTMLWithGlyphs
+                thisRow.statementHTMLWithGlyphs += MetaType.turnStile.htmlEntity
+                thisRow.statementHTMLWithGlyphs += t.rhsFormula.tokenStringHTMLWithGlyphs
 
                 thisRow.theoremProven = t.proven
 
@@ -141,7 +137,7 @@ extension ExportedProof {
 
                 thisRow.scopeLevel = j.scopeLevel
 
-                thisRow.statement = j.formula.tokenStringHTMLPrettified
+                thisRow.statementHTMLWithGlyphs = j.formula.tokenStringHTMLWithGlyphs
 
                 guard j.justification != .empty else {
                     continue
@@ -286,9 +282,125 @@ extension ExportedProof {
 
 // MARK: Latex
 
+// Example Latex export
+//
+// Note the use of Latex entities for glyphs
+// Visual line numbers are used
+// We will need to think a minimal document structure to go around it
+//
+//  \documentclass{article}
+//  \usepackage[T1]{fontenc}
+//
+//  \begin{document}
+//
+//
+//  \begin{center}
+//  \begin{tabular}{r|ll}
+//
+//  \multicolumn{3}{c}{\(p  \land  q, p  \Rightarrow  r  \vdash  r  \land  q\)} \\
+//
+//  \hline
+//
+//  1 & \(p  \land  q\) & ass 0\\
+//  2 & \(p  \Rightarrow  r\) & ass 0\\
+//  3 & \(p\) & \(\land\)-E 1\\
+//  4 & \(q\) & \(\land\)-E 1\\
+//  5 & \(r\) & \(\Rightarrow\)-E 2, 3\\
+//  6 & \(r  \land  q\) & \(\land\)-I 4, 5\\
+//  \end{tabular}
+//  \end{center}
+//
+//  \end{document}
+
 extension ExportedProof {
 
-    func makeLatex() -> String { return "This is Latex" }
+    func makeLatex() -> String {
+
+        // No proof, no markdown
+        guard scope.count > 0 else {
+            return ""
+        }
+
+        var latex = ""
+
+        var latexTheorem = getTheoremLatex(proofStatement)
+
+        latex = latex + "\\documentclass{article}\n        \\usepackage[T1]{fontenc}\n\\begin{document}\n\\begin{center}\n \\begin{tabular}{r|ll}\n\\multicolumn{3}{c}{\(latexTheorem)}\\\\\n \\hline\n"
+
+        for l in lines {
+
+            latex += l.visuaLineNumberSelf + " & "
+            latex += l.statementLatex
+
+            if l.justification != .empty {
+
+                latex += " & " + l.justification.latexEntityShortDescription
+                latex += " " + l.visualLineNumbersAntecedents + "\\\\\n"
+
+            } else {
+
+                latex += "\\\\\n"
+
+            }
+
+        }
+
+        latex = latex + "\\end{tabular} \n\\end{center} \n\n\\end{document}"
+
+        // Comment
+        let comment = """
+
+            % Exported by Baker Street
+            % ------------------------
+
+            % This LaTeX is presented a minimal, complete document.
+
+            """ + "\n"
+
+        return comment + latex
+
+    }
+
+    // Given a theorem line, return it as Latex
+    func getTheoremLatex (_ line: BKLine ) -> String {
+
+        guard line.lineType == .theorem else {
+            return ""
+        }
+
+        let t = line as! Theorem
+
+        // LHS
+        var lhs = ""
+        for f in t.lhsFormula {
+
+            lhs.append(f.tokenStringLatex + ", ")
+
+        }
+
+        // Trim trailing ", "
+        lhs = String(lhs.dropLast(2))
+
+        // RHS
+        var rhs = t.rhsFormula.tokenStringLatex
+
+        // Latex maths environment start and end
+        let mStart = "\\("
+        let mEnd = "\\)"
+
+        // Both the LHS and RHS already contain Latex maths commands
+        // We need to remove them so that single commands can be used
+        // at the start and end of the whole general proof statement
+        lhs = lhs.replacingOccurrences(of: mStart, with: "")
+        lhs = lhs.replacingOccurrences(of: mEnd, with: "")
+        rhs = rhs.replacingOccurrences(of: mStart, with: "")
+        rhs = rhs.replacingOccurrences(of: mEnd, with: "")
+
+
+        return mStart + lhs + " " + MetaType.turnStile.latexEntity + " "
+            + rhs + mEnd
+
+    }
 
 }
 
@@ -296,15 +408,71 @@ extension ExportedProof {
 
 extension ExportedProof {
 
-    func makeMarkdown() -> String { return "This is Markdown" }
+    // Example Markdown export
+    //
+    // 1. Note that connectives etc. should be prettified
+    // 2. Scope level 1 has 1 tab
+    // 3. We use visual line numbers
+    //
+    // p AND q |- p AND (r OR q)
+    //
+    //    - p AND q : Assumption (0)
+    //
+    //    - p : AND Elimination (1)
+    //
+    //    - q : AND Elimination (1)
+    //
+    //    - r OR q : OR Introduction (3)
+    //
+    //    - p AND (r OR q) : AND Introduction (2, 4)
 
-}
+    func makeMarkdown() -> String {
 
-// MARK: PlainText
+        // No proof, no markdown
+        guard scope.count > 0 else {
+            return ""
+        }
 
-extension ExportedProof {
+        var markdown = ""
 
-    func makePlainText() -> String { return "This is plain text" }
+        let markdownTheorem = getTheoremHTML(proofStatement).htmlToNSMAS().string
+
+        if markdownTheorem.trim.count > 0 {
+        markdown += markdownTheorem + "\n\n"
+        }
+
+        for l in lines {
+
+            let myScopeBullets = String(repeating: "\t", count: l.scopeLevel)
+            markdown += myScopeBullets + "* "
+            markdown += l.visuaLineNumberSelf + " "
+            markdown += l.statementWithGlyphs
+
+            if l.justification != .empty {
+
+                markdown += " : " + l.justification.description + " ("
+                markdown += l.visualLineNumbersAntecedents + ") " + "\n\n"
+
+            } else {
+
+                markdown += "\n\n"
+
+            }
+
+        }
+
+        // Comment
+        let comment = """
+             <!--
+             Exported by Baker Street
+             ------------------------
+             -->
+
+            """ + "\n"
+
+        return comment + markdown
+
+    }
 
 }
 
@@ -350,36 +518,41 @@ extension ExportedProof {
         let tableBottomPadding = "<tr><td></td></tr>"
 
         // Workaround 2 (because borders are not reliable)
-        let myHline = """
-        <tr><td style="border-top:1px solid \(lColor);" colspan="4"></td></tr>
-        """
+        let myHline = "<tr><td style=\"border-top:1px solid \(lColor);\" colspan=\"4\"></td></tr>"
         let myTableBody = (myHline + myTable + tableBottomPadding).w("tbody")
 
 
         // Finalise table head (i.e. the overal proof statement)
         let myTableHead =
-            (proofTheoremHTML.w("td", withAttr: """
-                    style = "padding: 1em; text-align: center;"
-                     colspan = "4"
-                """))
+            (proofTheoremHTML.w("td", withAttr: "style = \"padding: 1em; text-align: center;\" colspan = \"4\""))
                 .w("tr")
-                .w("thead", withAttr: """
-                    style = "
-                    color: \(hColor);
-                    font-size: 1.1em;"
-
-
-                    """)
+                .w("thead", withAttr: "style = \"color: \(hColor); font-size: 1.1em;\"")
 
         // Combine the head and body
         let myTableHeadAndBody = myTableHead + myTableBody
 
-        // Finalise table
-        let myTableComplete = myTableHeadAndBody.w("table", withAttr: """
-            style = "font-size: 1em; width: 100%; padding: 1em;"
-            """)
+        // Finalise table and place in body
+        let myTableComplete = myTableHeadAndBody.w("table", withAttr: "style = \"font-size: 1em; width: 100%; padding: 1em;\"")
+            .w("body")
 
-        return myTableComplete
+        // Comment
+            let comment = """
+            <!--
+            Exported by Baker Street
+            ------------------------
+
+            This HTML is not indented for improved readability. It is recommended that you use a
+            a free online HTML formatter.
+
+            This HTML is presented in a minimal, complete document.
+            -->
+
+            """ + "\n"
+
+        // Head
+        let head = "<head></head>\n"
+
+        return (comment + head + myTableComplete).w("html")
 
     }
 
@@ -393,7 +566,7 @@ extension ExportedProof {
             let myLineNumber = r.visuaLineNumberSelf
 
             // Assertion column
-            let myStatement = r.statement
+            let myStatement = r.statementHTMLWithGlyphs
 
 
             // Justification column
@@ -401,7 +574,7 @@ extension ExportedProof {
             if r.theoremProven == true {
                 myJustification = "&#10003" // tick!
             } else {
-                myJustification = r.justification.shortDescription
+                myJustification = r.justification.htmlEntityShortDescription
             }
 
             // Antecedent Lines
@@ -435,7 +608,7 @@ extension ExportedProof {
         var lhs = ""
         for f in t.lhsFormula {
 
-            lhs.append(f.tokenStringHTMLPrettified + ", ")
+            lhs.append(f.tokenStringHTMLWithGlyphs + ", ")
 
         }
 
@@ -444,7 +617,7 @@ extension ExportedProof {
 
 
         // RHS
-        let rhs = t.rhsFormula.tokenStringHTMLPrettified
+        let rhs = t.rhsFormula.tokenStringHTMLWithGlyphs
 
         return lhs + " " + MetaType.turnStile.htmlEntity + " " + rhs
 

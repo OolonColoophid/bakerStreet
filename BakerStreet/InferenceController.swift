@@ -41,7 +41,7 @@ public struct InferenceController: BKAdvising {
     private var justificationTypeAndPrettyDescription: String {
 
         let type = myLine.justification.type
-        let description = myLine.justification.prettyDescription
+        let description = myLine.justification.htmlEntityDescription
 
         return "\(type) \(description)"
     }
@@ -219,7 +219,7 @@ public struct InferenceController: BKAdvising {
 
         // If we got here, we haven't found the theorem
         // (long description reuses another error's description)
-        let myFormula = myLine.formula.tokenStringHTMLPrettified
+        let myFormula = myLine.formula.tokenStringHTMLWithGlyphs
         let myTheoremLHS = antecedentTheorem.lhsFormula.commaList()
 
         checkFunctionMessage = "Your \(jD) must appear within the left hand side of a theorem. In other words, \(myFormula) must be a part of \(myTheoremLHS)."
@@ -380,7 +380,7 @@ public struct InferenceController: BKAdvising {
 
         guard checkTreesEquivalent(lhs[0].tree, negatedCurrentTree) else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLPrettified), is a negated form of the current line (\(myLine.formula.tokenStringHTMLPrettified)."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLWithGlyphs), is a negated form of the current line (\(myLine.formula.tokenStringHTMLWithGlyphs)."
 
             advise(AdviceInstance.inferenceFailure,
                    longDescription: checkFunctionMessage)
@@ -457,7 +457,7 @@ public struct InferenceController: BKAdvising {
         // Antecedent LHS must match current line first child
         guard lhs[0].tree == ii.getMyTree().getFirstChild() else {
 
-            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLPrettified), matches the current line."
+            checkFunctionMessage = "Your \(jD) requires that the left-hand side of the theorem (line \(antecedents[0].noun)), \(lhs[0].tokenStringHTMLWithGlyphs), matches the current line."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -470,7 +470,7 @@ public struct InferenceController: BKAdvising {
 
         guard rhs.tree == currentLineSC else {
 
-            checkFunctionMessage = "Your \(jD) requires that the right-hand side of the theorem (line \(antecedents[0].noun)), \(rhs.tokenStringHTMLPrettified), matches the current line's second child element (i.e. that part to the right of the top level operator, or \(currentLineSC.description))."
+            checkFunctionMessage = "Your \(jD) requires that the right-hand side of the theorem (line \(antecedents[0].noun)), \(rhs.tokenStringHTMLWithGlyphs), matches the current line's second child element (i.e. that part to the right of the top level operator, or \(currentLineSC.description))."
 
                 advise(AdviceInstance.inferenceFailure,
                        longDescription: checkFunctionMessage
@@ -1097,7 +1097,7 @@ public struct InferenceController: BKAdvising {
             if isAntecedentIsChild == false {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified).
+                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLWithGlyphs) must be left of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLWithGlyphs) or \(al2.formula.tokenStringHTMLWithGlyphs).
                     """
 
             }
@@ -1120,7 +1120,7 @@ public struct InferenceController: BKAdvising {
             if isAntecedentIsChild == false {
 
                 checkFunctionMessage = """
-                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLPrettified) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLPrettified) or \(al2.formula.tokenStringHTMLPrettified).
+                    Your \(jD) requires that the current line is the first child element of either line \(antecedents[0].noun) or line \(antecedents[1].noun). That is, \(myLine.formula.tokenStringHTMLWithGlyphs) must be right of the top level operator (i.e. logical connective) in either \(al1.formula.tokenStringHTMLWithGlyphs) or \(al2.formula.tokenStringHTMLWithGlyphs).
                     """
 
             }
@@ -1314,7 +1314,7 @@ public struct InferenceController: BKAdvising {
                 if line.getProven() == false {
 
                     checkFunctionMessage = """
-                        Your \(jD) requires that your antecedents be proven. However, you refer here to line \(aLineNumber.noun), which is not proven: \(line.formula.tokenStringHTMLPrettified)
+                        Your \(jD) requires that your antecedents be proven. However, you refer here to line \(aLineNumber.noun), which is not proven: \(line.formula.tokenStringHTMLWithGlyphs)
                         """
 
                     return false
@@ -1469,7 +1469,7 @@ public struct InferenceController: BKAdvising {
         } else {
 
             checkFunctionMessage = """
-                        Your \(jD) requires that line \(antecedents[antecedent].noun) is a child element of line \(myLineNumberAsInt.noun). That is, \(antecdentLine.formula.tokenStringHTMLPrettified) must be to the left or right of the top level operator \(myTLO) (i.e. logical connective) in \(myLine.formula.tokenStringHTMLPrettified)
+                        Your \(jD) requires that line \(antecedents[antecedent].noun) is a child element of line \(myLineNumberAsInt.noun). That is, \(antecdentLine.formula.tokenStringHTMLWithGlyphs) must be to the left or right of the top level operator \(myTLO) (i.e. logical connective) in \(myLine.formula.tokenStringHTMLWithGlyphs)
                     """
 
             return false

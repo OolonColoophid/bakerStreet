@@ -15,8 +15,8 @@ public struct Formula: Equatable {
     public let identifier =               UUID() // i.e. 4 random bytes
     public var infixText:                 String // e.g. `p AND p`
     public var tokenStringHTML:           String // e.g. `<em>p</em>`
-    public var tokenStringHTMLPrettified: String // e.g. `<em>p</em> ∧ <em>q</em>`
-    public var tokenStringHTMLPrettifiedUppercased: String
+    public var tokenStringHTMLWithGlyphs: String // e.g. `<em>p</em> ∧ <em>q</em>`
+    public var tokenStringLatex:          String // e.g. \(p \Rightarrow q\)
     public let postfixText:               String // e.g. `p p AND`
     public let isWellFormed:              Bool   // e.g. `true`
     public let tree:                      Tree   // `Tree` representation
@@ -46,31 +46,30 @@ public struct Formula: Equatable {
             self.infixText = l.getTokenString()       // e.g. `p AND p`
 
             // e.g. `<em>p</em>`
-            self.tokenStringHTML = l.tokenStringHTML
+            tokenStringHTML = l.tokenStringHTML
 
             // e.g. `<em>p</em> ∧ <em>q</em>`
-            self.tokenStringHTMLPrettified = l.tokenStringHTMLPrettified
-            // uppercased version
-            self.tokenStringHTMLPrettifiedUppercased =
-                l.tokenStringHTMLPrettifiedUppercased
+            tokenStringHTMLWithGlyphs = l.tokenStringHTMLPrettified
 
+            // e.g. `\(p \Rightarrow q\)`
+            tokenStringLatex = l.tokenStringLatex
 
-            self.tokens = t                           // tokenised
-            self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
-            self.isWellFormed = rpn.getIsWellFormed() // e.g. `true`
-            self.tree = rpn.getRpnTree()!             // Obtain tree
+            tokens = t                           // tokenised
+            postfixText = rpn.getRpnString()     // e.g. `p p AND`
+            isWellFormed = rpn.getIsWellFormed() // e.g. `true`
+            tree = rpn.getRpnTree()!             // Obtain tree
 
         } catch {
             self.error = "An \(error.localizedDescription) occured"
 
             self.infixText = ""
-            self.postfixText = ""
-            self.tokenStringHTML = ""
-            self.tokenStringHTMLPrettified = ""
-            self.tokenStringHTMLPrettifiedUppercased = ""
-            self.isWellFormed = false
+            postfixText = ""
+            tokenStringHTML = ""
+            tokenStringHTMLWithGlyphs = ""
+            tokenStringLatex = ""
+            isWellFormed = false
             let emptyToken = Token(tokenType: .poorlyFormed)
-            self.tree = Tree(emptyToken)
+            tree = Tree(emptyToken)
         }
     }
 

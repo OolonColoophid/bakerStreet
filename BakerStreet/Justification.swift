@@ -60,7 +60,7 @@ public enum Justification: CaseIterable {
         }
     }
 
-    var prettyDescription: String {
+    var htmlEntityDescription: String {
         switch self {
             case .empty:
                 return ""
@@ -97,7 +97,7 @@ public enum Justification: CaseIterable {
 
     // Primarily used for exporting proofs
     // We use HTML entities for glyphs
-    var shortDescription: String {
+    var htmlEntityShortDescription: String {
         switch self {
             case .empty:
                 return ""
@@ -135,8 +135,52 @@ public enum Justification: CaseIterable {
 
     }
 
+    // Primarily used for exporting proofs
+    // We use HTML entities for glyphs
+    var latexEntityShortDescription: String {
+        let mStart = "\\("
+        let mEnd = "\\)"
+
+        switch self {
+            case .empty:
+                return ""
+            case .assumption:
+                return "ass"
+
+            case .andIntroduction:
+                return mStart + OperatorType.lAnd.latexEntity + mEnd + "-I"
+            case .orIntroduction:
+                return mStart + OperatorType.lOr.latexEntity + mEnd + "-I"
+            case .notIntroduction:
+                return mStart + OperatorType.lNot.latexEntity + mEnd + "-I"
+            case .ifIntroduction:
+                return mStart + OperatorType.lIf.latexEntity + mEnd + "-I"
+            case .iffIntroduction:
+                return mStart + OperatorType.lIff.latexEntity + mEnd + "-I"
+
+            case .andElimination:
+                return mStart + OperatorType.lAnd.latexEntity + mEnd + "-E"
+            case .orElimination:
+                return mStart + OperatorType.lOr.latexEntity + mEnd + "-E"
+            case .notElimination:
+                return mStart + OperatorType.lNot.latexEntity + mEnd + "-E"
+            case .ifElimination:
+                return mStart + OperatorType.lIf.latexEntity + mEnd + "-E"
+            case .iffElimination:
+                return mStart + OperatorType.lIff.latexEntity + mEnd + "-E"
+
+            case .trueIntroduction:
+                return "\\emph{true}" + "-E"
+            case .falseElimination:
+                return "\\emph{false}" + "-E"
+
+        }
+
+    }
+
     // Primarily used for sorting into an order that
-    // makes sense for a student. Lowest first
+    // makes sense for a student when giving definitions of all.
+    // Lowest first
     var order: Int {
         switch self {
             case .empty:
