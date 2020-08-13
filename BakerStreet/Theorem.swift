@@ -45,6 +45,7 @@ public class Theorem {
 
     public enum Error: Swift.Error {
         case formulaPoorlyFormed
+        case theoremUnprovable
         case LHSandRHSsame
     }
 
@@ -79,6 +80,10 @@ public class Theorem {
 
         guard wellFormed == true else {
             throw Theorem.Error.formulaPoorlyFormed
+        }
+
+        guard theoremProvable() == true else {
+            throw Theorem.Error.theoremUnprovable
         }
 
         setProven()
@@ -273,7 +278,98 @@ extension Theorem: BKLine {
 
 }
 
+// MARK: Theorem provable
+
+extension Theorem {
+
+    func theoremProvable() -> Bool {
+
+        // If we have no LHS, return true; i.e. don't throw
+        guard lhsFormula.count > 0 else {
+            return true
+        }
+
+        // If we have one LHS formula and one RHS, compare the
+        // entailment directly
+        guard lhsFormula.count > 1 else {
+            return lhsDoesEntailRhs(forLhs: lhsFormula[0].infixText,
+                                    forRhs: rhsFormula.infixText)
+        }
+
+        var areEntailed = true
+        for f in lhsFormula {
+            areEntailed = lhsDoesEntailRhs(forLhs: f.infixText,
+                                           forRhs: rhsFormula.infixText)
+        }
+
+        return areEntailed
+
+    }
+
+}
+
+// NOTE: This function as available at the global scope
+//       to facilitate testing
+
+func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
+
+    // We want to tell Formula how many variables there are in
+    // total so that the truth table for each formula has the
+    // correct number of rows
+    var totalVariableCount: Int {
+        get {
+
+            // Get variables
+            let lhsVariables = Formula(lhs).tokens
+                .filter { $0.isOperand == true }
+            let rhsVariables = Formula(rhs).tokens
+                .filter { $0.isOperand == true }
+
+            // Reduce to unique variables
+            let lhsVarUniqCount = Set(lhsVariables).count
+            let rhsVarUniqCount = Set(rhsVariables).count
+
+            print("lhsCount is \(lhsVarUniqCount)")
+            print("rhsCount is \(rhsVarUniqCount)")
+
+            // Return the set with the greatest number of variables
+            return max(lhsVarUniqCount, rhsVarUniqCount)
+
+        }
+    }
+
+    let fLhs = Formula(lhs,
+                       withTruthTable: true,
+                       forNTruthTableVariables: totalVariableCount)
+
+    let fRhs = Formula(rhs,
+                       withTruthTable: true,
+                       forNTruthTableVariables: totalVariableCount)
+
+
+    guard fLhs.truthTable.count == fRhs.truthTable.count else { return false }
+
+    var i = 0
+    var areEntailed = true
+    while i < fLhs.truthTable.count {
+
+        if fLhs.truthTable[i] == "true" && fRhs.truthTable[i] == "false" {
+
+            areEntailed = false
+
+        }
+
+        i = i + 1
+    }
+
+    return areEntailed
+
+}
+
+
+
 // MARK: BKEvaluatable (BKSelfProvable, BKParseable)
+
 extension Theorem: BKEvaluatable {
 
     // MARK: BKSelfProvable

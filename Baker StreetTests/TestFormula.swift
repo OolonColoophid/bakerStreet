@@ -13,6 +13,8 @@ import XCTest
 /// The type `Formula`
 class TestFormula: XCTestCase {
 
+    // MARK: Wellformedness
+
     func test_formulae_withCorrectForm_shouldBeReportedWellFormed() {
         let correctFormulae = ["true",
                                "false",
@@ -72,10 +74,13 @@ class TestFormula: XCTestCase {
         XCTAssertEqual(f.infixText, "p <-> p")
     }
 
+    // MARK: Truth tables
+
     func test_formula_requestingTruthTable_shouldHaveTruthTable() {
         let formula = "p and q"
         let f = Formula(formula, withTruthTable: true)
 
+        f.debug()
         XCTAssertTrue(!(f.truthTable.isEmpty))
 
     }
@@ -188,184 +193,111 @@ class TestFormula: XCTestCase {
 
     }
 
+    // MARK: Function lhsDoesEntailRhs
 
 
-    func test_1_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
+    func test_formula_requestingTruthTableSize_shouldHaveTruthTableSize() {
 
-        let formula1 = "p and q"
-        let formula2 = "q and p"
+        let f1 = Formula("p and q",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 0)
+        let f1TruthTableSize = f1.truthTable.count
+        XCTAssertTrue(f1TruthTableSize == 4)
 
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true)
+        let f2 = Formula("p and q",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 3)
+        let f2TruthTableSize = f2.truthTable.count
+        XCTAssertTrue(f2TruthTableSize == 8)
 
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
+        let f3 = Formula("p and q",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 4)
+        let f3TruthTableSize = f3.truthTable.count
+        XCTAssertTrue(f3TruthTableSize == 16)
 
-    }
+        let f4 = Formula("p and q",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 5)
+        let f4TruthTableSize = f4.truthTable.count
+        XCTAssertTrue(f4TruthTableSize == 32)
 
-
-    func test_2_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p AND (q AND r)"
-        let formula2 = "(p AND q) AND r"
-
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true)
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
-
-    }
-
-    func test_3_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p AND q"
-        let formula2 = "p AND (r OR q)"
-
-        let f1 = Formula(formula1, withTruthTable: true, forNTruthTableVariables: 3)
-        let f2 = Formula(formula2, withTruthTable: true)
-
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
+        let f5 = Formula("p and q",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 6)
+        let f5TruthTableSize = f5.truthTable.count
+        XCTAssertTrue(f5TruthTableSize == 64)
 
     }
 
-    func test_4_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
+    func test_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
 
-        let formula1 = "p AND (q AND r)"
-        let formula2 = "(p AND q) AND r"
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p and q",
+                forRhs: "q and p"))
 
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true)
 
-        f1.debug()
-        f2.debug()
+          XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p AND (q AND r)",
+                forRhs: "(p AND q) AND r"))
 
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
 
-    }
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p AND q",
+                forRhs: "p AND (r OR q)"))
 
-    func test_5_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
 
-        let formula1 = "p AND q"
-        let formula2 = "p AND (r OR q)"
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p AND (q AND r)",
+                forRhs: "(p AND q) AND r"))
 
-        let f1 = Formula(formula1, withTruthTable: true, forNTruthTableVariables: 3)
-        let f2 = Formula(formula2, withTruthTable: true)
 
-        f1.debug()
-        f2.debug()
 
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p AND q",
+                forRhs: "p AND (r OR q)"))
 
-    }
 
-    func test_6_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p OR (q AND r)",
+                forRhs: "s OR p"))
 
-        let formula1 = "p OR (q AND r)"
-        let formula2 = "s OR p"
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p <-> q",
+                forRhs: "q <-> p"))
 
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true, forNTruthTableVariables: 3)
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p AND q",
+                forRhs: "r AND q"))
 
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
-
-    }
-
-    func test_7_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p -> s"
-        let formula2 = "s OR p"
-
-        let f1 = Formula(formula1, withTruthTable: true, forNTruthTableVariables: 3)
-        let f2 = Formula(formula2, withTruthTable: true, forNTruthTableVariables: 3)
-
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
 
     }
 
-    func test_8_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
+    func test_semanticallyDifferentFormulas_requestingTruthTable_shouldHaveDifferentTruthTables() {
 
-        let formula1 = "(q AND r) -> s"
-        let formula2 = "s OR p"
+        XCTAssertFalse(
+            lhsDoesEntailRhs(
+                forLhs: "p -> r",
+                forRhs: "r AND q"))
 
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true, forNTruthTableVariables: 3)
+        XCTAssertFalse(
+            lhsDoesEntailRhs(
+                forLhs: "(q AND r) -> s",
+                forRhs: "s OR p"))
 
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
-
-    }
-
-    func test_9_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p <-> q"
-        let formula2 = "q <-> p"
-
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true)
-
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
+        XCTAssertFalse(
+            lhsDoesEntailRhs(
+                forLhs: "p -> s",
+                forRhs: "s OR p"))
 
     }
-
-    func test_10_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p AND q"
-        let formula2 = "r AND q"
-
-        let f1 = Formula(formula1, withTruthTable: true, forNTruthTableVariables: 3)
-        let f2 = Formula(formula2, withTruthTable: true, forNTruthTableVariables: 3)
-
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
-
-    }
-
-    func test_11_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
-
-        let formula1 = "p -> r"
-        let formula2 = "r AND q"
-
-        let f1 = Formula(formula1, withTruthTable: true, forNTruthTableVariables: 3)
-        let f2 = Formula(formula2, withTruthTable: true, forNTruthTableVariables: 3)
-
-        f1.debug()
-        f2.debug()
-
-        XCTAssertTrue(f1.truthTable == f2.truthTable)
-
-    }
-
-    func test_1_semanticallyDifferentFormulas_requestingTruthTable_shouldHaveDifferentTruthTables() {
-
-        let formula1 = "p and q"
-        let formula2 = "r"
-
-        let f1 = Formula(formula1, withTruthTable: true)
-        let f2 = Formula(formula2, withTruthTable: true)
-
-        XCTAssertTrue(f1.truthTable != f2.truthTable)
-
-    }
-
-// That  formula with withTruthTable = false doesn't produce truth table
-
-    // That formula with withTruthTable = true does produce truth table
-
-    // One or two particular truth tables
 
 }

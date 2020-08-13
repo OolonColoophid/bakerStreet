@@ -15,7 +15,6 @@ class ProofTests: XCTestCase {
 
     func test_proof_with_simpleProof_shouldBeProven() {
 
-        // Simple proof testing AND introduction
         let p = Proof(
             """
                 p and q |- q and p
@@ -28,10 +27,7 @@ class ProofTests: XCTestCase {
 
         XCTAssertTrue(p.getProven())
 
-        let b = p.htmlVLN
-
     }
-
 
     func test_emptyProof_isShouldBeNotProven() {
         let p = Proof("")
@@ -58,9 +54,7 @@ class ProofTests: XCTestCase {
         XCTAssertFalse(p.getProven())
     }
 
-    // Advice
-
-    // Helper
+    // Helper func for advice types
     public func getAdviceTypes(_ proof: Proof, forLine: Int) -> [AdviceInstance] {
 
         let advice = proof.advice

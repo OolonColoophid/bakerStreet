@@ -42,6 +42,7 @@ public struct Formula: Equatable {
                  forNTruthTableVariables: Int = 0) {
 
         do {
+            
             var l = try Lexer(text: infixText) // Initialise
             let t = l.getTokenised()           // Get array of Token
 
@@ -99,15 +100,6 @@ public struct Formula: Equatable {
 
     mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
 
-        // Note that a truth table is sorted by semantics
-        // That is, for "p AND q", our order is:
-        //
-        //  p   q  AND
-        //  T   T   T
-        //  T   F   F
-        //  F   F   T
-        //  F   T   F
-
         let myPermuter = SemanticPermuter(withTokens: self.tokens,
                                           forVariableCount: forNTruthTableVariables)
         let myPermutationsAsStrings = myPermuter.permutationAsStrings
@@ -117,7 +109,7 @@ public struct Formula: Equatable {
         for p in myPermutationsAsStrings {
 
             let myTruthResult = Formula(p).truthResult
-            print("Permutation: \(p.debugDescription), with result \(myTruthResult)")
+
             myTokensAsStrings.append(myTruthResult)
 
         }

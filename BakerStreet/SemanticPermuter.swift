@@ -87,7 +87,8 @@ struct SemanticPermuter {
 
         }
 
-        // EXPERIMENTAL
+        // Calculate how much we need to expand the row count for
+        // the truth table
         let expansionFactor = overrideVariableCount - variables.count
         if (expansionFactor > 0) && (overrideVariableCount != -1) {
 

@@ -913,8 +913,9 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="483" height="562"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBa-E0-VPS">
+                            <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBa-E0-VPS">
                                 <rect key="frame" x="0.0" y="61" width="481" height="501"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="tuy-Tc-onB">
                                     <rect key="frame" x="0.0" y="0.0" width="481" height="501"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -939,8 +940,9 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QiE-t2-Xih">
+                            <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QiE-t2-Xih">
                                 <rect key="frame" x="17" y="18" width="71" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="sQd-g3-uC4">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -952,8 +954,9 @@ DQ
                                     <action selector="buttonZoom:" target="0no-Vd-g3C" id="TrE-FH-7Zm"/>
                                 </connections>
                             </segmentedControl>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x4L-IR-z8W" userLabel="Export">
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4L-IR-z8W" userLabel="Export">
                                 <rect key="frame" x="310" y="17" width="154" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="gWl-N7-LdI" userLabel="Export">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -969,17 +972,15 @@ DQ
                                     </menu>
                                 </popUpButtonCell>
                             </popUpButton>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hee-12-Ig2">
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hee-12-Ig2">
                                 <rect key="frame" x="86" y="13" width="75" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="63" id="eyP-8e-Pnc"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Print" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="djs-dh-mZe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <popUpButton verticalHuggingPriority="750" id="Kcm-35-6Sz" userLabel="Copy">
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kcm-35-6Sz" userLabel="Copy">
                                 <rect key="frame" x="174" y="17" width="133" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="8dV-ZE-uT7" userLabel="Copy">
@@ -997,19 +998,6 @@ DQ
                                 </popUpButtonCell>
                             </popUpButton>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="QBa-E0-VPS" firstAttribute="leading" secondItem="Czu-up-s6p" secondAttribute="leading" id="OaA-1g-9gZ"/>
-                            <constraint firstItem="Kcm-35-6Sz" firstAttribute="leading" secondItem="hee-12-Ig2" secondAttribute="trailing" constant="22" id="Prv-hD-tmi"/>
-                            <constraint firstItem="QBa-E0-VPS" firstAttribute="centerX" secondItem="Kcm-35-6Sz" secondAttribute="centerX" id="X3e-d5-2tc"/>
-                            <constraint firstItem="QiE-t2-Xih" firstAttribute="baseline" secondItem="hee-12-Ig2" secondAttribute="baseline" id="XCl-ch-72O"/>
-                            <constraint firstItem="hee-12-Ig2" firstAttribute="leading" secondItem="QiE-t2-Xih" secondAttribute="trailing" constant="6" id="gdo-Fg-VkL"/>
-                            <constraint firstItem="QBa-E0-VPS" firstAttribute="top" secondItem="Czu-up-s6p" secondAttribute="top" id="kHB-bS-DrY"/>
-                            <constraint firstItem="hee-12-Ig2" firstAttribute="baseline" secondItem="Kcm-35-6Sz" secondAttribute="baseline" id="kaj-EO-Dhn"/>
-                            <constraint firstItem="x4L-IR-z8W" firstAttribute="baseline" secondItem="Kcm-35-6Sz" secondAttribute="baseline" id="l4g-W3-eFX"/>
-                            <constraint firstItem="hee-12-Ig2" firstAttribute="top" secondItem="QBa-E0-VPS" secondAttribute="bottom" constant="20" symbolic="YES" id="lsB-SG-gXo"/>
-                            <constraint firstItem="x4L-IR-z8W" firstAttribute="leading" secondItem="Kcm-35-6Sz" secondAttribute="trailing" constant="9" id="mz3-XC-q57"/>
-                            <constraint firstAttribute="trailing" secondItem="x4L-IR-z8W" secondAttribute="trailing" constant="22" id="qf1-3Z-vux"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="copyAs" destination="Kcm-35-6Sz" id="KxW-Kn-4Be"/>
@@ -1091,11 +1079,11 @@ DQ
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
                                         <rect key="frame" x="58" y="0.0" width="533" height="522"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
                                             <rect key="frame" x="0.0" y="0.0" width="533" height="522"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView toolTip="Proof Statements" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
+                                                <textView toolTip="Assertions" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
                                                     <rect key="frame" x="0.0" y="0.0" width="533" height="522"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1118,11 +1106,11 @@ DQ
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="hvJ-QJ-3T9" userLabel="Scroll View - Advice">
                                         <rect key="frame" x="592" y="0.0" width="276" height="522"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
+                                        <clipView key="contentView" toolTip="Advice" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
                                             <rect key="frame" x="0.0" y="0.0" width="276" height="522"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
+                                                <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
                                                     <rect key="frame" x="0.0" y="0.0" width="276" height="522"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

@@ -187,7 +187,7 @@ public struct Token: CustomStringConvertible, Hashable {
         }
     }
 
-    var isOperand: Bool {
+    public var isOperand: Bool {
         switch tokenType {
         case .operand(_):
             return true

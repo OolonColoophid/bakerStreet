@@ -570,6 +570,12 @@ extension Proof {
             advise(AdviceInstance.theoremFormulaPoorlyFormed)
             // setInspectionText()
 
+        } catch Theorem.Error.theoremUnprovable {
+
+            addToScope(il)
+            advise(AdviceInstance.theoremUnprovable)
+            // setInspectionText()
+
         } catch Theorem.Error.LHSandRHSsame {
 
             addToScope(il)
