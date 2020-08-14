@@ -105,13 +105,13 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
+                                        <menuItem title="Page Setup…" hidden="YES" enabled="NO" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
                                                 <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
+                                        <menuItem title="Print…" hidden="YES" enabled="NO" keyEquivalent="p" id="aTl-1u-JFS">
                                             <connections>
                                                 <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
                                             </connections>
@@ -149,7 +149,7 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk">
+                                        <menuItem title="Paste and Match Style" hidden="YES" enabled="NO" keyEquivalent="V" id="WeT-3V-zwk">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="cEh-KX-wJQ"/>
@@ -205,34 +205,34 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Spelling and Grammar" id="Dv1-io-Yv7">
+                                        <menuItem title="Spelling and Grammar" hidden="YES" enabled="NO" id="Dv1-io-Yv7">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Spelling" id="3IN-sU-3Bg">
                                                 <items>
-                                                    <menuItem title="Show Spelling and Grammar" keyEquivalent=":" id="HFo-cy-zxI">
+                                                    <menuItem title="Show Spelling and Grammar" enabled="NO" keyEquivalent=":" id="HFo-cy-zxI">
                                                         <connections>
                                                             <action selector="showGuessPanel:" target="Ady-hI-5gd" id="vFj-Ks-hy3"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Check Document Now" keyEquivalent=";" id="hz2-CU-CR7">
+                                                    <menuItem title="Check Document Now" enabled="NO" keyEquivalent=";" id="hz2-CU-CR7">
                                                         <connections>
                                                             <action selector="checkSpelling:" target="Ady-hI-5gd" id="fz7-VC-reM"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="bNw-od-mp5"/>
-                                                    <menuItem title="Check Spelling While Typing" id="rbD-Rh-wIN">
+                                                    <menuItem title="Check Spelling While Typing" enabled="NO" id="rbD-Rh-wIN">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleContinuousSpellChecking:" target="Ady-hI-5gd" id="7w6-Qz-0kB"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Check Grammar With Spelling" id="mK6-2p-4JG">
+                                                    <menuItem title="Check Grammar With Spelling" enabled="NO" id="mK6-2p-4JG">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleGrammarChecking:" target="Ady-hI-5gd" id="muD-Qn-j4w"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Correct Spelling Automatically" id="78Y-hA-62v">
+                                                    <menuItem title="Correct Spelling Automatically" enabled="NO" id="78Y-hA-62v">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticSpellingCorrection:" target="Ady-hI-5gd" id="2lM-Qi-WAP"/>
@@ -241,48 +241,48 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Substitutions" id="9ic-FL-obx">
+                                        <menuItem title="Substitutions" hidden="YES" enabled="NO" id="9ic-FL-obx">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Substitutions" id="FeM-D8-WVr">
                                                 <items>
-                                                    <menuItem title="Show Substitutions" id="z6F-FW-3nz">
+                                                    <menuItem title="Show Substitutions" enabled="NO" id="z6F-FW-3nz">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="orderFrontSubstitutionsPanel:" target="Ady-hI-5gd" id="oku-mr-iSq"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="gPx-C9-uUO"/>
-                                                    <menuItem title="Smart Copy/Paste" id="9yt-4B-nSM">
+                                                    <menuItem title="Smart Copy/Paste" enabled="NO" id="9yt-4B-nSM">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleSmartInsertDelete:" target="Ady-hI-5gd" id="3IJ-Se-DZD"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Smart Quotes" id="hQb-2v-fYv">
+                                                    <menuItem title="Smart Quotes" enabled="NO" id="hQb-2v-fYv">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticQuoteSubstitution:" target="Ady-hI-5gd" id="ptq-xd-QOA"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Smart Dashes" id="rgM-f4-ycn">
+                                                    <menuItem title="Smart Dashes" enabled="NO" id="rgM-f4-ycn">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticDashSubstitution:" target="Ady-hI-5gd" id="oCt-pO-9gS"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Smart Links" id="cwL-P1-jid">
+                                                    <menuItem title="Smart Links" enabled="NO" id="cwL-P1-jid">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticLinkDetection:" target="Ady-hI-5gd" id="Gip-E3-Fov"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Data Detectors" id="tRr-pd-1PS">
+                                                    <menuItem title="Data Detectors" enabled="NO" id="tRr-pd-1PS">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticDataDetection:" target="Ady-hI-5gd" id="R1I-Nq-Kbl"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Text Replacement" id="HFQ-gK-NFA">
+                                                    <menuItem title="Text Replacement" enabled="NO" id="HFQ-gK-NFA">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="toggleAutomaticTextReplacement:" target="Ady-hI-5gd" id="DvP-Fe-Py6"/>
@@ -291,23 +291,23 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Transformations" id="2oI-Rn-ZJC">
+                                        <menuItem title="Transformations" hidden="YES" enabled="NO" id="2oI-Rn-ZJC">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Transformations" id="c8a-y6-VQd">
                                                 <items>
-                                                    <menuItem title="Make Upper Case" id="vmV-6d-7jI">
+                                                    <menuItem title="Make Upper Case" enabled="NO" id="vmV-6d-7jI">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="uppercaseWord:" target="Ady-hI-5gd" id="sPh-Tk-edu"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Make Lower Case" id="d9M-CD-aMd">
+                                                    <menuItem title="Make Lower Case" enabled="NO" id="d9M-CD-aMd">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="lowercaseWord:" target="Ady-hI-5gd" id="iUZ-b5-hil"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Capitalize" id="UEZ-Bs-lqG">
+                                                    <menuItem title="Capitalize" enabled="NO" id="UEZ-Bs-lqG">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="capitalizeWord:" target="Ady-hI-5gd" id="26H-TL-nsh"/>
@@ -316,17 +316,17 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Speech" id="xrE-MZ-jX0">
+                                        <menuItem title="Speech" hidden="YES" enabled="NO" id="xrE-MZ-jX0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Speech" id="3rS-ZA-NoH">
                                                 <items>
-                                                    <menuItem title="Start Speaking" id="Ynk-f8-cLZ">
+                                                    <menuItem title="Start Speaking" enabled="NO" id="Ynk-f8-cLZ">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="startSpeaking:" target="Ady-hI-5gd" id="654-Ng-kyl"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Stop Speaking" id="Oyz-dy-DGm">
+                                                    <menuItem title="Stop Speaking" enabled="NO" id="Oyz-dy-DGm">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="stopSpeaking:" target="Ady-hI-5gd" id="dX8-6p-jy9"/>
@@ -350,15 +350,6 @@ DQ
                                                 <action selector="menuProofCheck:" target="Ady-hI-5gd" id="OsD-N3-y8u"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Preview" keyEquivalent="p" id="uMF-sa-VCb">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Solve" id="dN9-Ve-AAy">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                        </menuItem>
                                         <menuItem title="Insert" id="scv-JG-m7e">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Insert" id="rMN-jn-ei6">
@@ -376,11 +367,11 @@ DQ
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Hints" id="R4b-wa-6rs">
+                                        <menuItem title="Hints" hidden="YES" enabled="NO" id="R4b-wa-6rs">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Hints" id="cwk-tC-Wx7">
                                                 <items>
-                                                    <menuItem title="Solve" id="efe-Uo-4yw">
+                                                    <menuItem title="Solve" enabled="NO" id="efe-Uo-4yw">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="dev-bs-0fL"/>
@@ -437,9 +428,6 @@ DQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="OTW-qt-XRS"/>
-                                        <menuItem title="Toggle Preview" keyEquivalent="p" id="eJI-9S-NCf" userLabel="Toggle Markdown Reference">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qnX-ub-pxO"/>
                                         <menuItem title="Zoom" id="x8Z-gE-Sxn" userLabel="Zoom">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1097,8 +1085,8 @@ DQ
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-zh-pIf">
                                 <rect key="frame" x="0.0" y="0.0" width="669" height="448"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="Natural Deduction formulas" id="4dv-96-Be4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="naturalDeductionFormulas" id="4dv-96-Be4"/>
                             </imageView>
                         </subviews>
                     </view>
@@ -1284,7 +1272,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="Natural Deduction formulas" width="566.927978515625" height="378.864013671875"/>
+        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">

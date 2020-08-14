@@ -279,14 +279,14 @@ class ProofTests: XCTestCase {
 
     func test_proof_1_shouldBeProven() {
 
-        let p = ExampleProofs.simple
+        let p = ExampleProofs.simpleProof
 
         XCTAssertTrue(p.getProven())
     }
 
     func test_proof_2_shouldBeProven() {
 
-       let p = ExampleProofs.orIntroduction
+       let p = ExampleProofs.orIntroductionProof
 
         XCTAssertTrue(p.getProven())
 
@@ -295,21 +295,21 @@ class ProofTests: XCTestCase {
 
     func test_proof_3_shouldBeProven() {
 
-        let p = ExampleProofs.orElimination
+        let p = ExampleProofs.orEliminationProof
 
         XCTAssertTrue(p.getProven())
     }
 
     func test_proof_5_shouldBeProven() {
 
-        let p = ExampleProofs.ifElimination
+        let p = ExampleProofs.ifEliminationProof
 
         XCTAssertTrue(p.getProven())
     }
 
     func test_proof_6_shouldBeProven() {
 
-        let p = ExampleProofs.subProof
+        let p = ExampleProofs.subProofProof
 
         XCTAssertTrue(p.getProven())
 
@@ -335,7 +335,7 @@ class ProofTests: XCTestCase {
 
     func test_proof_8_shouldBeProven() {
 
-        let p = ExampleProofs.ifIntroduction3
+        let p = ExampleProofs.ifIntroduction3Proof
 
         XCTAssertTrue(p.getProven())
 
@@ -344,7 +344,7 @@ class ProofTests: XCTestCase {
 
     func test_proof_9_shouldBeProven() {
 
-        let p = ExampleProofs.ifIntroduction4
+        let p = ExampleProofs.ifIntroduction4Proof
 
         XCTAssertTrue(p.getProven())
 
@@ -355,21 +355,21 @@ class ProofTests: XCTestCase {
 
     func test_proof_10_shouldBeProven() {
 
-        let p = ExampleProofs.ifIntroduction5
+        let p = ExampleProofs.ifIntroduction5Proof
 
         XCTAssertTrue(p.getProven())
     }
 
     func test_proof_11_shouldBeProven() {
 
-        let p = ExampleProofs.notElimination
+        let p = ExampleProofs.notEliminationProof
 
         XCTAssertTrue(p.getProven())
     }
 
     func test_proof_12_shouldBeProven() {
 
-        let p = ExampleProofs.notEliminationAndIntroduction
+        let p = ExampleProofs.notEliminationProof
 
         XCTAssertTrue(p.getProven())
 
@@ -736,7 +736,7 @@ class ProofTests: XCTestCase {
 
     func test_proof_26_shouldBePRoven() {
 
-        let p = ExampleProofs.falseElimination
+        let p = ExampleProofs.falseEliminationProof
 
         XCTAssertTrue(p.getProven())
 

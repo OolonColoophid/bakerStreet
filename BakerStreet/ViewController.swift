@@ -558,12 +558,6 @@ extension ViewController {
 
     }
 
-    @IBAction func menuPreviw(_ sender: Any) {
-
-        togglePreview()
-
-    }
-
     @IBAction func menuHelpExample(_ sender: Any) {
 
         helpExample(sender as! NSMenuItem)
