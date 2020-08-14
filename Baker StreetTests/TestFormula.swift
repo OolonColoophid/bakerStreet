@@ -6,7 +6,7 @@
 //  Copyright © 2020 Hoksoft. All rights reserved.
 //
 
-import Baker_Street
+@testable import Baker_Street
 import XCTest
 
 
@@ -193,8 +193,6 @@ class TestFormula: XCTestCase {
 
     }
 
-    // MARK: Function lhsDoesEntailRhs
-
 
     func test_formula_requestingTruthTableSize_shouldHaveTruthTableSize() {
 
@@ -230,13 +228,40 @@ class TestFormula: XCTestCase {
 
     }
 
+    func test_1_largeFormula_requestingTruthTableSize_shouldHaveTruthTableSize() {
+
+        let f = Formula("(p OR (q AND r)) AND (p -> s) AND ((q AND r) -> s)",
+                         withTruthTable: true,
+                         forNTruthTableVariables: 4)
+        let fTruthTableSize = f.truthTable.count
+
+        f.debug()
+
+        XCTAssertTrue(fTruthTableSize == 16)
+
+    }
+
+    func test_2_largeFormula_requestingTruthTableSize_shouldHaveTruthTableSize() {
+
+        let f = Formula("p -> (q AND r)",
+                        withTruthTable: true,
+                        forNTruthTableVariables: 3)
+        let fTruthTableSize = f.truthTable.count
+
+        f.debug()
+
+        XCTAssertTrue(fTruthTableSize == 8)
+
+    }
+
+
+
     func test_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
 
         XCTAssertTrue(
             lhsDoesEntailRhs(
                 forLhs: "p and q",
                 forRhs: "q and p"))
-
 
           XCTAssertTrue(
             lhsDoesEntailRhs(
@@ -254,8 +279,6 @@ class TestFormula: XCTestCase {
             lhsDoesEntailRhs(
                 forLhs: "p AND (q AND r)",
                 forRhs: "(p AND q) AND r"))
-
-
 
         XCTAssertTrue(
             lhsDoesEntailRhs(
@@ -278,8 +301,86 @@ class TestFormula: XCTestCase {
                 forLhs: "p AND q",
                 forRhs: "r AND q"))
 
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p -> (q AND r)",
+                forRhs: "p -> q"))
+
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p -> q",
+                forRhs: "(q -> r) -> (p -> r)"))
 
     }
+
+    func test_notEliminationSubProof_ShouldProve() {
+
+        // NOT Elimination example
+        // From UKC C0884 Logic and Logic Programming handout p 19
+
+        // HAND indicates this is not provable
+
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "~p",
+                forRhs: "~p AND ~~p"))
+
+    }
+
+
+    func test_temp() {
+
+        // NOT Elimination example
+        // From UKC C0884 Logic and Logic Programming handout p 19
+
+        // HAND indicates this is not provable
+
+        XCTAssertTrue(
+            lhsDoesEntailRhs(
+                forLhs: "p",
+                forRhs: "(p OR q) AND ~(p OR q)"))
+
+    }
+
+    // These are the theorems that raise a 'theorem not provable' error:
+
+    // p |- (q -> r)
+
+    // p |- (p OR q) AND ~(p OR q)
+
+    // q |- (p OR q) AND ~(p OR q)
+
+
+
+    //  p |- (p AND r) OR (q AND r)
+
+    // q |- (p AND r) OR (q AND r)
+
+    // p |- q AND ~q
+
+// ~q |- p AND ~p
+
+// p AND r |- (p OR q) AND r
+
+    // q AND r |- (p OR q) AND r
+
+    // p AND q |- p AND ~p
+
+    // ~p |- p AND ~p
+
+    // ~q |- p AND ~p
+
+    // p |- q AND ~q
+
+    // ~(~p OR ~q) |- (p AND q) AND ~(p AND q)
+
+    // ~q |- ~(~p OR ~q) AND (~p OR ~q)
+
+    // p |- (p OR ~p) AND ~(p OR ~p)
+
+    // p |- (p OR ~p) AND ~(p OR ~p)
+
+    // ~p |- (p OR ~p) AND ~(p OR ~p)
 
     func test_semanticallyDifferentFormulas_requestingTruthTable_shouldHaveDifferentTruthTables() {
 
@@ -297,6 +398,12 @@ class TestFormula: XCTestCase {
             lhsDoesEntailRhs(
                 forLhs: "p -> s",
                 forRhs: "s OR p"))
+
+        XCTAssertFalse(
+            lhsDoesEntailRhs(
+                forLhs: "p -> s",
+                forRhs: "s OR (p OR ~p"))
+
 
     }
 

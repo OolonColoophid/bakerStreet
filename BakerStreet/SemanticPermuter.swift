@@ -73,8 +73,13 @@ struct SemanticPermuter {
         // doubleUp()
         var bot = [[Token]]()
 
-        // Iterate over our variables
-        let variables = tokens.filter { $0.isOperand == true }
+        // Iterate over our variables:
+        //  Get variables
+        let variablesAll = tokens.filter { $0.isOperand == true }
+
+        // Reduce to only unique variables
+        let variables = variablesAll.uniques.sorted()
+
         for v in variables {
 
             // Create our new permutations (i.e. rows in the truth
@@ -83,12 +88,15 @@ struct SemanticPermuter {
 
             // Now, for our current variable (still a variable
             // in the truth table) replace instances of it with semantics
+            print("  Adding semantics for \(v.description)")
             addSemantics(forVariable: v, top: &top, bot: &bot)
 
         }
 
         // Calculate how much we need to expand the row count for
-        // the truth table
+        // the truth table (i.e. beyond the variables we might currently
+        // have in our formula); this is used when comparing truth tables
+        // for formulas with different variable counts
         let expansionFactor = overrideVariableCount - variables.count
         if (expansionFactor > 0) && (overrideVariableCount != -1) {
 

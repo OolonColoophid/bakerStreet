@@ -6,7 +6,7 @@
 //  Copyright © 2020 Hoksoft. All rights reserved.
 //
 
-import Baker_Street
+@testable import Baker_Street
 import XCTest
 
 // The type `Proof`

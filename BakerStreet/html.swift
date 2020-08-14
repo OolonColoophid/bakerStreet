@@ -926,6 +926,7 @@ enum DocumentContent {
 
         case proof
         case theorem
+        case entailment
         case antecedent
         case justification
         case assertion
@@ -942,6 +943,8 @@ enum DocumentContent {
                     return "proof"
                 case .theorem:
                     return "theorem"
+                case .entailment:
+                    return "entailment"
                 case .antecedent:
                     return "antecedent"
                 case .justification:
@@ -990,6 +993,12 @@ enum DocumentContent {
                         " we can claim " +
                         rhs + ". We would write it like this:"
                         + t
+
+                    return s
+
+                case .entailment:
+
+                    let s = "The left hand side of a theorem must entail the right hand side. Entailment is present when, for all interpretations of variables on the left hand side that make a formula true, the right hand side formula is true for the same interpretations. You can check this by producing a truth table for the theorem."
 
                     return s
 

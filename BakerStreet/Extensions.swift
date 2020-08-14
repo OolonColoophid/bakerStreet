@@ -327,6 +327,22 @@ extension Array where Array.Element == Formula {
     }
 }
 
+// MARK: Array: Get unique elements
+// https://stackoverflow.com/questions/25738817/removing-duplicate-elements-from-an-array-in-swift
+extension Array where Element: Hashable {
+    var uniques: Array {
+        var uniqueElements = Array()
+        var added = Set<Element>()
+        for e in self {
+            if !added.contains(e) {
+                uniqueElements.append(e)
+                added.insert(e)
+            }
+        }
+        return uniqueElements
+    }
+}
+
 // MARK: Int: Words for numbers, and 's'
 extension Int {
 

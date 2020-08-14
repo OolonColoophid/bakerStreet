@@ -218,3 +218,24 @@ public struct Token: CustomStringConvertible, Hashable {
         return tokenType.description
     }
 }
+
+extension Token: Comparable {
+    
+    public static func < (lhs: Token, rhs: Token) -> Bool {
+
+        let myArraySorted = [lhs.description, rhs.description].sorted()
+
+        if myArraySorted[0] == lhs.description {
+
+            return true
+
+        } else {
+
+            return false
+
+        }
+
+    }
+
+
+}

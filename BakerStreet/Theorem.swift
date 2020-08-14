@@ -296,13 +296,24 @@ extension Theorem {
                                     forRhs: rhsFormula.infixText)
         }
 
-        var areEntailed = true
+        // As a shortcut, we can create a super formula from the LHS
+        // and find the permutations where each are true by combining them:
+        // e.g. p AND q, r -> s
+        //      (p AND q) AND (r -> s)
+
+        var superFormulaInfixTemp = ""
         for f in lhsFormula {
-            areEntailed = lhsDoesEntailRhs(forLhs: f.infixText,
-                                           forRhs: rhsFormula.infixText)
+
+            superFormulaInfixTemp = superFormulaInfixTemp + "(" + f.infixText + ") AND "
+
         }
 
-        return areEntailed
+        let superFormulaInfix = superFormulaInfixTemp.dropLast(5)
+
+        print("Our superFormulaInfix is \(superFormulaInfix)")
+
+        return lhsDoesEntailRhs(forLhs: String(superFormulaInfix),
+                                forRhs: rhsFormula.infixText)
 
     }
 
@@ -319,21 +330,22 @@ func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
     var totalVariableCount: Int {
         get {
 
+            var tokens = [Token]()
+
+            // Add LHS tokens
+            tokens.append(contentsOf: Formula(lhs).tokens)
+
+            // Add RHS tokens
+            tokens.append(contentsOf: Formula(rhs).tokens)
+
             // Get variables
-            let lhsVariables = Formula(lhs).tokens
-                .filter { $0.isOperand == true }
-            let rhsVariables = Formula(rhs).tokens
-                .filter { $0.isOperand == true }
+            let variables = tokens.filter { $0.isOperand == true }
 
             // Reduce to unique variables
-            let lhsVarUniqCount = Set(lhsVariables).count
-            let rhsVarUniqCount = Set(rhsVariables).count
+            let uniqueVariables = variables.uniques
 
-            print("lhsCount is \(lhsVarUniqCount)")
-            print("rhsCount is \(rhsVarUniqCount)")
-
-            // Return the set with the greatest number of variables
-            return max(lhsVarUniqCount, rhsVarUniqCount)
+            print("Unique variables: \(uniqueVariables.debugDescription)")
+            return uniqueVariables.count
 
         }
     }
@@ -346,8 +358,12 @@ func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
                        withTruthTable: true,
                        forNTruthTableVariables: totalVariableCount)
 
+    fLhs.debug()
+    fRhs.debug()
 
     guard fLhs.truthTable.count == fRhs.truthTable.count else { return false }
+
+
 
     var i = 0
     var areEntailed = true

@@ -572,8 +572,11 @@ extension Proof {
 
         } catch Theorem.Error.theoremUnprovable {
 
+            let descriptionStyled = ("The left hand side of your theorem does not entail the right hand side. Without entailment, it cannot be proven.".p).asStyledHTML()
+
             addToScope(il)
-            advise(AdviceInstance.theoremUnprovable)
+            advise(AdviceInstance.theoremUnprovable,
+                   longDescription: descriptionStyled)
             // setInspectionText()
 
         } catch Theorem.Error.LHSandRHSsame {

@@ -110,6 +110,8 @@ public struct Formula: Equatable {
 
             let myTruthResult = Formula(p).truthResult
 
+            print(" P: \(infixText)")
+            print(" P: \(p.description)")
             myTokensAsStrings.append(myTruthResult)
 
         }
