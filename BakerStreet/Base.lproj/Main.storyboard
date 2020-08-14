@@ -670,12 +670,12 @@ DQ
                                         <action selector="toolbarJustificationCompletion:" target="6f7-a7-6o1" id="gDc-bR-T4f"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
+                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
                                         <rect key="frame" x="19" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -684,12 +684,12 @@ DQ
                                         <action selector="toolbarDefinitions:" target="6f7-a7-6o1" id="nlm-QO-aPX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
+                                <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="M3z-KP-nNg">
                                         <rect key="frame" x="18" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -698,12 +698,12 @@ DQ
                                         <action selector="toolbarMarkdown:" target="6f7-a7-6o1" id="zuj-BB-Pta"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
+                                <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
                                         <rect key="frame" x="16" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -712,12 +712,12 @@ DQ
                                         <action selector="toolbarRulesFull:" target="6f7-a7-6o1" id="Kj3-hz-OGX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
+                                <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
                                         <rect key="frame" x="31" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -757,22 +757,19 @@ DQ
                                         </segmentedCell>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0CB55F41-C3E7-488D-9BC5-1BA959FBC536" label="Panels" paletteLabel="Toggle Panels" sizingBehavior="auto" id="Rig-76-c3T">
+                                <toolbarItem implicitItemIdentifier="E488A14D-0D10-4865-A5F5-0DE9817770C5" label="Advice" paletteLabel="Toggle Advice Panel" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="YpU-m7-IVN" userLabel="Toggle Advice">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" id="yNn-f2-b9d">
-                                        <rect key="frame" x="0.0" y="14" width="105" height="24"/>
+                                    <button key="view" verticalHuggingPriority="750" id="QJh-ME-XR8">
+                                        <rect key="frame" x="15" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectAny" id="gRh-ZT-xY3">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
-                                            <segments>
-                                                <segment width="32" selected="YES"/>
-                                                <segment width="32" selected="YES" tag="1"/>
-                                                <segment width="32" selected="YES">
-                                                    <nil key="label"/>
-                                                </segment>
-                                            </segments>
-                                        </segmentedCell>
-                                    </segmentedControl>
+                                        </buttonCell>
+                                    </button>
+                                    <connections>
+                                        <action selector="toolbarToggleAdvice:" target="6f7-a7-6o1" id="vGs-dD-0CV"/>
+                                    </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
@@ -788,7 +785,7 @@ DQ
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="ESJ-cm-P4V"/>
                                 <toolbarItem reference="kKA-Av-hRm"/>
-                                <toolbarItem reference="Rig-76-c3T"/>
+                                <toolbarItem reference="YpU-m7-IVN"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
@@ -1269,7 +1266,7 @@ DQ
                         <outlet property="mainScrollView" destination="rwv-Nq-ckY" id="9X4-O0-RBv"/>
                         <outlet property="mainText" destination="FNI-bT-lJX" id="yYS-kn-zWe"/>
                         <outlet property="mainTextView" destination="FNI-bT-lJX" id="z5F-jq-0nV"/>
-                        <outlet property="splitView" destination="yMR-8l-gga" id="7wH-zq-pQ3"/>
+                        <outlet property="splitView" destination="yMR-8l-gga" id="4lb-SG-ajd"/>
                         <outlet property="statementsContentView" destination="o39-TA-3DH" id="7x5-fy-QI8"/>
                         <outlet property="statusLight" destination="F6u-br-fzn" id="PBd-9a-6dZ"/>
                         <outlet property="statusSpinner" destination="e8L-3e-svv" id="hxT-LT-hCh"/>
@@ -1278,7 +1275,7 @@ DQ
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="339.5" y="968.5"/>
+            <point key="canvasLocation" x="278" y="969"/>
         </scene>
     </scenes>
     <resources>
@@ -1287,8 +1284,9 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="NSTouchBarGetInfoTemplate" width="18" height="30"/>
         <image name="Natural Deduction formulas" width="566.927978515625" height="378.864013671875"/>
+        <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
+        <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">
             <color red="0.62000000476837158" green="0.16500000655651093" blue="0.16899999976158142" alpha="0.076999999582767487" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

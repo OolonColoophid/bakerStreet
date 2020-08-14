@@ -43,13 +43,13 @@ class ViewController: NSViewController {
 
     private var lineCount: Int = 0
 
+    // SplitView
+    @IBOutlet weak var splitView: NSSplitView!
+
     // Our status indicator (footer)
     @IBOutlet weak var statusLight: NSImageView!
     @IBOutlet weak var statusSpinner: NSProgressIndicator!
     @IBOutlet weak var statusText: NSTextField!
-
-    @IBOutlet weak var splitView: NSSplitView!
-
 
     // Content views
     // Primarily used to notify us when scrolling occurs
@@ -127,8 +127,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad()")
-
-        print(splitView.minPossiblePositionOfDivider(at: 0))
 
         // Make this controller a delegate
         // for the main text (where the proof text goes)
@@ -522,9 +520,8 @@ extension ViewController {
         toggleMarkdown()
     }
 
-    @IBAction func toolbarZoom(_ sender: Any) {
+    @IBAction func toolbarZoom(_ toolbarItem: NSSegmentedControl) {
 
-        let toolbarItem = sender as! NSSegmentedControl
         let selectedSegment = toolbarItem.selectedSegment
 
         if selectedSegment == 0 {
@@ -538,6 +535,12 @@ extension ViewController {
             refreshLines()
 
         }
+
+    }
+
+    @IBAction func toolbarToggleAdvice(_ toolbarItem: NSButton) {
+
+        toggleAdvice(toolbarItem)
 
     }
 
@@ -895,49 +898,6 @@ extension ViewController {
 
     }
 
-    // Show or hide the advice view
-    func showAdviceView() {
-
-        // Our window
-        let windowSize = view.window?.frame.size.width
-
-        // A CGFloat proportion currently held as a constant
-        let adviceViewProportion = BKPrefConstants.adviceWindowSize
-
-        // Position is window size minus the proportion, since
-        // origin is top left
-        let newPosition = windowSize! - (windowSize! * adviceViewProportion)
-
-        NSAnimationContext.runAnimationGroup { context in
-            context.allowsImplicitAnimation = true
-            context.duration = 0.75
-
-
-//            let item = splitView.subviews[1] as! NSSplitViewItem
-//            animator().setPosition(newPosition, ofDividerAt: 1)
-
-            // TODO: Put the splitviewcontroller into play
-//            adviceSplitView.animator().isCollapsed = false
-        }
-
-    }
-
-    func hideAdviceView() {
-
-        let windowSize = view.window?.frame.size.width
-        let newPosition = windowSize!
-
-        NSAnimationContext.runAnimationGroup{ context in
-            context.allowsImplicitAnimation = true
-            context.duration = 0.75
-
-//            splitView.animator().setPosition(newPosition, ofDividerAt: 1)
-//            adviceSplitView.animator().isCollapsed = false
-
-        }
-
-    }
-
     // Status light
     // Inactive (grey) - main view is blank or inactive
     // Green - proof is correct
@@ -981,6 +941,45 @@ extension ViewController {
 
     func statusSpinnerStop() {
         statusSpinner.stopAnimation(self)
+
+    }
+
+    func toggleAdvice(_ toolbarItem: NSButton) {
+
+        if toolbarItem.state == .on { // It was off; is now on
+            
+            showAdviceView()
+
+        } else {
+
+            hideAdviceView()
+
+        }
+
+    }
+
+    func showAdviceView() {
+
+        // Our window
+        let windowSize = view.window?.frame.size.width
+
+        // A CGFloat proportion currently held as a constant
+        let adviceViewProportion = BKPrefConstants.adviceWindowSize
+
+        // Position is window size minus the proportion, since
+        // origin is top left
+        let newPosition = windowSize! - (windowSize! * adviceViewProportion)
+
+        splitView.setPosition(newPosition, ofDividerAt: 1)
+
+    }
+
+    func hideAdviceView() {
+
+        let windowSize = view.window?.frame.size.width
+        let newPosition = windowSize!
+
+        splitView.setPosition(newPosition, ofDividerAt: 1)
 
     }
 
@@ -1065,11 +1064,9 @@ extension ViewController {
         if proofController.proof.proven {
             statusLightGood()
             statusTextCorrect()
-            hideAdviceView()
         } else {
             statusLightBad()
             statusTextIncorrect()
-            showAdviceView()
         }
 
     }

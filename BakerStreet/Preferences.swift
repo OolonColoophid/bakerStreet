@@ -23,7 +23,7 @@ enum BKPrefConstants {
 
     // Proportion of main window that is the advice window,
     // when showing
-    static let adviceWindowSize = CGFloat(0.33) // 0 min, 1 max
+    static let adviceWindowSize = CGFloat(0.26) // 0 min, 1 max
 
 }
 
