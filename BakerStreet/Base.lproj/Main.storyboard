@@ -490,34 +490,107 @@ DQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="Baker Street Help" keyEquivalent="?" id="FKE-Sm-Kum">
-                                            <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Info Panels" id="Taq-ac-KtG" userLabel="Info Panels">
+                                        <menuItem title="Example Proofs" id="XeE-Sm-Msq" userLabel="Examples">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Info Panels" id="Cqh-44-kpa" userLabel="Info Panels">
+                                            <menu key="submenu" title="Example Proofs" id="IWn-jO-8xZ" userLabel="Examples">
                                                 <items>
-                                                    <menuItem title="Show/Hide Rules Overview" keyEquivalent="r" id="6bu-mv-JGR" userLabel="Rules Overview">
+                                                    <menuItem title="AND Introduction" id="CIf-C2-deO">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="ZB0-jr-nbK"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="AND Elimination" tag="1" id="LN0-vL-DE9">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="ea3-iS-dqO"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="1CU-vp-HEU"/>
+                                                    <menuItem title="OR Introduction" tag="2" id="56y-4X-Le7">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="Evw-sw-yDb"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="OR Elimination" tag="3" id="wkI-Lt-9CH">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="0bc-Ks-gdE"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="ZTP-kv-6ZH"/>
+                                                    <menuItem title="-&gt; Introduction" tag="4" id="2Ea-vT-Aos">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="VI9-nb-9Zf"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="-&gt; Elimination" tag="5" id="QdD-s4-f9I">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="Dg4-8M-di4"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="PYZ-lL-3nB"/>
+                                                    <menuItem title="&lt;-&gt; Introduction" tag="6" id="aHn-ld-y7x">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="fpX-MT-xae"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="&lt;-&gt; Elimination" tag="7" id="cel-pS-d0U">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="3lv-rL-XPj"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="ASY-pL-Afr"/>
+                                                    <menuItem title="~ Introduction" tag="8" id="iU0-ij-qR8">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="qjx-bV-9JF"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="~ Elimination" tag="9" id="JCv-nf-adb">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="c7Q-p9-MjO"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="oq7-Mo-0OB"/>
+                                                    <menuItem title="False Elimination" tag="10" id="lP9-3H-aVM">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="menuHelpExample:" target="Ady-hI-5gd" id="KG4-GR-lza"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Info Panels Show / Hide" id="Taq-ac-KtG" userLabel="Info Panels">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Info Panels Show / Hide" id="Cqh-44-kpa" userLabel="Info Panels">
+                                                <items>
+                                                    <menuItem title="Rules Overview Show / Hide" keyEquivalent="r" id="6bu-mv-JGR" userLabel="Rules Overview">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuRulesOverview:" target="Ady-hI-5gd" id="Ka8-Fs-vy2"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Show/Hide Markdown" keyEquivalent="m" id="zDd-KH-aMQ" userLabel="Markdown">
+                                                    <menuItem title="Markdown Show / Hide" keyEquivalent="m" id="zDd-KH-aMQ" userLabel="Markdown">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuMarkdown:" target="Ady-hI-5gd" id="wL2-lR-AEx"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Show/Hide Rules in Full" keyEquivalent="f" id="wUT-qR-Sbp" userLabel="Rules in Full">
+                                                    <menuItem title="Rules in Full Show / Hide " keyEquivalent="f" id="wUT-qR-Sbp" userLabel="Rules in Full">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuRulesFull:" target="Ady-hI-5gd" id="ZEx-wp-kBu"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Show/Hide Definitions" keyEquivalent="d" id="TGb-3h-41e" userLabel="Definitions">
+                                                    <menuItem title="Definitions Show / Hide " keyEquivalent="d" id="TGb-3h-41e" userLabel="Definitions">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuDefinitions:" target="Ady-hI-5gd" id="9Tv-BD-C8L"/>
@@ -955,7 +1028,7 @@ DQ
                                 <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="Kka-cT-lr9" userLabel="Export">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
-                                    <menu key="menu" title="Copy" showsStateColumn="NO" id="1s6-kA-idq">
+                                    <menu key="menu" title="Copy" id="1s6-kA-idq">
                                         <items>
                                             <menuItem title="Export As..." hidden="YES" id="DsT-wb-him" userLabel="Copy As..."/>
                                             <menuItem title="LaTeX" enabled="NO" id="GHh-pG-org"/>
@@ -973,7 +1046,7 @@ DQ
                                 <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="8dV-ZE-uT7" userLabel="Copy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
-                                    <menu key="menu" title="Copy" showsStateColumn="NO" id="OXj-z1-H0O">
+                                    <menu key="menu" title="Copy" id="OXj-z1-H0O">
                                         <items>
                                             <menuItem title="Copy As..." hidden="YES" id="BUA-5Y-u0J" userLabel="Copy As..."/>
                                             <menuItem title="LaTeX" enabled="NO" id="QdO-Fo-gGx"/>
@@ -1046,11 +1119,11 @@ DQ
             <objects>
                 <viewController id="5gI-5U-AMq" customClass="ViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ERx-hH-rdd">
-                        <rect key="frame" x="0.0" y="0.0" width="868" height="563"/>
+                        <rect key="frame" x="0.0" y="0.0" width="941" height="563"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMR-8l-gga">
-                                <rect key="frame" x="0.0" y="62" width="868" height="501"/>
+                                <rect key="frame" x="0.0" y="62" width="941" height="501"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="pdk-az-OfG" userLabel="Scroll View - Line Numbers">
                                         <rect key="frame" x="0.0" y="0.0" width="57" height="501"/>
@@ -1080,18 +1153,18 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
-                                        <rect key="frame" x="58" y="0.0" width="533" height="501"/>
+                                        <rect key="frame" x="58" y="0.0" width="633" height="501"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="533" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="633" height="501"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Proof Statements" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="533" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="633" height="501"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="533" height="501"/>
+                                                    <size key="minSize" width="633" height="501"/>
                                                     <size key="maxSize" width="100000" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1107,18 +1180,18 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="hvJ-QJ-3T9" userLabel="Scroll View - Advice">
-                                        <rect key="frame" x="592" y="0.0" width="276" height="501"/>
+                                        <rect key="frame" x="692" y="0.0" width="249" height="501"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="276" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="249" height="501"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="276" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="249" height="501"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="auburnBackground"/>
-                                                    <size key="minSize" width="276" height="501"/>
+                                                    <size key="minSize" width="249" height="501"/>
                                                     <size key="maxSize" width="846" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
@@ -1147,10 +1220,10 @@ DQ
                                 </connections>
                             </splitView>
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5hv-Dn-BFw" userLabel="Footer Line">
-                                <rect key="frame" x="0.0" y="59" width="868" height="5"/>
+                                <rect key="frame" x="0.0" y="59" width="941" height="5"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-6s-YuP">
-                                <rect key="frame" x="51" y="23" width="80" height="16"/>
+                                <rect key="frame" x="46" y="23" width="80" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Proof Status" id="ezj-Wv-c1x">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="rosewood"/>
@@ -1165,11 +1238,10 @@ DQ
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="vna-vs-uiV"/>
                             </imageView>
                             <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-3e-svv">
-                                <rect key="frame" x="137" y="23" width="16" height="16"/>
+                                <rect key="frame" x="132" y="23" width="16" height="16"/>
                             </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="aeM-6s-YuP" firstAttribute="leading" secondItem="F6u-br-fzn" secondAttribute="trailing" constant="17" id="A6P-Z2-gWL"/>
                             <constraint firstAttribute="bottom" secondItem="F6u-br-fzn" secondAttribute="bottom" constant="23" id="FYI-Zu-X7V"/>
                             <constraint firstItem="F6u-br-fzn" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="OHT-VE-qdp"/>
                             <constraint firstAttribute="bottom" secondItem="aeM-6s-YuP" secondAttribute="bottom" constant="23" id="Orj-hD-FdD"/>
@@ -1178,6 +1250,7 @@ DQ
                             <constraint firstItem="e8L-3e-svv" firstAttribute="leading" secondItem="aeM-6s-YuP" secondAttribute="trailing" constant="8" id="Rgj-mn-aRT"/>
                             <constraint firstAttribute="trailing" secondItem="5hv-Dn-BFw" secondAttribute="trailing" id="XF7-Ix-3xg"/>
                             <constraint firstItem="yMR-8l-gga" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="aVw-zX-lRo"/>
+                            <constraint firstItem="aeM-6s-YuP" firstAttribute="leading" secondItem="F6u-br-fzn" secondAttribute="trailing" constant="12" id="c6M-nO-FNT"/>
                             <constraint firstAttribute="trailing" secondItem="yMR-8l-gga" secondAttribute="trailing" id="hzV-he-Ggx"/>
                             <constraint firstAttribute="bottom" secondItem="e8L-3e-svv" secondAttribute="bottom" constant="23" id="jTw-vZ-Zel"/>
                             <constraint firstAttribute="bottom" secondItem="yMR-8l-gga" secondAttribute="bottom" constant="62" id="kUD-1q-HOy"/>
@@ -1205,7 +1278,7 @@ DQ
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="968.5"/>
+            <point key="canvasLocation" x="339.5" y="968.5"/>
         </scene>
     </scenes>
     <resources>

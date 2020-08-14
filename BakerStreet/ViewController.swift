@@ -561,6 +561,12 @@ extension ViewController {
 
     }
 
+    @IBAction func menuHelpExample(_ sender: Any) {
+
+        helpExample(sender as! NSMenuItem)
+
+    }
+
     @IBAction func toolbarValidate(_ sender: Any) {
         validate()
 
@@ -1146,5 +1152,59 @@ extension ViewController {
 
 // MARK: Extension: BKZoomable
 extension ViewController: BKZoomable {
+
+}
+
+// MARK: Help Examples
+extension ViewController {
+
+    func helpExample(_ menuItem: NSMenuItem) {
+
+        var proofText = ""
+
+        switch menuItem.tag {
+            case 1:
+                proofText = ExampleProofTexts.andElimination.text
+            case 2:
+                proofText = ExampleProofTexts.orIntroduction.text
+            case 3:
+                proofText = ExampleProofTexts.orElimination.text
+            case 4:
+                proofText = ExampleProofTexts.ifIntroduction.text
+            case 5:
+                proofText = ExampleProofTexts.ifElimination.text
+            case 6:
+                proofText = ExampleProofTexts.iffIntroduction.text
+            case 7:
+                proofText = ExampleProofTexts.iffElimination.text
+            case 8:
+                proofText = ExampleProofTexts.notIntroduction.text
+            case 9:
+                proofText = ExampleProofTexts.notElimination.text
+            case 10:
+                proofText = ExampleProofTexts.falseElimination.text
+            default:
+                proofText = ExampleProofTexts.andIntroduction.text
+
+
+        }
+
+        makeNewDocument(proofText)
+
+    }
+
+    func makeNewDocument(_ text: String) {
+
+        // Can we set the document title?
+
+        let newHelpExample = Document()
+
+        newHelpExample.mainText = text
+
+        newHelpExample.makeWindowControllers()
+
+        newHelpExample.showWindows()
+
+    }
 
 }

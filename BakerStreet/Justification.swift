@@ -442,29 +442,29 @@ public enum Justification: CaseIterable {
             case .assumption:
                 return ""
             case .andIntroduction:
-                return ExampleProofs.simple.htmlVLN
+                return ExampleProofs.simpleProof.htmlVLN
             case .orIntroduction:
-                return ExampleProofs.orIntroduction.htmlVLN
+                return ExampleProofs.orIntroductionProof.htmlVLN
             case .notIntroduction:
-                return ExampleProofs.notEliminationAndIntroduction.htmlVLN
+                return ExampleProofs.notIntroductionProof.htmlVLN
             case .ifIntroduction:
-                return ExampleProofs.ifIntroduction3.htmlVLN
+                return ExampleProofs.ifIntroduction3Proof.htmlVLN
             case .iffIntroduction:
-                return ExampleProofs.iffIntroduction.htmlVLN
+                return ExampleProofs.iffIntroductionProof.htmlVLN
             case .andElimination:
-                return ExampleProofs.ifElimination.htmlVLN
+                return ExampleProofs.ifEliminationProof.htmlVLN
             case .orElimination:
-                return ExampleProofs.orElimination.htmlVLN
+                return ExampleProofs.orEliminationProof.htmlVLN
             case .notElimination:
-                return ExampleProofs.notElimination.htmlVLN
+                return ExampleProofs.notEliminationProof.htmlVLN
             case .ifElimination:
-                return ExampleProofs.ifElimination.htmlVLN
+                return ExampleProofs.ifEliminationProof.htmlVLN
             case .iffElimination:
                 return ""
             case .trueIntroduction:
                 return ""
             case .falseElimination:
-                return ExampleProofs.falseElimination.htmlVLN
+                return ExampleProofs.falseEliminationProof.htmlVLN
         }
     }
 

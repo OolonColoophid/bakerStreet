@@ -10,331 +10,387 @@ import Cocoa
 
 import Foundation
 
+// MARK: Proof Texts
+public enum ExampleProofTexts {
+
+    case andElimination
+    case andIntroduction
+    case orIntroduction
+    case orElimination
+    case ifIntroduction
+    case iffIntroduction
+    case iffElimination
+    case ifElimination
+    case subProof
+    case ifIntroduction3
+    case ifIntroduction4
+    case ifIntroduction5
+    case notElimination
+    case notIntroduction
+    case falseElimination
+
+    var text: String {
+        switch self {
+            case .andElimination:
+                return """
+            // Example: AND Elimination, AND Introduction
+            // From UKC C0884 Logic and Logic Programming handout 2020 p 14
+
+            p AND (q AND r) |- (p AND q) AND r
+
+            p AND (q AND r)                          : Assumption (3)
+            p                                   : AND Elimination (5)
+            q AND r                             : AND Elimination (5)
+            q                                   : AND Elimination (7)
+            r                                   : AND Elimination (7)
+            p AND q                         : AND Introduction (6, 8)
+            (p AND q) AND r                : AND Introduction (10, 9)
+
+            """
+
+            case .andIntroduction:
+                return  """
+            // Example: AND Elimination, AND Introduction
+            // From UKC C0884 Logic and Logic Programming handout 2020 p 14
+
+            p AND q |- q AND p
+
+            p AND q : Assumption (3)
+            q : AND Elimination (5)
+            p : AND Elimination (5)
+            q and p: AND Introduction (6, 7)
+
+            """
+
+            case .orIntroduction:
+                return  """
+            // Example: AND Elimination, OR Introduction, AND Introduction
+            // From UKC C0884 Logic and Logic Programming handout 2020 p 15
+
+            p AND q |- p AND (r OR q)
+
+            p AND q                                  : Assumption (3)
+            p                                   : AND Elimination (5)
+            q                                   : AND Elimination (5)
+            r OR q                              : OR Introduction (7)
+            p AND (r OR q)                  : AND Introduction (6, 8)
+            """
+
+            case .orElimination:
+                return """
+            // Example: OR Elimination, OR Introduction
+            // From UKC C0884 Logic and Logic Programming handout 2020 p 15
+
+            p OR (q AND r), p -> s, (q AND r) -> s |- s OR p
+
+            p OR (q AND r)                           : Assumption (3)
+            p -> s                                   : Assumption (3)
+            (q AND r) -> s                           : Assumption (3)
+            s                              : OR Elimination (5, 6, 7)
+            s OR p                              : OR Introduction (8)
+            """
+
+            case .ifIntroduction:
+                return """
+            // Example: IF Elimination, AND Elimination, IF Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 17
+
+            p -> (q AND r) |- p -> q
+            p -> (q AND r)                            : Assumption (3)
+            p |- q
+            p                                     : Assumption (5)
+            q AND r                        : -> Elimination (4, 6)
+            q                                : AND Elimination (7)
+            p -> q                               : -> Introduction (5)
+
+            """
+
+            case .iffIntroduction, .iffElimination:
+                return """
+            // Example: IFF Elimination, IFF Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 16
+
+            p <-> q |- q <-> p
+            p <-> q                                    : Assumption (3)
+            p -> q                                : <-> Elimination (4)
+            q -> p                                : <-> Elimination (4)
+            q <-> p                           : <-> Introduction (5, 6)
+
+            """
+
+            case .ifElimination:
+                return """
+            // Example: AND Elimination, IF Elimination, AND Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 16
+
+            p AND q, p -> r |- r AND q
+            p AND q                                    : Assumption (3)
+            p -> r                                     : Assumption (3)
+            p                                     : AND Elimination (4)
+            q                                     : AND Elimination (4)
+            r                                   : -> Elimination (5, 6)
+            r AND q                           : AND Introduction (8, 7)
+
+            """
+
+            case .subProof:
+                return """
+            // Example: Subproof
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 17
+
+            p -> (q AND r) |- p -> q
+            p -> (q AND r)                            : Assumption (3)
+            p |- q
+            p                                     : Assumption (5)
+            q AND r                        : -> Elimination (4, 6)
+            q                                : AND Elimination (7)
+            p -> q                               : -> Introduction (5)
+
+
+            """
+
+            case .ifIntroduction3:
+                return """
+            // Example: IF Elimination, OR Introduction, IF Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 18
+
+            p -> q |- p -> (q OR r)
+            p -> q                                    : Assumption (3)
+            p |- q OR r
+            p                                     : Assumption (5)
+            q                              : -> Elimination (4, 6)
+            q OR r                           : OR Introduction (7)
+            p -> (q OR r)                        : -> Introduction (5)
+
+
+            """
+
+            case .ifIntroduction4:
+                return """
+            // Example: IF Elimination, IF Introduction, IF Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 18
+
+            p -> q |- (q -> r) -> (p -> r)
+            p -> q                                    : Assumption (3)
+            q -> r |- p -> r
+            q -> r                                : Assumption (5)
+            p |- r
+            p                                 : Assumption (7)
+            q                          : -> Elimination (4, 8)
+            r                          : -> Elimination (6, 9)
+            p -> r                           : -> Introduction (7)
+            (q -> r) -> (p -> r)                 : -> Introduction (5)
+
+
+            """
+
+            case .ifIntroduction5:
+                return """
+            // Example: AND Elimination, IF Elimination, IF Introduction
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 18
+
+            p -> (q -> r) |- (p AND q) -> r
+            p -> (q -> r)                             : Assumption (3)
+            p AND q |- r
+            p AND q                               : Assumption (5)
+            p                                : AND Elimination (6)
+            q -> r                         : -> Elimination (4, 7)
+            q                                : AND Elimination (6)
+            r                              : -> Elimination (8, 9)
+            (p AND q) -> r                       : -> Introduction (5)
+
+
+            """
+
+            case .notElimination:
+                return """
+            // Example: AND Introduction, NOT Elimination
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 19
+
+            ~~p |- p
+            ~~p                                       : Assumption (3)
+            ~p |- ~p AND ~~p
+            ~p                                    : Assumption (5)
+            ~p AND ~~p                   : AND Introduction (6, 4)
+            p                                      : ~ Elimination (5)
+
+
+            """
+
+            case .notIntroduction:
+                return """
+            // Example: OR Introduction, AND Introduction, NOT Introduction,
+            //          IF Introduction
+            // - One half of de Morgan's Laws
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 19
+
+            |- ~(p OR q) -> ~p AND ~q
+            ~(p OR q) |- ~p AND ~q
+            ~(p OR q) : Assumption (6)
+            p |- (p OR q) AND ~(p OR q)
+            p : Assumption (8)
+            p OR q : OR Introduction (9)
+            (p OR q) AND ~(p OR q) : AND Introduction (10, 7)
+            ~p : ~ Introduction (8)
+            q |- (p OR q) AND ~(p OR q)
+            q : Assumption (13)
+            p OR q : OR Introduction (14)
+            (p OR q) AND ~(p OR q) : AND Introduction (15, 7)
+            ~q : ~ Introduction (13)
+            ~p AND ~q : AND Introduction (12, 17)
+            ~(p OR q) -> ~p AND ~q : -> Introduction (6)
+
+
+
+            """
+
+            case .falseElimination:
+                return """
+            // Example: False Elimination
+            // From UKC C0884 Logic and Logic Pogramming handout 2020 p 20
+
+            |- false -> p
+            false |- p
+            false                                              : Assumption (4)
+            p                                           : false Elimination (5)
+            false -> p                                    : -> Introduction (4)
+
+            """
+
+        }
+    }
+
+}
+
 // MARK: Proofs
 
 public enum ExampleProofs {
 
-    public static var simple: Proof {
+    public static var simpleProof: Proof {
 
-        let p = Proof(
-            """
-                // Simple proof example
-                // From UKC C0884 Logic and Logic Programming handout
+        let exampleProof = ExampleProofTexts.andElimination
 
-                p AND (q AND r) |- (p AND q) AND r
-
-                    p AND (q AND r)                          : Assumption (3)
-                    p                                   : AND Elimination (5)
-                    q AND r                             : AND Elimination (5)
-                    q                                   : AND Elimination (7)
-                    r                                   : AND Elimination (7)
-                    p AND q                         : AND Introduction (6, 8)
-                    (p AND q) AND r                : AND Introduction (10, 9)
-
-                """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var orIntroduction: Proof {
+    public static var orIntroductionProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.orIntroduction
 
-            """
-                // OR Introduction example
-                // From UKC C0884 Logic and Logic Programming handout
-
-                p AND q |- p AND (r OR q)
-
-                    p AND q                                  : Assumption (3)
-                    p                                   : AND Elimination (5)
-                    q                                   : AND Elimination (5)
-                    r OR q                              : OR Introduction (7)
-                    p AND (r OR q)                  : AND Introduction (6, 8)
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var orElimination: Proof {
+    public static var orEliminationProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.orElimination
 
-            """
-                // OR Elimination and OR Introduction example
-                // From UKC C0884 Logic and Logic Programming handout
-
-                p OR (q AND r), p -> s, (q AND r) -> s |- s OR p
-
-                    p OR (q AND r)                           : Assumption (3)
-                    p -> s                                   : Assumption (3)
-                    (q AND r) -> s                           : Assumption (3)
-                    s                              : OR Elimination (5, 6, 7)
-                    s OR p                              : OR Introduction (8)
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var ifIntroduction: Proof {
+    public static var ifIntroductionProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.ifIntroduction
 
-            """
-                // OR Elimination and OR Introduction example
-                // From UKC C0884 Logic and Logic Programming handout p 15
-
-                p <-> q |- q <-> p
-
-                    p <-> q                                  : Assumption (3)
-                    p -> q                              : <-> Elimination (5)
-                    q -> p                              : <-> Elimination (5)
-                    q <-> p                         : <-> Introduction (6, 7)
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var iffIntroduction: Proof {
+    public static var iffIntroductionProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.iffIntroduction
 
-            """
-               // IFF Introduction and Elimination example
-            // From UKC C0884 Logic and Logic Programming handout p 16
-
-            p <-> q |- q <-> p
-                p <-> q                                    : Assumption (3)
-                p -> q                                : <-> Elimination (4)
-                q -> p                                : <-> Elimination (4)
-                q <-> p                           : <-> Introduction (5, 6)
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var ifElimination: Proof {
+    public static var ifEliminationProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.ifElimination
 
-            """
-                // IF Elimination example
-                // From UKC C0884 Logic and Logic Programming handout p 16
-
-                p AND q, p -> r |- r AND q
-                    p AND q                                    : Assumption (3)
-                    p -> r                                     : Assumption (3)
-                    p                                     : AND Elimination (4)
-                    q                                     : AND Elimination (4)
-                    r                                   : -> Elimination (5, 6)
-                    r AND q                           : AND Introduction (8, 7)
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var subProof: Proof {
+    public static var subProofProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.subProof
 
-            """
-                // IF Introduction / Subproof example
-                // From UKC C0884 Logic and Logic Programming handout p 17
-
-                p -> (q AND r) |- p -> q
-                    p -> (q AND r)                            : Assumption (3)
-                    p |- q
-                        p                                     : Assumption (5)
-                        q AND r                        : -> Elimination (4, 6)
-                        q                                : AND Elimination (7)
-                    p -> q                               : -> Introduction (5)
-
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var ifIntroduction3: Proof {
+    public static var ifIntroduction3Proof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.ifIntroduction3
 
-            """
-            // IF Introduction example
-            // From UKC C0884 Logic and Logic Programming handout p 18
-
-            p -> q |- p -> (q OR r)
-                p -> q                                    : Assumption (3)
-                p |- q OR r
-                    p                                     : Assumption (5)
-                    q                              : -> Elimination (4, 6)
-                    q OR r                           : OR Introduction (7)
-                p -> (q OR r)                        : -> Introduction (5)
-
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var ifIntroduction4: Proof {
+    public static var ifIntroduction4Proof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.ifIntroduction4
 
-            """
-                // IF Introduction example
-                // From UKC C0884 Logic and Logic Programming handout p 18
-
-                p -> q |- (q -> r) -> (p -> r)
-                    p -> q                                    : Assumption (3)
-                    q -> r |- p -> r
-                        q -> r                                : Assumption (5)
-                        p |- r
-                            p                                 : Assumption (7)
-                            q                          : -> Elimination (4, 8)
-                            r                          : -> Elimination (6, 9)
-                        p -> r                           : -> Introduction (7)
-                    (q -> r) -> (p -> r)                 : -> Introduction (5)
-
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var ifIntroduction5: Proof {
+    public static var ifIntroduction5Proof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.ifIntroduction5
 
-            """
-                // IF Introduction example
-                // From UKC C0884 Logic and Logic Programming handout p 18
-
-                p -> (q -> r) |- (p AND q) -> r
-                    p -> (q -> r)                             : Assumption (3)
-                    p AND q |- r
-                        p AND q                               : Assumption (5)
-                        p                                : AND Elimination (6)
-                        q -> r                         : -> Elimination (4, 7)
-                        q                                : AND Elimination (6)
-                        r                              : -> Elimination (8, 9)
-                    (p AND q) -> r                       : -> Introduction (5)
-
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var notElimination: Proof {
+    public static var notEliminationProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.notElimination
 
-            """
-                // NOT Elimination example
-                // From UKC C0884 Logic and Logic Programming handout p 19
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
-                ~~p |- p
-                    ~~p                                       : Assumption (3)
-                    ~p |- ~p AND ~~p
-                        ~p                                    : Assumption (5)
-                        ~p AND ~~p                   : AND Introduction (6, 4)
-                    p                                      : ~ Elimination (5)
+      return p
 
+    }
 
-            """,
-            minimalVersion: true
-        )
+    public static var notIntroductionProof: Proof {
+
+        let exampleProof = ExampleProofTexts.notIntroduction
+
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
     }
 
-    public static var notEliminationAndIntroduction: Proof {
+    public static var falseEliminationProof: Proof {
 
-        let p = Proof(
+        let exampleProof = ExampleProofTexts.falseElimination
 
-            """
-                 // NOT Elimination and Introduction example
-                // - One half of de Morgan's Laws
-                // From UKC C0884 Logic and Logic Programming handout p 19
-
-                |- ~(p OR q) -> ~p AND ~q
-                    ~(p OR q) |- ~p AND ~q
-                        ~(p OR q)                                            : Assumption (5)
-                        p |- (p OR q) AND ~(p OR q)
-                            p                                                : Assumption (7)
-                            p OR q                                      : OR Introduction (8)
-                            (p OR q) AND ~(p OR q)                  : AND Introduction (9, 6)
-                        ~p                                               : ~ Introduction (7)
-                        q |- (p OR q) AND ~(p OR q)
-                            q                                               : Assumption (12)
-                            p OR q                                     : OR Introduction (13)
-                            (p OR q) AND ~(p OR q)                 : AND Introduction (14, 6)
-                        ~q                                              : ~ Introduction (12)
-                        ~p AND ~q                                 : AND Introduction (11, 16)
-                    ~(p OR q) -> ~p AND ~q                              : -> Introduction (5)
-
-
-            """,
-            minimalVersion: true
-        )
-
-        return p
-
-    }
-
-    public static var falseElimination: Proof {
-
-        let p = Proof(
-
-            """
-
-                // False elimination
-                // From UKC C0884 Logic and Logic Programming handout p 20
-
-                |- false -> p
-
-                    false |- p
-                        false                                                : Assumption (5)
-                        p                                             : false Elimination (6)
-                    false -> p                                          : -> Introduction (5)
-
-            """,
-            minimalVersion: true
-        )
+        let p = Proof(exampleProof.text,minimalVersion: true)
 
         return p
 
@@ -972,7 +1028,7 @@ enum DocumentContent {
 
                 case .proof:
 
-                    let tP = ExampleProofs.notElimination
+                    let tP = ExampleProofs.notEliminationProof
                     let s = "A collection of supporting axioms, assumptions, or inference rules. In the proof below, our axiom is the caption for the table, which is followed by an assumption and several inference rules." +
                         tP.htmlVLN
 
@@ -995,7 +1051,7 @@ enum DocumentContent {
 
                 case .antecedent:
 
-                    let tP = ExampleProofs.orIntroduction
+                    let tP = ExampleProofs.orIntroductionProof
                     let s = "Any line that a justification makes reference to. In the example below, the justification AND Introduction on line 5 has two antecedents (2, 4)." +
                         tP.htmlVLN
 
@@ -1003,7 +1059,7 @@ enum DocumentContent {
 
                 case .justification:
 
-                    let tP = ExampleProofs.orElimination
+                    let tP = ExampleProofs.orEliminationProof
                     let s = "Either an inference rule like AND Elimination or an assumption. In the example below, the first list has the justificaton 'Assumption'." +
                         tP.htmlVLN
 
@@ -1011,7 +1067,7 @@ enum DocumentContent {
 
                 case .assertion:
 
-                    let tP = ExampleProofs.ifIntroduction3
+                    let tP = ExampleProofs.ifIntroduction3Proof
                     let s = "Any line of a proof that makes a claim. In the proof below, all lines are assertions." +
                         tP.htmlVLN
 
@@ -1019,7 +1075,7 @@ enum DocumentContent {
 
                 case .subproof:
 
-                    let tP = ExampleProofs.ifIntroduction
+                    let tP = ExampleProofs.ifIntroductionProof
                     let s = "A theorem of the form 'Given A, we can formally prove B', but one introduced within a proof in order to satisfy an inference rule. " +
                         tP.htmlVLN
 
@@ -1027,7 +1083,7 @@ enum DocumentContent {
 
                 case .scope:
 
-                    let tP = ExampleProofs.subProof
+                    let tP = ExampleProofs.subProofProof
                     let f = "p".formulaToHTML
                     let s = "Every assumption has a scope. It runs from the line in which the assumption is introduced to the line preceding the one in which it is discharged. In the example below, the scope of the formula " + f +
                         " is lines 2 to 2.3 inclusive:" +
@@ -1051,7 +1107,7 @@ enum DocumentContent {
 
                 case .inference:
 
-                    let tP = ExampleProofs.ifIntroduction3
+                    let tP = ExampleProofs.ifIntroduction3Proof
                     let f = "q OR r".formulaToHTML
                     let s = "Something that follows from the preceding proof sentences by a rule of inference. For instance, in the proof below, we can justify " + f +
                         " with the 'OR Introduction' inference rule:" + tP.htmlVLN
