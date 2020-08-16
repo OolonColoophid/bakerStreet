@@ -478,6 +478,12 @@ DQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
+                                        <menuItem title="Tutorial" id="UwK-yB-8lC" userLabel="Tutorial">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="menuHelpExample:" target="Ady-hI-5gd" id="HjY-S7-cZo"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Example Proofs" id="XeE-Sm-Msq" userLabel="Examples">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Example Proofs" id="IWn-jO-8xZ" userLabel="Examples">
@@ -750,7 +756,7 @@ DQ
                                     <button key="view" verticalHuggingPriority="750" id="QJh-ME-XR8">
                                         <rect key="frame" x="15" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1138,18 +1144,18 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
-                                        <rect key="frame" x="58" y="0.0" width="633" height="501"/>
+                                        <rect key="frame" x="58" y="0.0" width="882" height="501"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="633" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="882" height="501"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Proof Statements" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="633" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="882" height="501"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="633" height="501"/>
+                                                    <size key="minSize" width="882" height="501"/>
                                                     <size key="maxSize" width="100000" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1165,18 +1171,18 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="hvJ-QJ-3T9" userLabel="Scroll View - Advice">
-                                        <rect key="frame" x="692" y="0.0" width="249" height="501"/>
+                                        <rect key="frame" x="941" y="0.0" width="0.0" height="501"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="249" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="501"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="249" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="501"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="auburnBackground"/>
-                                                    <size key="minSize" width="249" height="501"/>
+                                                    <size key="minSize" width="0.0" height="501"/>
                                                     <size key="maxSize" width="846" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
@@ -1208,8 +1214,8 @@ DQ
                                 <rect key="frame" x="0.0" y="59" width="941" height="5"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-6s-YuP">
-                                <rect key="frame" x="46" y="23" width="80" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Proof Status" id="ezj-Wv-c1x">
+                                <rect key="frame" x="46" y="23" width="4" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" id="ezj-Wv-c1x">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="rosewood"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1223,7 +1229,7 @@ DQ
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="vna-vs-uiV"/>
                             </imageView>
                             <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-3e-svv">
-                                <rect key="frame" x="132" y="23" width="16" height="16"/>
+                                <rect key="frame" x="56" y="23" width="16" height="16"/>
                             </progressIndicator>
                         </subviews>
                         <constraints>

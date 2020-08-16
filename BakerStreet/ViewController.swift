@@ -84,6 +84,9 @@ class ViewController: NSViewController {
     // Main Menu
     private var mainMenu = NSApplication.shared.mainMenu!
 
+    // Binding
+    private var toolbarToggleAdvice: NSButton!
+
     // Popover for the contextualised help when user clicks
     // on link in advice view
     private let advicePopover = NSPopover()
@@ -966,6 +969,8 @@ extension ViewController {
 
         splitView.setPosition(newPosition, ofDividerAt: 1)
 
+        setToolbarAdviceViewOn()
+
     }
 
     func hideAdviceView() {
@@ -975,6 +980,36 @@ extension ViewController {
 
         splitView.setPosition(newPosition, ofDividerAt: 1)
 
+        setToolbarAdviceViewOff()
+
+    }
+
+    func setToolbarAdviceViewOn() {
+        // Do not call directly. Let showAdviceView call
+
+        let button = getToolbarButton(withPaletteLabel: "Toggle Advice Panel")
+        button.state = .on
+
+    }
+
+    func setToolbarAdviceViewOff() {
+        // Do not call directly. Let hideAdviceView call
+
+        let button = getToolbarButton(withPaletteLabel: "Toggle Advice Panel")
+        button.state = .off
+
+    }
+
+    func getToolbarButton(withPaletteLabel pl: String) -> NSButton {
+        let myWindow = self.view.window
+        var myItem = NSButton()
+        for i in myWindow!.toolbar!.items {
+            if i.paletteLabel == pl {
+                myItem = i.view as! NSButton
+                return myItem
+            }
+        }
+        return myItem
     }
 
 }
@@ -1005,9 +1040,11 @@ extension ViewController {
             // Is the main textview empty?
             // There is no proof. Abort, blanking
             // the lines and the advice view
+            // (also hide advice view)
             guard mainText.string.trim != "" else {
                 lineText.string = ""
                 adviceText.string = ""
+                hideAdviceView()
                 return
             }
 
@@ -1058,9 +1095,11 @@ extension ViewController {
         if proofController.proof.proven {
             statusLightGood()
             statusTextCorrect()
+            hideAdviceView()
         } else {
             statusLightBad()
             statusTextIncorrect()
+            showAdviceView()
         }
 
     }
@@ -1154,28 +1193,30 @@ extension ViewController {
         var proofText = ""
 
         switch menuItem.tag {
+            case 0:
+                proofText = Examples.tutorial.text
             case 1:
-                proofText = ExampleProofTexts.andElimination.text
+                proofText = Examples.andElimination.text
             case 2:
-                proofText = ExampleProofTexts.orIntroduction.text
+                proofText = Examples.orIntroduction.text
             case 3:
-                proofText = ExampleProofTexts.orElimination.text
+                proofText = Examples.orElimination.text
             case 4:
-                proofText = ExampleProofTexts.ifIntroduction.text
+                proofText = Examples.ifIntroduction.text
             case 5:
-                proofText = ExampleProofTexts.ifElimination.text
+                proofText = Examples.ifElimination.text
             case 6:
-                proofText = ExampleProofTexts.iffIntroduction.text
+                proofText = Examples.iffIntroduction.text
             case 7:
-                proofText = ExampleProofTexts.iffElimination.text
+                proofText = Examples.iffElimination.text
             case 8:
-                proofText = ExampleProofTexts.notIntroduction.text
+                proofText = Examples.notIntroduction.text
             case 9:
-                proofText = ExampleProofTexts.notElimination.text
+                proofText = Examples.notElimination.text
             case 10:
-                proofText = ExampleProofTexts.falseElimination.text
+                proofText = Examples.falseElimination.text
             default:
-                proofText = ExampleProofTexts.andIntroduction.text
+                proofText = Examples.andIntroduction.text
 
 
         }

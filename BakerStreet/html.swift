@@ -11,7 +11,10 @@ import Cocoa
 import Foundation
 
 // MARK: Proof Texts
-public enum ExampleProofTexts {
+public enum Examples {
+
+    case tutorial
+    case subProof
 
     case andElimination
     case andIntroduction
@@ -21,7 +24,6 @@ public enum ExampleProofTexts {
     case iffIntroduction
     case iffElimination
     case ifElimination
-    case subProof
     case ifIntroduction3
     case ifIntroduction4
     case ifIntroduction5
@@ -31,6 +33,74 @@ public enum ExampleProofTexts {
 
     var text: String {
         switch self {
+
+            case .tutorial:
+            return """
+            // Baker Street Tutorial
+            //
+            // Welcome! Baker Street is designed to help you find natural
+            //   deduction proofs in propositional logic
+
+            // Access this page at any time from the Help menu
+
+            // This line is a comment (note that it starts //)
+
+            // Let’s begin with an overall proof statement. The first theorem
+            //   that appears in a file will be the overall proof statement.
+            //   Ours is on line 20, below
+
+            // The proof statement is written using Baker Street markdown. This
+            //   avoids having to write special characters like the syntactic
+            //   turnstile. Click 'Markdown' in the toolbar or the menu to see all
+            //   markdown commands.
+
+            // The green dot at the bottom of this window tells us that our
+            //   proof is correct. Each correct theorem receives a green tick
+
+            // Let's try an example.
+            //   We'll create a proof for:
+            p AND q |- q AND p
+
+            // This line is indented because we’re now in the scope of the above theorem.
+
+            // Let’s write our first assertion, for p and q:
+            p AND q : Assumption (23)
+
+            // As we continue, note that the formula p is on the left of the line:
+            p : AND Elimination (28)
+
+            // To get q, we use the AND Elimination justification:
+            q : AND Elimination (28)
+
+            // Any justification needs to have have its antecedent lines included.
+            q AND p : AND Introduction (31, 34)
+
+            // Some things to try:
+            // - Validate the proof using the toolbar button or the menu
+            //  - Nothing should change yet! The proof is just the same
+            //  - Click 'Preview' in the toolbar to see a styled proof
+            //    - You can export and copy to the clipboard in different formats
+            // - Now change the proof:
+            //  - Make a formula syntactically incorrect
+            //  - You’ll see a warning triangle in the advice pane
+            //    - The advice will always point to a line number
+            //    - Sometimes, there’s a hyperlink ‘more’ with tailored help
+            //
+            // Completion:
+            // - You can use the toolbar or the menu to insert logical
+            //     operators and justifications
+            //
+            // Extra help:
+            // - In the Help menu, you'll see example proofs for each
+            //     inference rule
+            // - In the toolbar, and in the Help menu, can also see:
+            //   - 'Rules Overview' for a summary of inference rules
+            //   - 'Rules in Full' for a more detailed view
+            //   - 'Definitions' for important terms
+            // - Most common commands, like Validate, have keyboard shortcuts
+
+            """
+
             case .andElimination:
                 return """
             // Example: AND Elimination, AND Introduction
@@ -268,7 +338,7 @@ public enum ExampleProofs {
 
     public static var simpleProof: Proof {
 
-        let exampleProof = ExampleProofTexts.andElimination
+        let exampleProof = Examples.andElimination
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -278,7 +348,7 @@ public enum ExampleProofs {
 
     public static var orIntroductionProof: Proof {
 
-        let exampleProof = ExampleProofTexts.orIntroduction
+        let exampleProof = Examples.orIntroduction
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -288,7 +358,7 @@ public enum ExampleProofs {
 
     public static var orEliminationProof: Proof {
 
-        let exampleProof = ExampleProofTexts.orElimination
+        let exampleProof = Examples.orElimination
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -298,7 +368,7 @@ public enum ExampleProofs {
 
     public static var ifIntroductionProof: Proof {
 
-        let exampleProof = ExampleProofTexts.ifIntroduction
+        let exampleProof = Examples.ifIntroduction
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -308,7 +378,7 @@ public enum ExampleProofs {
 
     public static var iffIntroductionProof: Proof {
 
-        let exampleProof = ExampleProofTexts.iffIntroduction
+        let exampleProof = Examples.iffIntroduction
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -318,7 +388,7 @@ public enum ExampleProofs {
 
     public static var ifEliminationProof: Proof {
 
-        let exampleProof = ExampleProofTexts.ifElimination
+        let exampleProof = Examples.ifElimination
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -328,7 +398,7 @@ public enum ExampleProofs {
 
     public static var subProofProof: Proof {
 
-        let exampleProof = ExampleProofTexts.subProof
+        let exampleProof = Examples.subProof
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -338,7 +408,7 @@ public enum ExampleProofs {
 
     public static var ifIntroduction3Proof: Proof {
 
-        let exampleProof = ExampleProofTexts.ifIntroduction3
+        let exampleProof = Examples.ifIntroduction3
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -348,7 +418,7 @@ public enum ExampleProofs {
 
     public static var ifIntroduction4Proof: Proof {
 
-        let exampleProof = ExampleProofTexts.ifIntroduction4
+        let exampleProof = Examples.ifIntroduction4
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -358,7 +428,7 @@ public enum ExampleProofs {
 
     public static var ifIntroduction5Proof: Proof {
 
-        let exampleProof = ExampleProofTexts.ifIntroduction5
+        let exampleProof = Examples.ifIntroduction5
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -368,7 +438,7 @@ public enum ExampleProofs {
 
     public static var notEliminationProof: Proof {
 
-        let exampleProof = ExampleProofTexts.notElimination
+        let exampleProof = Examples.notElimination
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -378,7 +448,7 @@ public enum ExampleProofs {
 
     public static var notIntroductionProof: Proof {
 
-        let exampleProof = ExampleProofTexts.notIntroduction
+        let exampleProof = Examples.notIntroduction
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
@@ -388,7 +458,7 @@ public enum ExampleProofs {
 
     public static var falseEliminationProof: Proof {
 
-        let exampleProof = ExampleProofTexts.falseElimination
+        let exampleProof = Examples.falseElimination
 
         let p = Proof(exampleProof.text,minimalVersion: true)
 
