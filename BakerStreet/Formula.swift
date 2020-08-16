@@ -98,6 +98,29 @@ public struct Formula: Equatable {
         return lhs.tree == rhs.tree
     }
 
+
+
+    public func debug() {
+        print("Infix string:   >\(self.infixText)<")
+        print("Postfix string: >\(self.postfixText)<")
+        print("Well formed?    >\(self.isWellFormed)<")
+        print("Truth result    >\(self.truthResult)<")
+        print("Truth table:    >\(self.truthTable)<")
+        print("Graph of: \(self.infixText)\n\(self.tree.getTreeGraph())")
+    }
+}
+
+extension Formula: Hashable {
+    // To conform to Hashable
+    // - Return a unique identifier
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+}
+
+// MARK: Truth tables
+extension Formula {
+
     mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
 
         let myPermuter = SemanticPermuter(withTokens: self.tokens,
@@ -121,20 +144,24 @@ public struct Formula: Equatable {
 
     }
 
-    public func debug() {
-        print("Infix string:   >\(self.infixText)<")
-        print("Postfix string: >\(self.postfixText)<")
-        print("Well formed?    >\(self.isWellFormed)<")
-        print("Truth result    >\(self.truthResult)<")
-        print("Truth table:    >\(self.truthTable)<")
-        print("Graph of: \(self.infixText)\n\(self.tree.getTreeGraph())")
-    }
-}
+    // As a shortcut, we can create a super formula from the LHS
+    // and find the permutations where each are true by combining them:
+    // e.g. p AND q, r -> s
+    //      (p AND q) AND (r -> s)
+    public static func makeSuperFormula(_ formulas: [Formula]) -> Formula{
 
-extension Formula: Hashable {
-    // To conform to Hashable
-    // - Return a unique identifier
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
+        var superFormulaInfixTemp = ""
+        for f in formulas {
+
+            superFormulaInfixTemp = superFormulaInfixTemp + "(" + f.infixText + ") AND "
+
+        }
+
+        let superFormulaInfix = String(superFormulaInfixTemp.dropLast(5))
+
+        let superFormula = Formula(superFormulaInfix)
+
+        return superFormula
+
     }
 }

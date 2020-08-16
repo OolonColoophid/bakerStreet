@@ -284,36 +284,49 @@ extension Theorem {
 
     func theoremProvable() -> Bool {
 
+        // Get all LHS formulas in scope
+        let lhsInScope = getAllLhsFormulasInScope()
+
+        // Turn into super formula
+        let lhsSuperFormula = Formula.makeSuperFormula(lhsInScope)
+
         // If we have no LHS, return true; i.e. don't throw
-        guard lhsFormula.count > 0 else {
+        guard lhsInScope.count > 0 else {
             return true
         }
 
-        // If we have one LHS formula and one RHS, compare the
-        // entailment directly
-        guard lhsFormula.count > 1 else {
-            return lhsDoesEntailRhs(forLhs: lhsFormula[0].infixText,
-                                    forRhs: rhsFormula.infixText)
-        }
-
-        // As a shortcut, we can create a super formula from the LHS
-        // and find the permutations where each are true by combining them:
-        // e.g. p AND q, r -> s
-        //      (p AND q) AND (r -> s)
-
-        var superFormulaInfixTemp = ""
-        for f in lhsFormula {
-
-            superFormulaInfixTemp = superFormulaInfixTemp + "(" + f.infixText + ") AND "
-
-        }
-
-        let superFormulaInfix = superFormulaInfixTemp.dropLast(5)
-
-        print("Our superFormulaInfix is \(superFormulaInfix)")
-
-        return lhsDoesEntailRhs(forLhs: String(superFormulaInfix),
+        return lhsDoesEntailRhs(forLhs: lhsSuperFormula.infixText,
                                 forRhs: rhsFormula.infixText)
+
+    }
+
+    // Collect all LHS formulas in scope (including current theorem)
+    func getAllLhsFormulasInScope() -> [Formula] {
+
+        var lhsInScope = [Formula]()
+
+        // Add LHS of theorems above the current theorem in the scope
+        for l in proof.scope {
+            if l.lineType == .theorem {
+                let t = l as! Theorem
+
+                for l in t.lhsFormula {
+
+                    lhsInScope.append(l)
+
+                }
+
+            }
+        }
+
+        // Add LHS of current theorem
+        for l in self.lhsFormula {
+
+            lhsInScope.append(l)
+
+        }
+
+        return lhsInScope
 
     }
 
@@ -361,10 +374,16 @@ func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
     fLhs.debug()
     fRhs.debug()
 
+    // If the truthables are of unequal sizes, something has
+    // gone wrong; fail to 'true' (i.e. don't prevent the theorem from
+    // being part of a proof)
     guard fLhs.truthTable.count == fRhs.truthTable.count else { return false }
 
+    // If the LHS has no permutations where it is true, the RHS must be
+    // provable
+    guard fLhs.truthTable.contains("true") else { return true }
 
-
+    // Ensure that where the LHS truth values are true, so are the RHS values
     var i = 0
     var areEntailed = true
     while i < fLhs.truthTable.count {
