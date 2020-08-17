@@ -77,18 +77,25 @@ public class Proof: BKSelfProvable {
     // When true, all advice is suppressed. Useful because some advice
     // calls Proof, and we can stop an infinite recursion by creating
     // a Proof object without advice
-    var minimalVersion: Bool
+    var isPedagogic: Bool
+
+    // Normally, operands are pressed into lower case. But we generally
+    // disprefer this for examples like A |- B OR ~B
+    var respectCase: Bool
 
     public var advice = [Advice]()
 
     // MARK: Init
 
     public init(_ text: String,
-                minimalVersion: Bool = false) {
+                isPedagogic: Bool = false,
+                respectCase: Bool = false) {
 
-        // Minimal version will suppress advice
-        // and only export html
-        self.minimalVersion = minimalVersion
+        // Pedagogic version will suppress advice
+        self.isPedagogic = isPedagogic
+
+        // Respect case if asked
+        self.respectCase = respectCase
 
         // Preprocessing includes preserving empty lines
         let lines = preprocessedText(text)
@@ -102,10 +109,13 @@ public class Proof: BKSelfProvable {
     }
 
     init(_ text: String,
-                minimalVersion: Bool = false,
+                isPedagogic: Bool = false,
+                respectCase: Bool = false,
                 withDelegate delegate: BKProofDelegate) {
 
-        self.minimalVersion = minimalVersion
+        self.isPedagogic = isPedagogic
+
+        self.respectCase = respectCase
 
         self.delegate = delegate
 
@@ -191,7 +201,7 @@ extension Proof {
             return
         }
 
-        guard minimalVersion != true else {
+        guard isPedagogic != true else {
             eProof = ExportedProof(withProofLines: proofLines,
                                    withProofStatement: getLineFromNumber(proofLineAsInt),
                                    giveHtml: true,
@@ -380,7 +390,7 @@ extension Proof {
 
                     proofProven = false
 
-                    if minimalVersion != true {
+                    if isPedagogic != true {
 
                         advise(AdviceInstance.theoremNotProven, lineNumberAsInt: i,
                                lineNumberAsUUID: t.identifier,
@@ -390,7 +400,7 @@ extension Proof {
 
                 } else {
 
-                    if minimalVersion != true {
+                    if isPedagogic != true {
 
                         advise(.theoremProven, lineNumberAsInt: i, lineNumberAsUUID: t.identifier)
 
@@ -406,7 +416,7 @@ extension Proof {
 
                 j.setProven()
                 // j.setInspectionText()
-                if j.proven == true && minimalVersion != true {
+                if j.proven == true && isPedagogic != true {
 
                     advise(.justificationProven, lineNumberAsInt: i, lineNumberAsUUID: j.identifier)
 
@@ -427,7 +437,7 @@ extension Proof {
             proofProven = false
         }
 
-        if proofProven == true && minimalVersion != true {
+        if proofProven == true && isPedagogic != true {
 
             advise(.proofProven,
                 lineNumberAsInt: proofLineAsInt,
@@ -897,7 +907,7 @@ extension Proof: BKAdvising {
 
     func addAdviceToLine(_ newAdvice: Advice) {
 
-        guard minimalVersion != true else {
+        guard isPedagogic != true else {
             return
         }
 
@@ -945,7 +955,7 @@ extension Proof: BKAdvising {
 
     func appendAdvice(_ advice: Advice) {
 
-        guard minimalVersion != true else {
+        guard isPedagogic != true else {
             return
         }
 

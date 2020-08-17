@@ -21,7 +21,6 @@ public class Theorem {
     // BKIdentifiable
     var identifier = UUID()
 
-
     // BKSelfProvable
     var proven = false
     var scope = [BKLine]()
@@ -82,7 +81,7 @@ public class Theorem {
             throw Theorem.Error.formulaPoorlyFormed
         }
 
-        guard theoremProvable() == true else {
+        guard theoremProvable() == true || proof.isPedagogic == true else {
             throw Theorem.Error.theoremUnprovable
         }
 
@@ -113,7 +112,7 @@ public class Theorem {
         self.rhsWellFormed = rhsIsWellFormed(rhs)
 
         // Set lhs and rhs formulae
-        self.rhsFormula = Formula(rhs)
+        self.rhsFormula = Formula(rhs, respectCase: proof.respectCase)
 
         // Check if LHS and RHS differ
         if lhsFormula.count == 1 {
@@ -180,7 +179,7 @@ public class Theorem {
             let formulae = lhs.split(separator: ",")
 
             for f in formulae {
-                let i = Formula(String(f))
+                let i = Formula(String(f), respectCase: proof.respectCase)
                 self.lhsFormula.append(i)
                 if i.isWellFormed == false {
                     wellFormed = false
@@ -190,10 +189,11 @@ public class Theorem {
         }
 
         // Single LHS formula
+        let myLhs = Formula(lhs, respectCase: proof.respectCase)
 
-        self.lhsFormula.append(Formula(lhs))
+        self.lhsFormula.append(myLhs)
 
-        return Formula(lhs).isWellFormed
+        return myLhs.isWellFormed
 
     }
 

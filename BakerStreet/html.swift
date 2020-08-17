@@ -340,7 +340,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.andElimination
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -350,7 +350,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.orIntroduction
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -360,7 +360,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.orElimination
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -370,7 +370,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.ifIntroduction
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -380,7 +380,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.iffIntroduction
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -390,7 +390,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.ifElimination
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -400,7 +400,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.subProof
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -410,7 +410,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.ifIntroduction3
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -420,7 +420,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.ifIntroduction4
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -430,7 +430,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.ifIntroduction5
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -440,7 +440,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.notElimination
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
       return p
 
@@ -450,7 +450,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.notIntroduction
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -460,7 +460,7 @@ public enum ExampleProofs {
 
         let exampleProof = Examples.falseElimination
 
-        let p = Proof(exampleProof.text,minimalVersion: true)
+        let p = Proof(exampleProof.text,isPedagogic: true)
 
         return p
 
@@ -1109,7 +1109,7 @@ enum DocumentContent {
 
                 case .theorem:
 
-                    let tP = Proof("p AND q |- q AND p", minimalVersion: true)
+                    let tP = Proof("p AND q |- q AND p", isPedagogic: true)
                     let lhs = "p AND q".formulaToHTML
                     let rhs = "q AND p".formulaToHTML
                     let t = tP.htmlVLN
@@ -1124,7 +1124,7 @@ enum DocumentContent {
 
                 case .entailment:
 
-                    let proof = ExampleProofs.subProof
+                    let proof = ExampleProofs.subProofProof
                     let proofHTML = proof.htmlVLN
                     let lhs = "(p -> (q AND r)) AND p".formulaToHTML
                     let rhs = "q".formulaToHTML
@@ -1472,10 +1472,20 @@ enum DocumentContent {
                 return self
             }
 
-            return f.tokenStringHTMLWithGlyphs.uppercased()
+            return f.tokenStringHTMLWithGlyphs
 
         }
 
+        // Prettify formulae for HTML
+        var formulaToHTMLRespectingCase: String {
+            let f = Formula(self, respectCase: true)
 
+            guard f.isWellFormed == true else {
+                return self
+            }
+
+            return f.tokenStringHTMLWithGlyphs
+
+        }
 
 }

@@ -15,8 +15,8 @@ public struct Formula: Equatable {
     public let identifier =               UUID()   // i.e. 4 random bytes
     public var infixText:                 String   // e.g. `p AND p`
     public var tokenStringHTML:           String   // e.g. `<em>p</em>`
-    public var tokenStringHTMLPrettified: String   // e.g. `<em>p</em>∧<em>q</em>`
-    public var tokenStringHTMLPrettifiedUppercased: String
+    public var tokenStringHTMLWithGlyphs: String // e.g. `<em>p</em> ∧ <em>q</em>`
+    public var tokenStringLatex:          String // e.g. \(p \Rightarrow q\)
     public let postfixText:               String   // e.g. `p p AND`
     public var isWellFormed:              Bool     // e.g. `true`
     public let tree:                      Tree     // `Tree` representation
@@ -52,11 +52,12 @@ public struct Formula: Equatable {
     ///   `reversePolish.rpnEvaluate()`
     public init (_ infixText: String,
                  withTruthTable: Bool = false,
-                 forNTruthTableVariables: Int = 0) {
+                 respectCase: Bool = false) {
 
         do {
-            
-            var l = try Lexer(text: infixText) // Initialise
+
+            // Initialise
+            var l = try Lexer(text: infixText, respectCase: respectCase)
             let t = l.getTokenised()           // Get array of Token
 
             var rpn = try RpnMake(infixFormula: t)
@@ -69,25 +70,22 @@ public struct Formula: Equatable {
             tokenStringHTML = l.tokenStringHTML
 
             // e.g. `<em>p</em> ∧ <em>q</em>`
-            self.tokenStringHTMLPrettified = l.tokenStringHTMLPrettified
-            // uppercased version
-            self.tokenStringHTMLPrettifiedUppercased =
-                l.tokenStringHTMLPrettifiedUppercased
+            tokenStringHTMLWithGlyphs = l.tokenStringHTMLWithGlyphs
 
-            self.tokens = t                           // tokenised
-            self.isWellFormed = rpn.getIsWellFormed() // e.g. `true`
-            self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
-            self.tree = rpn.getRpnTree()!             // Obtain tree
+            // e.g. `\(p \Rightarrow q\)`
+            tokenStringLatex = l.tokenStringLatex
 
-            // Now, perhaps, we can compute the truth table if needed
-            // using our semanticPermuter and the same RpnMake, which
-            // will detect when it's been given a semantics version
-            self.truthResult = rpn.truthResult
-            self.truthTable = [String]()
+            tokens = t                           // tokenised
+            isWellFormed = rpn.getIsWellFormed() // e.g. `true`
+            postfixText = rpn.getRpnString()     // e.g. `p p AND`
+            tree = rpn.getRpnTree()!             // Obtain tree
+
+            truthResult = rpn.truthResult
+            truthTable = [String]()
 
             if withTruthTable == true && isWellFormed == true {
 
-                makeTruthTable(forNTruthTableVariables)
+                makeTruthTable()
 
             }
 
@@ -95,13 +93,13 @@ public struct Formula: Equatable {
             self.error = "An \(error.localizedDescription) occured"
 
             self.infixText = ""
-            self.postfixText = ""
-            self.tokenStringHTML = ""
-            self.tokenStringHTMLPrettified = ""
-            self.tokenStringHTMLPrettifiedUppercased = ""
-            self.isWellFormed = false
-            self.truthResult = ""
-            self.truthTable = [String]()
+            postfixText = ""
+            isWellFormed = false
+            tokenStringHTML = ""
+            tokenStringHTMLWithGlyphs = ""
+            tokenStringLatex = ""
+            truthResult = ""
+            truthTable = [String]()
             let emptyToken = Token(tokenType: .poorlyFormed)
             tree = Tree(emptyToken)
         }
@@ -134,7 +132,7 @@ extension Formula: Hashable {
 // MARK: Truth tables
 extension Formula {
 
-    mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
+    mutating func makeTruthTable() {
 
         let myPermuter = SemanticPermuter(withTokens: self.tokens)
         let myPermutationsAsStrings = myPermuter.permutationAsStrings

@@ -114,15 +114,13 @@ extension PreviewViewController {
 extension PreviewViewController {
 
     enum exportActions: String {
-        case pdf
         case latex
         case html
         case markdown
 
         var description: String {
             switch self {
-                case .pdf:
-                    return "PDF"
+
                 case .latex:
                     return "LaTeX"
                 case .html:

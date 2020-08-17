@@ -1299,7 +1299,7 @@ public struct InferenceController: BKAdvising {
                 if line.getProven() == false {
 
                     let p = Proof(line.userText,
-                                  minimalVersion: true)
+                                  isPedagogic: true)
 
                     checkFunctionMessage = """
                         Your \(jD) requires that your antecedents be proven. However, you refer here to the theorem on line \(aLineNumber.noun), which is not proven: \(p.htmlVLN)

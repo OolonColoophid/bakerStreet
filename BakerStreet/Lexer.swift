@@ -36,6 +36,9 @@ public struct Lexer {
     /// The formula as an array of `Token` types
     private var textTokenised = [Token]()
 
+    /// Is false, all operands are output in lower case
+    private var respectCase: Bool = false
+
     /// The formula as a string of Tokens
     /// i.e. reconstructed from Tokens
     private var tokenString: String
@@ -43,8 +46,8 @@ public struct Lexer {
     /// The formula in HTML, e.g. "<em>p</em> AND <em>q</em>"
     public var tokenStringHTML: String
 
-    /// The formula in prettified HTML, e.g. "<em>p</em> ∧ <em>q</em>"
-    public var tokenStringHTMLPrettified: String {
+    /// The formula in HTML with glyphs, e.g. "<em>p</em> ∧ <em>q</em>"
+    public var tokenStringHTMLWithGlyphs: String {
 
         var s = tokenStringHTML
 
@@ -85,11 +88,13 @@ public struct Lexer {
      This also does some tidying of the string
      - Throws: `invalidStringLength` if the string is zero length
      */
-    public init(text: String) throws {
+    public init(text: String, respectCase: Bool = false) throws {
 
         if text.count == 0 {
             throw Lexer.Error.invalidStringLength
         } else {
+
+            self.respectCase = respectCase
 
             var s = text
 
@@ -231,11 +236,23 @@ public struct Lexer {
 
             default:
                 if isOperand(elementStr.lowercased()) {
-                    textTokenised.addOperand(elementStr.lowercased())
-                    addToTokenString(elementStr.lowercased())
-                    tokenStringHTML += elementStr.lowercased().em
+
+                    var e = ""
+
+                    if respectCase == true {
+                        e = elementStr
+                    } else {
+                        e = elementStr.lowercased()
+                    }
+
+                    textTokenised.addOperand(e)
+                    addToTokenString(e)
+                    tokenStringHTML += e.em
+
                 } else {
+
                     break
+
                 }
 
             }

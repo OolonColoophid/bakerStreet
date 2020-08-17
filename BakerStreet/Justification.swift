@@ -267,15 +267,15 @@ public enum Justification: CaseIterable {
         switch self {
             case .andElimination:
 
-                return "A or B".formulaToHTML
+                return "A or B".formulaToHTMLRespectingCase
 
             case .orIntroduction:
 
-                return "B".formulaToHTML
+                return "B".formulaToHTMLRespectingCase
 
             case .iffElimination:
 
-                let a1 = "A <-> B".formulaToHTML
+                let a1 = "A <-> B".formulaToHTMLRespectingCase
 
                 return a1
 
@@ -293,55 +293,60 @@ public enum Justification: CaseIterable {
                 return ""
             case .andIntroduction:
 
-                return "formulas " + "A".formulaToHTML + ", " + "B".formulaToHTML
+                return "formulas " + "A".formulaToHTMLRespectingCase + ", " +
+                    "B".formulaToHTMLRespectingCase
 
             case .orIntroduction:
 
-                return "formula " + "A".formulaToHTML
+                return "formula " + "A".formulaToHTMLRespectingCase
 
             case .notIntroduction:
 
-                let p = Proof("A |- B and ~B", minimalVersion: true)
+                let p = Proof("A |- B and ~B",
+                              isPedagogic: true,
+                              respectCase: true)
                 return p.htmlVLN
 
             case .iffIntroduction:
 
-                let a1 = "A -> B".formulaToHTML
-                let a2 = "B -> A".formulaToHTML
+                let a1 = "A -> B".formulaToHTMLRespectingCase
+                let a2 = "B -> A".formulaToHTMLRespectingCase
 
                 return "formulas " + a1 + ", " + a2
 
             case .ifIntroduction:
 
-                let p = Proof("A |- B", minimalVersion: true)
+                let p = Proof("A |- B", isPedagogic: true, respectCase: true)
                 return p.htmlVLN
 
             case .andElimination:
 
-                return "formulas " + "A and B".formulaToHTML
+                return "formulas " + "A and B".formulaToHTMLRespectingCase
 
             case .orElimination:
 
-                let a1 = "A or B".formulaToHTML
-                let a2 = "A -> C".formulaToHTML
-                let a3 = "B -> C".formulaToHTML
+                let a1 = "A or B".formulaToHTMLRespectingCase
+                let a2 = "A -> C".formulaToHTMLRespectingCase
+                let a3 = "B -> C".formulaToHTMLRespectingCase
 
                 return "formulas " + a1 + ", " + a2 + ", " + a3
 
             case .notElimination:
 
-                let p = Proof("~A |- B and ~B", minimalVersion: true)
+                let p = Proof("~A |- B and ~B",
+                              isPedagogic: true,
+                              respectCase: true)
                 return p.htmlVLN
 
             case .ifElimination:
-                let a1 = "A -> B".formulaToHTML
-                let a2 = "A".formulaToHTML
+                let a1 = "A -> B".formulaToHTMLRespectingCase
+                let a2 = "A".formulaToHTMLRespectingCase
 
                 return "formulas " + a1 + ", " + a2
 
             case .iffElimination:
 
-                let a1 = "A <-> B".formulaToHTML
+                let a1 = "A <-> B".formulaToHTMLRespectingCase
 
                 return "formula " + a1
 
@@ -360,15 +365,15 @@ public enum Justification: CaseIterable {
         switch self {
             case .andElimination:
 
-                return "formula " + "B".formulaToHTML
+                return "formula " + "B".formulaToHTMLRespectingCase
 
             case .orIntroduction:
 
-                return "formula " + "A or B".formulaToHTML
+                return "formula " + "A or B".formulaToHTMLRespectingCase
 
             case .iffElimination:
 
-                return "formula " + "B -> A".formulaToHTML
+                return "formula " + "B -> A".formulaToHTMLRespectingCase
 
             case .assumption, .empty, .andIntroduction, .orElimination, .notIntroduction, .ifIntroduction, .iffIntroduction, .notElimination, .ifElimination, .trueIntroduction, .falseElimination:
                 return ""
@@ -384,44 +389,44 @@ public enum Justification: CaseIterable {
                 return ""
             case .andIntroduction:
 
-                return "formula " + "A and B".formulaToHTML
+                return "formula " + "A and B".formulaToHTMLRespectingCase
 
             case .orIntroduction:
 
-                return "formula " + "A or B".formulaToHTML
+                return "formula " + "A or B".formulaToHTMLRespectingCase
 
             case .notIntroduction:
 
-                return "formula " + "~A".formulaToHTML
+                return "formula " + "~A".formulaToHTMLRespectingCase
 
             case .iffIntroduction:
 
-                return "formula " + "A <-> B".formulaToHTML
+                return "formula " + "A <-> B".formulaToHTMLRespectingCase
 
             case .ifIntroduction:
 
-                return "formula " + "A -> B".formulaToHTML
+                return "formula " + "A -> B".formulaToHTMLRespectingCase
 
 
             case .andElimination:
 
-                return "formula " + "A".formulaToHTML
+                return "formula " + "A".formulaToHTMLRespectingCase
 
             case .orElimination:
 
-                return "formula " + "C".formulaToHTML
+                return "formula " + "C".formulaToHTMLRespectingCase
 
             case .notElimination:
 
-                return "formula " + "A".formulaToHTML
+                return "formula " + "A".formulaToHTMLRespectingCase
 
             case .ifElimination:
 
-                return "formula " + "B".formulaToHTML
+                return "formula " + "B".formulaToHTMLRespectingCase
 
             case .iffElimination:
 
-                return "formula " + "A -> B".formulaToHTML
+                return "formula " + "A -> B".formulaToHTMLRespectingCase
 
             case .trueIntroduction:
 
@@ -429,7 +434,7 @@ public enum Justification: CaseIterable {
 
             case .falseElimination:
 
-                return "formula " + "A".formulaToHTML
+                return "formula " + "A".formulaToHTMLRespectingCase
 
         }
     }
