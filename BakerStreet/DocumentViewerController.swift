@@ -19,6 +19,7 @@ class DocumentViewController: NSViewController, NSSearchFieldDelegate {
 
     @IBOutlet weak var zoomButton: NSSegmentedControl!
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
