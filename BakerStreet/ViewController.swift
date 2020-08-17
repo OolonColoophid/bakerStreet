@@ -1106,8 +1106,9 @@ extension ViewController {
 
     func refreshContent() {
 
-        // Store the y position
-        let myScollOrigin = statementsContentView.bounds.origin.y
+        // Store the x and y position
+        let myScollOriginY = statementsContentView.bounds.origin.y
+        let myScollOriginX = statementsContentView.bounds.origin.x
 
         activateLineContent()
         activateAdviceContent()
@@ -1138,7 +1139,8 @@ extension ViewController {
         mainTextView.selectedRange = myCaretIndex
 
         // Restore scroll origin
-        statementsContentView.bounds.origin.y = myScollOrigin
+        statementsContentView.bounds.origin.y = myScollOriginY
+        statementsContentView.bounds.origin.x = myScollOriginX
 
 
         // Enable any user-editing detection
