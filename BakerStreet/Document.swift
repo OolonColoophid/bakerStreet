@@ -24,8 +24,8 @@ class Document: NSDocument {
             switch self {
 
                 case .UTF8Encoding: return "File cannot be encoded in UTF-8."
-            case .UTF8Decoding: return "File is not valid UTF-8."
-
+                case .UTF8Decoding: return "File is not valid UTF-8."
+                
             }
 
         }

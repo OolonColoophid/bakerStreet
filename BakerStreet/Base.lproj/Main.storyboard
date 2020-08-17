@@ -478,7 +478,7 @@ DQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="Tutorial" id="UwK-yB-8lC" userLabel="Tutorial">
+                                        <menuItem title="Tutorial" tag="-1" id="UwK-yB-8lC" userLabel="Tutorial">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="menuHelpExample:" target="Ady-hI-5gd" id="HjY-S7-cZo"/>

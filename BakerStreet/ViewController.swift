@@ -1193,7 +1193,7 @@ extension ViewController {
         var proofText = ""
 
         switch menuItem.tag {
-            case 0:
+            case -1:
                 proofText = Examples.tutorial.text
             case 1:
                 proofText = Examples.andElimination.text
@@ -1215,7 +1215,7 @@ extension ViewController {
                 proofText = Examples.notElimination.text
             case 10:
                 proofText = Examples.falseElimination.text
-            default:
+            default: // Actually case 0
                 proofText = Examples.andIntroduction.text
 
 
