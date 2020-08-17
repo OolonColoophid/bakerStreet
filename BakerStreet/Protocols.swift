@@ -111,9 +111,9 @@ extension BKAdvising {
 protocol BKZoomable {
 
     func BKZoomIn(_ view: NSTextView) -> Void
-    func BKzoomOut(_ view: NSTextView) -> Void
+    func BKZoomOut(_ view: NSTextView) -> Void
     func BKZoomIn(_ views: [NSTextView]) -> Void
-    func BKzoomOut(_ views: [NSTextView]) -> Void
+    func BKZoomOut(_ views: [NSTextView]) -> Void
 
 }
 
@@ -149,7 +149,7 @@ extension BKZoomable {
 
     }
 
-    public func BKzoomOut(_ view: NSTextView) {
+    public func BKZoomOut(_ view: NSTextView) {
 
         zoom(inDirection: "out", forView: view)
 
@@ -162,7 +162,7 @@ extension BKZoomable {
 
     }
 
-    public func BKzoomOut(_ views: [NSTextView]) {
+    public func BKZoomOut(_ views: [NSTextView]) {
 
         views.forEach {view in
             zoom(inDirection: "out", forView: view) }

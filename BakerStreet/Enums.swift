@@ -160,7 +160,12 @@ public enum OperatorType: CustomStringConvertible, CaseIterable {
  This is useful when we want to initialise a Token type without filling it
  with something meaningful.
  */
-public enum TokenType: CustomStringConvertible {
+public enum TokenType: CustomStringConvertible, Hashable {
+
+    public static func == (lhs: TokenType, rhs: TokenType) -> Bool {
+        lhs.description == rhs.description
+    }
+
     case openBracket
     case closeBracket
     case Operator(OperatorToken)
@@ -171,20 +176,21 @@ public enum TokenType: CustomStringConvertible {
     /// Returns the string of the operator type.
     public var description: String {
         switch self {
-        case .openBracket:
-            return "("
-        case .closeBracket:
-            return ")"
-        case .Operator(let operatorToken):
-            return operatorToken.description
-        case .operand(let value):
-            return "\(value)"
-        case .poorlyFormed:
-            return "PF"
-        case .empty:
-            return ""
+            case .openBracket:
+                return "("
+            case .closeBracket:
+                return ")"
+            case .Operator(let operatorToken):
+                return operatorToken.description
+            case .operand(let value):
+                return "\(value)"
+            case .poorlyFormed:
+                return "PF"
+            case .empty:
+                return ""
         }
     }
+
 }
 
 public enum CompletionMode: String {

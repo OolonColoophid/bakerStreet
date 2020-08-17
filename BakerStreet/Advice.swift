@@ -50,6 +50,7 @@ public enum AdviceInstance {
     case justifiedNeedsParentTheorem
     case justificationNeedsJustified
     case justificationNotRecognised
+    case theoremUnprovable
     case thereomNeedsNoJustification
     case theoremLHSandRHSsame
     case invalidParameterPositionEarly
@@ -86,6 +87,8 @@ public enum AdviceInstance {
                 return "Needs assertion"
             case .justificationNotRecognised:
                 return "Unknown justification"
+            case .theoremUnprovable:
+                return "Theorem unprovable"
             case .thereomNeedsNoJustification:
                 return "Redundant justification"
             case .theoremLHSandRHSsame:
@@ -123,47 +126,49 @@ public enum AdviceInstance {
                 return 21
             case .theoremFormulaPoorlyFormed:
                 return 20
-            case .justifiedNeedsJustification:
+            case .theoremUnprovable:
                 return 19
-            case .justifiedNeedsParentTheorem:
+            case .justifiedNeedsJustification:
                 return 18
-            case .inferenceRefersToUnprovenLine:
+            case .justifiedNeedsParentTheorem:
                 return 17
-            case .justificationNeedsJustified:
+            case .inferenceRefersToUnprovenLine:
                 return 16
-            case .justificationNotRecognised:
+            case .justificationNeedsJustified:
                 return 15
-            case .assumptionFormulaNotFound:
+            case .justificationNotRecognised:
                 return 14
-            case .theoremLHSandRHSsame:
+            case .assumptionFormulaNotFound:
                 return 13
-            case .invalidParameterPositionEarly:
+            case .theoremLHSandRHSsame:
                 return 12
+            case .invalidParameterPositionEarly:
+                return 11
 
             case .invalidParemeterCountLowForJustification:
-                return 11
-            case .invalidParemeterCountHighForJustification:
                 return 10
-            case .justificationNotProven:
+            case .invalidParemeterCountHighForJustification:
                 return 9
-            case .theoremNotProven:
+            case .justificationNotProven:
                 return 8
-            case .assumptionMustReferToTheorem:
+            case .theoremNotProven:
                 return 7
-            case .inferenceMustReferToTheorem:
+            case .assumptionMustReferToTheorem:
                 return 6
-            case .inferenceFailure:
+            case .inferenceMustReferToTheorem:
                 return 5
+            case .inferenceFailure:
+                return 4
 
             case .proofProven:
-                return 4
-            case .theoremProven:
                 return 3
-            case .justificationProven:
+            case .theoremProven:
                 return 2
+            case .justificationProven:
+                return 1
 
             case .thereomNeedsNoJustification:
-                return 1
+                return 0
             case .unknownIssue:
                 return 0
 
@@ -180,7 +185,7 @@ public enum AdviceInstance {
                 return proofSuccess
             case .theoremProven, .justificationProven:
                 return success
-            case .theoremNotProven, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
+            case .theoremNotProven, .theoremUnprovable, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
                 return warning
 
         }
@@ -199,7 +204,7 @@ public enum AdviceInstance {
             case .justificationProven:
                 return AdviceType.lineSuccess
 
-            case .theoremNotProven, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
+            case .theoremNotProven, .theoremUnprovable, .justificationNotProven, .justifiedNeedsJustification, .justifiedNeedsParentTheorem, .justificationNeedsJustified, .justificationNotRecognised, .thereomNeedsNoJustification, .theoremLHSandRHSsame, .invalidParameterPositionEarly, .invalidParemeterCountLowForJustification, .invalidParemeterCountHighForJustification, .justifiedFormulaPoorlyFormed, .theoremFormulaPoorlyFormed, .assumptionMustReferToTheorem, .assumptionFormulaNotFound, .inferenceFailure, .inferenceMustReferToTheorem, .inferenceRefersToUnprovenLine, .unknownIssue:
                 return AdviceType.warning
 
         }
@@ -208,6 +213,7 @@ public enum AdviceInstance {
 }
 
 // MARK: Struct Advice
+
 public struct Advice: Equatable {
 
     var id: UUID

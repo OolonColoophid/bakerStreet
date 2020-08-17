@@ -534,7 +534,7 @@ extension ViewController {
 
         } else {
 
-            BKzoomOut([lineTextView, mainTextView, adviceTextView])
+            BKZoomOut([lineTextView, mainTextView, adviceTextView])
             refreshLines()
 
         }
@@ -556,7 +556,7 @@ extension ViewController {
 
     @IBAction func menuZoomOut(_ sender: Any) {
 
-        BKzoomOut([lineTextView, mainTextView, adviceTextView])
+        BKZoomOut([lineTextView, mainTextView, adviceTextView])
         refreshLines()
 
     }

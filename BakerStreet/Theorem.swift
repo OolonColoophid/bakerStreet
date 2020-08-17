@@ -45,6 +45,7 @@ public class Theorem {
 
     public enum Error: Swift.Error {
         case formulaPoorlyFormed
+        case theoremUnprovable
         case LHSandRHSsame
     }
 
@@ -79,6 +80,10 @@ public class Theorem {
 
         guard wellFormed == true else {
             throw Theorem.Error.formulaPoorlyFormed
+        }
+
+        guard theoremProvable() == true else {
+            throw Theorem.Error.theoremUnprovable
         }
 
         setProven()
@@ -273,7 +278,93 @@ extension Theorem: BKLine {
 
 }
 
+// MARK: Theorem provable
+
+extension Theorem {
+
+    func theoremProvable() -> Bool {
+
+        // Get all LHS formulas in scope
+        let lhsInScope = getAllLhsFormulasInScope()
+
+        // Turn into super formula
+        let lhsSuperFormula = Formula.makeSuperFormula(lhsInScope)
+
+        // If we have no LHS, return true; i.e. don't throw
+        guard lhsInScope.count > 0 else {
+            return true
+        }
+
+        return lhsDoesEntailRhs(forLhs: lhsSuperFormula.infixText,
+                                forRhs: rhsFormula.infixText)
+
+    }
+
+    // Collect all LHS formulas in scope (including current theorem)
+    func getAllLhsFormulasInScope() -> [Formula] {
+
+        var lhsInScope = [Formula]()
+
+        // Add LHS of theorems above the current theorem in the scope
+        for l in proof.scope {
+            if l.lineType == .theorem {
+                let t = l as! Theorem
+
+                for l in t.lhsFormula {
+
+                    lhsInScope.append(l)
+
+                }
+
+            }
+        }
+
+        // Add LHS of current theorem
+        for l in self.lhsFormula {
+
+            lhsInScope.append(l)
+
+        }
+
+        return lhsInScope
+
+    }
+
+}
+
+// NOTE: This function is available at the global scope
+//       to facilitate testing
+
+func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
+
+    // We take the LHS and the RHS and make them into a superformula
+    // using ->
+    //
+    // e.g. For proof:
+    //    p -> q |- p -> (q OR r)
+    //    p -> q                                    : Assumption (3)
+    //    p |- q OR r
+    //    p                                     : Assumption (5)
+    //
+    // We test theorem provability for p |- q OR r with:
+    // ( (p -> q) AND (p) ) -> (q OR r)
+    //
+    // Thus, if the LHS is true, the RHS must be true
+    // but if the LHS is not true, we don't care about the RHS
+
+    let entailmentFormulaInfix = "(" + lhs + ") -> (" + rhs + ")"
+
+    let entailmentFormula = Formula(entailmentFormulaInfix,
+                                    withTruthTable: true)
+
+    return entailmentFormula.areTruthValuesAllTrue
+
+}
+
+
+
 // MARK: BKEvaluatable (BKSelfProvable, BKParseable)
+
 extension Theorem: BKEvaluatable {
 
     // MARK: BKSelfProvable

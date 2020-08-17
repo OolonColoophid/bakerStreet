@@ -11,7 +11,7 @@ import Cocoa
 import Foundation
 
 /**
- The Proof represents the top level of the user's proof
+ The Proof represents the user's proof
 
  # Testing
  - ProofTests
@@ -31,7 +31,7 @@ public class Proof: BKSelfProvable {
     // Return an Int telling us which line of the scope
     // contains the overall proof theorem
     // If we can't find it, return -1
-    var proofLineAsInt: Int {
+    private var proofLineAsInt: Int {
 
         // If no lines, there can be no proof
         if scope.count == 0 {
@@ -56,8 +56,6 @@ public class Proof: BKSelfProvable {
         return -1
 
     }
-
-
 
     var proofLineAsUUID: UUID {
 
@@ -567,6 +565,15 @@ extension Proof {
 
             addToScope(il)
             advise(AdviceInstance.theoremFormulaPoorlyFormed)
+            // setInspectionText()
+
+        } catch Theorem.Error.theoremUnprovable {
+
+            let descriptionStyled = ("The left hand side of your theorem does not entail the right hand side. Without entailment, it cannot be proven.".p).asStyledHTML()
+
+            addToScope(il)
+            advise(AdviceInstance.theoremUnprovable,
+                   longDescription: descriptionStyled)
             // setInspectionText()
 
         } catch Theorem.Error.LHSandRHSsame {

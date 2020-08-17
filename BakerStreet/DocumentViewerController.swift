@@ -2,7 +2,7 @@
 //  BKDocumentViewer.swift
 //  Baker Street
 //
-//  Created by ian.user on 24/07/2020.
+//  Created by Ian Hocking on 24/07/2020.
 //  Copyright © 2020 Ian. All rights reserved.
 //
 
@@ -82,16 +82,12 @@ extension DocumentViewController {
     }
 
     func searchFieldDidStartSearching(_ sender: NSSearchField) {
-        print("Started searching")
-        print(sender.recentSearches)
 
         guard sender.recentSearches.count > 0 else {
             return
         }
 
         let mySearch = sender.recentSearches[0]
-
-        print("We are searching for: \(mySearch)")
 
         let textToSearch  = documentTextView.string
         let rangeToSelect: NSRange
@@ -173,7 +169,7 @@ extension DocumentViewController {
             BKZoomIn(documentTextView)
             updateDocumentContent()
         } else {
-            BKzoomOut(documentTextView)
+            BKZoomOut(documentTextView)
             updateDocumentContent()
         }
 

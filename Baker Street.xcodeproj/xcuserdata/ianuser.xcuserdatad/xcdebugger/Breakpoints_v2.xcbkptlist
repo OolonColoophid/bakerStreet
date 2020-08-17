@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "56E8B918-12C9-473D-A1D6-025FD4FBDFFD"
+            uuid = "C2C4D4F4-2CC1-4BD6-8539-449051F1D054"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Baker StreetTests/TestExportedProof.swift"
+            filePath = "BakerStreet/Enums.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "testExample()"
-            landmarkType = "7">
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "description"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F197AB7-2063-4D94-8B1D-874A41ECB597"
+            uuid = "2C1DF809-3C5B-4FC3-B02D-3B16D104B05A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BakerStreet/ViewController.swift"
+            filePath = "BakerStreet/SemanticPermuter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1009"
-            endingLineNumber = "1009"
-            landmarkName = "getToolbarButton(withPaletteLabel:)"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "addPermutations(top:bot:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

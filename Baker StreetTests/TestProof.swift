@@ -6,7 +6,7 @@
 //  Copyright © 2020 Hoksoft. All rights reserved.
 //
 
-import Baker_Street
+@testable import Baker_Street
 import XCTest
 
 // The type `Proof`
@@ -15,7 +15,6 @@ class ProofTests: XCTestCase {
 
     func test_proof_with_simpleProof_shouldBeProven() {
 
-        // Simple proof testing AND introduction
         let p = Proof(
             """
                 p and q |- q and p
@@ -28,10 +27,7 @@ class ProofTests: XCTestCase {
 
         XCTAssertTrue(p.getProven())
 
-        let b = p.htmlVLN
-
     }
-
 
     func test_emptyProof_isShouldBeNotProven() {
         let p = Proof("")
@@ -58,9 +54,7 @@ class ProofTests: XCTestCase {
         XCTAssertFalse(p.getProven())
     }
 
-    // Advice
-
-    // Helper
+    // Helper func for advice types
     public func getAdviceTypes(_ proof: Proof, forLine: Int) -> [AdviceInstance] {
 
         let advice = proof.advice
@@ -644,42 +638,6 @@ class ProofTests: XCTestCase {
 
     }
 
-    func test_proof_23_shouldBeProven() {
-
-        // CO884 Eercise Sheet 3
-        // (h)
-
-        let p = Proof(
-            """
-                |- ~p OR ~q <-> ~(p AND q)
-                    ~p OR ~q |- ~(p AND q)
-                        ~(p AND q) |- ~p OR ~q
-                            ~(p AND q)                                            : Assumption (2)
-                            ~(~p OR ~q) |- (p AND q) AND ~(p AND q)
-                                ~(~p OR ~q)                                       : Assumption (4)
-                                ~p |- ~(~p OR ~q) AND (~p OR ~q)
-                                    ~p                                            : Assumption (6)
-                                    ~p OR ~q                                 : OR Introduction (7)
-                                    ~(~p OR ~q) AND (~p OR ~q)           : AND Introduction (5, 8)
-                                p                                            : ~ Elimination (6)
-                                ~q |- ~(~p OR ~q) AND (~p OR ~q)
-                                    ~q                                           : Assumption (11)
-                                    ~p OR ~q                                : OR Introduction (12)
-                                    ~(~p OR ~q) AND (~p OR ~q)          : AND Introduction (5, 13)
-                                q                                           : ~ Elimination (11)
-                                p AND q                                : AND Introduction (10, 15)
-                                (p AND q) AND ~(p AND q)                : AND Introduction (16, 3)
-                            ~p OR ~q                                         : ~ Elimination (4)
-                        ~p OR ~q -> ~(p AND q)                               : -> Introduction (1)
-                    ~(p AND q) -> ~p OR ~q                                   : -> Introduction (2)
-                    ~p OR ~q <-> ~(p AND q)                            : <-> Introduction (19, 20)
-
-                """
-        )
-
-               XCTAssertTrue(p.getProven())
-
-    }
 
     func test_proof_24_shouldBeProven() {
 

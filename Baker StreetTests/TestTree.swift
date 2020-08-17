@@ -94,7 +94,4 @@ class TestTree: XCTestCase {
 
     }
 
-
-//    test first child and test second child
-
 }

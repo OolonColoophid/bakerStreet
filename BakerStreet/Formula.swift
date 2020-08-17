@@ -12,14 +12,31 @@ import Foundation
 /// Holds a formula, e.g. `p AND p`
 public struct Formula: Equatable {
 
-    public let identifier =               UUID() // i.e. 4 random bytes
-    public var infixText:                 String // e.g. `p AND p`
-    public var tokenStringHTML:           String // e.g. `<em>p</em>`
-    public var tokenStringHTMLWithGlyphs: String // e.g. `<em>p</em> ∧ <em>q</em>`
-    public var tokenStringLatex:          String // e.g. \(p \Rightarrow q\)
-    public let postfixText:               String // e.g. `p p AND`
-    public let isWellFormed:              Bool   // e.g. `true`
-    public let tree:                      Tree   // `Tree` representation
+    public let identifier =               UUID()   // i.e. 4 random bytes
+    public var infixText:                 String   // e.g. `p AND p`
+    public var tokenStringHTML:           String   // e.g. `<em>p</em>`
+    public var tokenStringHTMLPrettified: String   // e.g. `<em>p</em>∧<em>q</em>`
+    public var tokenStringHTMLPrettifiedUppercased: String
+    public let postfixText:               String   // e.g. `p p AND`
+    public var isWellFormed:              Bool     // e.g. `true`
+    public let tree:                      Tree     // `Tree` representation
+    public var truthResult:               String   // e.g. "true", empty if
+                                                   //   not well formed
+
+    public var truthTable:                [String] // e.g. ["true", "false"]
+
+    // True if all values of truthTable are true
+    public var areTruthValuesAllTrue: Bool {
+
+        for r in truthTable {
+            if r.description == "false" {
+                return false
+            }
+        }
+
+        return true
+    }
+
     // e.g. 'An invalidStringLength error occured'
     public var error =       ""
     public var tokens =      [Token(tokenType: .empty)]
@@ -33,14 +50,17 @@ public struct Formula: Equatable {
     ///   - `invalidTokenArrayLength` from `reversePolish()`
     ///   - `invalidRpnTokensArrayLength` from
     ///   `reversePolish.rpnEvaluate()`
-    public init (_ infixText: String) {
+    public init (_ infixText: String,
+                 withTruthTable: Bool = false,
+                 forNTruthTableVariables: Int = 0) {
 
         do {
+            
             var l = try Lexer(text: infixText) // Initialise
             let t = l.getTokenised()           // Get array of Token
 
-            // Convert to RPN
             var rpn = try RpnMake(infixFormula: t)
+
             try rpn.rpnEvaluate() // Evaluate RPN
 
             self.infixText = l.getTokenString()       // e.g. `p AND p`
@@ -49,25 +69,39 @@ public struct Formula: Equatable {
             tokenStringHTML = l.tokenStringHTML
 
             // e.g. `<em>p</em> ∧ <em>q</em>`
-            tokenStringHTMLWithGlyphs = l.tokenStringHTMLPrettified
+            self.tokenStringHTMLPrettified = l.tokenStringHTMLPrettified
+            // uppercased version
+            self.tokenStringHTMLPrettifiedUppercased =
+                l.tokenStringHTMLPrettifiedUppercased
 
-            // e.g. `\(p \Rightarrow q\)`
-            tokenStringLatex = l.tokenStringLatex
+            self.tokens = t                           // tokenised
+            self.isWellFormed = rpn.getIsWellFormed() // e.g. `true`
+            self.postfixText = rpn.getRpnString()     // e.g. `p p AND`
+            self.tree = rpn.getRpnTree()!             // Obtain tree
 
-            tokens = t                           // tokenised
-            postfixText = rpn.getRpnString()     // e.g. `p p AND`
-            isWellFormed = rpn.getIsWellFormed() // e.g. `true`
-            tree = rpn.getRpnTree()!             // Obtain tree
+            // Now, perhaps, we can compute the truth table if needed
+            // using our semanticPermuter and the same RpnMake, which
+            // will detect when it's been given a semantics version
+            self.truthResult = rpn.truthResult
+            self.truthTable = [String]()
+
+            if withTruthTable == true && isWellFormed == true {
+
+                makeTruthTable(forNTruthTableVariables)
+
+            }
 
         } catch {
             self.error = "An \(error.localizedDescription) occured"
 
             self.infixText = ""
-            postfixText = ""
-            tokenStringHTML = ""
-            tokenStringHTMLWithGlyphs = ""
-            tokenStringLatex = ""
-            isWellFormed = false
+            self.postfixText = ""
+            self.tokenStringHTML = ""
+            self.tokenStringHTMLPrettified = ""
+            self.tokenStringHTMLPrettifiedUppercased = ""
+            self.isWellFormed = false
+            self.truthResult = ""
+            self.truthTable = [String]()
             let emptyToken = Token(tokenType: .poorlyFormed)
             tree = Tree(emptyToken)
         }
@@ -77,10 +111,14 @@ public struct Formula: Equatable {
         return lhs.tree == rhs.tree
     }
 
+
+
     public func debug() {
         print("Infix string:   >\(self.infixText)<")
         print("Postfix string: >\(self.postfixText)<")
         print("Well formed?    >\(self.isWellFormed)<")
+        print("Truth result    >\(self.truthResult)<")
+        print("Truth table:    >\(self.truthTable)<")
         print("Graph of: \(self.infixText)\n\(self.tree.getTreeGraph())")
     }
 }
@@ -90,5 +128,50 @@ extension Formula: Hashable {
     // - Return a unique identifier
     public func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
+    }
+}
+
+// MARK: Truth tables
+extension Formula {
+
+    mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
+
+        let myPermuter = SemanticPermuter(withTokens: self.tokens)
+        let myPermutationsAsStrings = myPermuter.permutationAsStrings
+
+        var myTokensAsStrings = [String]()
+
+        for p in myPermutationsAsStrings {
+
+            let myTruthResult = Formula(p).truthResult
+
+              myTokensAsStrings.append(myTruthResult)
+
+        }
+
+        // e.g. ["true", "true", "false", "false"]
+        truthTable = myTokensAsStrings
+
+    }
+
+    // As a shortcut, we can create a super formula from the LHS
+    // and find the permutations where each are true by combining them:
+    // e.g. p AND q, r -> s
+    //      (p AND q) AND (r -> s)
+    public static func makeSuperFormula(_ formulas: [Formula]) -> Formula{
+
+        var superFormulaInfixTemp = ""
+        for f in formulas {
+
+            superFormulaInfixTemp = superFormulaInfixTemp + "(" + f.infixText + ") AND "
+
+        }
+
+        let superFormulaInfix = String(superFormulaInfixTemp.dropLast(5))
+
+        let superFormula = Formula(superFormulaInfix)
+
+        return superFormula
+
     }
 }
