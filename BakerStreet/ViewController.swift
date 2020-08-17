@@ -529,12 +529,12 @@ extension ViewController {
 
         if selectedSegment == 0 {
 
-            BKzoomIn([lineTextView, mainTextView, adviceTextView])
+            BKZoomIn([lineTextView, mainTextView, adviceTextView])
             refreshLines()
 
         } else {
 
-            BKzoomOut([lineTextView, mainTextView, adviceTextView])
+            BKZoomOut([lineTextView, mainTextView, adviceTextView])
             refreshLines()
 
         }
@@ -543,14 +543,14 @@ extension ViewController {
 
     @IBAction func menuZoomIn(_ sender: Any) {
 
-        BKzoomIn([lineTextView, mainTextView, adviceTextView])
+        BKZoomIn([lineTextView, mainTextView, adviceTextView])
         refreshLines()
 
     }
 
     @IBAction func menuZoomOut(_ sender: Any) {
 
-        BKzoomOut([lineTextView, mainTextView, adviceTextView])
+        BKZoomOut([lineTextView, mainTextView, adviceTextView])
         refreshLines()
 
     }

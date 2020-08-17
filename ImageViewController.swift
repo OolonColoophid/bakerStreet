@@ -2,7 +2,7 @@
 //  ImageViewController.swift
 //  Baker Street
 //
-//  Created by ian.user on 07/08/2020.
+//  Created by Ian Hocking on 07/08/2020.
 //  Copyright © 2020 Ian. All rights reserved.
 //
 

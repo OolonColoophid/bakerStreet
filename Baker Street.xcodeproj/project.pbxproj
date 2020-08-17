@@ -48,7 +48,6 @@
 		5B9205DB24816C4300CF6D45 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9205DA24816C4300CF6D45 /* Preferences.swift */; };
 		5B9BF1DA248111610087513D /* DeprcProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BF1D9248111610087513D /* DeprcProof.swift */; };
 		5B9C4EDF24DFEB7000C4F6C4 /* SemanticPermuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9C4EDE24DFEB7000C4F6C4 /* SemanticPermuter.swift */; };
-		5BA6600624BDEC2100B8DEC2 /* proofTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 5BA6600524BDEC2100B8DEC2 /* proofTemplate.html */; };
 		5BA6B04424A3926C00B5D8F5 /* Styler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6B04324A3926C00B5D8F5 /* Styler.swift */; };
 		5BA7B73124CADAD600C06DA2 /* DocumentViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */; };
 		5BAB832624A097AB0057D09D /* ProofController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB832524A097AB0057D09D /* ProofController.swift */; };
@@ -114,7 +113,6 @@
 		5B9205DA24816C4300CF6D45 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5B9BF1D9248111610087513D /* DeprcProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprcProof.swift; sourceTree = "<group>"; };
 		5B9C4EDE24DFEB7000C4F6C4 /* SemanticPermuter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticPermuter.swift; sourceTree = "<group>"; };
-		5BA6600524BDEC2100B8DEC2 /* proofTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = proofTemplate.html; sourceTree = "<group>"; };
 		5BA6B04324A3926C00B5D8F5 /* Styler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styler.swift; sourceTree = "<group>"; };
 		5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerController.swift; sourceTree = "<group>"; };
 		5BAB832524A097AB0057D09D /* ProofController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofController.swift; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 		5BDD513A24ACE2BB0025ADFA /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				5BA6600524BDEC2100B8DEC2 /* proofTemplate.html */,
 				5BDD513B24ACE5D40025ADFA /* html.swift */,
 			);
 			name = examples;
@@ -411,7 +408,6 @@
 				5B8263F924DD685100EE17B3 /* Natural Deduction formulas.png in Resources */,
 				5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */,
 				5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */,
-				5BA6600624BDEC2100B8DEC2 /* proofTemplate.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

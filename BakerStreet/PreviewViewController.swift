@@ -2,7 +2,7 @@
 //  PreviewViewController.swift
 //  Baker Street
 //
-//  Created by ian.user on 29/07/2020.
+//  Created by Ian Hocking on 29/07/2020.
 //  Copyright © 2020 Ian. All rights reserved.
 //
 
@@ -84,10 +84,10 @@ extension PreviewViewController {
         let selectedSegment = button.selectedSegment
 
         if selectedSegment == 0 {
-            BKzoomIn(previewTextView)
+            BKZoomIn(previewTextView)
             updateDocumentContent()
         } else {
-            BKzoomOut(previewTextView)
+            BKZoomOut(previewTextView)
             updateDocumentContent()
         }
 

@@ -2,7 +2,7 @@
 //  SemanticPermuter.swift
 //  Baker Street
 //
-//  Created by ian.user on 09/08/2020.
+//  Created by Ian Hocking on 09/08/2020.
 //  Copyright © 2020 Ian. All rights reserved.
 //
 
@@ -45,8 +45,7 @@ struct SemanticPermuter {
     //  F   F   F (permutation n)
     //
 
-    init (withTokens tokens: [Token],
-          forVariableCount overrideVariableCount: Int = -1) {
+    init (withTokens tokens: [Token]) {
         // -> [[Token]] {
         // Algorithm:
         // 2. Create two sets of new permutations, representing
@@ -73,39 +72,23 @@ struct SemanticPermuter {
         // doubleUp()
         var bot = [[Token]]()
 
-        // Iterate over our variables:
-        //  Get variables
-        let variablesAll = tokens.filter { $0.isOperand == true }
+        // Iterate over our operands:
+        //  Get operands
+        let operandsAll = tokens.filter { $0.isOperand == true }
 
-        // Reduce to only unique variables
-        let variables = variablesAll.uniques.sorted()
+        // Reduce to only unique operands
+        let operands = operandsAll.uniques.sorted()
 
-        for v in variables {
+        for o in operands {
 
             // Create our new permutations (i.e. rows in the truth
             // table) by expanding the current permutations
             addPermutations(top: &top, bot: &bot)
 
-            // Now, for our current variable (still a variable
+            // Now, for our current operand (still an operand
             // in the truth table) replace instances of it with semantics
-            print("  Adding semantics for \(v.description)")
-            addSemantics(forVariable: v, top: &top, bot: &bot)
+            addSemantics(forOperand: o, top: &top, bot: &bot)
 
-        }
-
-        // Calculate how much we need to expand the row count for
-        // the truth table (i.e. beyond the variables we might currently
-        // have in our formula); this is used when comparing truth tables
-        // for formulas with different variable counts
-        let expansionFactor = overrideVariableCount - variables.count
-        if (expansionFactor > 0) && (overrideVariableCount != -1) {
-
-            var i = 0
-            while i < expansionFactor {
-                duplicateEachElement(permutations: &top)
-                duplicateEachElement(permutations: &bot)
-                i = i + 1
-            }
         }
 
         // Top and bottom are now complete. Let's combine them
@@ -117,28 +100,34 @@ struct SemanticPermuter {
     }
 
     // Apply true/false values to top and bottom sets of permutations
-    func addSemantics(forVariable variable: Token,
+    func addSemantics(forOperand operand: Token,
                       top: inout [[Token]],
                       bot: inout [[Token]]) {
 
-        findAndReplaceVarWithSemantics(forVar: variable, permutations: &top,
+        findAndReplaceOpWithSemantics(forOp: operand, permutations: &top,
                                        isFirstTrue: true)
 
-        findAndReplaceVarWithSemantics(forVar: variable,
+        findAndReplaceOpWithSemantics(forOp: operand,
                                        permutations: &bot,
                                        isFirstTrue: false)
 
     }
 
     // Iterature through a set of permutations and alternatively
-    // replace target variable with true/false semantics
-    func findAndReplaceVarWithSemantics(forVar variable: Token,
+    // replace target operand with true/false semantics
+    func findAndReplaceOpWithSemantics(forOp operand: Token,
                                         permutations: inout [[Token]],
                                         isFirstTrue: Bool) {
-
+        
+        // We only want variables. If the operand is false or
+        // true, no replacement is necessary
+        guard (operand.description != "false") && (operand.description != "true") else {
+            return
+        }
+        
         // Our true/false state
         var semTrue = isFirstTrue
-        var operand = ""
+        var semanticValue = ""
 
         // For each permutation (using .enurated() gives us pIndex, the index)
         for (pIndex, p) in permutations.enumerated() { // Where p is a permutation
@@ -147,17 +136,17 @@ struct SemanticPermuter {
             for (tIndex, t) in p.enumerated() { // Where t is a token
 
                 // Is this the token we're looking for?
-                if t.description == variable.description {
+                if t.description == operand.description {
 
                     // Set the semantics
                     if semTrue == true {
-                        operand = "true"
+                        semanticValue = "true"
                     } else {
-                        operand = "false"
+                        semanticValue = "false"
                     }
 
                     // Apply the semantics
-                    permutations[pIndex][tIndex] = Token(tokenType: .operand(operand))
+                    permutations[pIndex][tIndex] = Token(tokenType: .operand(semanticValue))
 
                 }
 

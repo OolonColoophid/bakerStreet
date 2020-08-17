@@ -332,72 +332,32 @@ extension Theorem {
 
 }
 
-// NOTE: This function as available at the global scope
+// NOTE: This function is available at the global scope
 //       to facilitate testing
 
 func lhsDoesEntailRhs(forLhs lhs: String, forRhs rhs: String) -> Bool {
 
-    // We want to tell Formula how many variables there are in
-    // total so that the truth table for each formula has the
-    // correct number of rows
-    var totalVariableCount: Int {
-        get {
+    // We take the LHS and the RHS and make them into a superformula
+    // using ->
+    //
+    // e.g. For proof:
+    //    p -> q |- p -> (q OR r)
+    //    p -> q                                    : Assumption (3)
+    //    p |- q OR r
+    //    p                                     : Assumption (5)
+    //
+    // We test theorem provability for p |- q OR r with:
+    // ( (p -> q) AND (p) ) -> (q OR r)
+    //
+    // Thus, if the LHS is true, the RHS must be true
+    // but if the LHS is not true, we don't care about the RHS
 
-            var tokens = [Token]()
+    let entailmentFormulaInfix = "(" + lhs + ") -> (" + rhs + ")"
 
-            // Add LHS tokens
-            tokens.append(contentsOf: Formula(lhs).tokens)
+    let entailmentFormula = Formula(entailmentFormulaInfix,
+                                    withTruthTable: true)
 
-            // Add RHS tokens
-            tokens.append(contentsOf: Formula(rhs).tokens)
-
-            // Get variables
-            let variables = tokens.filter { $0.isOperand == true }
-
-            // Reduce to unique variables
-            let uniqueVariables = variables.uniques
-
-            print("Unique variables: \(uniqueVariables.debugDescription)")
-            return uniqueVariables.count
-
-        }
-    }
-
-    let fLhs = Formula(lhs,
-                       withTruthTable: true,
-                       forNTruthTableVariables: totalVariableCount)
-
-    let fRhs = Formula(rhs,
-                       withTruthTable: true,
-                       forNTruthTableVariables: totalVariableCount)
-
-    fLhs.debug()
-    fRhs.debug()
-
-    // If the truthables are of unequal sizes, something has
-    // gone wrong; fail to 'true' (i.e. don't prevent the theorem from
-    // being part of a proof)
-    guard fLhs.truthTable.count == fRhs.truthTable.count else { return false }
-
-    // If the LHS has no permutations where it is true, the RHS must be
-    // provable
-    guard fLhs.truthTable.contains("true") else { return true }
-
-    // Ensure that where the LHS truth values are true, so are the RHS values
-    var i = 0
-    var areEntailed = true
-    while i < fLhs.truthTable.count {
-
-        if fLhs.truthTable[i] == "true" && fRhs.truthTable[i] == "false" {
-
-            areEntailed = false
-
-        }
-
-        i = i + 1
-    }
-
-    return areEntailed
+    return entailmentFormula.areTruthValuesAllTrue
 
 }
 

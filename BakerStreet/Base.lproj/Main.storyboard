@@ -557,7 +557,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="56O-Tt-sM7"/>
                                 <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="LvR-im-OtF">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="LvR-im-OtF">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKs-Ae-vkv">
@@ -571,7 +571,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6559ABF9-9FA0-4325-89D5-489438253316" label="Operator" paletteLabel="Add Operator" image="NSAddTemplate" sizingBehavior="auto" id="db6-UV-KM0" userLabel="Add Operator">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="DHG-d2-7Dj">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="DHG-d2-7Dj">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2v-mg-pwD">
@@ -585,7 +585,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6A94F5D6-6D30-4490-B6A2-4DCEE72CD496" label="Justification" paletteLabel="Add Justification" image="NSAddTemplate" sizingBehavior="auto" id="kWz-tT-EN5" userLabel="Add Justification">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="hds-fn-kBk">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="hds-fn-kBk">
                                         <rect key="frame" x="7" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Exp-Cz-4Tv">
@@ -599,7 +599,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="nMv-7e-Ek5">
                                         <rect key="frame" x="19" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
@@ -613,7 +613,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="M3z-KP-nNg">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="M3z-KP-nNg">
                                         <rect key="frame" x="18" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
@@ -627,7 +627,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="csH-bV-jbk">
                                         <rect key="frame" x="16" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
@@ -641,7 +641,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="NSTouchBarGetInfoTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="edg-Ol-IXI">
                                         <rect key="frame" x="31" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarGetInfoTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
@@ -655,7 +655,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="9DF-SJ-Ade">
+                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="9DF-SJ-Ade">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6kX-os-dNK">
@@ -669,7 +669,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="21B261B0-311E-4D3C-9AAF-AEAEB95F0C61" label="Zoom" paletteLabel="Zoom" sizingBehavior="auto" id="ESJ-cm-P4V" userLabel="Zoom">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" id="e4K-w3-xZE">
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" id="e4K-w3-xZE">
                                         <rect key="frame" x="0.0" y="14" width="72" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="9zg-1P-98G">
@@ -686,7 +686,7 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0CB55F41-C3E7-488D-9BC5-1BA959FBC536" label="Panels" paletteLabel="Toggle Panels" sizingBehavior="auto" id="Rig-76-c3T">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" id="yNn-f2-b9d">
+                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" id="yNn-f2-b9d">
                                         <rect key="frame" x="0.0" y="14" width="105" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectAny" id="gRh-ZT-xY3">

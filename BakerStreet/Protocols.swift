@@ -110,10 +110,10 @@ extension BKAdvising {
 // Allows the user to zoom in/out
 protocol BKZoomable {
 
-    func BKzoomIn(_ view: NSTextView) -> Void
-    func BKzoomOut(_ view: NSTextView) -> Void
-    func BKzoomIn(_ views: [NSTextView]) -> Void
-    func BKzoomOut(_ views: [NSTextView]) -> Void
+    func BKZoomIn(_ view: NSTextView) -> Void
+    func BKZoomOut(_ view: NSTextView) -> Void
+    func BKZoomIn(_ views: [NSTextView]) -> Void
+    func BKZoomOut(_ views: [NSTextView]) -> Void
 
 }
 
@@ -143,26 +143,26 @@ extension BKZoomable {
 
     }
 
-    public func BKzoomIn(_ view: NSTextView) {
+    public func BKZoomIn(_ view: NSTextView) {
 
         zoom(inDirection: "in", forView: view)
 
     }
 
-    public func BKzoomOut(_ view: NSTextView) {
+    public func BKZoomOut(_ view: NSTextView) {
 
         zoom(inDirection: "out", forView: view)
 
     }
 
-    public func BKzoomIn(_ views: [NSTextView]) {
+    public func BKZoomIn(_ views: [NSTextView]) {
 
         views.forEach {view in
             zoom(inDirection: "in", forView: view) }
 
     }
 
-    public func BKzoomOut(_ views: [NSTextView]) {
+    public func BKZoomOut(_ views: [NSTextView]) {
 
         views.forEach {view in
             zoom(inDirection: "out", forView: view) }

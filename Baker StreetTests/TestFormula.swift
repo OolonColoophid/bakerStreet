@@ -194,40 +194,6 @@ class TestFormula: XCTestCase {
     }
 
 
-    func test_formula_requestingTruthTableSize_shouldHaveTruthTableSize() {
-
-        let f1 = Formula("p and q",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 0)
-        let f1TruthTableSize = f1.truthTable.count
-        XCTAssertTrue(f1TruthTableSize == 4)
-
-        let f2 = Formula("p and q",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 3)
-        let f2TruthTableSize = f2.truthTable.count
-        XCTAssertTrue(f2TruthTableSize == 8)
-
-        let f3 = Formula("p and q",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 4)
-        let f3TruthTableSize = f3.truthTable.count
-        XCTAssertTrue(f3TruthTableSize == 16)
-
-        let f4 = Formula("p and q",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 5)
-        let f4TruthTableSize = f4.truthTable.count
-        XCTAssertTrue(f4TruthTableSize == 32)
-
-        let f5 = Formula("p and q",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 6)
-        let f5TruthTableSize = f5.truthTable.count
-        XCTAssertTrue(f5TruthTableSize == 64)
-
-    }
-
     func test_1_largeFormula_requestingTruthTableSize_shouldHaveTruthTableSize() {
 
         let f = Formula("(p OR (q AND r)) AND (p -> s) AND ((q AND r) -> s)",
@@ -285,21 +251,10 @@ class TestFormula: XCTestCase {
                 forLhs: "p AND q",
                 forRhs: "p AND (r OR q)"))
 
-
-        XCTAssertTrue(
-            lhsDoesEntailRhs(
-                forLhs: "p OR (q AND r)",
-                forRhs: "s OR p"))
-
         XCTAssertTrue(
             lhsDoesEntailRhs(
                 forLhs: "p <-> q",
                 forRhs: "q <-> p"))
-
-        XCTAssertTrue(
-            lhsDoesEntailRhs(
-                forLhs: "p AND q",
-                forRhs: "r AND q"))
 
         XCTAssertTrue(
             lhsDoesEntailRhs(
@@ -329,11 +284,6 @@ class TestFormula: XCTestCase {
             lhsDoesEntailRhs(
                 forLhs: "p -> s",
                 forRhs: "s OR p"))
-
-        XCTAssertFalse(
-            lhsDoesEntailRhs(
-                forLhs: "p -> s",
-                forRhs: "s OR (p OR ~p"))
 
 
     }

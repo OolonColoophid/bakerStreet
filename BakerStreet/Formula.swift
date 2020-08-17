@@ -12,17 +12,30 @@ import Foundation
 /// Holds a formula, e.g. `p AND p`
 public struct Formula: Equatable {
 
-    public let identifier =               UUID()  // i.e. 4 random bytes
-    public var infixText:                 String  // e.g. `p AND p`
-    public var tokenStringHTML:           String  // e.g. `<em>p</em>`
-    public var tokenStringHTMLPrettified: String  // e.g. `<em>p</em>∧<em>q</em>`
+    public let identifier =               UUID()   // i.e. 4 random bytes
+    public var infixText:                 String   // e.g. `p AND p`
+    public var tokenStringHTML:           String   // e.g. `<em>p</em>`
+    public var tokenStringHTMLPrettified: String   // e.g. `<em>p</em>∧<em>q</em>`
     public var tokenStringHTMLPrettifiedUppercased: String
-    public let postfixText:               String  // e.g. `p p AND`
-    public var isWellFormed:              Bool    // e.g. `true`
-    public let tree:                      Tree    // `Tree` representation
-    public var truthResult:               String  // e.g. "true", empty if
-                                                  //   not well formed
+    public let postfixText:               String   // e.g. `p p AND`
+    public var isWellFormed:              Bool     // e.g. `true`
+    public let tree:                      Tree     // `Tree` representation
+    public var truthResult:               String   // e.g. "true", empty if
+                                                   //   not well formed
+
     public var truthTable:                [String] // e.g. ["true", "false"]
+
+    // True if all values of truthTable are true
+    public var areTruthValuesAllTrue: Bool {
+
+        for r in truthTable {
+            if r.description == "false" {
+                return false
+            }
+        }
+
+        return true
+    }
 
     // e.g. 'An invalidStringLength error occured'
     public var error =       ""
@@ -123,8 +136,7 @@ extension Formula {
 
     mutating func makeTruthTable(_ forNTruthTableVariables: Int) {
 
-        let myPermuter = SemanticPermuter(withTokens: self.tokens,
-                                          forVariableCount: forNTruthTableVariables)
+        let myPermuter = SemanticPermuter(withTokens: self.tokens)
         let myPermutationsAsStrings = myPermuter.permutationAsStrings
 
         var myTokensAsStrings = [String]()
@@ -133,9 +145,7 @@ extension Formula {
 
             let myTruthResult = Formula(p).truthResult
 
-            print(" P: \(infixText)")
-            print(" P: \(p.description)")
-            myTokensAsStrings.append(myTruthResult)
+              myTokensAsStrings.append(myTruthResult)
 
         }
 
