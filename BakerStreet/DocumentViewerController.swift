@@ -98,9 +98,19 @@ extension DocumentViewController {
         if let mySearchRange = textToSearch.range(of: mySearch) {
             rangeToSelect = NSRange(mySearchRange, in: textToSearch)
             documentTextView.setSelectedRange(rangeToSelect)
-            searchField.tag = Int(NSFindPanelAction.setFindString.rawValue)
 
+            // Select the text
+            searchField.tag = Int(NSFindPanelAction.setFindString.rawValue)
             documentTextView.performFindPanelAction(searchField)
+
+            // Jump user to the text
+            // This feels like a hack but seems to be the best way of
+            // achieving a sensible behaviour (i.e. selection is highlighted)
+            searchField.tag = Int(NSFindPanelAction.next.rawValue)
+            documentTextView.performFindPanelAction(searchField)
+            searchField.tag = Int(NSFindPanelAction.previous.rawValue)
+            documentTextView.performFindPanelAction(searchField)
+
 
             showButtons()
         }
