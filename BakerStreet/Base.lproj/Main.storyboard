@@ -578,7 +578,7 @@ DQ
                                                             <action selector="menuMarkdown:" target="Ady-hI-5gd" id="wL2-lR-AEx"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Rules in Full Show / Hide " keyEquivalent="f" id="wUT-qR-Sbp" userLabel="Rules in Full">
+                                                    <menuItem title="Rules in Full Show / Hide " keyEquivalent="s" id="wUT-qR-Sbp" userLabel="Rules in Full">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="menuRulesFull:" target="Ady-hI-5gd" id="ZEx-wp-kBu"/>

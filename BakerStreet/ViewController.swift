@@ -635,11 +635,13 @@ extension ViewController {
 
         let text = body
 
-        let size = NSSize(width: 750, height: 640)
+        let appearanceSize = NSSize(width: 750, height: 600)
+        let minimumSize = NSSize(width: 380, height: 200)
 
         setDocumentPanelAttributes(forPanel: mPanel,
                            withTitle: windowTitle,
-                           withSize: size,
+                           withAppearanceSize: appearanceSize,
+                           withMinimumSize: minimumSize,
                            withDocText: text.htmlToNSMAS())
 
     }
@@ -662,12 +664,13 @@ extension ViewController {
 
         let text = body
 
-        let size = NSSize(width: 550, height: 640)
-
+        let appearanceSize = NSSize(width: 400, height: 600)
+        let minimumSize = NSSize(width: 380, height: 200)
 
         setDocumentPanelAttributes(forPanel: dPanel,
                            withTitle: windowTitle,
-                           withSize: size,
+                           withAppearanceSize: appearanceSize,
+                           withMinimumSize: minimumSize,
                            withDocText: text.htmlToNSMAS())
     }
 
@@ -689,12 +692,14 @@ extension ViewController {
 
         let text = body
 
-        let size = NSSize(width: 400, height: 640)
+        let appearanceSize = NSSize(width: 400, height: 600)
+        let minimumSize = NSSize(width: 380, height: 200)
 
 
         setDocumentPanelAttributes(forPanel: rPanel,
                            withTitle: windowTitle,
-                           withSize: size,
+                           withAppearanceSize: appearanceSize,
+                           withMinimumSize: minimumSize,
                            withDocText: text.htmlToNSMAS())
 
     }
@@ -703,16 +708,23 @@ extension ViewController {
 
     func setDocumentPanelAttributes(forPanel panel: NSPanel,
                             withTitle title: String,
-                            withSize size: NSSize,
+                            withAppearanceSize appearanceSize: NSSize,
+                            withMinimumSize minimumSize: NSSize,
                             withDocText text: NSMutableAttributedString) {
 
         let myViewController = panel.contentViewController as! DocumentViewController
 
-        panel.setContentSize(size)
-
+        panel.setContentSize(appearanceSize)
+        panel.minSize = minimumSize
         panel.title = title
-
         panel.isFloatingPanel = true
+
+        // Set position review to the main Baker Street window
+        let mainWindow = view.window?.frame
+        let myRect = mainWindow?.offsetBy(dx: 40, dy: -20) // 40 right, 20 down
+        let myX = myRect?.maxX ?? 0 // x of bottom left
+        let myY = myRect?.minY ?? 0 // y of bottom left
+        panel.setFrameOrigin(NSPoint(x:myX, y:myY))
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
@@ -759,6 +771,13 @@ extension ViewController {
 
         panel.isFloatingPanel = true
 
+        // Set position review to the main Baker Street window
+        let mainWindow = view.window?.frame
+        let myRect = mainWindow?.offsetBy(dx: 40, dy: 0)
+        let myX = myRect?.maxX ?? 0
+        let myY = myRect?.minY ?? 0
+        panel.setFrameOrigin(NSPoint(x:myX, y:myY))
+
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
         panel.styleMask.remove(.closable)
@@ -792,29 +811,35 @@ extension ViewController {
 
         let windowTitle = "Baker Street Preview" + documentTitle
 
-        let text = "Preview text here (to be replaced by view controller)"
-
-        let size = NSSize(width: 400, height: 640)
+        let appearanceSize = NSSize(width: 400, height: 600)
+        let minimumSize = NSSize(width: 380, height: 200)
 
 
         setPreviewPanelAttributes(forPanel: pPanel,
                                   withTitle: windowTitle,
-                                  withSize: size,
-                                  withDocText: text.htmlToNSMAS())
+                                  withAppearanceSize: appearanceSize,
+                                  withMinimumSize: minimumSize,
+                                  withDocText: NSMutableAttributedString(string: ""))
 
     }
 
     func setPreviewPanelAttributes(forPanel panel: NSPanel,
                                    withTitle title: String,
-                                   withSize size: NSSize,
+                                   withAppearanceSize appearanceSize: NSSize,
+                                   withMinimumSize minimumSize: NSSize,
                                    withDocText text: NSMutableAttributedString) {
 
-        panel.setContentSize(size)
-
+        panel.setContentSize(appearanceSize)
+        panel.minSize = minimumSize
         panel.title = title
-
-
         panel.isFloatingPanel = true
+
+        // Set position review to the main Baker Street window
+        let mainWindow = view.window?.frame
+        let myRect = mainWindow?.offsetBy(dx: 40, dy: 0)
+        let myX = myRect?.maxX ?? 0
+        let myY = myRect?.minY ?? 0
+        panel.setFrameOrigin(NSPoint(x:myX, y:myY))
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
