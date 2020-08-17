@@ -998,7 +998,13 @@ enum DocumentContent {
 
                 case .entailment:
 
-                    let s = "The left hand side of a theorem must entail the right hand side. Entailment is present when, for all interpretations of variables on the left hand side that make a formula true, the right hand side formula is true for the same interpretations. You can check this by producing a truth table for the theorem."
+                    let proof = ExampleProofs.subProof
+                    let proofHTML = proof.htmlVLN
+                    let lhs = "(p -> (q AND r)) AND p".formulaToHTML
+                    let rhs = "q".formulaToHTML
+
+
+                    let s = "The left hand side of a theorem (which includes the left hand side of all theorems in scope) must entail the right hand side. Entailment is present when, for all interpretations of variables on the left hand side that make a formula true, the right hand side formula is true for the same interpretations. You can check this by producing a truth table for the theorem. \nHere, the theorem at line two is considered provable because where " + lhs + " is true, " + rhs + " is true:" + proofHTML
 
                     return s
 
