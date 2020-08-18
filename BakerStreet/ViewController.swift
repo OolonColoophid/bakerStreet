@@ -139,7 +139,7 @@ class ViewController: NSViewController {
 
         // Start the computation of Definitions panel content
         // and Rules in Full panel content
-        cacheUpdateRulesDefinitions()
+        cacheUpdateDocumentViews()
 
         // Make this controller a delegate
         // for the main text (where the proof text goes)
@@ -356,7 +356,7 @@ extension ViewController {
 // MARK: Cache
 extension ViewController {
 
-    func cacheUpdateRulesDefinitions() {
+    func cacheUpdateDocumentViews() {
 
         let rulesQueue = DispatchQueue(
             label: "bakerstreet.rules.queue",
@@ -364,7 +364,7 @@ extension ViewController {
         )
 
         rulesQueue.async {
-            self.cacheRules = DocumentContent.definitions.body.htmlToNSMAS()
+            self.cacheRules = DocumentContent.rules.body.htmlToNSMAS()
         }
 
 
@@ -374,7 +374,7 @@ extension ViewController {
         )
 
         definitionsQueue.async {
-            self.cacheDefinitions = DocumentContent.rules.body.htmlToNSMAS()
+            self.cacheDefinitions = DocumentContent.definitions.body.htmlToNSMAS()
         }
 
         let markdownQueue = DispatchQueue(
