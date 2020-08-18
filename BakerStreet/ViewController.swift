@@ -16,12 +16,10 @@ class ViewController: NSViewController {
     // is nil, then we avoid forced unwrapping
     var mWindow: NSWindow? = nil
 
-    func mainWindowCached() -> NSWindow? {
-        if let window = NSApplication.shared.mainWindow {
-            self.mWindow = window
-        }
-        return self.mWindow
-    }
+    // Set a reference to the app delegate. Here, I'm storing
+    // some variables bound to UI elements like menu items
+    // whose title I'd like to change
+    var appDelegate = NSApplication.shared.delegate as! AppDelegate
 
     //    | Line Numbers | Main Text              | Advice View |
     //    |--------------+------------------------+-------------|
@@ -155,6 +153,15 @@ class ViewController: NSViewController {
         // And the preview panel
         previewPanel.contentViewController =
             PreviewViewController.freshController()
+
+        // Because we want to know when the above panels
+        // close, we should make this object the delegate
+        markdownPanel.delegate = self
+        definitionsPanel.delegate = self
+        rulesFullPanel.delegate = self
+        rulesOverviewPanel.delegate = self
+        previewPanel.delegate = self
+
 
         // Set default attributes
         mainTextView.typingAttributes = OverallStyle.mainTextInactive.attributes
@@ -481,6 +488,11 @@ extension ViewController {
         validate()
     }
 
+    @IBAction func menuPreview(_ sender: Any) {
+        togglePreview()
+    }
+
+
     @IBAction func menuOperatorCompletion(_ sender: Any) {
         myCompletionMode = CompletionMode.logic
         completion()
@@ -614,21 +626,44 @@ extension ViewController {
     }
 }
 
+// MARK: NSWindowDelegate
+// The current object is the delegate for the panels (preview, rules etc.)
+extension ViewController: NSWindowDelegate {
+
+    func windowWillClose(_ notification: Notification) {
+
+        let panel = notification.object as! NSPanel
+
+        switch panel.title {
+            case DocumentContent.markdown.windowTitle:
+                didHideMarkdown()
+            case DocumentContent.definitions.windowTitle:
+                didHideDefinitions()
+            case DocumentContent.rules.windowTitle:
+                didHideRulesFull()
+            case "Baker Street Rules Overview":
+                didHideRulesOverview()
+            default: // Preview
+                didHidePreview()
+        }
+
+    }
+
+}
+
 // MARK: Document Windows
 extension ViewController {
 
-    func toggleMarkdown() {
+    func didHideMarkdown() {
 
-        let mPanel = markdownPanel
+        appDelegate.BKMenuHelpTitleMarkdown = "Show Markdown"
 
-        // Only set up the panel if isn't visible; otherwise
-        // make it the key window and return
-        guard mPanel.isVisible == false else {
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Markdown Reference")
 
-            mPanel.close()
-            return
 
-        }
+    }
+
+    func showMarkdown() {
 
         let windowTitle = DocumentContent.markdown.windowTitle
         let body = DocumentContent.markdown.body
@@ -638,11 +673,68 @@ extension ViewController {
         let appearanceSize = NSSize(width: 750, height: 600)
         let minimumSize = NSSize(width: 380, height: 200)
 
-        setDocumentPanelAttributes(forPanel: mPanel,
-                           withTitle: windowTitle,
-                           withAppearanceSize: appearanceSize,
-                           withMinimumSize: minimumSize,
-                           withDocText: text.htmlToNSMAS())
+        setDocumentPanelAttributes(forPanel: markdownPanel,
+                                   withTitle: windowTitle,
+                                   withAppearanceSize: appearanceSize,
+                                   withMinimumSize: minimumSize,
+                                   withDocText: text.htmlToNSMAS())
+
+        appDelegate.BKMenuHelpTitleMarkdown = "Hide Markdown"
+
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Markdown Reference")
+
+
+    }
+
+    func toggleMarkdown() {
+
+        let mPanel = markdownPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard mPanel.isVisible == false else {
+
+            markdownPanel.close()
+
+            didHideMarkdown()
+
+            return
+
+        }
+
+        showMarkdown()
+
+    }
+
+    func didHideDefinitions() {
+
+        appDelegate.BKMenuHelpTitleDefinition = "Show Definitions"
+
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Definitions Reference")
+
+
+    }
+
+    func showDefinitions() {
+
+        let windowTitle = DocumentContent.definitions.windowTitle
+        let body = DocumentContent.definitions.body
+
+        let text = body
+
+        let appearanceSize = NSSize(width: 400, height: 600)
+        let minimumSize = NSSize(width: 380, height: 200)
+
+        setDocumentPanelAttributes(forPanel: definitionsPanel,
+                                   withTitle: windowTitle,
+                                   withAppearanceSize: appearanceSize,
+                                   withMinimumSize: minimumSize,
+                                   withDocText: text.htmlToNSMAS())
+
+        appDelegate.BKMenuHelpTitleDefinition = "Hide Definitions"
+
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Definitions Reference")
+
 
     }
 
@@ -654,38 +746,28 @@ extension ViewController {
         // make it the key window and return
         guard dPanel.isVisible == false else {
 
-            dPanel.close()
+            definitionsPanel.close()
+
+            didHideDefinitions()
+
             return
 
         }
 
-        let windowTitle = DocumentContent.definitions.windowTitle
-        let body = DocumentContent.definitions.body
+        showDefinitions()
 
-        let text = body
-
-        let appearanceSize = NSSize(width: 400, height: 600)
-        let minimumSize = NSSize(width: 380, height: 200)
-
-        setDocumentPanelAttributes(forPanel: dPanel,
-                           withTitle: windowTitle,
-                           withAppearanceSize: appearanceSize,
-                           withMinimumSize: minimumSize,
-                           withDocText: text.htmlToNSMAS())
     }
 
-    func toggleRulesFull() {
+    func didHideRulesFull() {
 
-        let rPanel = rulesFullPanel
+        appDelegate.BKMenuHelpTitleRulesFull = "Show Rules in Full"
 
-        // Only set up the panel if isn't visible; otherwise
-        // make it the key window and return
-        guard rPanel.isVisible == false else {
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Full Rules Reference")
 
-            rPanel.close()
-            return
 
-        }
+    }
+
+    func showRulesFull() {
 
         let windowTitle = DocumentContent.rules.windowTitle
         let body = DocumentContent.rules.body
@@ -696,11 +778,36 @@ extension ViewController {
         let minimumSize = NSSize(width: 380, height: 200)
 
 
-        setDocumentPanelAttributes(forPanel: rPanel,
-                           withTitle: windowTitle,
-                           withAppearanceSize: appearanceSize,
-                           withMinimumSize: minimumSize,
-                           withDocText: text.htmlToNSMAS())
+        setDocumentPanelAttributes(forPanel: rulesFullPanel,
+                                   withTitle: windowTitle,
+                                   withAppearanceSize: appearanceSize,
+                                   withMinimumSize: minimumSize,
+                                   withDocText: text.htmlToNSMAS())
+
+        appDelegate.BKMenuHelpTitleRulesFull = "Hide Rules in Full"
+
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Full Rules Reference")
+
+
+    }
+
+    func toggleRulesFull() {
+
+        let rPanel = rulesFullPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard rPanel.isVisible == false else {
+
+            rulesFullPanel.close()
+
+            didHideRulesFull()
+
+            return
+
+        }
+
+        showRulesFull()
 
     }
 
@@ -728,7 +835,7 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        panel.styleMask.remove(.closable)
+        // panel.styleMask.remove(.closable)
 
 
         // Set contents of panel
@@ -744,6 +851,28 @@ extension ViewController {
 // MARK: Rules Overview (Image Panel)
 extension ViewController {
 
+    func didHideRulesOverview() {
+
+        appDelegate.BKMenuHelpTitleRulesOverview = "Show Rules Overview"
+
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Overview Rules Reference")
+
+    }
+
+    func showRulesOverview() {
+
+        let windowTitle = "Baker Street Rules Overview"
+
+        setImagePanelAttributes(forPanel: rulesOverviewPanel,
+                                withTitle: windowTitle)
+
+        appDelegate.BKMenuHelpTitleRulesOverview = "Hide Rules Overview"
+
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Overview Rules Reference")
+
+
+    }
+
     func toggleRulesOverview() {
 
         let rPanel = rulesOverviewPanel
@@ -752,15 +881,15 @@ extension ViewController {
         // make it the key window and return
         guard rPanel.isVisible == false else {
 
-            rPanel.close()
+            rulesOverviewPanel.close()
+
+            didHideRulesOverview()
             return
 
         }
 
-        let windowTitle = "Baker Street Rules Overview"
+        showRulesOverview()
 
-        setImagePanelAttributes(forPanel: rPanel,
-                                withTitle: windowTitle)
 
     }
 
@@ -780,7 +909,7 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        panel.styleMask.remove(.closable)
+        //panel.styleMask.remove(.closable)
 
         // Make visible
         panel.makeKeyAndOrderFront(self)
@@ -793,18 +922,16 @@ extension ViewController {
 // MARK: Preview
 extension ViewController {
 
-    func togglePreview() {
+    func didHidePreview() {
 
-        let pPanel = previewPanel
+        appDelegate.BKMenuTitlePreview = "Show Preview"
 
-        // Only set up the panel if isn't visible; otherwise
-        // make it the key window and return
-        guard pPanel.isVisible == false else {
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Preview")
 
-            pPanel.close()
-            return
 
-        }
+    }
+
+    func showPreview() {
 
         var documentTitle = (self.view.window?.title ?? "")
         if documentTitle != "" { documentTitle = ": " + documentTitle}
@@ -815,11 +942,36 @@ extension ViewController {
         let minimumSize = NSSize(width: 380, height: 200)
 
 
-        setPreviewPanelAttributes(forPanel: pPanel,
+        setPreviewPanelAttributes(forPanel: previewPanel,
                                   withTitle: windowTitle,
                                   withAppearanceSize: appearanceSize,
                                   withMinimumSize: minimumSize,
                                   withDocText: NSMutableAttributedString(string: ""))
+
+        appDelegate.BKMenuTitlePreview = "Hide Preview"
+
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Preview")
+
+
+    }
+
+    func togglePreview() {
+
+        let pPanel = previewPanel
+
+        // Only set up the panel if isn't visible; otherwise
+        // make it the key window and return
+        guard pPanel.isVisible == false else {
+
+            previewPanel.close()
+
+            didHidePreview()
+
+            return
+
+        }
+
+        showPreview()
 
     }
 
@@ -843,7 +995,7 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        panel.styleMask.remove(.closable)
+        //panel.styleMask.remove(.closable)
 
         // Make visible
         panel.makeKeyAndOrderFront(self)
@@ -994,7 +1146,7 @@ extension ViewController {
 
         splitView.setPosition(newPosition, ofDividerAt: 1)
 
-        setToolbarAdviceViewOn()
+        setToolbarItemAsSelected(forItemWithPaletteLabel: "Toggle Advice Panel")
 
     }
 
@@ -1005,22 +1157,20 @@ extension ViewController {
 
         splitView.setPosition(newPosition, ofDividerAt: 1)
 
-        setToolbarAdviceViewOff()
+        setToolbarItemAsDeselected(forItemWithPaletteLabel: "Toggle Advice Panel")
 
     }
 
-    func setToolbarAdviceViewOn() {
-        // Do not call directly. Let showAdviceView call
+    func setToolbarItemAsSelected(forItemWithPaletteLabel label: String) {
 
-        let button = getToolbarButton(withPaletteLabel: "Toggle Advice Panel")
+        let button = getToolbarButton(withPaletteLabel: label)
         button.state = .on
 
     }
 
-    func setToolbarAdviceViewOff() {
-        // Do not call directly. Let hideAdviceView call
+    func setToolbarItemAsDeselected(forItemWithPaletteLabel label: String) {
 
-        let button = getToolbarButton(withPaletteLabel: "Toggle Advice Panel")
+        let button = getToolbarButton(withPaletteLabel: label)
         button.state = .off
 
     }
