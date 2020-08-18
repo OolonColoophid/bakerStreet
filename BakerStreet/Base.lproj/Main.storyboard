@@ -639,7 +639,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKs-Ae-vkv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -653,7 +653,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2v-mg-pwD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -667,7 +667,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Exp-Cz-4Tv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -676,12 +676,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="nMv-7e-Ek5">
+                                    <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
                                         <rect key="frame" x="19" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -690,12 +690,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="M3z-KP-nNg">
+                                    <button key="view" verticalHuggingPriority="750" id="M3z-KP-nNg">
                                         <rect key="frame" x="18" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -704,12 +704,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="csH-bV-jbk">
+                                    <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
                                         <rect key="frame" x="16" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -723,7 +723,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -737,7 +737,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6kX-os-dNK">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                             <connections>
                                                 <action selector="toolbarPreview:" target="6f7-a7-6o1" id="tn0-VV-5BW"/>
                                             </connections>
@@ -750,7 +750,7 @@ DQ
                                         <rect key="frame" x="0.0" y="14" width="72" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="9zg-1P-98G">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                             <segments>
                                                 <segment image="NSAddTemplate" width="32"/>
                                                 <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -768,7 +768,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="label" size="13"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -910,7 +910,7 @@ DQ
                                     <constraint firstAttribute="width" constant="139" id="4hM-fo-yHT"/>
                                 </constraints>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Dxm-yx-JkR">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -921,7 +921,7 @@ DQ
                             <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hmN-F5-NGV">
                                 <rect key="frame" x="244" y="19" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="ebE-Fc-H73">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <segments>
                                         <segment label="&lt;" width="32"/>
                                         <segment label="&gt;" width="32" tag="1"/>
@@ -937,7 +937,7 @@ DQ
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="heX-6c-RCi" userLabel="Zoom Button">
                                 <rect key="frame" x="18" y="19" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="vC3-XD-rk5">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <segments>
                                         <segment image="NSAddTemplate" width="32"/>
                                         <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -1015,7 +1015,7 @@ DQ
                                 <rect key="frame" x="357" y="17" width="109" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="Kka-cT-lr9" userLabel="Export">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <menu key="menu" title="Copy" id="1s6-kA-idq">
                                         <items>
                                             <menuItem title="Export As..." hidden="YES" id="DsT-wb-him" userLabel="Copy As..."/>
@@ -1033,7 +1033,7 @@ DQ
                                 <rect key="frame" x="254" y="17" width="101" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="8dV-ZE-uT7" userLabel="Copy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <menu key="menu" title="Copy" id="OXj-z1-H0O">
                                         <items>
                                             <menuItem title="Copy As..." hidden="YES" id="BUA-5Y-u0J" userLabel="Copy As..."/>
@@ -1053,7 +1053,7 @@ DQ
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bu3-FJ-Ood" userLabel="Zoom Button">
                                 <rect key="frame" x="18" y="18" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="ZpX-jX-Kso">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <segments>
                                         <segment image="NSAddTemplate" width="32"/>
                                         <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -1226,7 +1226,7 @@ DQ
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-6s-YuP">
                                 <rect key="frame" x="46" y="23" width="4" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="ezj-Wv-c1x">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="label" size="13"/>
                                     <color key="textColor" name="rosewood"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
