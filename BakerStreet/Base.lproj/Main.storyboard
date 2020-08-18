@@ -1292,7 +1292,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
+        <image name="naturalDeductionFormulas" width="723" height="483"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">

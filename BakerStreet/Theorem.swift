@@ -87,7 +87,7 @@ public class Theorem {
 
         setProven()
 
-        //setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
     }
 
     // MARK: Scope

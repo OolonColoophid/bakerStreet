@@ -28,7 +28,7 @@ public class Inactive: BKLine {
         self.userText = text
         self.scopeLevel = scopeLevel
 
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
 
     }
 

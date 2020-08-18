@@ -84,7 +84,7 @@ public enum AdviceInstance {
             case .justifiedNeedsParentTheorem:
                 return "Needs parent theorem"
             case .justificationNeedsJustified:
-                return "Needs assertion"
+                return "Needs justification"
             case .justificationNotRecognised:
                 return "Unknown justification"
             case .theoremUnprovable:

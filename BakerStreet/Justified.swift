@@ -86,7 +86,7 @@ public class Justified {
             throw Justified.Error.formulaPoorlyFormed
         }
 
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
 
     }
 

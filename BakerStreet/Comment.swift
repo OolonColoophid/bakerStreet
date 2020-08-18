@@ -29,7 +29,7 @@ public class Comment: BKLine, BKInspectable {
 
         self.scopeLevel = scopeLevel
 
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
 
     }
 

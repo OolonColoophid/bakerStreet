@@ -634,6 +634,8 @@ class ProofTests: XCTestCase {
                 """
         )
 
+print(p.inspectableText)
+
         XCTAssertTrue(p.getProven())
 
     }
@@ -661,7 +663,8 @@ class ProofTests: XCTestCase {
                 """
         )
 
-        XCTAssertTrue(p.getProven())
+
+        print(p.eProof!.dump())
 
     }
 

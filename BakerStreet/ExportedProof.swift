@@ -63,12 +63,10 @@ public class ExportedProof {
         // Set the visual line numbers
         setVisualLineNumbers()
 
-        // Before we export, we want to remove the parent theorem
-        self.lines = Array(self.lines.dropFirst())
-
-        // print(dump())
-
-
+        // Before we export, we want to remove the proof statement (this
+        // will be include above the exported rows in a table, i.e. not as
+        // a row line)
+        removeProofStatementFromLines()
 
         // Formats
 
@@ -99,8 +97,6 @@ extension ExportedProof {
 
         var i = 0
 
-        // We drop the first line of the proof (which is the overall
-        // proof statement) because this won't be in the table itself
         for l in scope {
 
             var thisRow = RudimentaryProofLine(withLineNumberUUID: l.identifier)
@@ -260,6 +256,19 @@ extension ExportedProof {
         return line[0].visuaLineNumberSelf
 
     }
+
+    func removeProofStatementFromLines() {
+
+        var newLines = [RudimentaryProofLine]()
+        for l in self.lines {
+            if l.lineNumberUUID != proofStatement.identifier {
+                newLines.append(l)
+            }
+        }
+
+        self.lines = newLines
+    }
+
 }
 
 // MARK: Async Export

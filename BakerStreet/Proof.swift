@@ -449,7 +449,7 @@ extension Proof {
 
         }
 
-        // setInspectionText()
+        setInspectionText()
 
     }
 
@@ -487,6 +487,7 @@ extension Proof {
         let jS = MetaType.justificationSeparator.description
 
         if text.uppercased().contains(turnStile) {
+
 
             guard !(text.contains(jS)) else {
 
@@ -544,13 +545,13 @@ extension Proof {
     private func addInactive(_ text: String) {
 
         addToScope(Inactive(text, atScopeLevel: scopeLevel))
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
     }
 
     private func addCommentLine(_ text: String) {
 
         addToScope(Comment(text, atScopeLevel: scopeLevel))
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
     }
 
     private func addTheorem(_ text: String) {
@@ -567,7 +568,7 @@ extension Proof {
             setTheorem(t)
             addToScope(t)
             addToTheorem(t)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
             setCurrentTheorem(t)
             self.scopeLevel += 1
 
@@ -575,7 +576,7 @@ extension Proof {
 
             addToScope(il)
             advise(AdviceInstance.theoremFormulaPoorlyFormed)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
         } catch Theorem.Error.theoremUnprovable {
 
@@ -584,19 +585,19 @@ extension Proof {
             addToScope(il)
             advise(AdviceInstance.theoremUnprovable,
                    longDescription: descriptionStyled)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
         } catch Theorem.Error.LHSandRHSsame {
 
             addToScope(il)
             advise(AdviceInstance.theoremLHSandRHSsame)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
         } catch {
 
             addToScope(il)
             advise(AdviceInstance.unknownIssue)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
         }
 
@@ -623,7 +624,7 @@ extension Proof {
 
             advise(AdviceInstance.justifiedFormulaPoorlyFormed)
 
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
             return
 
@@ -634,7 +635,7 @@ extension Proof {
             addToScope(il)
 
             advise(AdviceInstance.justifiedNeedsParentTheorem)
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
             return
 
@@ -647,7 +648,7 @@ extension Proof {
                                 forLineUUID: getMyLineAsUUID(),
                                 ofType: AdviceInstance.justifiedNeedsParentTheorem))
 
-            // setInspectionText()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
             return
         }
@@ -657,7 +658,7 @@ extension Proof {
             addToScope(il)
             advise(AdviceInstance.justifiedNeedsJustification)
 
-            // setInspectionTest()
+            if BKPrefConstants.debugMode == true { setInspectionText() }
 
             return
         }
@@ -674,7 +675,7 @@ extension Proof {
 
                     advise(AdviceInstance.justifiedNeedsParentTheorem)
 
-                    // setInspectionText()
+                    if BKPrefConstants.debugMode == true { setInspectionText() }
                     return
                 }
 
@@ -696,7 +697,7 @@ extension Proof {
                 addToScope(j)
 
                 addToTheorem(j)
-                // setInspectionText()
+                if BKPrefConstants.debugMode == true { setInspectionText() }
                 return
             }
 
@@ -722,7 +723,7 @@ extension Proof {
         }
 
         addToTheorem(il)
-        // setInspectionText()
+        if BKPrefConstants.debugMode == true { setInspectionText() }
 
     }
 

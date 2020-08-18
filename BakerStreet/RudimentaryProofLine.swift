@@ -61,13 +61,14 @@ public struct RudimentaryProofLine {
     var visualLineNumbersAntecedents: String = ""
 
     var debugDescription: String {
-        return "@visualLineNumber: \(visuaLineNumberSelf), " +
-            "@statementHTML: \(statementHTMLWithGlyphs), " +
-            "@statement: \(statementWithGlyphs), " +
-            "@UUID: \(lineNumberUUID), " +
-            "@scopeLevel: \(scopeLevel), " +
-            "@antecedentUUIDs: \(antecedentsUUIDs), " +
-            "@vAnt: \(visualLineNumbersAntecedents) \n"
+        return "intLineNumber: \(intLineNumber), " +
+        "visualLineNumber: \(visuaLineNumberSelf), " +
+            "statementHTML: \(statementHTMLWithGlyphs), " +
+            "statement: \(statementWithGlyphs), " +
+            "UUID: \(lineNumberUUID), " +
+            "scopeLevel: \(scopeLevel), " +
+            "antecedentUUIDs: \(antecedentsUUIDs), " +
+            "vAnt: \(visualLineNumbersAntecedents) \n"
     }
 
     init (withLineNumberUUID uuid: UUID) {
