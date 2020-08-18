@@ -98,6 +98,14 @@ class ViewController: NSViewController {
     // Panel for preview
     private let previewPanel = NSPanel()
 
+    // Cached content (generated as soon as this view loads)
+    // for definitionsPanel and rulesFullPanel. This stops
+    // the UI from slowing during generation
+    private var cacheDefinitions = NSMutableAttributedString(string: "")
+    private var cacheRules = NSMutableAttributedString(string: "")
+    private var cacheMarkdown = NSMutableAttributedString(string: "")
+
+
     // The proof controller looks after proof operations
     private var proofController = ProofController()
 
@@ -128,6 +136,10 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad()")
+
+        // Start the computation of Definitions panel content
+        // and Rules in Full panel content
+        cacheUpdateRulesDefinitions()
 
         // Make this controller a delegate
         // for the main text (where the proof text goes)
@@ -337,6 +349,43 @@ extension ViewController {
 
     func willEndScrollSync() {
         isScrollSyncing = false
+    }
+
+}
+
+// MARK: Cache
+extension ViewController {
+
+    func cacheUpdateRulesDefinitions() {
+
+        let rulesQueue = DispatchQueue(
+            label: "bakerstreet.rules.queue",
+            attributes: .concurrent
+        )
+
+        rulesQueue.async {
+            self.cacheRules = DocumentContent.definitions.body.htmlToNSMAS()
+        }
+
+
+        let definitionsQueue = DispatchQueue(
+            label: "bakerstreet.definitions.queue",
+            attributes: .concurrent
+        )
+
+        definitionsQueue.async {
+            self.cacheDefinitions = DocumentContent.rules.body.htmlToNSMAS()
+        }
+
+        let markdownQueue = DispatchQueue(
+            label: "bakerstreet.markdown.queue",
+            attributes: .concurrent
+        )
+
+        markdownQueue.async {
+            self.cacheMarkdown = DocumentContent.markdown.body.htmlToNSMAS()
+        }
+
     }
 
 
@@ -666,18 +715,16 @@ extension ViewController {
     func showMarkdown() {
 
         let windowTitle = DocumentContent.markdown.windowTitle
-        let body = DocumentContent.markdown.body
+        let body = cacheMarkdown
 
-        let text = body
-
-        let appearanceSize = NSSize(width: 750, height: 600)
+        let appearanceSize = NSSize(width: 750, height: 620)
         let minimumSize = NSSize(width: 380, height: 200)
 
         setDocumentPanelAttributes(forPanel: markdownPanel,
                                    withTitle: windowTitle,
                                    withAppearanceSize: appearanceSize,
                                    withMinimumSize: minimumSize,
-                                   withDocText: text.htmlToNSMAS())
+                                   withDocText: body)
 
         appDelegate.BKMenuHelpTitleMarkdown = "Hide Markdown"
 
@@ -718,9 +765,7 @@ extension ViewController {
     func showDefinitions() {
 
         let windowTitle = DocumentContent.definitions.windowTitle
-        let body = DocumentContent.definitions.body
-
-        let text = body
+        let body = cacheDefinitions
 
         let appearanceSize = NSSize(width: 400, height: 600)
         let minimumSize = NSSize(width: 380, height: 200)
@@ -729,7 +774,7 @@ extension ViewController {
                                    withTitle: windowTitle,
                                    withAppearanceSize: appearanceSize,
                                    withMinimumSize: minimumSize,
-                                   withDocText: text.htmlToNSMAS())
+                                   withDocText: body)
 
         appDelegate.BKMenuHelpTitleDefinition = "Hide Definitions"
 
@@ -770,9 +815,7 @@ extension ViewController {
     func showRulesFull() {
 
         let windowTitle = DocumentContent.rules.windowTitle
-        let body = DocumentContent.rules.body
-
-        let text = body
+        let body = cacheRules
 
         let appearanceSize = NSSize(width: 400, height: 600)
         let minimumSize = NSSize(width: 380, height: 200)
@@ -782,7 +825,7 @@ extension ViewController {
                                    withTitle: windowTitle,
                                    withAppearanceSize: appearanceSize,
                                    withMinimumSize: minimumSize,
-                                   withDocText: text.htmlToNSMAS())
+                                   withDocText: body)
 
         appDelegate.BKMenuHelpTitleRulesFull = "Hide Rules in Full"
 
@@ -835,8 +878,6 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        // panel.styleMask.remove(.closable)
-
 
         // Set contents of panel
         myViewController.set(text)
@@ -909,7 +950,6 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        //panel.styleMask.remove(.closable)
 
         // Make visible
         panel.makeKeyAndOrderFront(self)
@@ -995,7 +1035,6 @@ extension ViewController {
 
         // By default, panels are not resizable
         panel.styleMask.insert(.resizable)
-        //panel.styleMask.remove(.closable)
 
         // Make visible
         panel.makeKeyAndOrderFront(self)
@@ -1233,7 +1272,7 @@ extension ViewController {
         statusTextChecking()
 
         let concurrentQueue = DispatchQueue(
-            label: "bakerstreet.concurrent.queue",
+            label: "bakerstreet.validation.queue",
             attributes: .concurrent)
 
         let previewPanel = self.previewPanel.contentViewController
