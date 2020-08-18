@@ -194,11 +194,10 @@ class TestFormula: XCTestCase {
     }
 
 
-    func test_1_largeFormula_requestingTruthTableSize_shouldHaveTruthTableSize() {
+    func test_1_largeFormula_requestingTruthTable_shouldHaveTruthTableSize() {
 
         let f = Formula("(p OR (q AND r)) AND (p -> s) AND ((q AND r) -> s)",
-                         withTruthTable: true,
-                         forNTruthTableVariables: 4)
+                         withTruthTable: true)
         let fTruthTableSize = f.truthTable.count
 
         f.debug()
@@ -207,11 +206,10 @@ class TestFormula: XCTestCase {
 
     }
 
-    func test_2_largeFormula_requestingTruthTableSize_shouldHaveTruthTableSize() {
+    func test_2_largeFormula_requestingTruthTable_shouldHaveTruthTableSize() {
 
         let f = Formula("p -> (q AND r)",
-                        withTruthTable: true,
-                        forNTruthTableVariables: 3)
+                        withTruthTable: true)
         let fTruthTableSize = f.truthTable.count
 
         f.debug()

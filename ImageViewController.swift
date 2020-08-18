@@ -16,13 +16,7 @@ class ImageViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        imageView.setValue(NSColor.blue, forKey: "backgroundColor")
-        // Do view setup here.
-
     }
-
-
-
 
 }
 

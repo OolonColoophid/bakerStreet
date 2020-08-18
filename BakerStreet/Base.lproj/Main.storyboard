@@ -634,12 +634,12 @@ DQ
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="56O-Tt-sM7"/>
                                 <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="LvR-im-OtF">
+                                    <button key="view" verticalHuggingPriority="750" id="LvR-im-OtF">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKs-Ae-vkv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -648,12 +648,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6559ABF9-9FA0-4325-89D5-489438253316" label="Operator" paletteLabel="Add Operator" image="NSAddTemplate" sizingBehavior="auto" id="db6-UV-KM0" userLabel="Add Operator">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="DHG-d2-7Dj">
+                                    <button key="view" verticalHuggingPriority="750" id="DHG-d2-7Dj">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2v-mg-pwD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -662,12 +662,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6A94F5D6-6D30-4490-B6A2-4DCEE72CD496" label="Justification" paletteLabel="Add Justification" image="NSAddTemplate" sizingBehavior="auto" id="kWz-tT-EN5" userLabel="Add Justification">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="hds-fn-kBk">
+                                    <button key="view" verticalHuggingPriority="750" id="hds-fn-kBk">
                                         <rect key="frame" x="7" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Exp-Cz-4Tv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -681,7 +681,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -695,7 +695,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -709,7 +709,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -718,12 +718,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="edg-Ol-IXI">
+                                    <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
                                         <rect key="frame" x="31" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -732,12 +732,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="9DF-SJ-Ade">
+                                    <button key="view" verticalHuggingPriority="750" id="9DF-SJ-Ade">
                                         <rect key="frame" x="0.0" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6kX-os-dNK">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                             <connections>
                                                 <action selector="toolbarPreview:" target="6f7-a7-6o1" id="tn0-VV-5BW"/>
                                             </connections>
@@ -746,11 +746,11 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="21B261B0-311E-4D3C-9AAF-AEAEB95F0C61" label="Zoom" paletteLabel="Zoom" sizingBehavior="auto" id="ESJ-cm-P4V" userLabel="Zoom">
                                     <nil key="toolTip"/>
-                                    <segmentedControl key="view" verticalHuggingPriority="750" misplaced="YES" id="e4K-w3-xZE">
+                                    <segmentedControl key="view" verticalHuggingPriority="750" id="e4K-w3-xZE">
                                         <rect key="frame" x="0.0" y="14" width="72" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="9zg-1P-98G">
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                             <segments>
                                                 <segment image="NSAddTemplate" width="32"/>
                                                 <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -763,12 +763,12 @@ DQ
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="E488A14D-0D10-4865-A5F5-0DE9817770C5" label="Advice" paletteLabel="Toggle Advice Panel" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="YpU-m7-IVN" userLabel="Toggle Advice">
                                     <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" misplaced="YES" id="QJh-ME-XR8">
+                                    <button key="view" verticalHuggingPriority="750" id="QJh-ME-XR8">
                                         <rect key="frame" x="15" y="14" width="83" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="13"/>
+                                            <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
@@ -910,7 +910,7 @@ DQ
                                     <constraint firstAttribute="width" constant="139" id="4hM-fo-yHT"/>
                                 </constraints>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Dxm-yx-JkR">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -921,7 +921,7 @@ DQ
                             <segmentedControl hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hmN-F5-NGV">
                                 <rect key="frame" x="244" y="19" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="ebE-Fc-H73">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment label="&lt;" width="32"/>
                                         <segment label="&gt;" width="32" tag="1"/>
@@ -937,7 +937,7 @@ DQ
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="heX-6c-RCi" userLabel="Zoom Button">
                                 <rect key="frame" x="18" y="19" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="vC3-XD-rk5">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment image="NSAddTemplate" width="32"/>
                                         <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -1015,7 +1015,7 @@ DQ
                                 <rect key="frame" x="357" y="17" width="109" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="Kka-cT-lr9" userLabel="Export">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <menu key="menu" title="Copy" id="1s6-kA-idq">
                                         <items>
                                             <menuItem title="Export As..." hidden="YES" id="DsT-wb-him" userLabel="Copy As..."/>
@@ -1033,7 +1033,7 @@ DQ
                                 <rect key="frame" x="254" y="17" width="101" height="25"/>
                                 <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="8dV-ZE-uT7" userLabel="Copy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <menu key="menu" title="Copy" id="OXj-z1-H0O">
                                         <items>
                                             <menuItem title="Copy As..." hidden="YES" id="BUA-5Y-u0J" userLabel="Copy As..."/>
@@ -1053,7 +1053,7 @@ DQ
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bu3-FJ-Ood" userLabel="Zoom Button">
                                 <rect key="frame" x="18" y="18" width="71" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="ZpX-jX-Kso">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment image="NSAddTemplate" width="32"/>
                                         <segment image="NSRemoveTemplate" width="32" tag="1"/>
@@ -1095,16 +1095,20 @@ DQ
         <scene sceneID="KGq-ZN-bFn">
             <objects>
                 <viewController storyboardIdentifier="ImageViewController" id="r4o-bU-O21" customClass="ImageViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Wf-Q6a">
-                        <rect key="frame" x="0.0" y="0.0" width="669" height="448"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="view" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Wf-Q6a">
+                        <rect key="frame" x="0.0" y="0.0" width="723" height="480"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-zh-pIf">
-                                <rect key="frame" x="0.0" y="0.0" width="669" height="448"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="naturalDeductionFormulas" id="4dv-96-Be4"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-zh-pIf">
+                                <rect key="frame" x="0.0" y="0.0" width="723" height="480"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="naturalDeductionFormulas" id="4dv-96-Be4"/>
                             </imageView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="u9C-zh-pIf" firstAttribute="leading" secondItem="eLh-Wf-Q6a" secondAttribute="leading" id="4tY-im-ubt"/>
+                            <constraint firstItem="u9C-zh-pIf" firstAttribute="top" secondItem="eLh-Wf-Q6a" secondAttribute="top" id="SIm-ql-QG9"/>
+                            <constraint firstAttribute="bottom" secondItem="u9C-zh-pIf" secondAttribute="bottom" id="hJb-tF-oob"/>
+                            <constraint firstAttribute="trailing" secondItem="u9C-zh-pIf" secondAttribute="trailing" id="neK-9V-AXj"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="image" destination="u9C-zh-pIf" id="Kwd-Ui-Y41"/>
@@ -1113,7 +1117,7 @@ DQ
                 </viewController>
                 <customObject id="ZIi-b0-7NP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2378.5" y="246"/>
+            <point key="canvasLocation" x="2510" y="414"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1226,7 +1230,7 @@ DQ
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-6s-YuP">
                                 <rect key="frame" x="46" y="23" width="4" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="ezj-Wv-c1x">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="rosewood"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1288,7 +1292,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulas" width="3937" height="2631"/>
+        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">

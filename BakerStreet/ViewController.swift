@@ -903,8 +903,12 @@ extension ViewController {
     func showRulesOverview() {
 
         let windowTitle = "Baker Street Rules Overview"
+        let appearanceSize = NSSize(width: 723, height: 480)
+        let minimumSize = NSSize(width: 380, height: 200)
 
         setImagePanelAttributes(forPanel: rulesOverviewPanel,
+                                withAppearanceSize: appearanceSize,
+                                withMinimumSize: minimumSize,
                                 withTitle: windowTitle)
 
         appDelegate.BKMenuHelpTitleRulesOverview = "Hide Rules Overview"
@@ -935,10 +939,13 @@ extension ViewController {
     }
 
     func setImagePanelAttributes(forPanel panel: NSPanel,
-                                    withTitle title: String) {
+                                 withAppearanceSize appearanceSize: NSSize,
+                                 withMinimumSize minimumSize: NSSize,
+                                 withTitle title: String) {
 
         panel.title = title
-
+        panel.setContentSize(appearanceSize)
+        panel.minSize = minimumSize
         panel.isFloatingPanel = true
 
         // Set position review to the main Baker Street window
