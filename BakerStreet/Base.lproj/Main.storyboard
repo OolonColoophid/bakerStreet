@@ -1128,21 +1128,21 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMR-8l-gga">
-                                <rect key="frame" x="0.0" y="62" width="941" height="501"/>
+                                <rect key="frame" x="0.0" y="40" width="941" height="523"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="pdk-az-OfG" userLabel="Scroll View - Line Numbers">
-                                        <rect key="frame" x="0.0" y="0.0" width="57" height="501"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="523"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="pgR-SE-jkL" userLabel="Lines Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="57" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="57" height="523"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Line Numbers" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" id="so8-f9-XAL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="57" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="57" height="523"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="deepSpaceSparkleBackground"/>
-                                                    <size key="minSize" width="57" height="501"/>
+                                                    <size key="minSize" width="57" height="523"/>
                                                     <size key="maxSize" width="846" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1158,18 +1158,18 @@ DQ
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
-                                        <rect key="frame" x="58" y="0.0" width="882" height="501"/>
+                                        <rect key="frame" x="58" y="0.0" width="882" height="523"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="882" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="882" height="523"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Proof Statements" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="882" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="882" height="523"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="882" height="501"/>
+                                                    <size key="minSize" width="882" height="523"/>
                                                     <size key="maxSize" width="100000" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1180,23 +1180,23 @@ DQ
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="hDc-9y-PM6">
-                                            <rect key="frame" x="517" y="0.0" width="16" height="500"/>
+                                            <rect key="frame" x="866" y="0.0" width="16" height="513"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="hvJ-QJ-3T9" userLabel="Scroll View - Advice">
-                                        <rect key="frame" x="941" y="0.0" width="0.0" height="501"/>
+                                        <rect key="frame" x="941" y="0.0" width="0.0" height="523"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
-                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="501"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="523"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="501"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="523"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="auburnBackground"/>
-                                                    <size key="minSize" width="0.0" height="501"/>
+                                                    <size key="minSize" width="0.0" height="523"/>
                                                     <size key="maxSize" width="846" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
@@ -1224,11 +1224,8 @@ DQ
                                     <outlet property="delegate" destination="5gI-5U-AMq" id="8SF-Fv-zkS"/>
                                 </connections>
                             </splitView>
-                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5hv-Dn-BFw" userLabel="Footer Line">
-                                <rect key="frame" x="0.0" y="59" width="941" height="5"/>
-                            </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-6s-YuP">
-                                <rect key="frame" x="46" y="23" width="4" height="16"/>
+                                <rect key="frame" x="46" y="13" width="4" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" id="ezj-Wv-c1x">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="rosewood"/>
@@ -1239,17 +1236,21 @@ DQ
                                 </connections>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F6u-br-fzn">
-                                <rect key="frame" x="20" y="23" width="16" height="16"/>
+                                <rect key="frame" x="20" y="13" width="16" height="16"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="vna-vs-uiV"/>
                             </imageView>
                             <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-3e-svv">
-                                <rect key="frame" x="56" y="23" width="16" height="16"/>
+                                <rect key="frame" x="56" y="13" width="16" height="16"/>
                             </progressIndicator>
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5hv-Dn-BFw" userLabel="Footer Line">
+                                <rect key="frame" x="0.0" y="37" width="941" height="5"/>
+                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="F6u-br-fzn" secondAttribute="bottom" constant="23" id="FYI-Zu-X7V"/>
+                            <constraint firstAttribute="bottom" secondItem="F6u-br-fzn" secondAttribute="bottom" constant="13" id="FYI-Zu-X7V"/>
+                            <constraint firstItem="5hv-Dn-BFw" firstAttribute="bottom" secondItem="yMR-8l-gga" secondAttribute="bottom" constant="1" id="FjK-xn-4db"/>
                             <constraint firstItem="F6u-br-fzn" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" constant="20" id="OHT-VE-qdp"/>
-                            <constraint firstAttribute="bottom" secondItem="aeM-6s-YuP" secondAttribute="bottom" constant="23" id="Orj-hD-FdD"/>
+                            <constraint firstAttribute="bottom" secondItem="aeM-6s-YuP" secondAttribute="bottom" constant="13" id="Orj-hD-FdD"/>
                             <constraint firstItem="yMR-8l-gga" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="PH7-9S-cUn"/>
                             <constraint firstItem="5hv-Dn-BFw" firstAttribute="leading" secondItem="ERx-hH-rdd" secondAttribute="leading" id="Q7v-Ga-KDO"/>
                             <constraint firstItem="e8L-3e-svv" firstAttribute="leading" secondItem="aeM-6s-YuP" secondAttribute="trailing" constant="8" id="Rgj-mn-aRT"/>
@@ -1257,9 +1258,8 @@ DQ
                             <constraint firstItem="yMR-8l-gga" firstAttribute="top" secondItem="ERx-hH-rdd" secondAttribute="top" id="aVw-zX-lRo"/>
                             <constraint firstItem="aeM-6s-YuP" firstAttribute="leading" secondItem="F6u-br-fzn" secondAttribute="trailing" constant="12" id="c6M-nO-FNT"/>
                             <constraint firstAttribute="trailing" secondItem="yMR-8l-gga" secondAttribute="trailing" id="hzV-he-Ggx"/>
-                            <constraint firstAttribute="bottom" secondItem="e8L-3e-svv" secondAttribute="bottom" constant="23" id="jTw-vZ-Zel"/>
-                            <constraint firstAttribute="bottom" secondItem="yMR-8l-gga" secondAttribute="bottom" constant="62" id="kUD-1q-HOy"/>
-                            <constraint firstAttribute="bottom" secondItem="5hv-Dn-BFw" secondAttribute="bottom" constant="61" id="sEF-QN-YM1"/>
+                            <constraint firstAttribute="bottom" secondItem="e8L-3e-svv" secondAttribute="bottom" constant="13" id="jTw-vZ-Zel"/>
+                            <constraint firstAttribute="bottom" secondItem="yMR-8l-gga" secondAttribute="bottom" constant="40" id="kUD-1q-HOy"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1283,7 +1283,7 @@ DQ
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="278" y="969"/>
+            <point key="canvasLocation" x="277.5" y="968.5"/>
         </scene>
     </scenes>
     <resources>
@@ -1292,7 +1292,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulas" width="723" height="483"/>
+        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">
