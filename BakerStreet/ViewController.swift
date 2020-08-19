@@ -133,7 +133,6 @@ class ViewController: NSViewController {
     // MARK: ViewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad()")
 
         // Start the computation of Definitions panel content
         // and Rules in Full panel content
