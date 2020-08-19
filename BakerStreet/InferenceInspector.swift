@@ -5,7 +5,7 @@
 //  a proof (e.g. what is the formula tree for a given line)?
 //
 //  Created by Ian Hocking on 02/07/2020.
-//  Copyright © 2020 Hoksoft. All rights reserved.
+//  Copyright © 2020 Ian Hocking. MIT Licence.
 //
 
 import Foundation

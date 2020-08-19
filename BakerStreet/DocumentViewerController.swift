@@ -3,7 +3,7 @@
 //  Baker Street
 //
 //  Created by Ian Hocking on 24/07/2020.
-//  Copyright © 2020 Ian. All rights reserved.
+//  Copyright © 2020 Ian. MIT Licence.
 //
 
 import Cocoa

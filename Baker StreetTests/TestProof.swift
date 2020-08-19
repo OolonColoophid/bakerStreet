@@ -3,7 +3,7 @@
 //  Baker StreetTests
 //
 //  Created by Ian Hocking on 23/06/2020.
-//  Copyright © 2020 Hoksoft. All rights reserved.
+//  Copyright © 2020 Ian Hocking. MIT Licence.
 //
 
 @testable import Baker_Street

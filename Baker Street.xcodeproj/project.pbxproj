@@ -14,6 +14,7 @@
 		5B1F54CC24A1F69700D4DA65 /* TestFormula.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54CB24A1F69700D4DA65 /* TestFormula.swift */; };
 		5B1F54CE24A1F6A300D4DA65 /* TestProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54CD24A1F6A300D4DA65 /* TestProof.swift */; };
 		5B204447249E984800DE8A2D /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8929CA249E721F00897470 /* Lexer.swift */; };
+		5B2FBB6C24ED1BB500860310 /* Licence in Resources */ = {isa = PBXBuildFile; fileRef = 5B2FBB6B24ED1BB500860310 /* Licence */; };
 		5B3571AF24AB3C1D0055AB55 /* AdviceStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3571AE24AB3C1D0055AB55 /* AdviceStyler.swift */; };
 		5B3571B124AB3C590055AB55 /* ProtocolsAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3571B024AB3C590055AB55 /* ProtocolsAppearance.swift */; };
 		5B4114C224AB1997007843D4 /* AdviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4114C124AB1997007843D4 /* AdviceViewController.swift */; };
@@ -72,6 +73,7 @@
 		5B1F54C924A1F68900D4DA65 /* TestRpnMake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRpnMake.swift; sourceTree = "<group>"; };
 		5B1F54CB24A1F69700D4DA65 /* TestFormula.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFormula.swift; sourceTree = "<group>"; };
 		5B1F54CD24A1F6A300D4DA65 /* TestProof.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestProof.swift; sourceTree = "<group>"; };
+		5B2FBB6B24ED1BB500860310 /* Licence */ = {isa = PBXFileReference; lastKnownFileType = text; path = Licence; sourceTree = "<group>"; };
 		5B3571AE24AB3C1D0055AB55 /* AdviceStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceStyler.swift; sourceTree = "<group>"; };
 		5B3571B024AB3C590055AB55 /* ProtocolsAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolsAppearance.swift; sourceTree = "<group>"; };
 		5B4114C124AB1997007843D4 /* AdviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		5B8573E4247D14DB00E1C613 /* BakerStreet */ = {
 			isa = PBXGroup;
 			children = (
+				5B2FBB6B24ED1BB500860310 /* Licence */,
 				5B8929DB249E746400897470 /* Protocols.swift */,
 				5B33E54724A7B40000C6792B /* Controllers */,
 				5B8573E5247D14DB00E1C613 /* AppDelegate.swift */,
@@ -394,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2FBB6C24ED1BB500860310 /* Licence in Resources */,
 				5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */,
 				5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */,
 			);

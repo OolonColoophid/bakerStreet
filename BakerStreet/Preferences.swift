@@ -3,7 +3,7 @@
 //  NaturalDeductionP1
 //
 //  Created by Ian Hocking on 29/05/2020.
-//  Copyright © 2020 Hoksoft. All rights reserved.
+//  Copyright © 2020 Ian Hocking. MIT Licence.
 //
 import Cocoa
 

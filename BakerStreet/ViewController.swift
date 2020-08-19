@@ -2,7 +2,7 @@
 //  ViewController.swift
 //
 //  Created by Ian Hocking on 26/05/2020.
-//  Copyright © 2020 Hoksoft Hocking. All rights reserved.
+//  Copyright © 2020 Ian Hocking. MIT Licence.
 //
 
 import Cocoa
