@@ -18,15 +18,32 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 ## Key Features
 
 - Proof validation
+
 - Syntax highlighting
+
 - Tailored error messages designed to get you on track
+
 - Add text comments to your proof
+
 - One-touch insertion of logical operators and inference rule justifications
+
 - Preview your formatted proof while typing in a lightweight markup language
+
 - Export or copy your preview to LaTeX, Markdown or HTML
+
+
 - Zoom support for all windows
+
 - Dark mode support
+
 - Example proofs for all inference rules (e.g. AND Introduction)
+
 - Further help on:
-- Inference rules (in overview and in detail)
+
+  - Inference rules (in overview and in detail)
+
 - Key term definitions (e.g. theorem)
+
+## Licence
+
+MIT
