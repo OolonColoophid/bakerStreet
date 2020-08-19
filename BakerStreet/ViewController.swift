@@ -276,8 +276,6 @@ extension ViewController {
             return
         }
 
-        if BKPrefConstants.debugMode == true {print("statementContentDidScroll")}
-
         let myCaretIndex = caretIndex()
 
         let myXY = getContentViewBounds(forContentView: statementsContentView)
