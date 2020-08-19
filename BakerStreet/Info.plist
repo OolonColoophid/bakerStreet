@@ -21,7 +21,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.IanHocking.BakerStreetProof</string>
+				<string>com.IanHocking.document.bkstreet</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
@@ -42,9 +42,7 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.IanHocking.BakerStreetPlainText</string>
-			</array>
+			<array/>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
 			<key>NSDocumentClass</key>
@@ -91,7 +89,7 @@
 			<key>UTTypeIconFile</key>
 			<string></string>
 			<key>UTTypeIdentifier</key>
-			<string>com.IanHocking.BakerStreetProog</string>
+			<string>com.IanHocking.document.bkstreet</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
