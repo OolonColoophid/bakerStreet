@@ -55,8 +55,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var statementsContentView: NSClipView!
     @IBOutlet weak var adviceContentView: NSClipView!
 
-    @IBOutlet weak var footerLine: NSBox!
-
     // Scroll view
     // We need this to help disable word wrap for the main view
     @IBOutlet weak var mainScrollView: NSScrollView!

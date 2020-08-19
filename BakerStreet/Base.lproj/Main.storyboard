@@ -812,18 +812,16 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="455" height="189"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJj-Qz-OSS">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="wJj-Qz-OSS">
                                 <rect key="frame" x="23" y="44" width="414" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" selectable="YES" alignment="right" title="Advice Type and Line" id="iKf-ns-o5O">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVb-8k-L4K">
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVb-8k-L4K">
                                 <rect key="frame" x="25" y="72" width="405" height="97"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Lfd-dZ-H23">
                                     <rect key="frame" x="0.0" y="0.0" width="405" height="97"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -848,9 +846,8 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5I-JX-vYE">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F5I-JX-vYE">
                                 <rect key="frame" x="208" y="20" width="229" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" selectable="YES" alignment="right" title="Placeholder: Line text should be here" id="B2h-QD-yEX">
                                     <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -858,6 +855,18 @@ DQ
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wJj-Qz-OSS" secondAttribute="trailing" constant="20" symbolic="YES" id="4eH-Pb-NyT"/>
+                            <constraint firstItem="WVb-8k-L4K" firstAttribute="top" secondItem="S8n-Dp-jxk" secondAttribute="top" constant="20" symbolic="YES" id="9ef-q2-vGJ"/>
+                            <constraint firstItem="wJj-Qz-OSS" firstAttribute="top" secondItem="WVb-8k-L4K" secondAttribute="bottom" constant="12" id="BeU-U4-cfD"/>
+                            <constraint firstItem="wJj-Qz-OSS" firstAttribute="trailing" secondItem="F5I-JX-vYE" secondAttribute="trailing" id="QPa-3f-bp9"/>
+                            <constraint firstItem="WVb-8k-L4K" firstAttribute="leading" secondItem="S8n-Dp-jxk" secondAttribute="leading" constant="25" id="U9C-li-yNh"/>
+                            <constraint firstItem="WVb-8k-L4K" firstAttribute="centerX" secondItem="S8n-Dp-jxk" secondAttribute="centerX" id="YCg-UF-A3h"/>
+                            <constraint firstItem="F5I-JX-vYE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S8n-Dp-jxk" secondAttribute="leading" constant="20" symbolic="YES" id="mT1-md-Rof"/>
+                            <constraint firstAttribute="bottom" secondItem="F5I-JX-vYE" secondAttribute="bottom" constant="20" symbolic="YES" id="omt-jw-a3c"/>
+                            <constraint firstItem="F5I-JX-vYE" firstAttribute="top" secondItem="wJj-Qz-OSS" secondAttribute="bottom" constant="8" symbolic="YES" id="r8N-jr-Jfw"/>
+                            <constraint firstItem="WVb-8k-L4K" firstAttribute="leading" secondItem="wJj-Qz-OSS" secondAttribute="leading" id="stJ-sU-eyw"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="adviceTypeLabel" destination="wJj-Qz-OSS" id="ryo-bc-nwy"/>
@@ -1110,10 +1119,6 @@ DQ
                             <constraint firstAttribute="trailing" secondItem="u9C-zh-pIf" secondAttribute="trailing" id="neK-9V-AXj"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="image" destination="u9C-zh-pIf" id="Kwd-Ui-Y41"/>
-                        <outlet property="imageCell" destination="4dv-96-Be4" id="qpd-0C-4LE"/>
-                    </connections>
                 </viewController>
                 <customObject id="ZIi-b0-7NP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1231,9 +1236,6 @@ DQ
                                     <color key="textColor" name="rosewood"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
-                                <connections>
-                                    <action selector="statusText:" target="5gI-5U-AMq" id="utb-jK-P0x"/>
-                                </connections>
                             </textField>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F6u-br-fzn">
                                 <rect key="frame" x="20" y="13" width="16" height="16"/>
@@ -1264,8 +1266,6 @@ DQ
                     </view>
                     <connections>
                         <outlet property="adviceContentView" destination="6UW-53-QHA" id="tot-ys-47J"/>
-                        <outlet property="adviceScrollView" destination="hvJ-QJ-3T9" id="vM2-sm-tT6"/>
-                        <outlet property="adviceSplitView" destination="FNI-bT-lJX" id="acp-Ep-9Po"/>
                         <outlet property="adviceText" destination="09r-gg-lXH" id="krK-18-iuz"/>
                         <outlet property="adviceTextView" destination="09r-gg-lXH" id="KOe-WS-mmk"/>
                         <outlet property="lineText" destination="so8-f9-XAL" id="94h-cp-2JN"/>
@@ -1292,7 +1292,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulas" width="723" height="483"/>
+        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">
