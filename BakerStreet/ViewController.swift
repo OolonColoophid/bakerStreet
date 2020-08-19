@@ -276,15 +276,36 @@ extension ViewController {
             return
         }
 
-        let myY = statementsContentView.bounds.origin.y
+        if BKPrefConstants.debugMode == true {print("statementContentDidScroll")}
+
+        let myCaretIndex = caretIndex()
+
+        let myXY = getContentViewBounds(forContentView: statementsContentView)
 
         willBeginScrollSync()
 
-        setLineScroll(myY)
+        setScroll(forContentView: linesContentView, to: myXY)
 
-        setAdviceScroll(myY)
+        setScroll(forContentView: adviceContentView, to: myXY)
+
+        mainTextView.selectedRange = myCaretIndex
 
         willEndScrollSync()
+    }
+
+    func getContentViewBounds (forContentView contentView: NSClipView) ->
+        (CGFloat, CGFloat) {
+
+        return (contentView.bounds.origin.x, contentView.bounds.origin.y)
+
+    }
+
+    func setScroll(forContentView contentView: NSClipView,
+                   to newXY: (CGFloat, CGFloat)) {
+
+        contentView.bounds.origin.y = newXY.0
+        contentView.bounds.origin.y = newXY.1
+
     }
 
     @objc func lineContentDidScroll(notification: Notification) {
@@ -293,12 +314,12 @@ extension ViewController {
             return
         }
 
-        let myY = linesContentView.bounds.origin.y
+        let myXY = getContentViewBounds(forContentView: statementsContentView)
 
         willBeginScrollSync()
 
-        setStatementScroll(myY)
-        setAdviceScroll(myY)
+        setScroll(forContentView: statementsContentView, to: myXY)
+        setScroll(forContentView: adviceContentView, to: myXY)
 
         willEndScrollSync()
 
@@ -311,32 +332,14 @@ extension ViewController {
             return
         }
 
-        let myY = adviceContentView.bounds.origin.y
+        let myXY = getContentViewBounds(forContentView: statementsContentView)
 
         willBeginScrollSync()
 
-        setStatementScroll(myY)
-        setLineScroll(myY)
+        setScroll(forContentView: statementsContentView, to: myXY)
+        setScroll(forContentView: linesContentView, to: myXY)
 
         willEndScrollSync()
-
-    }
-
-    func setStatementScroll(_ y: CGFloat) {
-
-        statementsContentView.bounds.origin.y = y
-
-    }
-
-    func setLineScroll(_ y: CGFloat) {
-
-        linesContentView.bounds.origin.y = y
-
-    }
-
-    func setAdviceScroll(_ y: CGFloat) {
-
-        adviceContentView.bounds.origin.y = y
 
     }
 

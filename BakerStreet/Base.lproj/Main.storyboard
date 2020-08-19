@@ -1162,7 +1162,7 @@ DQ
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
+                                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" id="rwv-Nq-ckY" userLabel="Scroll View - Statements">
                                         <rect key="frame" x="58" y="0.0" width="882" height="523"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
@@ -1185,7 +1185,7 @@ DQ
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="hDc-9y-PM6">
-                                            <rect key="frame" x="866" y="0.0" width="16" height="513"/>
+                                            <rect key="frame" x="-100" y="-100" width="16" height="513"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1223,7 +1223,7 @@ DQ
                                 <holdingPriorities>
                                     <real value="407"/>
                                     <real value="161"/>
-                                    <real value="161"/>
+                                    <real value="292"/>
                                 </holdingPriorities>
                                 <connections>
                                     <outlet property="delegate" destination="5gI-5U-AMq" id="8SF-Fv-zkS"/>
@@ -1292,7 +1292,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulas" width="1968.5" height="1315.5"/>
+        <image name="naturalDeductionFormulas" width="723" height="483"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">
