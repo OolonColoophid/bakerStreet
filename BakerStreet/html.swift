@@ -1102,7 +1102,7 @@ enum DocumentContent {
                 case .proof:
 
                     let tP = ExampleProofs.notEliminationProof
-                    let s = "A collection of supporting axioms, assumptions, or inference rules. In the proof below, our axiom is the caption for the table, which is followed by an assumption and several inference rules." +
+                    let s = "A structured set of supporting axioms, assumptions, or inference rules. In the proof below, our axiom (overall proof statement) is the caption for the table, which is followed by an assumption and several inference rules." +
                         tP.htmlVLN
 
                     return s
@@ -1153,7 +1153,7 @@ enum DocumentContent {
                 case .assertion:
 
                     let tP = ExampleProofs.ifIntroduction3Proof
-                    let s = "Any line of a proof that makes a claim. In the proof below, all lines are assertions." +
+                    let s = "Any line of a proof that makes a claim. In the proof below, all lines are assertions or assumptions." +
                         tP.htmlVLN
 
                     return s
@@ -1170,7 +1170,7 @@ enum DocumentContent {
 
                     let tP = ExampleProofs.subProofProof
                     let f = "p".formulaToHTML
-                    let s = "Every assumption has a scope. It runs from the line in which the assumption is introduced to the line preceding the one in which it is discharged. In the example below, the scope of the formula " + f +
+                    let s = "Every assumption has a scope. It runs from the line in which the assumption is introduced to the line preceding the one in which it is discharged (i.e., we step out of this scope and into the surrounding one). In the example below, the scope of the formula " + f +
                         " is lines 2 to 2.3 inclusive:" +
                         tP.htmlVLN
                     return s
@@ -1206,6 +1206,7 @@ enum DocumentContent {
                         + "p AND q".formulaToHTML
                         + " and must formally prove "
                         + "q AND p".formulaToHTML
+                    + ". If we can provide this proof, we can say that the right hand side of the theorem is the entailment of the left."
 
                     return s
             }
@@ -1213,10 +1214,6 @@ enum DocumentContent {
 
 
     }
-
-    // MARK: Rules
-
-
 
     // MARK: HTML tagging
     extension String {

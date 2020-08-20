@@ -206,7 +206,7 @@
 				5B8929AC249E6DE900897470 /* Appearance */,
 				5B8929C0249E70D600897470 /* Parser */,
 				5B8929C5249E71C200897470 /* Common */,
-				5BDD513A24ACE2BB0025ADFA /* examples */,
+				5BDD513A24ACE2BB0025ADFA /* Examples */,
 				5B8929D1249E72F300897470 /* Proof */,
 				5B8573EB247D14DB00E1C613 /* Assets.xcassets */,
 				5B8573ED247D14DB00E1C613 /* Main.storyboard */,
@@ -284,12 +284,12 @@
 			name = BKLine;
 			sourceTree = "<group>";
 		};
-		5BDD513A24ACE2BB0025ADFA /* examples */ = {
+		5BDD513A24ACE2BB0025ADFA /* Examples */ = {
 			isa = PBXGroup;
 			children = (
 				5BDD513B24ACE5D40025ADFA /* html.swift */,
 			);
-			name = examples;
+			name = Examples;
 			sourceTree = "<group>";
 		};
 		5BF4D6CA24D2B77000915CDE /* Export */ = {
