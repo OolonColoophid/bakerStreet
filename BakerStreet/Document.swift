@@ -50,7 +50,6 @@ class Document: NSDocument {
 
         viewController.validate(self.mainText)
 
-
     }
 
     // Save
