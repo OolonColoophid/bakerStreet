@@ -44,6 +44,11 @@ class ViewController: NSViewController {
     // SplitView
     @IBOutlet weak var splitView: NSSplitView!
 
+    // Position of divider between statements and advice
+    // as set by the user; when this is set (i.e. the user
+    // decides to set the layout), honour it permanently
+    private var overridePositionOfAdviceDivider: CGFloat?
+
     // Our status indicator (footer)
     @IBOutlet weak var statusLight: NSImageView!
     @IBOutlet weak var statusSpinner: NSProgressIndicator!
@@ -59,6 +64,7 @@ class ViewController: NSViewController {
     // We need this to help disable word wrap for the main view
     @IBOutlet weak var mainScrollView: NSScrollView!
 
+    @IBOutlet weak var adviceScrollView: NSScrollView!
 
     // When true, edits made to the main view are the result of the
     // user, and are treated as such. When false, edits made are
@@ -68,7 +74,11 @@ class ViewController: NSViewController {
     // When true, scroll positions are being changed by
     // BakerStreet; we use this to manage scroll syncing
     // so that we don't trigger an infinite recursion
-    private var isScrollSyncing: Bool = false
+    private var isBKScrollSyncing: Bool = false
+
+    // Again, when true, BakerStreet is changing split
+    // view layout; when false, it's the user
+    public var isBKSplitViewPositioning: Bool = false
 
     // Content of main text view (i.e. the proof itself)
     public var mainTextContent: String {
@@ -139,8 +149,10 @@ class ViewController: NSViewController {
         cacheUpdateDocumentViews()
 
         // Make this controller a delegate
-        // for the main text (where the proof text goes)
-        mainTextView.delegate = (self)
+        // for the main text (where the proof text goes) and
+        // for the splitview looking after the three panels
+        mainTextView.delegate = self
+        splitView.delegate = self
 
         // Set the view controller for the advice popover
         // i.e. the 'help' that appears if a user
@@ -170,7 +182,6 @@ class ViewController: NSViewController {
         rulesFullPanel.delegate = self
         rulesOverviewPanel.delegate = self
         previewPanel.delegate = self
-
 
         // Set default attributes
         mainTextView.typingAttributes = OverallStyle.mainTextInactive.attributes
@@ -272,7 +283,7 @@ extension ViewController {
         // Has this function been called while BakerStreet is
         // updating the bounds of other views? We don't want to
         // start again; early abort
-        if isScrollSyncing == true {
+        if isBKScrollSyncing == true {
             return
         }
 
@@ -308,7 +319,7 @@ extension ViewController {
 
     @objc func lineContentDidScroll(notification: Notification) {
 
-        if isScrollSyncing == true {
+        if isBKScrollSyncing == true {
             return
         }
 
@@ -326,7 +337,7 @@ extension ViewController {
 
     @objc func adviceContentDidScroll(notification: Notification) {
 
-        if isScrollSyncing == true {
+        if isBKScrollSyncing == true {
             return
         }
 
@@ -342,11 +353,11 @@ extension ViewController {
     }
 
     func willBeginScrollSync() {
-        isScrollSyncing = true
+        isBKScrollSyncing = true
     }
 
     func willEndScrollSync() {
-        isScrollSyncing = false
+        isBKScrollSyncing = false
     }
 
 }
@@ -627,6 +638,7 @@ extension ViewController {
     }
 
     @IBAction func toolbarValidate(_ sender: Any) {
+
         validate()
 
     }
@@ -1178,17 +1190,31 @@ extension ViewController {
 
     func showAdviceView() {
 
-        // Our window
-        let windowSize = view.window?.frame.size.width
+        var newPosition: CGFloat
 
-        // A CGFloat proportion currently held as a constant
-        let adviceViewProportion = BKPrefConstants.adviceWindowSize
+        if overridePositionOfAdviceDivider != nil {
 
-        // Position is window size minus the proportion, since
-        // origin is top left
-        let newPosition = windowSize! - (windowSize! * adviceViewProportion)
+            newPosition = overridePositionOfAdviceDivider!
+
+        } else {
+
+            // Our window
+            let windowSize = (view.window?.frame.size.width)!
+
+            // A CGFloat proportion currently held as a constant
+            let adviceViewProportion = BKPrefConstants.adviceWindowSize
+
+            // Position is window size minus the proportion, since
+            // origin is top left
+            newPosition = windowSize - (windowSize * adviceViewProportion)
+
+        }
+
+        isBKScrollSyncing = true
 
         splitView.setPosition(newPosition, ofDividerAt: 1)
+
+        isBKScrollSyncing = false
 
         setToolbarItemAsSelected(forItemWithPaletteLabel: "Toggle Advice Panel")
 
@@ -1199,11 +1225,17 @@ extension ViewController {
         let windowSize = view.window?.frame.size.width
         let newPosition = windowSize!
 
+        isBKScrollSyncing = true
+
         splitView.setPosition(newPosition, ofDividerAt: 1)
+
+        isBKScrollSyncing = false
 
         setToolbarItemAsDeselected(forItemWithPaletteLabel: "Toggle Advice Panel")
 
     }
+
+
 
     func setToolbarItemAsSelected(forItemWithPaletteLabel label: String) {
 
@@ -1229,6 +1261,38 @@ extension ViewController {
             }
         }
         return myItem
+    }
+
+}
+
+// MARK: NSSplitViewDelegate
+extension ViewController: NSSplitViewDelegate {
+
+    // Let us know when the user has manually resized a
+    // view
+    func splitViewWillResizeSubviews(_ notification: Notification) {
+
+        // Ensure the splitview contains userInfo
+        // This is where the split index can be found
+        guard let mySplitView = notification.userInfo else {
+            return
+        }
+
+        // Ensure that the splitindex is non-nil
+        guard let _ = mySplitView["NSSplitViewDividerIndex"] else {
+            return
+        }
+
+        // Ensure this is user initiated
+        guard let userInitiated = mySplitView["NSSplitViewUserResizeKey"] else {
+            return
+        }
+        guard userInitiated as! Int == 1 else {
+            return
+        }
+
+        overridePositionOfAdviceDivider = splitView.maxPossiblePositionOfDivider(at: 0)
+
     }
 
 }
@@ -1295,14 +1359,15 @@ extension ViewController {
 
             DispatchQueue.main.async {
 
-                // Set status light/text to indicate success
-                self.refreshStatus()
-
                 // Reload the contents of the view
                 self.refreshContent()
 
+                // Set status light/text to indicate success
+                self.refreshStatus()
+
                 // Inform user
                 self.statusSpinnerStop()
+
             }
 
         }
@@ -1339,8 +1404,10 @@ extension ViewController {
         let mainStyled = proofController.mainViewTextStyled
         let adviceStyled = proofController.adviceViewTextStyled
 
-        // Disable any user-editing detection
+        // Disable any user-editing detection, and layout change detection
         hasUserEditControl = false
+
+
 
         // Set the styled content in the views
         setStyledTextView(mainTextView, mainStyled)
@@ -1362,7 +1429,7 @@ extension ViewController {
         statementsContentView.bounds.origin.x = myScollOriginX
 
 
-        // Enable any user-editing detection
+        // Enable any user change detection
         hasUserEditControl = true
 
     }

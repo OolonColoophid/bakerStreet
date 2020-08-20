@@ -43,7 +43,7 @@ extension String {
                     if let r = result {
                         let result = nsstr.substring(with: r.range) as String
                         matches.append(result)
-                }
+                    }
             }
 
             if matches.count == 0 {
@@ -95,7 +95,7 @@ extension String {
         // e.g.  "hello    world" -> "hello world"
         repeat {
             trimS = trimS.replacingOccurrences(of: "  ",
-                                       with: " ") }
+                                               with: " ") }
             while trimS.contains("  ")
 
         if trimS == " " { trimS = "" }
@@ -167,28 +167,28 @@ extension String {
     /// let n: NSMutableAttributedString = html.htmlToNSMAS()
     func htmlToNSMAS () -> NSMutableAttributedString {
 
-            let string = self
+        let string = self
 
-            // Convert to UTF8
-            let data = Data(string.utf8)
-            var html = NSMutableAttributedString()
+        // Convert to UTF8
+        let data = Data(string.utf8)
+        var html = NSMutableAttributedString()
 
-            if let attributedString =
-                try? NSMutableAttributedString(
-                    data: data,
-                    options: [
-                        .documentType:
-                            NSMutableAttributedString.DocumentType.html,
-                        .defaultAttributes:
+        if let attributedString =
+            try? NSMutableAttributedString(
+                data: data,
+                options: [
+                    .documentType:
+                        NSMutableAttributedString.DocumentType.html,
+                    .defaultAttributes:
                         OverallStyle.mainText.attributes
 
-                    ],
-                    documentAttributes: nil) {
-                html = attributedString
-            } else {
-                html = NSMutableAttributedString(
-                    string: "Error retrieving documentation")
-            }
+                ],
+                documentAttributes: nil) {
+            html = attributedString
+        } else {
+            html = NSMutableAttributedString(
+                string: "Error retrieving documentation")
+        }
 
         return html
 
@@ -500,5 +500,19 @@ extension NSTextView {
             }
         }
     }
+
+        var contentSize: CGSize {
+            get {
+                guard let layoutManager = layoutManager, let textContainer = textContainer else {
+                    print("textView no layoutManager or textContainer")
+                    return .zero
+                }
+
+                layoutManager.ensureLayout(for: textContainer)
+                return layoutManager.usedRect(for: textContainer).size
+            }
+        }
+
+
 }
 
