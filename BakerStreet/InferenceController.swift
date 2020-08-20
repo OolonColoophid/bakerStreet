@@ -221,8 +221,11 @@ public struct InferenceController: BKAdvising {
         // (long description reuses another error's description)
         let myFormula = myLine.formula.tokenStringHTMLWithGlyphs
         let myTheoremLHS = antecedentTheorem.lhsFormula.commaList()
+        let myTheoremRHS = antecedentTheorem.rhsFormula.tokenStringHTMLWithGlyphs
 
-        checkFunctionMessage = "Your \(jD) must appear within the left hand side of a theorem. In other words, \(myFormula) must be a part of \(myTheoremLHS)."
+        let myTheorem = myTheoremLHS + MetaType.turnStile.htmlEntity + myTheoremRHS
+
+        checkFunctionMessage = "Your \(jD) must appear within the left hand side of a theorem. In other words, \(myFormula) must be the left hand side of \(myTheorem)."
 
         advise(AdviceInstance.assumptionFormulaNotFound,
                longDescription: checkFunctionMessage
