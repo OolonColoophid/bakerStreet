@@ -47,7 +47,6 @@
 		5B8CD38B24CB382900B178EB /* DocumentStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CD38A24CB382900B178EB /* DocumentStyler.swift */; };
 		5B8D904624AA146200FD2345 /* SyntaxStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8D904524AA146200FD2345 /* SyntaxStyler.swift */; };
 		5B9205DB24816C4300CF6D45 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9205DA24816C4300CF6D45 /* Preferences.swift */; };
-		5B9BF1DA248111610087513D /* DeprcProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BF1D9248111610087513D /* DeprcProof.swift */; };
 		5B9C4EDF24DFEB7000C4F6C4 /* SemanticPermuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9C4EDE24DFEB7000C4F6C4 /* SemanticPermuter.swift */; };
 		5BA6B04424A3926C00B5D8F5 /* Styler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6B04324A3926C00B5D8F5 /* Styler.swift */; };
 		5BA7B73124CADAD600C06DA2 /* DocumentViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */; };
@@ -113,7 +112,6 @@
 		5B8CD38A24CB382900B178EB /* DocumentStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStyler.swift; sourceTree = "<group>"; };
 		5B8D904524AA146200FD2345 /* SyntaxStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxStyler.swift; sourceTree = "<group>"; };
 		5B9205DA24816C4300CF6D45 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		5B9BF1D9248111610087513D /* DeprcProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprcProof.swift; sourceTree = "<group>"; };
 		5B9C4EDE24DFEB7000C4F6C4 /* SemanticPermuter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticPermuter.swift; sourceTree = "<group>"; };
 		5BA6B04324A3926C00B5D8F5 /* Styler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styler.swift; sourceTree = "<group>"; };
 		5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerController.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				5B33E54724A7B40000C6792B /* Controllers */,
 				5B8573E5247D14DB00E1C613 /* AppDelegate.swift */,
 				5B8573E9247D14DB00E1C613 /* Document.swift */,
-				5B8929AD249E6E5100897470 /* Deprecated */,
 				5B8929AE249E6EC500897470 /* Extensions */,
 				5B8929AC249E6DE900897470 /* Appearance */,
 				5B8929C0249E70D600897470 /* Parser */,
@@ -230,14 +227,6 @@
 				5BA6B04324A3926C00B5D8F5 /* Styler.swift */,
 			);
 			name = Appearance;
-			sourceTree = "<group>";
-		};
-		5B8929AD249E6E5100897470 /* Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				5B9BF1D9248111610087513D /* DeprcProof.swift */,
-			);
-			name = Deprecated;
 			sourceTree = "<group>";
 		};
 		5B8929AE249E6EC500897470 /* Extensions */ = {
@@ -427,7 +416,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B9BF1DA248111610087513D /* DeprcProof.swift in Sources */,
 				5BDD513C24ACE5D40025ADFA /* html.swift in Sources */,
 				5B4114C224AB1997007843D4 /* AdviceViewController.swift in Sources */,
 				5B79FD6C24D1F26300218CB1 /* PreviewViewController.swift in Sources */,
