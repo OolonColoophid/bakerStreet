@@ -36,28 +36,22 @@ public class ProofController {
     private var mySyntaxHighlighter: SyntaxStyler = SyntaxStyler()
     private var myAdviceStyler: AdviceStyler = AdviceStyler()
 
-    private var textViewSizeInChars: Int
-
     // Receive the text from the view where the user
     // types. This should be the text of the proof. Also
     // receive a delegate that will be informed of things
     // (principally, that background export of PDf etc. is complete)
     init(proofText: String = "",
-         newTextViewSizeInChars: Int = 0,
          withDelegate delegate: BKProofDelegate) {
 
         proof = Proof(proofText, withDelegate: delegate)
-        textViewSizeInChars = newTextViewSizeInChars
 
     }
 
     // Receive the text from the view where the user
     // types. This should be the text of the proof.
-    init(proofText: String = "",
-         newTextViewSizeInChars: Int = 0) {
+    init(proofText: String = "") {
 
         proof = Proof(proofText)
-        textViewSizeInChars = newTextViewSizeInChars
 
     }
 
@@ -173,31 +167,11 @@ extension ProofController {
 
                     }
 
-                    // p < q    >spaceTwixdSize<      : Assumption 0
-                    var spaceTwixdSize: Int {
-                        let viewLength = textViewSizeInChars
-                        let justificationLength = j.justification.description.count
-                        let formulaLength = j.formula.infixText.count
-                        let scopePadding = (j.scopeLevel * ScopeLevelSize)
-
-                        let sTS = viewLength -
-                            justificationLength -
-                            formulaLength -
-                            scopePadding -
-                        antecedentsSize
-
-                        guard sTS > 0 else {
-                            return 0
-                        }
-
-                        return 0 // sTS
-                    }
-
                     let paintedJustificationAndAntecedents =
                         mySyntaxHighlighter.getPaintedJustificationAndAntecedents(
                             j.justification,
                             j.antecedents,
-                            spaceTwixdSize)
+                            0)
 
                     mainText.append(
                         addMainTextViewStyled(

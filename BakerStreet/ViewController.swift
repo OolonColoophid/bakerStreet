@@ -1312,7 +1312,6 @@ extension ViewController {
 
         // Proof text if none supplied
         var proofText = ""
-        let textSize = self.mainTextViewSizeInChars
 
         proofText = textSupplied
 
@@ -1352,7 +1351,6 @@ extension ViewController {
             // Perform proof validation on the background queue
             self.proofController = ProofController(
                 proofText: proofText,
-                newTextViewSizeInChars: textSize,
                 withDelegate: previewPanel)
 
             self.isProofActive = true
