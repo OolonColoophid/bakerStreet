@@ -605,18 +605,22 @@ extension Proof {
 
     }
 
-    // - ToDo: Some ugly logic here; can it be simplified?
     private func addJustified(_ infixFormula: String,
                               _ justification: String) {
 
         var text = ""
+
         if justification != "" {
-            text = infixFormula + " : " + justification } else {
+
+            text = infixFormula + " : " + justification
+
+        } else {
+
             text = infixFormula
+
         }
 
         let il = Inactive(text, atScopeLevel: scopeLevel)
-
         
         guard Formula(infixFormula).isWellFormed == true else {
 
@@ -680,7 +684,8 @@ extension Proof {
                 }
 
                 let j = try Justified(infixFormula: infixFormula,
-                                      parentTheorem: getCurrentTheorem(forScopeLevel: scopeLevel),
+                                      parentTheorem: getCurrentTheorem(
+                                        forScopeLevel: scopeLevel),
                                       justification: justification,
                                       proof: self,
                                       atScopeLevel: scopeLevel)
@@ -690,7 +695,8 @@ extension Proof {
 
             } else {
                 let j = try Justified(infixFormula: infixFormula,
-                                      parentTheorem: getCurrentTheorem(forScopeLevel: scopeLevel),
+                                      parentTheorem: getCurrentTheorem(
+                                        forScopeLevel: scopeLevel),
                                       justification: justification,
                                       proof: self,
                                       atScopeLevel: scopeLevel)
@@ -723,6 +729,7 @@ extension Proof {
         }
 
         addToTheorem(il)
+
         if BKPrefConstants.debugMode == true { setInspectionText() }
 
     }

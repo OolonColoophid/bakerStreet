@@ -13,7 +13,7 @@ import Foundation
 enum BKPrefConstants {
 
     // Debug mode
-    static let debugMode: Bool = true
+    static let debugMode: Bool = false
 
     // Initial size when app loads
     static let globalFontSize: CGFloat = 15
