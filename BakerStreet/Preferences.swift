@@ -25,7 +25,7 @@ enum BKPrefConstants {
     static let zoomIncrement = 0.1 // 0 min, 1 max
 
     // Proportion of main window that is the advice window,
-    // when showing
+    // when showing; this can be overridden by the user
     static let adviceWindowSize = CGFloat(0.26) // 0 min, 1 max
 
 }
@@ -36,11 +36,6 @@ enum UserPrefVariables {
 
     static var globalFont: CGFloat = BKPrefConstants.globalFontSize
 
-}
-
-public var InDarkMode: Bool {
-    let mode = UserDefaults.standard.string(forKey: "AppleInterfaceStyle")
-    return mode == "Dark"
 }
 
 public enum FontStyle {

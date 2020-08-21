@@ -332,7 +332,7 @@ extension ExportedProof {
 
         var latex = ""
 
-        var latexTheorem = getTheoremLatex(proofStatement)
+        let latexTheorem = getTheoremLatex(proofStatement)
 
         latex = latex + "\\documentclass{article}\n        \\usepackage[T1]{fontenc}\n\\begin{document}\n\\begin{center}\n \\begin{tabular}{r|ll}\n\\multicolumn{3}{c}{\(latexTheorem)}\\\\\n \\hline\n"
 
@@ -362,7 +362,7 @@ extension ExportedProof {
             % Exported by Baker Street
             % ------------------------
 
-            % This LaTeX is presented a minimal, complete document.
+            % This LaTeX is presented as a minimal, complete document.
 
             """ + "\n"
 
@@ -499,8 +499,11 @@ extension ExportedProof {
         // Header text coloring
         let hColor = NSColor(named: "auburn")!.hexString
 
+        // Line beneath header text
+        let hlColor = NSColor(named: "deepSpaceSparkle")!.hexString
+
         // Line coloring
-        let lColor = NSColor(named: "deepSpaceSparkle")!.hexString
+        let lColor = NSColor.textColor.hexString
 
         let proofTheoremHTML = getTheoremHTML(proofStatement)
 
@@ -527,7 +530,7 @@ extension ExportedProof {
         let tableBottomPadding = "<tr><td></td></tr>"
 
         // Workaround 2 (because borders are not reliable)
-        let myHline = "<tr><td style=\"border-top:1px solid \(lColor);\" colspan=\"4\"></td></tr>"
+        let myHline = "<tr><td style=\"border-top:1px solid \(hlColor);\" colspan=\"4\"></td></tr>"
         let myTableBody = (myHline + myTable + tableBottomPadding).w("tbody")
 
 
@@ -541,7 +544,7 @@ extension ExportedProof {
         let myTableHeadAndBody = myTableHead + myTableBody
 
         // Finalise table and place in body
-        let myTableComplete = myTableHeadAndBody.w("table", withAttr: "style = \"font-size: 1em; width: 100%; padding: 1em;\"")
+        let myTableComplete = myTableHeadAndBody.w("table", withAttr: "style = \"font-size: 1em; color: \(lColor); width: 100%; padding: 1em;\"")
             .w("body")
 
         // Comment

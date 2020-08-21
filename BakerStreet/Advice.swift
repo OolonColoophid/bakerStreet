@@ -104,13 +104,13 @@ public enum AdviceInstance {
             case .theoremFormulaPoorlyFormed:
                 return "Theorem not well-formed"
             case .assumptionMustReferToTheorem:
-                return "No referencing theorem"
+                return "No theorem specified"
             case .assumptionFormulaNotFound:
                 return "Formula not found"
             case .inferenceFailure:
                 return "Inference rule failure"
             case .inferenceMustReferToTheorem:
-                return "No referencing theorem"
+                return "No theorem specified"
             case .inferenceRefersToUnprovenLine:
                 return "Antecedent not proven"
             case .unknownIssue:
