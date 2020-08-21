@@ -98,13 +98,13 @@ class ViewController: NSViewController {
     private let advicePopover = NSPopover()
 
     // Panels for documentation
-    private let markdownPanel = NSPanel()
-    private let definitionsPanel = NSPanel()
-    private let rulesFullPanel = NSPanel()
-    private let rulesOverviewPanel = NSPanel()
+    private var markdownPanel = NSPanel()
+    private var definitionsPanel = NSPanel()
+    private var rulesFullPanel = NSPanel()
+    private var rulesOverviewPanel = NSPanel()
 
     // Panel for preview
-    private let previewPanel = NSPanel()
+    private var previewPanel = NSPanel()
 
     // Cached content (generated as soon as this view loads)
     // for definitionsPanel and rulesFullPanel. This stops
@@ -161,44 +161,15 @@ class ViewController: NSViewController {
         advicePopover.contentViewController =
             AdviceViewController.freshController()
 
-        // View controllers documentation panels
-        markdownPanel.contentViewController =
-            DocumentViewController.freshController()
-        rulesFullPanel.contentViewController =
-            DocumentViewController.freshController()
-        definitionsPanel.contentViewController =
-            DocumentViewController.freshController()
-        // An image panel
-        rulesOverviewPanel.contentViewController =
-            ImageViewController.freshController()
-        // And the preview panel
-        previewPanel.contentViewController =
-            PreviewViewController.freshController()
+        setPanelViewControllers()
 
-        // Because we want to know when the above panels
-        // close, we should make this object the delegate
-        markdownPanel.delegate = self
-        definitionsPanel.delegate = self
-        rulesFullPanel.delegate = self
-        rulesOverviewPanel.delegate = self
-        previewPanel.delegate = self
+        setPanelDelegates()
 
-        // Set default attributes
-        mainTextView.typingAttributes = OverallStyle.mainTextInactive.attributes
-        mainTextView.insertionPointColor = BKPrefConstants.insertPColor
-        mainTextView.wrapsLines = false
+        setMainTextDefaultAttributes()
 
-        // Set default behaviours
-        mainTextView.isAutomaticTextCompletionEnabled = false
-        mainTextView.isAutomaticDataDetectionEnabled = false
-        mainTextView.isAutomaticLinkDetectionEnabled = false
-        mainTextView.isAutomaticTextReplacementEnabled = false
-        mainTextView.isAutomaticDashSubstitutionEnabled = false
-        mainTextView.isAutomaticSpellingCorrectionEnabled = false
-        mainTextView.isAutomaticQuoteSubstitutionEnabled = false
+        setMainTextDefaultBehaviours()
 
-        // We want all scroll views to be in sync
-        setScrollSync()
+        setViewsScrollSync()
 
     }
 
@@ -223,7 +194,7 @@ class ViewController: NSViewController {
 // MARK: Scroll sync
 extension ViewController {
 
-    func setScrollSync() {
+    func setViewsScrollSync() {
 
         // Scroll detection
         // ----------------
@@ -241,6 +212,18 @@ extension ViewController {
     }
 
     func setNotifications() {
+
+        // We want to be notified if the user changes between
+        // light and dark mode. Much of the interface will update
+        // automatically, but the NSPanels (e.g. Definitions) will need
+        // to be destroyed and recreated
+        DistributedNotificationCenter.default.addObserver(
+            self,
+            selector: #selector(interfaceModeChanged(sender:)),
+            name: NSNotification.Name(rawValue: "AppleInterfaceThemeChangedNotification"),
+            object: nil)
+
+
         // We'll now add ourself to the notification centre so
         // we can be called when the bounds do change.
         // When it does, (e.g.) lineContentDidScroll(notification:) is called
@@ -362,7 +345,7 @@ extension ViewController {
 
 }
 
-// MARK: Cache
+// MARK: Contents Cache
 extension ViewController {
 
     func cacheUpdateDocumentViews() {
@@ -713,6 +696,32 @@ extension ViewController: NSWindowDelegate {
 // MARK: Document Windows
 extension ViewController {
 
+    func setPanelViewControllers() {
+        // View controllers documentation panels
+        markdownPanel.contentViewController =
+            DocumentViewController.freshController()
+        rulesFullPanel.contentViewController =
+            DocumentViewController.freshController()
+        definitionsPanel.contentViewController =
+            DocumentViewController.freshController()
+        // An image panel
+        rulesOverviewPanel.contentViewController =
+            ImageViewController.freshController()
+        // And the preview panel
+        previewPanel.contentViewController =
+            PreviewViewController.freshController()
+    }
+
+    func setPanelDelegates() {
+        // Because we want to know when the above panels
+        // close, we should make this object the delegate
+        markdownPanel.delegate = self
+        definitionsPanel.delegate = self
+        rulesFullPanel.delegate = self
+        rulesOverviewPanel.delegate = self
+        previewPanel.delegate = self
+    }
+
     func didHideMarkdown() {
 
         appDelegate.BKMenuHelpTitleMarkdown = "Show Markdown"
@@ -864,8 +873,6 @@ extension ViewController {
 
     }
 
-
-
     func setDocumentPanelAttributes(forPanel panel: NSPanel,
                             withTitle title: String,
                             withAppearanceSize appearanceSize: NSSize,
@@ -873,6 +880,10 @@ extension ViewController {
                             withDocText text: NSMutableAttributedString) {
 
         let myViewController = panel.contentViewController as! DocumentViewController
+
+        // If there has been an appearance change, this should
+        // make the window adopt it
+        panel.update()
 
         panel.setContentSize(appearanceSize)
         panel.minSize = minimumSize
@@ -1038,6 +1049,10 @@ extension ViewController {
                                    withMinimumSize minimumSize: NSSize,
                                    withDocText text: NSMutableAttributedString) {
 
+        // If there has been an appearance change, this should
+        // make the window adopt it
+        panel.update()
+
         panel.setContentSize(appearanceSize)
         panel.minSize = minimumSize
         panel.title = title
@@ -1099,6 +1114,25 @@ extension ViewController {
 
 // MARK: Appearance
 extension ViewController {
+
+    // Set default attributes
+    func setMainTextDefaultAttributes() {
+        mainTextView.typingAttributes = OverallStyle.mainTextInactive.attributes
+        mainTextView.insertionPointColor = BKPrefConstants.insertPColor
+        mainTextView.wrapsLines = false
+    }
+
+    // Set default behaviours
+    func setMainTextDefaultBehaviours() {
+        mainTextView.isAutomaticTextCompletionEnabled = false
+        mainTextView.isAutomaticDataDetectionEnabled = false
+        mainTextView.isAutomaticLinkDetectionEnabled = false
+        mainTextView.isAutomaticTextReplacementEnabled = false
+        mainTextView.isAutomaticDashSubstitutionEnabled = false
+        mainTextView.isAutomaticSpellingCorrectionEnabled = false
+        mainTextView.isAutomaticQuoteSubstitutionEnabled = false
+    }
+
 
     // Advice to look inactive
     func deactivateAdviceContent() {
@@ -1261,6 +1295,65 @@ extension ViewController {
             }
         }
         return myItem
+    }
+
+    //
+    // Receive notification of appearance change (e.g. from light
+    // to dark)
+    //
+     func reinitialisePanels() {
+        // Re-initialise panels for documentation
+
+        markdownPanel = NSPanel()
+        definitionsPanel = NSPanel()
+        rulesFullPanel = NSPanel()
+        rulesOverviewPanel = NSPanel()
+        previewPanel = NSPanel()
+    }
+
+    func closeAllPanels() {
+
+        // Used primarily when there has been a dark/light mode change
+        previewPanel.close()
+        rulesFullPanel.close()
+        markdownPanel.close()
+        definitionsPanel.close()
+
+        // These will set the menu text correctly (e.g. 'Show Markdown')
+        didHidePreview()
+        didHideRulesFull()
+        didHideMarkdown()
+        didHideDefinitions()
+
+    }
+
+    @objc func interfaceModeChanged(sender: NSNotification) {
+
+        // Without this, when we reinitialise, the panels will be orphaned
+        closeAllPanels()
+
+        // Destroy the panels entirely
+        reinitialisePanels()
+
+        // This is unavoidable, I think, but we can't call the cache
+        // update immediately because the app will not have finished
+        // transforming to dark mode. Let's delay it for a second.
+        // Not ideal but I can't think of a better solution. We want
+        // to minimise the user ever seeing a light appearance window
+        // with dark appearance text, and vice versa
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+
+            // Finalise panel setup
+            self.setPanelViewControllers()
+            self.setPanelDelegates()
+
+            // Update cache for document views
+            self.cacheUpdateDocumentViews()
+
+        }
+
+
+
     }
 
 }

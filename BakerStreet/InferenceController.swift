@@ -1424,8 +1424,6 @@ public struct InferenceController: BKAdvising {
 
         } else {
 
-            let antTLO = ii.getAntecedentAsTree(forAntecedentLineNum: antecedent).getToken().operatorToken
-
             checkFunctionMessage = """
                 Your \(jD) requires that the top level operator (i.e. logical connective) for one of your antecedents is \(op.description) (i.e. \(op.htmlEntity)).
             """
