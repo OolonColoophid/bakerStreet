@@ -1119,6 +1119,9 @@ DQ
                             <constraint firstAttribute="trailing" secondItem="u9C-zh-pIf" secondAttribute="trailing" id="neK-9V-AXj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="u9C-zh-pIf" id="el2-aR-mEc"/>
+                    </connections>
                 </viewController>
                 <customObject id="ZIi-b0-7NP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1197,9 +1200,12 @@ DQ
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="523"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="auburnBackground"/>
+                                                    <size key="minSize" width="0.0" height="523"/>
+                                                    <size key="maxSize" width="0.0" height="523"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="5gI-5U-AMq" id="3yY-mV-aRe"/>

@@ -516,3 +516,56 @@ extension NSTextView {
 
 }
 
+// MARK: BKZoomable
+extension BKZoomable {
+
+    private func getZoomIn() -> CGFloat {
+        return CGFloat(1 + BKPrefConstants.zoomIncrement)
+    }
+
+    private func getZoomOut() -> CGFloat {
+        return CGFloat(1 - BKPrefConstants.zoomIncrement)
+    }
+
+    private func zoom(inDirection: String, forView view: NSView) {
+
+        if inDirection == "in" {
+
+            let largerSize = NSMakeSize(getZoomIn(), getZoomIn())
+            view.scaleUnitSquare(to: largerSize)
+
+        } else {
+
+            let smallerSize = NSMakeSize(getZoomOut(), getZoomOut())
+            view.scaleUnitSquare(to: smallerSize)
+
+        }
+
+    }
+
+    public func BKZoomIn(_ view: NSView) {
+
+        zoom(inDirection: "in", forView: view)
+
+    }
+
+    public func BKZoomOut(_ view: NSView) {
+
+        zoom(inDirection: "out", forView: view)
+
+    }
+
+    public func BKZoomIn(_ views: [NSView]) {
+
+        views.forEach {view in
+            zoom(inDirection: "in", forView: view) }
+
+    }
+
+    public func BKZoomOut(_ views: [NSView]) {
+
+        views.forEach {view in
+            zoom(inDirection: "out", forView: view) }
+
+    }
+}

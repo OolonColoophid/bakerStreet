@@ -11,6 +11,7 @@ import Cocoa
 class ImageViewController: NSViewController {
 
     @IBOutlet weak var zoomButton: NSSegmentedControl!
+
     @IBOutlet weak var imageView: NSImageView!
 
     override func viewDidLoad() {
@@ -20,6 +21,10 @@ class ImageViewController: NSViewController {
 
 }
 
+// MARK: BKZoomable
+extension ImageViewController: BKZoomable {
+
+}
 
 
 // MARK: Storyboard Instantiation
