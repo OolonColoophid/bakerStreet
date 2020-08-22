@@ -19,7 +19,11 @@ enum BKPrefConstants {
     static let globalFontSize: CGFloat = 15
 
     // Insert point color
-    static let insertPColor = NSColor(named: "indianYellow")!
+    static var insertPColor: NSColor {
+
+        return BKColors.indianYellow
+
+    }
 
     // Zoom increment
     static let zoomIncrement = 0.1 // 0 min, 1 max
@@ -27,6 +31,103 @@ enum BKPrefConstants {
     // Proportion of main window that is the advice window,
     // when showing; this can be overridden by the user
     static let adviceWindowSize = CGFloat(0.26) // 0 min, 1 max
+
+}
+
+enum BKColors {
+    case auburn
+    case deepSpaceSparkle
+    case indianYellow
+    case mediumChampagne
+    case rosewood
+
+    var color: NSColor {
+        switch self {
+
+            case .auburn:
+
+                if #available(OSX 10.13, *) {
+                    return NSColor(named: "auburnLight")!
+
+                } else {
+
+                    return lightOrDark(light: rgbToNSColor(r: 158, g: 42, b: 43),
+                                       dark: rgbToNSColor(r: 158, g: 42, b: 43))
+
+                }
+
+            case .deepSpaceSparkle:
+
+                if #available(OSX 10.13, *) {
+                    return NSColor(named: "deepSpaceSparkle")!
+
+                } else {
+
+                    return lightOrDark(light: rgbToNSColor(r: 51, g: 92, b: 103),
+                                       dark: rgbToNSColor(r: 117, g: 155, b: 172))
+
+            }
+
+            case .indianYellow:
+
+                if #available(OSX 10.13, *) {
+                    return NSColor(named: "indianYellow")!
+
+                } else {
+
+                    return lightOrDark(light: rgbToNSColor(r: 224, g: 159, b: 62),
+                                       dark: rgbToNSColor(r: 224, g: 159, b: 62))
+
+            }
+
+            case .mediumChampagne:
+
+                if #available(OSX 10.13, *) {
+                    return NSColor(named: "mediumChampagne")!
+
+                } else {
+
+                    return lightOrDark(light: rgbToNSColor(r: 255, g: 243, b: 176, alpha: 0.28),
+                                       dark: rgbToNSColor(r: 255, g: 243, b: 176, alpha: 0.28))
+
+            }
+
+            case .rosewood:
+
+                if #available(OSX 10.13, *) {
+                    return NSColor(named: "mediumChampagne")!
+
+                } else {
+
+                    return lightOrDark(light: rgbToNSColor(r: 83, g: 10, b: 13),
+                                       dark: rgbToNSColor(r: 255, g: 214, b: 205))
+
+            }
+
+
+        }
+    }
+
+    func rgbToNSColor(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat? = 1) -> NSColor {
+        return NSColor(red: r/255, green: g/255, blue: b/255, alpha: alpha!)
+    }
+
+    func lightOrDark(light: NSColor,
+                    dark: NSColor) -> NSColor {
+
+        let darkmode = true
+
+        if darkmode == true {
+
+            return dark
+
+        } else {
+
+            return light
+
+        }
+
+    }
 
 }
 

@@ -877,7 +877,7 @@ enum DocumentContent {
             let style = DocumentStyles.baseStyle
 
             // Header text coloring
-            let hColor = NSColor(named: "deepSpaceSparkle")!.hexString
+            let hColor = BKColors.deepSpaceSparkle.color.hexString
 
             // Contents of the rules
             let rules = Justification.allCases.sorted(by: <)
