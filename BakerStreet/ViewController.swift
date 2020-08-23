@@ -410,6 +410,16 @@ extension ViewController: NSTextViewDelegate {
 
     // Detect any text changes
     // Note only the main text view is editable
+    func deactivateContent() {
+
+        deactivateMainContent()
+
+        deactivateAdviceContent()
+
+        deactivateLineContent()
+
+    }
+
     func textDidChange(_ obj: Notification)
     {
 
@@ -417,11 +427,7 @@ extension ViewController: NSTextViewDelegate {
 
             hasUserEditControl = false
 
-            deactivateMainContent()
-
-            deactivateAdviceContent()
-
-            deactivateLineContent()
+            deactivateContent()
 
             isProofActive = false
 
@@ -584,11 +590,15 @@ extension ViewController {
 
             BKZoomIn([lineTextView, mainTextView, adviceTextView])
             refreshLines()
+            refreshMainText()
+            deactivateContent()
 
         } else {
 
             BKZoomOut([lineTextView, mainTextView, adviceTextView])
             refreshLines()
+            refreshMainText()
+            deactivateContent()
 
         }
 
@@ -1124,7 +1134,13 @@ extension ViewController {
 
     // Set default behaviours
     func setMainTextDefaultBehaviours() {
-        mainTextView.isAutomaticTextCompletionEnabled = false
+
+        if #available(OSX 10.12.2, *) {
+            mainTextView.isAutomaticTextCompletionEnabled = false
+        } else {
+            // There is no fallback for this
+        }
+
         mainTextView.isAutomaticDataDetectionEnabled = false
         mainTextView.isAutomaticLinkDetectionEnabled = false
         mainTextView.isAutomaticTextReplacementEnabled = false
@@ -1533,6 +1549,13 @@ extension ViewController {
         setStyledTextView(lineTextView, lineStyled)
 
     }
+
+    func refreshMainText() {
+        let mainStyled = proofController.mainViewTextStyled
+        setStyledTextView(mainTextView, mainStyled)
+
+    }
+
 
     func setStyledTextView (_ textView: NSTextView,
                             _ styledText: NSMutableAttributedString) {

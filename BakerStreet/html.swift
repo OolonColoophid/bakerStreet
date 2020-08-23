@@ -492,10 +492,10 @@ enum DocumentContent {
             let style = DocumentStyles.baseStyle
 
             // Header text coloring
-            let hColor = NSColor(named: "auburn")!.hexString
+            let hColor = BKColors.auburn.color.hexString
 
             // Line coloring
-            let lColor = NSColor(named: "deepSpaceSparkle")!.hexString
+            let lColor = BKColors.deepSpaceSparkle.color.hexString
 
 
             let table = """
@@ -837,7 +837,7 @@ enum DocumentContent {
             let style = DocumentStyles.baseStyle
 
             // Header text coloring
-            let hColor = NSColor(named: "auburn")!.hexString
+            let hColor =  BKColors.auburn.color.hexString
 
             // Contents of the definitions
             let definitions = HtmlDefinitions.allCases.sorted()
@@ -937,7 +937,7 @@ enum DocumentContent {
 
         static var baseStyle: String {
 
-            let tColor = NSColor(named: "rosewood")!.hexString
+            let tColor = BKColors.rosewood.color.hexString
             let bColor = NSColor.textColor.hexString
             let fontSize = UserPrefVariables.globalFont
 
@@ -1351,7 +1351,7 @@ enum DocumentContent {
 
             var foundDefinitions = Set<HtmlDefinitions>()
 
-            let hColor = NSColor(named: "auburn")!.hexString
+            let hColor = BKColors.auburn.color.hexString
 
             let lines = text.split(separator: "\n")
 
@@ -1411,7 +1411,7 @@ enum DocumentContent {
 
             var foundJustifications = Set<Justification>()
 
-            let hColor = NSColor(named: "deepSpaceSparkle")!.hexString
+            let hColor = BKColors.deepSpaceSparkle.color.hexString
 
             let lines = text.split(separator: "\n")
 

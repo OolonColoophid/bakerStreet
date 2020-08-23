@@ -21,7 +21,7 @@ enum BKPrefConstants {
     // Insert point color
     static var insertPColor: NSColor {
 
-        return BKColors.indianYellow
+        return BKColors.indianYellow.color
 
     }
 
@@ -47,11 +47,12 @@ enum BKColors {
             case .auburn:
 
                 if #available(OSX 10.13, *) {
-                    return NSColor(named: "auburnLight")!
+
+                    return NSColor(named: "auburn")!
 
                 } else {
 
-                    return lightOrDark(light: rgbToNSColor(r: 158, g: 42, b: 43),
+                    return getLightOrDark(light: rgbToNSColor(r: 158, g: 42, b: 43),
                                        dark: rgbToNSColor(r: 158, g: 42, b: 43))
 
                 }
@@ -63,7 +64,7 @@ enum BKColors {
 
                 } else {
 
-                    return lightOrDark(light: rgbToNSColor(r: 51, g: 92, b: 103),
+                    return getLightOrDark(light: rgbToNSColor(r: 51, g: 92, b: 103),
                                        dark: rgbToNSColor(r: 117, g: 155, b: 172))
 
             }
@@ -75,7 +76,7 @@ enum BKColors {
 
                 } else {
 
-                    return lightOrDark(light: rgbToNSColor(r: 224, g: 159, b: 62),
+                    return getLightOrDark(light: rgbToNSColor(r: 224, g: 159, b: 62),
                                        dark: rgbToNSColor(r: 224, g: 159, b: 62))
 
             }
@@ -87,7 +88,7 @@ enum BKColors {
 
                 } else {
 
-                    return lightOrDark(light: rgbToNSColor(r: 255, g: 243, b: 176, alpha: 0.28),
+                    return getLightOrDark(light: rgbToNSColor(r: 255, g: 243, b: 176, alpha: 0.28),
                                        dark: rgbToNSColor(r: 255, g: 243, b: 176, alpha: 0.28))
 
             }
@@ -95,11 +96,11 @@ enum BKColors {
             case .rosewood:
 
                 if #available(OSX 10.13, *) {
-                    return NSColor(named: "mediumChampagne")!
+                    return NSColor(named: "rosewood")!
 
                 } else {
 
-                    return lightOrDark(light: rgbToNSColor(r: 83, g: 10, b: 13),
+                    return getLightOrDark(light: rgbToNSColor(r: 83, g: 10, b: 13),
                                        dark: rgbToNSColor(r: 255, g: 214, b: 205))
 
             }
@@ -112,10 +113,10 @@ enum BKColors {
         return NSColor(red: r/255, green: g/255, blue: b/255, alpha: alpha!)
     }
 
-    func lightOrDark(light: NSColor,
+    func getLightOrDark(light: NSColor,
                     dark: NSColor) -> NSColor {
 
-        let darkmode = true
+        let darkmode = isDarkMode()
 
         if darkmode == true {
 
@@ -127,6 +128,26 @@ enum BKColors {
 
         }
 
+    }
+
+    // Suggest by: https://stackoverflow.com/questions/51672124/how-can-dark-mode-be-detected-on-macos-10-14
+    func isDarkMode() -> Bool {
+
+        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"),
+                                      bundle: nil)
+        let windowController = storyboard.instantiateController(
+            withIdentifier: NSStoryboard.SceneIdentifier(
+                "Document Window Controller")) as! NSWindowController
+
+        let viewController = windowController.contentViewController
+            as! ViewController
+
+        let view = viewController.mainTextView!
+
+        if #available(OSX 10.14, *) {
+            return view.effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        }
+        return false
     }
 
 }
@@ -175,14 +196,14 @@ public struct LinkStyle {
         let lFont = NSFont.systemFont(
             ofSize: FontStyle.globalFont.value)
 
-        let hyperlinkForeground = NSColor(named: "indianYellow")
-        let hyperlinkUnderline = NSColor(named: "deepSpaceSparkle")
+        let hyperlinkForeground = BKColors.indianYellow.color
+        let hyperlinkUnderline = BKColors.deepSpaceSparkle.color
 
         let linkAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.font: lFont,
             NSAttributedString.Key.link: target,
-            NSAttributedString.Key.foregroundColor: hyperlinkForeground!,
-            NSAttributedString.Key.underlineColor: hyperlinkUnderline!,
+            NSAttributedString.Key.foregroundColor: hyperlinkForeground,
+            NSAttributedString.Key.underlineColor: hyperlinkUnderline,
             NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
             NSAttributedString.Key.toolTip: "Click for further information"
         ]
@@ -264,15 +285,12 @@ public enum OverallStyle {
     private func makeAttributes(
 
         _ foregroundColor: NSColor =
-        NSColor(named: "auburn")!,
+        BKColors.auburn.color,
 
         _ backgroundColor: NSColor =
         NSColor.clear,
 
-        _ font: NSFont =
-        NSFont.monospacedSystemFont(
-            ofSize: FontStyle.globalFont.value,
-            weight: NSFont.Weight.regular),
+        _ font: NSFont = NSFont.systemFont(ofSize: FontStyle.globalFont.value),
 
         _ paragraphStyle: NSMutableParagraphStyle =
         ParagraphStyle.standard.style
@@ -280,8 +298,18 @@ public enum OverallStyle {
     )
         -> Dictionary<NSAttributedString.Key, Any>{
 
+            var myFont = font
+
+            if #available(OSX 10.15, *) {
+                if myFont == NSFont.systemFont(ofSize: FontStyle.globalFont.value) {
+                    myFont = NSFont.monospacedSystemFont(
+                        ofSize: FontStyle.globalFont.value,
+                        weight: NSFont.Weight.regular)
+                }
+            }
+
             return [
-                .font: font,
+                .font: myFont,
                 .foregroundColor: foregroundColor,
                 .backgroundColor: backgroundColor,
                 .paragraphStyle: paragraphStyle,
@@ -299,10 +327,10 @@ public enum OverallStyle {
                     ofSize: FontStyle.lineViewFont.value,
                     weight: NSFont.Weight.regular)
 
-                let fColor = NSColor(named: "indianYellow")
+                let fColor = BKColors.indianYellow.color
                 let bColor = NSColor.clear
 
-                return makeAttributes(fColor!, bColor, stFont,
+                return makeAttributes(fColor, bColor, stFont,
                                       ParagraphStyle.symbolsText.style)
             case .lineText:
 
@@ -310,10 +338,10 @@ public enum OverallStyle {
                     ofSize: FontStyle.lineViewFont.value,
                     weight: NSFont.Weight.regular)
 
-                let fColor = NSColor(named: "deepSpaceSparkle")
+                let fColor = BKColors.deepSpaceSparkle.color
                 let bColor = NSColor.clear
 
-                return makeAttributes(fColor!, bColor, ltFont,
+                return makeAttributes(fColor, bColor, ltFont,
                                       ParagraphStyle.lineText.style)
 
             case .lineTextInactive:
@@ -322,7 +350,7 @@ public enum OverallStyle {
                     ofSize: FontStyle.lineViewFont.value,
                     weight: NSFont.Weight.regular)
 
-                let fColor = NSColor(named: "deepSpaceSparkle")!.withAlphaComponent(CGFloat(0.5))
+                let fColor = BKColors.deepSpaceSparkle.color.withAlphaComponent(CGFloat(0.5))
                 let bColor = NSColor.clear
 
                 return makeAttributes(fColor, bColor, ltFont,
@@ -333,10 +361,10 @@ public enum OverallStyle {
                 return makeAttributes()
 
             case .adviceText:
-                let fColor = NSColor(named: "rosewood")
+                let fColor = BKColors.rosewood.color
                 let bColor = NSColor.clear
 
-                return makeAttributes(fColor!, bColor, aFont)
+                return makeAttributes(fColor, bColor, aFont)
 
             case .adviceTextInactive:
                 let fColor = NSColor.textColor.withAlphaComponent(CGFloat(0.5))
@@ -355,12 +383,12 @@ public enum OverallStyle {
                 return makeAttributes(color)
 
             case .mainTextInactive:
-                let color = NSColor(named: "deepSpaceSparkle")
-                return makeAttributes(color!)
+                let color = BKColors.deepSpaceSparkle.color
+                return makeAttributes(color)
 
             case .mainTextAssertionTurnstile:
-                let color = NSColor(named: "indianYellow")
-                return makeAttributes(color!)
+                let color = BKColors.indianYellow.color
+                return makeAttributes(color)
 
             case .mainTextAssertionScopeBar:
                 let fColor = NSColor.systemRed
@@ -368,31 +396,31 @@ public enum OverallStyle {
                 return makeAttributes(fColor, bColor)
 
             case .mainTextAssertionOperand:
-                let color = NSColor(named: "rosewood")
-                return makeAttributes(color!)
+                let color = BKColors.rosewood.color
+                return makeAttributes(color)
 
             case .mainTextAssertionOperator:
-                let color = NSColor(named: "auburn")
-                return makeAttributes(color!)
+                let color = BKColors.rosewood.color
+                return makeAttributes(color)
 
             case .mainTextAssertionBracket:
-                let color = NSColor(named: "rosewood")
-                return makeAttributes(color!)
+                let color = BKColors.rosewood.color
+                return makeAttributes(color)
 
             case .mainTextAssertionPunctuation:
-                let color = NSColor(named: "rosewood")
-                return makeAttributes(color!)
+                let color = BKColors.rosewood.color
+                return makeAttributes(color)
 
             case .mainTextAssertionTheoremText:
                 return makeAttributes()
 
             case .mainTextAssertionJustificationText:
-                let color = NSColor(named: "deepSpaceSparkle")
-                return makeAttributes(color!)
+                let color = BKColors.deepSpaceSparkle.color
+                return makeAttributes(color)
 
             case .mainTextAssertionJustificationNumber:
-                let color = NSColor(named: "indianYellow")
-                return makeAttributes(color!)
+                let color = BKColors.indianYellow.color
+                return makeAttributes(color)
 
             case .documentText:
                 let fColor = NSColor.labelColor

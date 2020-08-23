@@ -497,10 +497,10 @@ extension ExportedProof {
         }
 
         // Header text coloring
-        let hColor = NSColor(named: "auburn")!.hexString
+        let hColor = BKColors.auburn.color.hexString
 
         // Line beneath header text
-        let hlColor = NSColor(named: "deepSpaceSparkle")!.hexString
+        let hlColor = BKColors.deepSpaceSparkle.color.hexString
 
         // Line coloring
         let lColor = NSColor.textColor.hexString
