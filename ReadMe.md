@@ -2,9 +2,10 @@
 
 ## Overview
 
-Baker Street is a free-form tool that helps you produce natural deduction proofs
-in propositional logic. Use Baker Street to enter your proof, check for errors, clarify
-relationships between proof lines, preview, and export your proof in several formats.
+Available for macOS (10.12 -), Baker Street is a free-form tool that helps you produce 
+natural deduction proofs in propositional logic. Use Baker Street to enter your proof, 
+check for errors, clarify relationships between proof lines, preview, and export your proof 
+in several formats.
 
 Type your proof in a free-form manner. Baker Street provides automatic line
 numbering and feedback to help you see where you've gone wrong.
@@ -30,7 +31,6 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 - Preview your formatted proof while typing in a lightweight markup language
 
 - Export or copy your preview to LaTeX, Markdown or HTML
-
 
 - Zoom support for all windows
 
