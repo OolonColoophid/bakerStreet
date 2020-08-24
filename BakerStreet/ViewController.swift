@@ -582,23 +582,19 @@ extension ViewController {
         toggleMarkdown()
     }
 
+
+
     @IBAction func toolbarZoom(_ toolbarItem: NSSegmentedControl) {
 
         let selectedSegment = toolbarItem.selectedSegment
 
         if selectedSegment == 0 {
 
-            BKZoomIn([lineTextView, mainTextView, adviceTextView])
-            refreshLines()
-            refreshMainText()
-            deactivateContent()
+            zoomIn()
 
         } else {
 
-            BKZoomOut([lineTextView, mainTextView, adviceTextView])
-            refreshLines()
-            refreshMainText()
-            deactivateContent()
+            zoomOut()
 
         }
 
@@ -612,15 +608,13 @@ extension ViewController {
 
     @IBAction func menuZoomIn(_ sender: Any) {
 
-        BKZoomIn([lineTextView, mainTextView, adviceTextView])
-        refreshLines()
+        zoomIn()
 
     }
 
     @IBAction func menuZoomOut(_ sender: Any) {
 
-        BKZoomOut([lineTextView, mainTextView, adviceTextView])
-        refreshLines()
+        zoomOut()
 
     }
 
@@ -1582,8 +1576,18 @@ extension ViewController {
 
 }
 
-// MARK: Extension: BKZoomable
+// MARK: Zoom
 extension ViewController: BKZoomable {
+
+    func zoomIn() {
+        BKZoomIn()
+        refreshContent()
+    }
+
+    func zoomOut() {
+        BKZoomOut()
+        refreshContent()
+    }
 
 }
 

@@ -25,8 +25,8 @@ enum BKPrefConstants {
 
     }
 
-    // Zoom increment
-    static let zoomIncrement = 0.1 // 0 min, 1 max
+    // Zoom increment (i.e. point size of font inc/dec)
+    static let zoomIncrement: CGFloat = 2
 
     // Proportion of main window that is the advice window,
     // when showing; this can be overridden by the user
@@ -153,7 +153,7 @@ enum BKColors {
 }
 
 // Values that may be changed (initially
-// set to BKPrefConstants
+// set to BKPrefConstants)
 enum UserPrefVariables {
 
     static var globalFont: CGFloat = BKPrefConstants.globalFontSize
@@ -172,7 +172,7 @@ public enum FontStyle {
             case .lineViewFont:
                 return FontStyle.globalFont.value - 3
             case .globalLineHeight:
-                return FontStyle.globalFont.value + 8 // 10
+                return FontStyle.globalFont.value + 8
         }
     }
 }

@@ -240,10 +240,10 @@ extension PreviewViewController {
         let selectedSegment = button.selectedSegment
 
         if selectedSegment == 0 {
-            BKZoomIn(previewTextView)
+            BKZoomIn()
             updateDocumentContent()
         } else {
-            BKZoomOut(previewTextView)
+            BKZoomOut()
             updateDocumentContent()
         }
 
