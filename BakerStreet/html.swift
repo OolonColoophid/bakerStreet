@@ -47,7 +47,7 @@ public enum Examples {
 
             // Let’s begin with an overall proof statement. The first theorem
             //   that appears in a file will be the overall proof statement.
-            //   Ours is on line 20, below
+            //   Ours is on line 23, below
 
             // The proof statement is written using Baker Street markdown. This
             //   avoids having to write special characters like the syntactic
