@@ -165,11 +165,22 @@ extension DocumentViewController {
         let button = sender as! NSSegmentedControl
         let selectedSegment = button.selectedSegment
 
+        // We won't use the BKZoom functions here because we don't have
+        // access to the original functions that produced the text (and those
+        // functions put the font size in)
+
         if selectedSegment == 0 {
-            BKZoomIn()
+
+            let largerSize = NSMakeSize(1.2, 1.2)
+            documentTextView.scaleUnitSquare(to: largerSize)
+
             updateDocumentContent()
+
         } else {
-            BKZoomOut()
+
+            let smallerSize = NSMakeSize(0.8, 0.8)
+            documentTextView.scaleUnitSquare(to: smallerSize)
+
             updateDocumentContent()
         }
 
