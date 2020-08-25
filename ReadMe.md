@@ -1,6 +1,6 @@
 # Baker Street
 
-![](windowPlusAdvice.png)
+![](Screenshots/windowPlusAdvice.png)
 
 ## Overview
 
@@ -50,19 +50,19 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 
 ### Definitions Reference
 
-![](definitions.png)
+![](Screenshots/definitions.png)
 
 ### Preview
 
-![](preview.png)
+![](Screenshots/preview.png)
 
 ### Inference Rules: Overview
 
-![](rulesOverview.png)
+![](Screenshots/rulesOverview.png)
 
 ### Inference Rules: In Detail
 
-![](rulesInDetail.png)
+![](Screenshots/rulesInDetail.png)
 
 ## Licence
 
