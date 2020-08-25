@@ -50,13 +50,13 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 
 ### Definitions Reference
 
-View a pop-up window with definitions and examples.
+View a scrollable pop-up window with definitions and examples.
 
 ![](Screenshots/definitions.png)
 
 ### Preview
 
-Preview your proof and copy/export in various formats.
+Preview your proof with scope-based visual line numbering. Copy/export in various formats.
 
 ![](Screenshots/preview.png)
 
