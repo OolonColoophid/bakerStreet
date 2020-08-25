@@ -50,17 +50,25 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 
 ### Definitions Reference
 
+View a pop-up window with definitions and examples.
+
 ![](Screenshots/definitions.png)
 
 ### Preview
+
+Preview your proof and copy/export in various formats.
 
 ![](Screenshots/preview.png)
 
 ### Inference Rules: Overview
 
+Refer to an overview of inference rules.
+
 ![](Screenshots/rulesOverview.png)
 
 ### Inference Rules: In Detail
+
+The rules are also provided in detail.
 
 ![](Screenshots/rulesInDetail.png)
 
