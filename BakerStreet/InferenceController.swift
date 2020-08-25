@@ -1053,7 +1053,7 @@ public struct InferenceController: BKAdvising {
         if areDifferent == false {
 
             checkFunctionMessage = """
-                Your \(jD) requires that the formulas either side of the top level operator (i.e. logical connective) in the current line be different. However, they are both \(myChildrenDescription).
+                Your \(jD) requires that the formulae either side of the top level operator (i.e. logical connective) in the current line be different. However, they are both \(myChildrenDescription).
             """
         }
 

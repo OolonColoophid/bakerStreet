@@ -104,7 +104,7 @@ class TestFormula: XCTestCase {
     func test_semanticFormula_requestingANDTruthResult_shouldHaveGivenANDTruthResult() {
 
 
-        let formulas = ["true and true",
+        let formulae = ["true and true",
                         "true and false",
                         "false and true",
                         "false and false"]
@@ -113,7 +113,7 @@ class TestFormula: XCTestCase {
                        "false",
                        "false"]
 
-        for (index, f) in formulas.enumerated() {
+        for (index, f) in formulae.enumerated() {
             let myFormula = Formula(f)
             let myResult = results[index]
             print("\(f) : \(myResult), actual is \(myFormula.truthResult)")
@@ -127,7 +127,7 @@ class TestFormula: XCTestCase {
     func test_semanticFormula_requestingORTruthResult_shouldHaveGivenORTruthResult() {
 
 
-        let formulas = ["true or true",
+        let formulae = ["true or true",
                         "true or false",
                         "false or true",
                         "false or false"]
@@ -136,7 +136,7 @@ class TestFormula: XCTestCase {
                        "true",
                        "false"]
 
-        for (index, f) in formulas.enumerated() {
+        for (index, f) in formulae.enumerated() {
             let myFormula = Formula(f)
             let myResult = results[index]
             print("\(f) : \(myResult), actual is \(myFormula.truthResult)")
@@ -150,7 +150,7 @@ class TestFormula: XCTestCase {
     func test_semanticFormula_requestingIFTruthResult_shouldHaveGivenIFTruthResult() {
 
 
-        let formulas = ["true -> true",
+        let formulae = ["true -> true",
                         "true -> false",
                         "false -> true",
                         "false -> false"]
@@ -159,7 +159,7 @@ class TestFormula: XCTestCase {
                        "true",
                        "true"]
 
-        for (index, f) in formulas.enumerated() {
+        for (index, f) in formulae.enumerated() {
             let myFormula = Formula(f)
             let myResult = results[index]
             print("\(f) : \(myResult), actual is \(myFormula.truthResult)")
@@ -173,7 +173,7 @@ class TestFormula: XCTestCase {
     func test_semanticFormula_requestingIFFTruthResult_shouldHaveGivenIFFTruthResult() {
 
 
-        let formulas = ["true <-> true",
+        let formulae = ["true <-> true",
                         "true <-> false",
                         "false <-> true",
                         "false <-> false"]
@@ -182,7 +182,7 @@ class TestFormula: XCTestCase {
                        "false",
                        "true"]
 
-        for (index, f) in formulas.enumerated() {
+        for (index, f) in formulae.enumerated() {
             let myFormula = Formula(f)
             let myResult = results[index]
             print("\(f) : \(myResult), actual is \(myFormula.truthResult)")
@@ -220,7 +220,7 @@ class TestFormula: XCTestCase {
 
 
 
-    func test_semanticallyIdenticalFormulas_requestingTruthTable_shouldHaveSameTruthTables() {
+    func test_semanticallyIdenticalFormulae_requestingTruthTable_shouldHaveSameTruthTables() {
 
         XCTAssertTrue(
             lhsDoesEntailRhs(
@@ -266,7 +266,7 @@ class TestFormula: XCTestCase {
 
     }
 
-    func test_semanticallyDifferentFormulas_requestingTruthTable_shouldHaveDifferentTruthTables() {
+    func test_semanticallyDifferentFormulae_requestingTruthTable_shouldHaveDifferentTruthTables() {
 
         XCTAssertFalse(
             lhsDoesEntailRhs(

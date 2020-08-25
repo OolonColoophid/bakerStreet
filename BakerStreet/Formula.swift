@@ -156,10 +156,10 @@ extension Formula {
     // and find the permutations where each are true by combining them:
     // e.g. p AND q, r -> s
     //      (p AND q) AND (r -> s)
-    public static func makeSuperFormula(_ formulas: [Formula]) -> Formula{
+    public static func makeSuperFormula(_ formulae: [Formula]) -> Formula{
 
         var superFormulaInfixTemp = ""
-        for f in formulas {
+        for f in formulae {
 
             superFormulaInfixTemp = superFormulaInfixTemp + "(" + f.infixText + ") AND "
 

@@ -293,7 +293,7 @@ public enum Justification: CaseIterable {
                 return ""
             case .andIntroduction:
 
-                return "formulas " + "A".formulaToHTMLRespectingCase + ", " +
+                return "formulae " + "A".formulaToHTMLRespectingCase + ", " +
                     "B".formulaToHTMLRespectingCase
 
             case .orIntroduction:
@@ -312,7 +312,7 @@ public enum Justification: CaseIterable {
                 let a1 = "A -> B".formulaToHTMLRespectingCase
                 let a2 = "B -> A".formulaToHTMLRespectingCase
 
-                return "formulas " + a1 + ", " + a2
+                return "formulae " + a1 + ", " + a2
 
             case .ifIntroduction:
 
@@ -321,7 +321,7 @@ public enum Justification: CaseIterable {
 
             case .andElimination:
 
-                return "formulas " + "A and B".formulaToHTMLRespectingCase
+                return "formulae " + "A and B".formulaToHTMLRespectingCase
 
             case .orElimination:
 
@@ -329,7 +329,7 @@ public enum Justification: CaseIterable {
                 let a2 = "A -> C".formulaToHTMLRespectingCase
                 let a3 = "B -> C".formulaToHTMLRespectingCase
 
-                return "formulas " + a1 + ", " + a2 + ", " + a3
+                return "formulae " + a1 + ", " + a2 + ", " + a3
 
             case .notElimination:
 
@@ -342,7 +342,7 @@ public enum Justification: CaseIterable {
                 let a1 = "A -> B".formulaToHTMLRespectingCase
                 let a2 = "A".formulaToHTMLRespectingCase
 
-                return "formulas " + a1 + ", " + a2
+                return "formulae " + a1 + ", " + a2
 
             case .iffElimination:
 

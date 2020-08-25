@@ -1114,7 +1114,7 @@ enum DocumentContent {
                     let rhs = "q AND p".formulaToHTML
                     let t = tP.htmlVLN
 
-                    let s = "A statement of the form 'Given one formula or formulas, we can prove another formula'. For example, we might wish to claim that, given " +
+                    let s = "A statement of the form 'Given one formula or formulae, we can prove another formula'. For example, we might wish to claim that, given " +
                         lhs +
                         " we can claim " +
                         rhs + ". We would write it like this:"

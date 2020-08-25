@@ -174,7 +174,7 @@ public class Theorem {
 
         var wellFormed = true
 
-        // Multiple LHS formulas
+        // Multiple LHS formulae
         if lhs.contains(",") {
             let formulae = lhs.split(separator: ",")
 
@@ -284,8 +284,8 @@ extension Theorem {
 
     func theoremProvable() -> Bool {
 
-        // Get all LHS formulas in scope
-        let lhsInScope = getAllLhsFormulasInScope()
+        // Get all LHS formulae in scope
+        let lhsInScope = getAllLhsFormulaeInScope()
 
         // Turn into super formula
         let lhsSuperFormula = Formula.makeSuperFormula(lhsInScope)
@@ -300,8 +300,8 @@ extension Theorem {
 
     }
 
-    // Collect all LHS formulas in scope (including current theorem)
-    func getAllLhsFormulasInScope() -> [Formula] {
+    // Collect all LHS formulae in scope (including current theorem)
+    func getAllLhsFormulaeInScope() -> [Formula] {
 
         var lhsInScope = [Formula]()
 
