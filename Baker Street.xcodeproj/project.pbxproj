@@ -81,6 +81,7 @@
 		5B473D9524AE34AC0059AB25 /* InferenceInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InferenceInspector.swift; sourceTree = "<group>"; };
 		5B6DD31924DD35EA00317745 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageViewController.swift; path = ../ImageViewController.swift; sourceTree = "<group>"; };
 		5B79FD6B24D1F26300218CB1 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		5B838C2824F562B400504451 /* windowPlusAdvice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = windowPlusAdvice.png; path = /Users/ianuser/Sync/developer/bakerStreet/windowPlusAdvice.png; sourceTree = "<absolute>"; };
 		5B84803B24A1EEDA006726E3 /* Baker StreetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Baker StreetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B84803F24A1EEDA006726E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B8573E2247D14DB00E1C613 /* Baker Street.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Baker Street.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +162,14 @@
 			name = Inference;
 			sourceTree = "<group>";
 		};
+		5B838C2924F562BD00504451 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				5B838C2824F562B400504451 /* windowPlusAdvice.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		5B84803C24A1EEDA006726E3 /* Baker StreetTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +192,7 @@
 				5B8573E4247D14DB00E1C613 /* BakerStreet */,
 				5B84803C24A1EEDA006726E3 /* Baker StreetTests */,
 				5B8573E3247D14DB00E1C613 /* Products */,
+				5B838C2924F562BD00504451 /* Screenshots */,
 			);
 			sourceTree = "<group>";
 		};
@@ -346,7 +356,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = Ian;
 				TargetAttributes = {
 					5B84803A24A1EEDA006726E3 = {
@@ -569,7 +579,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

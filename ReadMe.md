@@ -1,5 +1,7 @@
 # Baker Street
 
+![](windowPlusAdvice.png)
+
 ## Overview
 
 Available for macOS (10.12 -), Baker Street is a free-form tool that helps you produce 
