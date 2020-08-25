@@ -46,6 +46,24 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 
   - Key term definitions (e.g. theorem)
 
+## Screenshots
+
+### Definitions Reference
+
+![](definitions.png)
+
+### Preview
+
+![](preview.png)
+
+### Inference Rules: Overview
+
+![](rulesOverview.png)
+
+### Inference Rules: In Detail
+
+![](rulesInDetail.png)
+
 ## Licence
 
 MIT

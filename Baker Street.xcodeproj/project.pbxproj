@@ -27,6 +27,11 @@
 		5B8573E8247D14DB00E1C613 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8573E7247D14DB00E1C613 /* ViewController.swift */; };
 		5B8573EA247D14DB00E1C613 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8573E9247D14DB00E1C613 /* Document.swift */; };
 		5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B8573ED247D14DB00E1C613 /* Main.storyboard */; };
+		5B891B2524F564A000693379 /* rulesInDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B891B2024F5649F00693379 /* rulesInDetail.png */; };
+		5B891B2624F564A000693379 /* rulesOverview.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B891B2124F5649F00693379 /* rulesOverview.png */; };
+		5B891B2724F564A000693379 /* BakerStreetMarkdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B891B2224F5649F00693379 /* BakerStreetMarkdown.png */; };
+		5B891B2824F564A000693379 /* definitions.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B891B2324F5649F00693379 /* definitions.png */; };
+		5B891B2924F564A000693379 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B891B2424F564A000693379 /* preview.png */; };
 		5B8929B0249E6EE400897470 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8929AF249E6EE400897470 /* Extensions.swift */; };
 		5B8929C2249E710B00897470 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8929C1249E710B00897470 /* Enums.swift */; };
 		5B8929C4249E718400897470 /* Operats and operands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8929C3249E718400897470 /* Operats and operands.swift */; };
@@ -92,6 +97,11 @@
 		5B8573EE247D14DB00E1C613 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B8573F0247D14DB00E1C613 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B8573F1247D14DB00E1C613 /* BakerStreet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BakerStreet.entitlements; sourceTree = "<group>"; };
+		5B891B2024F5649F00693379 /* rulesInDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rulesInDetail.png; sourceTree = "<group>"; };
+		5B891B2124F5649F00693379 /* rulesOverview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rulesOverview.png; sourceTree = "<group>"; };
+		5B891B2224F5649F00693379 /* BakerStreetMarkdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BakerStreetMarkdown.png; sourceTree = "<group>"; };
+		5B891B2324F5649F00693379 /* definitions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = definitions.png; sourceTree = "<group>"; };
+		5B891B2424F564A000693379 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		5B8929AF249E6EE400897470 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B8929C1249E710B00897470 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		5B8929C3249E718400897470 /* Operats and operands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Operats and operands.swift"; sourceTree = "<group>"; };
@@ -165,6 +175,11 @@
 		5B838C2924F562BD00504451 /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
+				5B891B2224F5649F00693379 /* BakerStreetMarkdown.png */,
+				5B891B2324F5649F00693379 /* definitions.png */,
+				5B891B2424F564A000693379 /* preview.png */,
+				5B891B2024F5649F00693379 /* rulesInDetail.png */,
+				5B891B2124F5649F00693379 /* rulesOverview.png */,
 				5B838C2824F562B400504451 /* windowPlusAdvice.png */,
 			);
 			path = Screenshots;
@@ -399,10 +414,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B891B2524F564A000693379 /* rulesInDetail.png in Resources */,
 				5B2FBB6C24ED1BB500860310 /* Licence.md in Resources */,
+				5B891B2724F564A000693379 /* BakerStreetMarkdown.png in Resources */,
+				5B891B2624F564A000693379 /* rulesOverview.png in Resources */,
 				5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */,
 				5B2FBB6E24ED1CBC00860310 /* ReadMe.md in Resources */,
+				5B891B2824F564A000693379 /* definitions.png in Resources */,
 				5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */,
+				5B891B2924F564A000693379 /* preview.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
