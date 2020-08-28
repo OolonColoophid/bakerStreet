@@ -48,8 +48,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1380"
             endingLineNumber = "1380"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "splitViewWillResizeSubviews(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

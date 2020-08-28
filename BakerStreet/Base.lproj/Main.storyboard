@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -824,7 +825,7 @@ DQ
                                 <rect key="frame" x="25" y="72" width="405" height="97"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Lfd-dZ-H23">
                                     <rect key="frame" x="0.0" y="0.0" width="405" height="97"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" id="i1k-HN-ghw">
                                             <rect key="frame" x="0.0" y="0.0" width="405" height="97"/>
@@ -891,7 +892,7 @@ DQ
                                 <rect key="frame" x="20" y="78" width="440" height="464"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Bcb-Z3-ByV">
                                     <rect key="frame" x="0.0" y="0.0" width="440" height="464"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="WO2-xC-y4W" userLabel="Document Text">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="464"/>
@@ -998,7 +999,7 @@ DQ
                                 <rect key="frame" x="0.0" y="61" width="483" height="501"/>
                                 <clipView key="contentView" copiesOnScroll="NO" id="tuy-Tc-onB">
                                     <rect key="frame" x="0.0" y="0.0" width="483" height="501"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="Sa8-v2-kdC" userLabel="Document Text">
                                             <rect key="frame" x="0.0" y="0.0" width="483" height="501"/>
@@ -1105,10 +1106,10 @@ DQ
             <objects>
                 <viewController storyboardIdentifier="ImageViewController" id="r4o-bU-O21" customClass="ImageViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-Wf-Q6a">
-                        <rect key="frame" x="0.0" y="0.0" width="723" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="723" height="483"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-zh-pIf">
-                                <rect key="frame" x="0.0" y="0.0" width="723" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="723" height="483"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="naturalDeductionFormulae" id="4dv-96-Be4"/>
                             </imageView>
                         </subviews>
@@ -1143,7 +1144,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="pgR-SE-jkL" userLabel="Lines Content View">
                                             <rect key="frame" x="0.0" y="0.0" width="57" height="523"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Line Numbers" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" id="so8-f9-XAL">
                                                     <rect key="frame" x="0.0" y="0.0" width="57" height="523"/>
@@ -1170,7 +1171,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="o39-TA-3DH" userLabel="Statements Content View">
                                             <rect key="frame" x="0.0" y="0.0" width="882" height="523"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Proof Statements" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" allowsUndo="YES" id="FNI-bT-lJX" userLabel="Statement View">
                                                     <rect key="frame" x="0.0" y="0.0" width="882" height="523"/>
@@ -1197,7 +1198,7 @@ DQ
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" toolTip="Justifications" drawsBackground="NO" copiesOnScroll="NO" id="6UW-53-QHA" userLabel="Advice Content View">
                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="523"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView toolTip="Validation Checks" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="09r-gg-lXH">
                                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="523"/>
@@ -1296,7 +1297,7 @@ DQ
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="naturalDeductionFormulae" width="128" height="128"/>
+        <image name="naturalDeductionFormulae" width="1968.5" height="1315.5"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
         <namedColor name="auburnBackground">

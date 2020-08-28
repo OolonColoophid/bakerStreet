@@ -49,7 +49,7 @@ protocol BKIdentifiable {
 
 }
 
-// Components can be queries about their wellformedness
+// Components can be queried about their wellformedness
 protocol BKParseable {
 
     var wellFormed: Bool { get set }
