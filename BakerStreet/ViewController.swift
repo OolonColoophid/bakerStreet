@@ -288,7 +288,7 @@ extension ViewController {
     func getContentViewBounds (forContentView contentView: NSClipView) ->
         (CGFloat, CGFloat) {
 
-        return (contentView.bounds.origin.x, contentView.bounds.origin.y)
+            return (contentView.bounds.origin.x, contentView.bounds.origin.y)
 
     }
 
@@ -306,7 +306,7 @@ extension ViewController {
             return
         }
 
-        let myXY = getContentViewBounds(forContentView: statementsContentView)
+        let myXY = getContentViewBounds(forContentView: linesContentView)
 
         willBeginScrollSync()
 
@@ -324,7 +324,7 @@ extension ViewController {
             return
         }
 
-        let myXY = getContentViewBounds(forContentView: statementsContentView)
+        let myXY = getContentViewBounds(forContentView: adviceContentView)
 
         willBeginScrollSync()
 
@@ -1504,7 +1504,7 @@ extension ViewController {
         // Get styled content
         let mainStyled = proofController.mainViewTextStyled
         let adviceStyled = proofController.adviceViewTextStyled
-
+        
         // Disable any user-editing detection, and layout change detection
         hasUserEditControl = false
 
