@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B191B0D24FAB0030054104B /* DocumentView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B191B0C24FAB0030054104B /* DocumentView.storyboard */; };
+		5B191B0F24FAB0940054104B /* PreviewView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B191B0E24FAB0940054104B /* PreviewView.storyboard */; };
+		5B191B1124FAB0BC0054104B /* ImageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B191B1024FAB0BC0054104B /* ImageView.storyboard */; };
 		5B1F54C424A1F64800D4DA65 /* TestPrecedence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54C324A1F64800D4DA65 /* TestPrecedence.swift */; };
 		5B1F54C624A1F67500D4DA65 /* TestTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54C524A1F67500D4DA65 /* TestTree.swift */; };
 		5B1F54C824A1F68000D4DA65 /* TestLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54C724A1F68000D4DA65 /* TestLexer.swift */; };
@@ -72,6 +75,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B191B0C24FAB0030054104B /* DocumentView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DocumentView.storyboard; sourceTree = "<group>"; };
+		5B191B0E24FAB0940054104B /* PreviewView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PreviewView.storyboard; sourceTree = "<group>"; };
+		5B191B1024FAB0BC0054104B /* ImageView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImageView.storyboard; sourceTree = "<group>"; };
 		5B1F54C324A1F64800D4DA65 /* TestPrecedence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPrecedence.swift; sourceTree = "<group>"; };
 		5B1F54C524A1F67500D4DA65 /* TestTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTree.swift; sourceTree = "<group>"; };
 		5B1F54C724A1F68000D4DA65 /* TestLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestLexer.swift; sourceTree = "<group>"; };
@@ -150,6 +156,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B191B1224FAB0F80054104B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5B8573ED247D14DB00E1C613 /* Main.storyboard */,
+				5B191B0C24FAB0030054104B /* DocumentView.storyboard */,
+				5B191B0E24FAB0940054104B /* PreviewView.storyboard */,
+				5B191B1024FAB0BC0054104B /* ImageView.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		5B33E54724A7B40000C6792B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,7 +251,7 @@
 				5BDD513A24ACE2BB0025ADFA /* Examples */,
 				5B8929D1249E72F300897470 /* Proof */,
 				5B8573EB247D14DB00E1C613 /* Assets.xcassets */,
-				5B8573ED247D14DB00E1C613 /* Main.storyboard */,
+				5B191B1224FAB0F80054104B /* Storyboards */,
 				5B8573F0247D14DB00E1C613 /* Info.plist */,
 				5B8573F1247D14DB00E1C613 /* BakerStreet.entitlements */,
 			);
@@ -354,6 +371,7 @@
 				5B8573DE247D14DB00E1C613 /* Sources */,
 				5B8573DF247D14DB00E1C613 /* Frameworks */,
 				5B8573E0247D14DB00E1C613 /* Resources */,
+				5B191B0B24FAAF470054104B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -416,17 +434,40 @@
 			files = (
 				5B891B2524F564A000693379 /* rulesInDetail.png in Resources */,
 				5B2FBB6C24ED1BB500860310 /* Licence.md in Resources */,
+				5B191B0D24FAB0030054104B /* DocumentView.storyboard in Resources */,
 				5B891B2724F564A000693379 /* BakerStreetMarkdown.png in Resources */,
 				5B891B2624F564A000693379 /* rulesOverview.png in Resources */,
 				5B48699A249E7E4100A78D27 /* Assets.xcassets in Resources */,
 				5B2FBB6E24ED1CBC00860310 /* ReadMe.md in Resources */,
+				5B191B0F24FAB0940054104B /* PreviewView.storyboard in Resources */,
 				5B891B2824F564A000693379 /* definitions.png in Resources */,
+				5B191B1124FAB0BC0054104B /* ImageView.storyboard in Resources */,
 				5B8573EF247D14DB00E1C613 /* Main.storyboard in Resources */,
 				5B891B2924F564A000693379 /* preview.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5B191B0B24FAAF470054104B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# From https://bendodson.com/weblog/2014/10/02/showing-todo-as-warning-in-swift-xcode-project/\nTAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B84803724A1EEDA006726E3 /* Sources */ = {

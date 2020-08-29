@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Image View Controller-->
+        <scene sceneID="UGV-6x-wIU">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewController" id="K3C-m0-tJ9" customClass="ImageViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Yhb-2q-KIy">
+                        <rect key="frame" x="0.0" y="0.0" width="1969" height="1316"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AUx-FW-qu4">
+                                <rect key="frame" x="0.0" y="0.0" width="1969" height="1316"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="naturalDeductionFormulae" id="aEI-Jk-aRm"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="AUx-FW-qu4" firstAttribute="top" secondItem="Yhb-2q-KIy" secondAttribute="top" id="NdI-47-uv8"/>
+                            <constraint firstAttribute="trailing" secondItem="AUx-FW-qu4" secondAttribute="trailing" id="aLi-yd-dwI"/>
+                            <constraint firstItem="AUx-FW-qu4" firstAttribute="leading" secondItem="Yhb-2q-KIy" secondAttribute="leading" id="ePt-Ug-5Qk"/>
+                            <constraint firstAttribute="bottom" secondItem="AUx-FW-qu4" secondAttribute="bottom" id="zdB-2b-qVE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="AUx-FW-qu4" id="qav-su-KdG"/>
+                    </connections>
+                </viewController>
+                <customObject id="1C6-oa-nrk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2510" y="414"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="naturalDeductionFormulae" width="1968.5" height="1315.5"/>
+    </resources>
+</document>

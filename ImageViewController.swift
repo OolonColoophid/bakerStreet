@@ -34,7 +34,7 @@ extension ImageViewController {
     static func freshController() -> ImageViewController {
         //1. Get a reference to Main.storyboard.
         let storyboard = NSStoryboard(
-            name: NSStoryboard.Name("Main"),
+            name: NSStoryboard.Name("ImageView"),
             bundle: nil)
         //2. Create a Scene identifier that matches
         // the one I set in the storyboard.

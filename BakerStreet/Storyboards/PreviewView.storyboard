@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Preview View Controller-->
+        <scene sceneID="lBs-cN-hGu">
+            <objects>
+                <viewController storyboardIdentifier="PreviewViewController" id="BLZ-oo-AWX" customClass="PreviewViewController" customModule="Baker_Street" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="jbH-No-CsM">
+                        <rect key="frame" x="0.0" y="0.0" width="483" height="562"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6za-Al-XNb">
+                                <rect key="frame" x="0.0" y="61" width="483" height="501"/>
+                                <clipView key="contentView" copiesOnScroll="NO" id="TfA-G2-0jg">
+                                    <rect key="frame" x="0.0" y="0.0" width="483" height="501"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="A0R-eQ-1zd" userLabel="Document Text">
+                                            <rect key="frame" x="0.0" y="0.0" width="483" height="501"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="483" height="501"/>
+                                            <size key="maxSize" width="483" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="PKP-H7-Vza">
+                                    <rect key="frame" x="-100" y="-100" width="240" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="JVe-Dx-ttb">
+                                    <rect key="frame" x="467" y="0.0" width="16" height="501"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l8Y-0g-Mer" userLabel="Export">
+                                <rect key="frame" x="357" y="17" width="109" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="Export As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="IFK-FG-n2Q" id="mfe-Mh-mve" userLabel="Export">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" title="Copy" id="pXb-pJ-M2L">
+                                        <items>
+                                            <menuItem title="Export As..." hidden="YES" id="IFK-FG-n2Q" userLabel="Copy As..."/>
+                                            <menuItem title="LaTeX" enabled="NO" id="8Zi-kR-cOB"/>
+                                            <menuItem title="HTML" enabled="NO" id="qIi-84-rw8"/>
+                                            <menuItem title="Markdown" enabled="NO" id="EEc-IC-5dj"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="buttonExportAs:" target="Ylp-15-LVe" id="4HX-zX-BGP"/>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lKe-3V-ZqH" userLabel="Copy">
+                                <rect key="frame" x="254" y="17" width="101" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="Copy As..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="MTr-aU-VFl" id="6dO-jY-LV5" userLabel="Copy">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" title="Copy" id="JtV-7e-eW6">
+                                        <items>
+                                            <menuItem title="Copy As..." hidden="YES" id="MTr-aU-VFl" userLabel="Copy As..."/>
+                                            <menuItem title="LaTeX" enabled="NO" id="oc4-XY-mCq"/>
+                                            <menuItem title="HTML" enabled="NO" id="TDr-Qq-TP8"/>
+                                            <menuItem title="Markdown" enabled="NO" id="rI9-CG-uH9"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="buttonCopyAs" target="Ylp-15-LVe" id="18V-3j-EVn"/>
+                                </connections>
+                            </popUpButton>
+                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kgD-La-Les">
+                                <rect key="frame" x="0.0" y="58" width="483" height="5"/>
+                            </box>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lQ1-aP-8Uv" userLabel="Zoom Button">
+                                <rect key="frame" x="18" y="18" width="71" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="3zx-uu-hWP">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment image="NSAddTemplate" width="32"/>
+                                        <segment image="NSRemoveTemplate" width="32" tag="1"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="buttonZoom:" target="Ylp-15-LVe" id="cHH-rC-J6c"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kgD-La-Les" firstAttribute="leading" secondItem="jbH-No-CsM" secondAttribute="leading" id="0h0-3a-UxB"/>
+                            <constraint firstItem="6za-Al-XNb" firstAttribute="top" secondItem="jbH-No-CsM" secondAttribute="top" id="BYl-AS-ST5"/>
+                            <constraint firstAttribute="trailing" secondItem="kgD-La-Les" secondAttribute="trailing" id="CtJ-PD-fxa"/>
+                            <constraint firstAttribute="trailing" secondItem="l8Y-0g-Mer" secondAttribute="trailing" constant="20" id="Fwt-13-u6m"/>
+                            <constraint firstItem="lQ1-aP-8Uv" firstAttribute="top" secondItem="6za-Al-XNb" secondAttribute="bottom" constant="20" id="JlL-vc-G04"/>
+                            <constraint firstAttribute="trailing" secondItem="6za-Al-XNb" secondAttribute="trailing" id="NIR-SK-ik9"/>
+                            <constraint firstAttribute="trailing" secondItem="lKe-3V-ZqH" secondAttribute="trailing" constant="131" id="R4T-gm-Jbm"/>
+                            <constraint firstItem="lQ1-aP-8Uv" firstAttribute="leading" secondItem="jbH-No-CsM" secondAttribute="leading" constant="20" id="VI6-j5-hL4"/>
+                            <constraint firstAttribute="bottom" secondItem="l8Y-0g-Mer" secondAttribute="bottom" constant="20" id="cdq-1w-aEa"/>
+                            <constraint firstAttribute="bottom" secondItem="lKe-3V-ZqH" secondAttribute="bottom" constant="20" id="plf-oD-P1f"/>
+                            <constraint firstAttribute="bottom" secondItem="6za-Al-XNb" secondAttribute="bottom" constant="61" id="sdC-Oq-3fu"/>
+                            <constraint firstItem="6za-Al-XNb" firstAttribute="leading" secondItem="jbH-No-CsM" secondAttribute="leading" id="tbT-mC-snX"/>
+                            <constraint firstAttribute="bottom" secondItem="kgD-La-Les" secondAttribute="bottom" constant="60" id="vSK-40-Ysg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="copyAs" destination="lKe-3V-ZqH" id="Lfn-cU-FFB"/>
+                        <outlet property="exportAs" destination="l8Y-0g-Mer" id="WhN-8P-Zje"/>
+                        <outlet property="previewTextView" destination="A0R-eQ-1zd" id="AlK-1w-C6q"/>
+                        <outlet property="zoomButton" destination="lQ1-aP-8Uv" id="dma-U6-uB0"/>
+                    </connections>
+                </viewController>
+                <customObject id="Ylp-15-LVe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1730.5" y="374"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
+    </resources>
+</document>

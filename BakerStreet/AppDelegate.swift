@@ -6,6 +6,9 @@
 //  Copyright © 2020 Ian Hocking. MIT Licence.
 //
 
+// TODO: Split views over different storyboards
+
+
 import Cocoa
 
 @NSApplicationMain
