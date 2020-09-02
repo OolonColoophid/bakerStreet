@@ -27,10 +27,11 @@ extension ImageViewController: BKZoomable {
 }
 
 
-// MARK: Storyboard Instantiation
 
 extension ImageViewController {
     // MARK: Storyboard instantiation
+    /// We can use this convenience method to create a new instance
+    /// - Returns: a new ImageViewController object
     static func freshController() -> ImageViewController {
         //1. Get a reference to Main.storyboard.
         let storyboard = NSStoryboard(

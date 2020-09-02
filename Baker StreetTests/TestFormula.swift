@@ -14,7 +14,6 @@ import XCTest
 class TestFormula: XCTestCase {
 
     // MARK: Wellformedness
-
     func test_formulae_withCorrectForm_shouldBeReportedWellFormed() {
         let correctFormulae = ["true",
                                "false",
@@ -75,7 +74,6 @@ class TestFormula: XCTestCase {
     }
 
     // MARK: Truth tables
-
     func test_formula_requestingTruthTable_shouldHaveTruthTable() {
         let formula = "p and q"
         let f = Formula(formula, withTruthTable: true)
@@ -101,8 +99,8 @@ class TestFormula: XCTestCase {
 
     }
 
+    // MARK: For logical connective
     func test_semanticFormula_requestingANDTruthResult_shouldHaveGivenANDTruthResult() {
-
 
         let formulae = ["true and true",
                         "true and false",
