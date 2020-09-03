@@ -1,6 +1,6 @@
 //
 //  Tree.swift
-//  NaturalDeductionP1
+//  Baker Street
 //
 //  Created by Ian Hocking on 20/06/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.
@@ -8,9 +8,10 @@
 
 import Foundation
 
-/// A Tree type. In this basic form, we are storing formulae
+// A Tree type, in this basic form, stores a formula
+// in a recursive structure where tokenised elements
+// have parent/child relationships.
 public class Tree: Equatable {
-
 
     // Completely equivalent (e.g. 'p' == 'p')
     public static func == (lhs: Tree, rhs: Tree) -> Bool {

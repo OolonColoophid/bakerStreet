@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Returns semantic permutations (i.e. a truth table) for a formula.
 struct SemanticPermuter {
 
     private var permutations = [[Token]]()

@@ -10,6 +10,7 @@ import Foundation
 
 import Cocoa
 
+// Creates and holds a proof as a collection of RudimentaryProofLines.
 public class ExportedProof {
 
     // The proof in its 'rudimentary' (i.e. portable/universal) form

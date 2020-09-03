@@ -9,6 +9,7 @@
 import Cocoa
 import Foundation
 
+// Creates a Proof struct and manages its style.
 public class ProofController {
 
     var proof: Proof

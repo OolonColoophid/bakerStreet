@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// Displays and controls the floating Rules Overview window.
 class ImageViewController: NSViewController {
 
     @IBOutlet weak var zoomButton: NSSegmentedControl!

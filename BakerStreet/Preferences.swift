@@ -1,6 +1,6 @@
 //
 //  Preferences.swift
-//  NaturalDeductionP1
+//  Holds global enumerated types, functions and constants related to appearance.
 //
 //  Created by Ian Hocking on 29/05/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.

@@ -1,6 +1,6 @@
 //
 //  Lexer.swift
-//  NaturalDeductionP1
+//  Baker Street
 //
 //  Created by Ian Hocking on 20/06/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.

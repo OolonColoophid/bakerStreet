@@ -1,6 +1,6 @@
 //
 //  Formula.swift
-//  NaturalDeductionP1
+//  Baker Street
 //
 //  Created by Ian Hocking on 20/06/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.
@@ -8,8 +8,7 @@
 
 import Foundation
 
-
-/// Holds a formula, e.g. `p AND p`
+// Takes a string like “p AND q” and returns a Formula type.
 public struct Formula: Equatable {
 
     public let identifier =               UUID()   // i.e. 4 random bytes

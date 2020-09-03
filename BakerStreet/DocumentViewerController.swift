@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// Displays and controls floating document windows (i.e. for rules, definitions and markdown)
 class DocumentViewController: NSViewController, NSSearchFieldDelegate {
 
     var documentText = NSMutableAttributedString()

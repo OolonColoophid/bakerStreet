@@ -1,6 +1,6 @@
 //
 //  Document.swift
-//  NaturalDeductionP1
+//  Baker Street
 //
 //  Created by Ian Hocking on 26/05/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.

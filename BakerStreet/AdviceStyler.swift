@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Returns styled text for the advice popover views.
 public struct AdviceStyler: Styling {
 
 

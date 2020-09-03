@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// Displays and controls the floating Preview window.
 class PreviewViewController: NSViewController {
 
     var previewText = NSMutableAttributedString()

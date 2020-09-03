@@ -1,6 +1,6 @@
 //
-//  errorDescriptions.swift
-//  Baker Street
+//  Examples.swift
+//  Stores example proofs, text for all floating windows, extends primitive String with HTML convenience functions.
 //
 //  Created by Ian Hocking on 01/07/2020.
 //  Copyright © 2020 Ian Hocking. MIT Licence.

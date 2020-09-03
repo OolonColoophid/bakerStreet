@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// Displays and controls the popup advice window.
 class AdviceViewController: NSViewController {
 
     // |-------------------------------|

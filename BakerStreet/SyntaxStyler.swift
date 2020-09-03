@@ -8,8 +8,8 @@
 
 import Foundation
 
+// Returns highlighted formulae and theorems.
 public struct SyntaxStyler: Styling {
-
 
     public func style(_ text: String,
                       with attributes: [NSAttributedString.Key : Any])
