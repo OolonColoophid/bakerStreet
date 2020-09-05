@@ -171,6 +171,8 @@ class ViewController: NSViewController {
 
         setViewsScrollSync()
 
+        setThemeChangeNotification()
+
     }
 
     override var representedObject: Any? {
@@ -187,6 +189,24 @@ class ViewController: NSViewController {
         rulesOverviewPanel.close()
         definitionsPanel.close()
         previewPanel.close()
+    }
+
+}
+
+// MARK: Dark Mode
+
+extension ViewController {
+
+    func setThemeChangeNotification() {
+        // We want to be notified if the user changes between
+        // light and dark mode. Much of the interface will update
+        // automatically, but the NSPanels (e.g. Definitions) will need
+        // to be destroyed and recreated
+        DistributedNotificationCenter.default.addObserver(
+            self,
+            selector: #selector(interfaceModeChanged(sender:)),
+            name: NSNotification.Name(rawValue: "AppleInterfaceThemeChangedNotification"),
+            object: nil)
     }
 
 }
@@ -212,17 +232,6 @@ extension ViewController {
     }
 
     func setNotifications() {
-
-        // We want to be notified if the user changes between
-        // light and dark mode. Much of the interface will update
-        // automatically, but the NSPanels (e.g. Definitions) will need
-        // to be destroyed and recreated
-        DistributedNotificationCenter.default.addObserver(
-            self,
-            selector: #selector(interfaceModeChanged(sender:)),
-            name: NSNotification.Name(rawValue: "AppleInterfaceThemeChangedNotification"),
-            object: nil)
-
 
         // We'll now add ourself to the notification centre so
         // we can be called when the bounds do change.
@@ -270,7 +279,7 @@ extension ViewController {
             return
         }
 
-        let myCaretIndex = caretIndex()
+        // let myCaretIndex = caretIndex()
 
         let myXY = getContentViewBounds(forContentView: statementsContentView)
 
@@ -280,25 +289,14 @@ extension ViewController {
 
         setScroll(forContentView: adviceContentView, to: myXY)
 
-        mainTextView.selectedRange = myCaretIndex
+
+
+        // mainTextView.selectedRange = myCaretIndex
 
         willEndScrollSync()
     }
 
-    func getContentViewBounds (forContentView contentView: NSClipView) ->
-        (CGFloat, CGFloat) {
 
-        return (contentView.bounds.origin.x, contentView.bounds.origin.y)
-
-    }
-
-    func setScroll(forContentView contentView: NSClipView,
-                   to newXY: (CGFloat, CGFloat)) {
-
-        contentView.bounds.origin.y = newXY.0
-        contentView.bounds.origin.y = newXY.1
-
-    }
 
     @objc func lineContentDidScroll(notification: Notification) {
 
@@ -306,7 +304,7 @@ extension ViewController {
             return
         }
 
-        let myXY = getContentViewBounds(forContentView: statementsContentView)
+        let myXY = getContentViewBounds(forContentView: linesContentView)
 
         willBeginScrollSync()
 
@@ -324,7 +322,7 @@ extension ViewController {
             return
         }
 
-        let myXY = getContentViewBounds(forContentView: statementsContentView)
+        let myXY = getContentViewBounds(forContentView: adviceContentView)
 
         willBeginScrollSync()
 
@@ -335,6 +333,21 @@ extension ViewController {
 
     }
 
+    func getContentViewBounds (forContentView contentView: NSClipView) ->
+        (CGFloat, CGFloat) {
+
+            return (contentView.bounds.origin.x, contentView.bounds.origin.y)
+
+    }
+
+    func setScroll(forContentView contentView: NSClipView,
+                   to newXY: (CGFloat, CGFloat)) {
+
+        contentView.bounds.origin.x = newXY.0
+        contentView.bounds.origin.y = newXY.1
+
+
+    }
     func willBeginScrollSync() {
         isBKScrollSyncing = true
     }
