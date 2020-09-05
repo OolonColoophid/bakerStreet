@@ -1647,18 +1647,23 @@ extension ViewController {
 
     func makeNewDocument(_ text: String) {
 
-        // Can we set the document title?
-
+        // Create a new document using our subclass
+        // of NSDocument
         let newHelpExample = Document()
 
+        // What is our current NSDocumentController?
         let myDocumentController = NSDocumentController.shared
 
+        // Make the controller aware of our new document
         myDocumentController.addDocument(newHelpExample)
 
+        // Set the mainText
         newHelpExample.mainText = text
 
+        // Create the window controllers
         newHelpExample.makeWindowControllers()
 
+        // Reveal to user
         newHelpExample.showWindows()
 
     }
