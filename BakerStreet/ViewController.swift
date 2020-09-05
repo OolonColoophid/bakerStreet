@@ -1651,6 +1651,10 @@ extension ViewController {
 
         let newHelpExample = Document()
 
+        let myDocumentController = NSDocumentController.shared
+
+        myDocumentController.addDocument(newHelpExample)
+
         newHelpExample.mainText = text
 
         newHelpExample.makeWindowControllers()
