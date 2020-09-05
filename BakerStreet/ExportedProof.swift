@@ -506,6 +506,9 @@ extension ExportedProof {
         // Line coloring
         let lColor = NSColor.textColor.hexString
 
+        // Document background colour
+        let bColor = NSColor.textBackgroundColor.hexString
+
         let proofTheoremHTML = getTheoremHTML(proofStatement)
 
         // Only one line? Export as single line
@@ -546,7 +549,7 @@ extension ExportedProof {
 
         // Finalise table and place in body
         let myTableComplete = myTableHeadAndBody.w("table", withAttr: "style = \"font-size: 1em; color: \(lColor); width: 100%; padding: 1em;\"")
-            .w("body")
+            .w("body", withAttr: "style = \"background-color: \(bColor);\"")
 
         // Comment
             let comment = """
