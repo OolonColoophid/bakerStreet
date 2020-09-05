@@ -31,6 +31,44 @@ public enum Examples {
     case notIntroduction
     case falseElimination
 
+    var title: String {
+        switch self {
+            case .tutorial:
+            return "Tutorial"
+            case .subProof:
+            return "Example: Subproof"
+
+            case .andElimination:
+                return "Example: AND Elimination"
+            case .andIntroduction:
+                return "Example: AND Introduction"
+            case .orIntroduction:
+                return "Example: OR Introduction"
+            case .orElimination:
+                return "Example: OR Elimination"
+            case .ifIntroduction:
+                return "Example: -> Introduction"
+            case .iffIntroduction:
+                return "Example: <-> Introduction"
+            case .iffElimination:
+                return "Example: <-> Elimination"
+            case .ifElimination:
+                return "Example: -> Elimination"
+            case .ifIntroduction3:
+                return "Example: -> Introduction"
+            case .ifIntroduction4:
+                return "Example: -> Introduction"
+            case .ifIntroduction5:
+                return "Example: -> Introduction"
+            case .notElimination:
+                return "Example: ~ Elimination"
+            case .notIntroduction:
+                return "Example: ~ Introduction"
+            case .falseElimination:
+                return "Example: false Elimination"
+        }
+    }
+
     var text: String {
         switch self {
 

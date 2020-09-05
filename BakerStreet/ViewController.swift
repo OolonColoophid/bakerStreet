@@ -1611,45 +1611,59 @@ extension ViewController {
     func helpExample(_ menuItem: NSMenuItem) {
 
         var proofText = ""
+        var title = ""
 
         switch menuItem.tag {
             case -1:
                 proofText = Examples.tutorial.text
+                title = Examples.tutorial.title
             case 1:
                 proofText = Examples.andElimination.text
+                title = Examples.andElimination.title
             case 2:
                 proofText = Examples.orIntroduction.text
+                title = Examples.orIntroduction.title
             case 3:
                 proofText = Examples.orElimination.text
+                title = Examples.orElimination.title
             case 4:
                 proofText = Examples.ifIntroduction.text
+                title = Examples.ifIntroduction.title
             case 5:
                 proofText = Examples.ifElimination.text
+                title = Examples.ifElimination.title
             case 6:
                 proofText = Examples.iffIntroduction.text
+                title = Examples.iffIntroduction.title
             case 7:
                 proofText = Examples.iffElimination.text
+                title = Examples.iffElimination.title
             case 8:
                 proofText = Examples.notIntroduction.text
+                title = Examples.notIntroduction.title
             case 9:
                 proofText = Examples.notElimination.text
+                title = Examples.notElimination.title
             case 10:
                 proofText = Examples.falseElimination.text
+                title = Examples.falseElimination.title
             default: // Actually case 0
                 proofText = Examples.andIntroduction.text
-
-
+                title = Examples.andIntroduction.title
         }
 
-        makeNewDocument(proofText)
+        makeNewDocument(proofText, withTitle: title)
 
     }
 
-    func makeNewDocument(_ text: String) {
+    func makeNewDocument(_ text: String, withTitle title: String) {
 
         // Create a new document using our subclass
         // of NSDocument
         let newHelpExample = Document()
+
+        // Set the title (to be displayed)
+        newHelpExample.displayName = title
 
         // What is our current NSDocumentController?
         let myDocumentController = NSDocumentController.shared
