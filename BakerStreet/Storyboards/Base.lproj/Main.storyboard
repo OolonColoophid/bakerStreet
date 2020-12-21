@@ -672,9 +672,9 @@ DQ
                                         <action selector="toolbarJustificationCompletion:" target="6f7-a7-6o1" id="gDc-bR-T4f"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
+                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" toolTip="Definitions" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
-                                        <rect key="frame" x="48" y="14" width="25" height="23"/>
+                                        <rect key="frame" x="47" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -685,9 +685,9 @@ DQ
                                         <action selector="toolbarDefinitions:" target="6f7-a7-6o1" id="nlm-QO-aPX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="03FB5572-B217-45FD-8916-69E4FF78DB51" label="Markdown Reference" paletteLabel="Markdown Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="tLl-yh-mg3" userLabel="Markdown Reference">
+                                <toolbarItem implicitItemIdentifier="03FB5572-B217-45FD-8916-69E4FF78DB51" label="Markdown Reference" paletteLabel="Markdown Reference" toolTip="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="tLl-yh-mg3" userLabel="Markdown Reference">
                                     <button key="view" verticalHuggingPriority="750" id="6wQ-nD-eeE">
-                                        <rect key="frame" x="47" y="14" width="25" height="23"/>
+                                        <rect key="frame" x="46" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eMk-nc-3gv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -698,9 +698,9 @@ DQ
                                         <action selector="toolbarMarkdown:" target="6f7-a7-6o1" id="a21-dq-zOY"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="791878C8-6D7A-45DC-AFDE-BDE4D288168C" label="Rules in Full" paletteLabel="Full Rules Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="ROO-dI-g4s" userLabel="Rules Full">
+                                <toolbarItem implicitItemIdentifier="791878C8-6D7A-45DC-AFDE-BDE4D288168C" label="Rules in Full" paletteLabel="Full Rules Reference" toolTip="Rules in Full" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="ROO-dI-g4s" userLabel="Rules Full">
                                     <button key="view" verticalHuggingPriority="750" id="HfU-Be-rKD">
-                                        <rect key="frame" x="45" y="14" width="25" height="23"/>
+                                        <rect key="frame" x="44" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N6h-sX-mY5">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -711,9 +711,9 @@ DQ
                                         <action selector="toolbarRulesFull:" target="6f7-a7-6o1" id="gxp-6l-BNG"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="00F98E41-E560-4D65-8A34-CFA001AAC632" label="Rules Overview" paletteLabel="Overview Rules Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="mHn-5V-d5z" userLabel="Rules Overview">
+                                <toolbarItem implicitItemIdentifier="00F98E41-E560-4D65-8A34-CFA001AAC632" label="Rules Overview" paletteLabel="Overview Rules Reference" toolTip="Rules Overview" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="mHn-5V-d5z" userLabel="Rules Overview">
                                     <button key="view" verticalHuggingPriority="750" id="CG8-su-EKr">
-                                        <rect key="frame" x="60" y="14" width="25" height="23"/>
+                                        <rect key="frame" x="59" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fHl-my-JV1">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -753,7 +753,7 @@ DQ
                                         </segmentedCell>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="28FED7BD-3012-4349-9562-AEFECFFF62C2" label="Advice" paletteLabel="Toggle Advice Panel" toolTip="Preview" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="wer-v3-3dz" userLabel="Toggle Advice">
+                                <toolbarItem implicitItemIdentifier="28FED7BD-3012-4349-9562-AEFECFFF62C2" label="Advice" paletteLabel="Toggle Advice Panel" toolTip="Toggle Advice" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="wer-v3-3dz" userLabel="Toggle Advice">
                                     <button key="view" verticalHuggingPriority="750" id="KGJ-K9-p3V">
                                         <rect key="frame" x="38" y="14" width="38" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1033,8 +1033,8 @@ DQ
         <image name="NSRefreshTemplate" width="14" height="16"/>
         <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="NSStatusNone" width="16" height="16"/>
-        <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
-        <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
+        <image name="toggleAdviceViewToolbarTemplate" width="675" height="470"/>
+        <image name="toggleDocumentViewToolbarTemplate" width="362" height="447"/>
         <namedColor name="auburnBackground">
             <color red="0.62000000476837158" green="0.16500000655651093" blue="0.16899999976158142" alpha="0.076999999582767487" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
