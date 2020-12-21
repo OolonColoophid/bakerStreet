@@ -35,6 +35,7 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 - Export or copy your preview to LaTeX, Markdown or HTML
 
 - Zoom support for all windows
+/Users/ianuser/Library/Mobile Documents/com~apple~CloudDocs/Documents/Kent/archive/project/submission/dissertationHocking.pdf
 
 - Dark mode support
 
@@ -45,6 +46,10 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
   - Inference rules (in overview and in detail)
 
   - Key term definitions (e.g. theorem)
+
+## Dissertation
+
+I wrote the first draft of this application in the summer of 2020 as part of my master's ![dissertation](dissertationHocking.pdf). (If you're interested, my overall mark was 75%; no feedback was provided.)
 
 ## Screenshots
 

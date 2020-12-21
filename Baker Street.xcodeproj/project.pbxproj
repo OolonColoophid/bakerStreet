@@ -59,6 +59,7 @@
 		5BA6B04424A3926C00B5D8F5 /* Styler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA6B04324A3926C00B5D8F5 /* Styler.swift */; };
 		5BA7B73124CADAD600C06DA2 /* DocumentViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */; };
 		5BAB832624A097AB0057D09D /* ProofController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB832524A097AB0057D09D /* ProofController.swift */; };
+		5BAF12B92590C69F0056E996 /* dissertationHocking.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 5BAF12B82590C69F0056E996 /* dissertationHocking.pdf */; };
 		5BDD513C24ACE5D40025ADFA /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD513B24ACE5D40025ADFA /* Examples.swift */; };
 		5BF4D6C924D2B76300915CDE /* ExportedProof.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF4D6C824D2B76300915CDE /* ExportedProof.swift */; };
 		5BF4D6CC24D313AE00915CDE /* RudimentaryProofLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF4D6CB24D313AE00915CDE /* RudimentaryProofLine.swift */; };
@@ -133,6 +134,7 @@
 		5BA6B04324A3926C00B5D8F5 /* Styler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styler.swift; sourceTree = "<group>"; };
 		5BA7B72F24CADAD600C06DA2 /* DocumentViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerController.swift; sourceTree = "<group>"; };
 		5BAB832524A097AB0057D09D /* ProofController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofController.swift; sourceTree = "<group>"; };
+		5BAF12B82590C69F0056E996 /* dissertationHocking.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dissertationHocking.pdf; sourceTree = "<group>"; };
 		5BDD513B24ACE5D40025ADFA /* Examples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		5BF4D6C824D2B76300915CDE /* ExportedProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedProof.swift; sourceTree = "<group>"; };
 		5BF4D6CB24D313AE00915CDE /* RudimentaryProofLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RudimentaryProofLine.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				5B2FBB6B24ED1BB500860310 /* Licence.md */,
 				5B2FBB6D24ED1CBC00860310 /* ReadMe.md */,
+				5BAF12B82590C69F0056E996 /* dissertationHocking.pdf */,
 				5B8573E4247D14DB00E1C613 /* BakerStreet */,
 				5B84803C24A1EEDA006726E3 /* Baker StreetTests */,
 				5B8573E3247D14DB00E1C613 /* Products */,
@@ -434,6 +437,7 @@
 			files = (
 				5B891B2524F564A000693379 /* rulesInDetail.png in Resources */,
 				5B2FBB6C24ED1BB500860310 /* Licence.md in Resources */,
+				5BAF12B92590C69F0056E996 /* dissertationHocking.pdf in Resources */,
 				5B191B0D24FAB0030054104B /* DocumentView.storyboard in Resources */,
 				5B891B2724F564A000693379 /* BakerStreetMarkdown.png in Resources */,
 				5B891B2624F564A000693379 /* rulesOverview.png in Resources */,
