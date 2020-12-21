@@ -224,8 +224,8 @@ extension PreviewViewController {
         let identifier = NSStoryboard.SceneIdentifier("PreviewViewController")
         //3. Instantiate PreviewViewController and return it.
         guard let viewcontroller = storyboard.instantiateController(
-            withIdentifier: identifier) as? PreviewViewController else {
-                fatalError("PreviewViewController not found")
+                withIdentifier: identifier) as? PreviewViewController else {
+            fatalError("PreviewViewController not found")
         }
         return viewcontroller
     }
