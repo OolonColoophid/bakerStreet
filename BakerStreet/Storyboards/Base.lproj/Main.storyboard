@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -636,7 +636,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="LvR-im-OtF">
-                                        <rect key="frame" x="0.0" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="28" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKs-Ae-vkv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -650,7 +650,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="6559ABF9-9FA0-4325-89D5-489438253316" label="Operator" paletteLabel="Add Operator" image="NSAddTemplate" sizingBehavior="auto" id="db6-UV-KM0" userLabel="Add Operator">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="DHG-d2-7Dj">
-                                        <rect key="frame" x="0.0" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="26" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="b2v-mg-pwD">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -664,7 +664,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="6A94F5D6-6D30-4490-B6A2-4DCEE72CD496" label="Justification" paletteLabel="Add Justification" image="NSAddTemplate" sizingBehavior="auto" id="kWz-tT-EN5" userLabel="Add Justification">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="hds-fn-kBk">
-                                        <rect key="frame" x="7" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="35" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Exp-Cz-4Tv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -678,10 +678,10 @@ DQ
                                 <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
-                                        <rect key="frame" x="19" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="48" y="14" width="25" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -692,7 +692,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="M3z-KP-nNg">
-                                        <rect key="frame" x="18" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="53" y="14" width="12" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -706,7 +706,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
-                                        <rect key="frame" x="16" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="51" y="14" width="12" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -720,7 +720,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
-                                        <rect key="frame" x="31" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="66" y="14" width="12" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -734,7 +734,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="9DF-SJ-Ade">
-                                        <rect key="frame" x="0.0" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="8" y="14" width="33" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSQuickLookTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6kX-os-dNK">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -748,7 +748,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="21B261B0-311E-4D3C-9AAF-AEAEB95F0C61" label="Zoom" paletteLabel="Zoom" sizingBehavior="auto" id="ESJ-cm-P4V" userLabel="Zoom">
                                     <nil key="toolTip"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="e4K-w3-xZE">
-                                        <rect key="frame" x="0.0" y="14" width="72" height="24"/>
+                                        <rect key="frame" x="0.0" y="14" width="75" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="momentary" id="9zg-1P-98G">
                                             <font key="font" metaFont="system"/>
@@ -765,7 +765,7 @@ DQ
                                 <toolbarItem implicitItemIdentifier="E488A14D-0D10-4865-A5F5-0DE9817770C5" label="Advice" paletteLabel="Toggle Advice Panel" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="YpU-m7-IVN" userLabel="Toggle Advice">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="QJh-ME-XR8">
-                                        <rect key="frame" x="15" y="14" width="83" height="24"/>
+                                        <rect key="frame" x="51" y="14" width="12" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -779,9 +779,6 @@ DQ
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="RDM-lL-vyg"/>
-                                <toolbarItem reference="56O-Tt-sM7"/>
-                                <toolbarItem reference="db6-UV-KM0"/>
-                                <toolbarItem reference="kWz-tT-EN5"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="cPl-hx-aHx"/>
                                 <toolbarItem reference="jDd-mw-gKS"/>
@@ -1044,10 +1041,10 @@ DQ
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSQuickLookTemplate" width="19" height="12"/>
-        <image name="NSRefreshTemplate" width="11" height="15"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSQuickLookTemplate" width="21" height="13"/>
+        <image name="NSRefreshTemplate" width="14" height="16"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="NSStatusNone" width="16" height="16"/>
         <image name="toggleAdviceViewToolbarTemplate" width="742" height="511"/>
         <image name="toggleDocumentViewToolbarTemplate" width="338" height="474"/>
