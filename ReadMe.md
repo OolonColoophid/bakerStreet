@@ -47,9 +47,9 @@ School of Computing, University of Kent, UK, as an MSc Computer Science summer p
 
   - Key term definitions (e.g. theorem)
 
-## Dissertation
+## Dissertation
 
-I wrote the first draft of this application in the summer of 2020 as part of my master's ![dissertation](dissertationHocking.pdf). (If you're interested, my overall mark was 75%; no feedback was provided.)
+I wrote the first draft of this application in the summer of 2020 as part of my master's [dissertation](dissertationHocking.pdf). (If you're interested, my overall mark was 75%; no feedback was provided.)
 
 ## Screenshots
 
