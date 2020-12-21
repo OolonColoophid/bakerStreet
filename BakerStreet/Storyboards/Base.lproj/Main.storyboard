@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -630,11 +630,10 @@ DQ
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="16DE5BC4-5C29-4FC9-82D1-425FA24F668F" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="Pzs-hF-4Ff">
+                        <toolbar key="toolbar" implicitIdentifier="16DE5BC4-5C29-4FC9-82D1-425FA24F668F" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="Pzs-hF-4Ff">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="56O-Tt-sM7"/>
-                                <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" toolTip="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
                                     <button key="view" verticalHuggingPriority="750" id="LvR-im-OtF">
                                         <rect key="frame" x="28" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -647,8 +646,7 @@ DQ
                                         <action selector="toolbarValidate:" target="6f7-a7-6o1" id="lK6-qJ-1pz"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6559ABF9-9FA0-4325-89D5-489438253316" label="Operator" paletteLabel="Add Operator" image="NSAddTemplate" sizingBehavior="auto" id="db6-UV-KM0" userLabel="Add Operator">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="6559ABF9-9FA0-4325-89D5-489438253316" label="Operator" paletteLabel="Add Operator" toolTip="Add Operator" image="NSAddTemplate" sizingBehavior="auto" id="db6-UV-KM0" userLabel="Add Operator">
                                     <button key="view" verticalHuggingPriority="750" id="DHG-d2-7Dj">
                                         <rect key="frame" x="26" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -661,8 +659,7 @@ DQ
                                         <action selector="toolbarOperatorCompletion:" target="6f7-a7-6o1" id="7I7-DG-qjX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6A94F5D6-6D30-4490-B6A2-4DCEE72CD496" label="Justification" paletteLabel="Add Justification" image="NSAddTemplate" sizingBehavior="auto" id="kWz-tT-EN5" userLabel="Add Justification">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="6A94F5D6-6D30-4490-B6A2-4DCEE72CD496" label="Justification" paletteLabel="Add Justification" toolTip="Add Justification" image="NSAddTemplate" sizingBehavior="auto" id="kWz-tT-EN5" userLabel="Add Justification">
                                     <button key="view" verticalHuggingPriority="750" id="hds-fn-kBk">
                                         <rect key="frame" x="35" y="14" width="26" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -675,8 +672,7 @@ DQ
                                         <action selector="toolbarJustificationCompletion:" target="6f7-a7-6o1" id="gDc-bR-T4f"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="27FCEF17-7A3D-4CA1-B2DE-59CF677976EC" label="Definitions" paletteLabel="Definitions Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="D6m-yK-9ak" userLabel="Definitions">
                                     <button key="view" verticalHuggingPriority="750" id="nMv-7e-Ek5">
                                         <rect key="frame" x="48" y="14" width="25" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -689,50 +685,46 @@ DQ
                                         <action selector="toolbarDefinitions:" target="6f7-a7-6o1" id="nlm-QO-aPX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="734C5A28-F15D-49F3-83AB-B3F042449C2B" label="Markdown" paletteLabel="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="jDd-mw-gKS" userLabel="Markdown Reference">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="M3z-KP-nNg">
-                                        <rect key="frame" x="53" y="14" width="12" height="23"/>
+                                <toolbarItem implicitItemIdentifier="03FB5572-B217-45FD-8916-69E4FF78DB51" label="Markdown Reference" paletteLabel="Markdown Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="tLl-yh-mg3" userLabel="Markdown Reference">
+                                    <button key="view" verticalHuggingPriority="750" id="6wQ-nD-eeE">
+                                        <rect key="frame" x="47" y="14" width="25" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sFx-0A-O3c">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eMk-nc-3gv">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="toolbarMarkdown:" target="6f7-a7-6o1" id="zuj-BB-Pta"/>
+                                        <action selector="toolbarMarkdown:" target="6f7-a7-6o1" id="a21-dq-zOY"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C8334585-DA58-4206-9375-6CB9809CA0E2" label="Rules in Full" paletteLabel="Full Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="rc9-FH-PVy" userLabel="Rules Full">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="csH-bV-jbk">
-                                        <rect key="frame" x="51" y="14" width="12" height="23"/>
+                                <toolbarItem implicitItemIdentifier="791878C8-6D7A-45DC-AFDE-BDE4D288168C" label="Rules in Full" paletteLabel="Full Rules Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="ROO-dI-g4s" userLabel="Rules Full">
+                                    <button key="view" verticalHuggingPriority="750" id="HfU-Be-rKD">
+                                        <rect key="frame" x="45" y="14" width="25" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xag-iN-NQL">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N6h-sX-mY5">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="toolbarRulesFull:" target="6f7-a7-6o1" id="Kj3-hz-OGX"/>
+                                        <action selector="toolbarRulesFull:" target="6f7-a7-6o1" id="gxp-6l-BNG"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2ECA44C6-C3D5-49C1-964C-E45562626E26" label="Rules Overview" paletteLabel="Overview Rules Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="cPl-hx-aHx" userLabel="Rules Overview">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="edg-Ol-IXI">
-                                        <rect key="frame" x="66" y="14" width="12" height="23"/>
+                                <toolbarItem implicitItemIdentifier="00F98E41-E560-4D65-8A34-CFA001AAC632" label="Rules Overview" paletteLabel="Overview Rules Reference" toolTip="Definitions Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="mHn-5V-d5z" userLabel="Rules Overview">
+                                    <button key="view" verticalHuggingPriority="750" id="CG8-su-EKr">
+                                        <rect key="frame" x="60" y="14" width="25" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LEo-C0-O7E">
-                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fHl-my-JV1">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="menuRulesOverview:" target="6f7-a7-6o1" id="0SS-Ga-cIe"/>
+                                        <action selector="toolbarRulesOverview:" target="6f7-a7-6o1" id="bPB-HF-hKG"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="4230639C-8B97-4696-A932-A9BB28A0467A" label="Preview" paletteLabel="Preview" toolTip="Preview" image="NSQuickLookTemplate" sizingBehavior="auto" id="kKA-Av-hRm" userLabel="Preview">
                                     <button key="view" verticalHuggingPriority="750" id="9DF-SJ-Ade">
                                         <rect key="frame" x="8" y="14" width="33" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -745,8 +737,7 @@ DQ
                                         </buttonCell>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="21B261B0-311E-4D3C-9AAF-AEAEB95F0C61" label="Zoom" paletteLabel="Zoom" sizingBehavior="auto" id="ESJ-cm-P4V" userLabel="Zoom">
-                                    <nil key="toolTip"/>
+                                <toolbarItem implicitItemIdentifier="21B261B0-311E-4D3C-9AAF-AEAEB95F0C61" label="Zoom" paletteLabel="Zoom" toolTip="Zoom" sizingBehavior="auto" id="ESJ-cm-P4V" userLabel="Zoom">
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="e4K-w3-xZE">
                                         <rect key="frame" x="0.0" y="14" width="75" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -762,32 +753,28 @@ DQ
                                         </segmentedCell>
                                     </segmentedControl>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E488A14D-0D10-4865-A5F5-0DE9817770C5" label="Advice" paletteLabel="Toggle Advice Panel" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="YpU-m7-IVN" userLabel="Toggle Advice">
-                                    <nil key="toolTip"/>
-                                    <button key="view" verticalHuggingPriority="750" id="QJh-ME-XR8">
-                                        <rect key="frame" x="51" y="14" width="12" height="23"/>
+                                <toolbarItem implicitItemIdentifier="28FED7BD-3012-4349-9562-AEFECFFF62C2" label="Advice" paletteLabel="Toggle Advice Panel" toolTip="Preview" image="toggleAdviceViewToolbarTemplate" sizingBehavior="auto" id="wer-v3-3dz" userLabel="Toggle Advice">
+                                    <button key="view" verticalHuggingPriority="750" id="KGJ-K9-p3V">
+                                        <rect key="frame" x="38" y="14" width="38" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hdm-Cu-zZn">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleAdviceViewToolbarTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="caj-po-tie">
                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <connections>
-                                        <action selector="toolbarToggleAdvice:" target="6f7-a7-6o1" id="vGs-dD-0CV"/>
+                                        <action selector="toolbarToggleAdvice:" target="6f7-a7-6o1" id="oMG-t4-UMM"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="RDM-lL-vyg"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
-                                <toolbarItem reference="cPl-hx-aHx"/>
-                                <toolbarItem reference="jDd-mw-gKS"/>
-                                <toolbarItem reference="rc9-FH-PVy"/>
                                 <toolbarItem reference="D6m-yK-9ak"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="ESJ-cm-P4V"/>
                                 <toolbarItem reference="kKA-Av-hRm"/>
-                                <toolbarItem reference="YpU-m7-IVN"/>
+                                <toolbarItem reference="wer-v3-3dz"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
