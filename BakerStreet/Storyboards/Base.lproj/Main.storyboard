@@ -492,6 +492,12 @@ DQ
                                                 <action selector="menuHelpExample:" target="Ady-hI-5gd" id="HjY-S7-cZo"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Manual" tag="-1" id="HLJ-Qa-cGr">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="menuHelpManual:" target="Ady-hI-5gd" id="YbY-lJ-kwD"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Example Proofs" id="XeE-Sm-Msq" userLabel="Examples">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Example Proofs" id="IWn-jO-8xZ" userLabel="Examples">
@@ -605,6 +611,12 @@ DQ
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem title="Email the Developer" tag="-1" id="uKJ-Tf-fLh" userLabel="Email Support">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="menuHelpSupport:" target="Ady-hI-5gd" id="5ka-M3-Jcl"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -677,7 +689,7 @@ DQ
                                         <rect key="frame" x="47" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GAr-wk-eqq">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -685,12 +697,12 @@ DQ
                                         <action selector="toolbarDefinitions:" target="6f7-a7-6o1" id="nlm-QO-aPX"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="03FB5572-B217-45FD-8916-69E4FF78DB51" label="Markdown Reference" paletteLabel="Markdown Reference" toolTip="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="tLl-yh-mg3" userLabel="Markdown Reference">
+                                <toolbarItem implicitItemIdentifier="03FB5572-B217-45FD-8916-69E4FF78DB51" label="Markdown" paletteLabel="Markdown Reference" toolTip="Markdown Reference" image="toggleDocumentViewToolbarTemplate" sizingBehavior="auto" id="tLl-yh-mg3" userLabel="Markdown Reference">
                                     <button key="view" verticalHuggingPriority="750" id="6wQ-nD-eeE">
                                         <rect key="frame" x="46" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eMk-nc-3gv">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -703,7 +715,7 @@ DQ
                                         <rect key="frame" x="44" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N6h-sX-mY5">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -716,7 +728,7 @@ DQ
                                         <rect key="frame" x="59" y="14" width="27" height="23"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="toggleDocumentViewToolbarTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fHl-my-JV1">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
@@ -771,6 +783,8 @@ DQ
                                 <toolbarItem reference="RDM-lL-vyg"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="D6m-yK-9ak"/>
+                                <toolbarItem reference="tLl-yh-mg3"/>
+                                <toolbarItem reference="mHn-5V-d5z"/>
                                 <toolbarItem reference="56O-Tt-sM7"/>
                                 <toolbarItem reference="ESJ-cm-P4V"/>
                                 <toolbarItem reference="kKA-Av-hRm"/>

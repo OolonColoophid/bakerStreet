@@ -46,10 +46,10 @@
             filePath = "BakerStreet/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1383"
-            endingLineNumber = "1383"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1397"
+            endingLineNumber = "1397"
+            landmarkName = "ViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

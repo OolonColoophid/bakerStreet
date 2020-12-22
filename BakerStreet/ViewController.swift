@@ -632,6 +632,20 @@ extension ViewController {
 
     }
 
+    @IBAction func menuHelpManual(_ sender: Any) {
+
+        let url = URL(string: "https://ianhocking.com/prog/pages/bakerstreet/")!
+        NSWorkspace.shared.open(url)
+
+    }
+
+    @IBAction func menuHelpSupport(_ sender: Any) {
+
+        let url = URL(string: "mailto:ihocking@gmail.com")!
+        NSWorkspace.shared.open(url)
+
+    }
+
     @IBAction func menuHelpExample(_ sender: Any) {
 
         helpExample(sender as! NSMenuItem)
