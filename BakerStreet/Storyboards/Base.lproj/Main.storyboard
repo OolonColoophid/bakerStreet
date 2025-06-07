@@ -642,7 +642,7 @@ DQ
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="16DE5BC4-5C29-4FC9-82D1-425FA24F668F" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="Pzs-hF-4Ff">
+                        <toolbar key="toolbar" implicitIdentifier="16DE5BC4-5C29-4FC9-82D1-425FA24F668F" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="Pzs-hF-4Ff">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="56O-Tt-sM7"/>
                                 <toolbarItem implicitItemIdentifier="0BF00CDA-B71D-4FC1-976E-4849799F6C9A" label="Validate" paletteLabel="Validate Proof" toolTip="Validate Proof" image="NSRefreshTemplate" sizingBehavior="auto" id="RDM-lL-vyg">
