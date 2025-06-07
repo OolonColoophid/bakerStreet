@@ -71,13 +71,38 @@ class Document: NSDocument {
     override func read(from data: Data, ofType typeName: String) throws {
 
         guard let mainText = String(data: data, encoding: .utf8) else {
-            throw Document.Error.UTF8Decoding}
+            throw Document.Error.UTF8Decoding
+        }
 
         self.mainText = mainText
         
     }
     
+    // MARK: - Printing Support
+    @IBAction func print(_ sender: Any?) {
+        myViewController?.printDocument()
+    }
     
+    @IBAction override func runPageLayout(_ sender: Any?) {
+        myViewController?.showPageSetup()
+    }
     
+    // Override the NSDocument printDocument method
+    override func printDocument(_ sender: Any?) {
+        myViewController?.printDocument()
+    }
     
+    // Override printOperation to provide custom print content
+    override func printOperation(withSettings printSettings: [NSPrintInfo.AttributeKey : Any]) throws -> NSPrintOperation {
+        // Let the view controller handle the printing
+        if let viewController = myViewController {
+            // Call the view controller's print method directly
+            let printInfo = NSPrintInfo.shared
+            return viewController.createPrintOperation(with: printInfo)
+        }
+        
+        // Fallback to default behavior
+        return try super.printOperation(withSettings: printSettings)
+    }
+
 }
