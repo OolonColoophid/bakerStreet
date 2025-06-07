@@ -193,3 +193,96 @@ extension DocumentViewController: BKZoomable {
 
 }
 
+// MARK: Printing
+extension DocumentViewController {
+    
+    @IBAction func print(_ sender: Any) {
+        printDocument()
+    }
+    
+    @IBAction func runPageLayout(_ sender: Any) {
+        showPageSetup()
+    }
+    
+    func printDocument() {
+        // Create a text view specifically for printing
+        let printTextView = NSTextView()
+        
+        // Set the content to print
+        let contentToPrint = createPrintableContent()
+        
+        // Configure the print text view
+        printTextView.textStorage?.setAttributedString(contentToPrint)
+        printTextView.isEditable = false
+        printTextView.isSelectable = false
+        
+        // Set up print info
+        let printInfo = NSPrintInfo.shared
+        printInfo.topMargin = 50.0
+        printInfo.bottomMargin = 50.0
+        printInfo.leftMargin = 50.0
+        printInfo.rightMargin = 50.0
+        printInfo.isHorizontallyCentered = false
+        printInfo.isVerticallyCentered = false
+        
+        // Create print operation
+        let printOperation = NSPrintOperation(view: printTextView, printInfo: printInfo)
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        
+        // Set job title based on window title
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            printOperation.jobTitle = windowTitle
+        } else {
+            printOperation.jobTitle = "Baker Street Document"
+        }
+        
+        // Run the print operation
+        printOperation.run()
+    }
+    
+    func showPageSetup() {
+        let printInfo = NSPrintInfo.shared
+        let pageLayout = NSPageLayout()
+        
+        if let window = view.window {
+            pageLayout.beginSheet(with: printInfo, modalFor: window) { (result) in
+                if result == .OK {
+                    // Page setup was accepted, print info is automatically updated
+                }
+            }
+        }
+    }
+    
+    private func createPrintableContent() -> NSAttributedString {
+        let printContent = NSMutableAttributedString()
+        
+        // Add document title if available
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            let titleAttributes: [NSAttributedString.Key: Any] = [
+                .font: NSFont.boldSystemFont(ofSize: 16),
+                .paragraphStyle: createCenteredParagraphStyle()
+            ]
+            let title = NSAttributedString(string: "\(windowTitle)\n\n", attributes: titleAttributes)
+            printContent.append(title)
+        }
+        
+        // Get the document content
+        let documentContent = documentTextView.attributedString()
+        
+        // Create a copy with print-friendly formatting
+        let printableContent = NSMutableAttributedString(attributedString: documentContent)
+        
+        printContent.append(printableContent)
+        
+        return printContent
+    }
+    
+    private func createCenteredParagraphStyle() -> NSParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.spaceAfter = 10
+        return paragraphStyle
+    }
+}
+

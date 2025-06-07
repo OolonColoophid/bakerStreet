@@ -674,6 +674,15 @@ extension ViewController {
 
     }
 
+    // MARK: Print Support
+    @IBAction func print(_ sender: Any) {
+        printDocument()
+    }
+    
+    @IBAction func runPageLayout(_ sender: Any) {
+        showPageSetup()
+    }
+
 
 }
 
@@ -1696,4 +1705,92 @@ extension ViewController {
 
     }
 
+}
+
+// MARK: Printing
+extension ViewController {
+    
+    func printDocument() {
+        // Create a text view specifically for printing
+        let printTextView = NSTextView()
+        
+        // Set the content to print - combine main text with line numbers if available
+        let contentToPrint = createPrintableContent()
+        
+        // Configure the print text view
+        printTextView.textStorage?.setAttributedString(contentToPrint)
+        printTextView.isEditable = false
+        printTextView.isSelectable = false
+        
+        // Set up print info
+        let printInfo = NSPrintInfo.shared
+        printInfo.topMargin = 50.0
+        printInfo.bottomMargin = 50.0
+        printInfo.leftMargin = 50.0
+        printInfo.rightMargin = 50.0
+        printInfo.isHorizontallyCentered = false
+        printInfo.isVerticallyCentered = false
+        
+        // Create print operation
+        let printOperation = NSPrintOperation(view: printTextView, printInfo: printInfo)
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        
+        // Set job title
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            printOperation.jobTitle = "Baker Street - \(windowTitle)"
+        } else {
+            printOperation.jobTitle = "Baker Street Proof"
+        }
+        
+        // Run the print operation
+        printOperation.run()
+    }
+    
+    func showPageSetup() {
+        let printInfo = NSPrintInfo.shared
+        let pageLayout = NSPageLayout()
+        
+        pageLayout.beginSheet(with: printInfo, modalFor: view.window!) { (result) in
+            if result == .OK {
+                // Page setup was accepted, print info is automatically updated
+            }
+        }
+    }
+    
+    private func createPrintableContent() -> NSAttributedString {
+        let printContent = NSMutableAttributedString()
+        
+        // Add document title if available
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            let titleAttributes: [NSAttributedString.Key: Any] = [
+                .font: NSFont.boldSystemFont(ofSize: 16),
+                .paragraphStyle: createCenteredParagraphStyle()
+            ]
+            let title = NSAttributedString(string: "\(windowTitle)\n\n", attributes: titleAttributes)
+            printContent.append(title)
+        }
+        
+        // Get the main proof content
+        let mainContent = mainTextView.attributedString()
+        
+        // Create a copy with print-friendly formatting
+        let printableContent = NSMutableAttributedString(attributedString: mainContent)
+        
+        // Apply consistent font for printing
+        let printFont = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+        let range = NSRange(location: 0, length: printableContent.length)
+        printableContent.addAttribute(.font, value: printFont, range: range)
+        
+        printContent.append(printableContent)
+        
+        return printContent
+    }
+    
+    private func createCenteredParagraphStyle() -> NSParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.spaceAfter = 10
+        return paragraphStyle
+    }
 }
