@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import ObjectiveC
 
 class ViewController: NSViewController {
 
@@ -172,6 +173,9 @@ class ViewController: NSViewController {
         setViewsScrollSync()
 
         setThemeChangeNotification()
+        
+        // Set up print handling to always go through our document
+        setupPrintHandling()
 
     }
 
@@ -672,6 +676,15 @@ extension ViewController {
 
         togglePreview()
 
+    }
+
+    // MARK: Print Support
+    @IBAction func print(_ sender: Any?) {
+        printDocument()
+    }
+    
+    @IBAction func runPageLayout(_ sender: Any) {
+        showPageSetup()
     }
 
 
@@ -1696,4 +1709,173 @@ extension ViewController {
 
     }
 
+}
+
+// MARK: Printing
+extension ViewController {
+    
+    func printDocument() {
+        // Set up print info first
+        let printInfo = NSPrintInfo.shared
+        printInfo.topMargin = 50.0
+        printInfo.bottomMargin = 50.0
+        printInfo.leftMargin = 50.0
+        printInfo.rightMargin = 50.0
+        printInfo.isHorizontallyCentered = false
+        printInfo.isVerticallyCentered = false
+        
+        // Calculate the printable area
+        let paperSize = printInfo.paperSize
+        let printableWidth = paperSize.width - printInfo.leftMargin - printInfo.rightMargin
+        let printableHeight = paperSize.height - printInfo.topMargin - printInfo.bottomMargin
+        
+        // Create a text view specifically for printing with proper frame
+        let printFrame = NSRect(x: 0, y: 0, width: printableWidth, height: printableHeight)
+        let printTextView = NSTextView(frame: printFrame)
+        
+        // Set the content to print
+        let contentToPrint = createPrintableContent()
+        
+        // Configure the print text view for proper wrapping
+        printTextView.textStorage?.setAttributedString(contentToPrint)
+        printTextView.isEditable = false
+        printTextView.isSelectable = false
+        printTextView.isVerticallyResizable = true
+        printTextView.isHorizontallyResizable = false
+        
+        // Configure text container for proper line wrapping
+        if let textContainer = printTextView.textContainer {
+            textContainer.widthTracksTextView = true
+            textContainer.heightTracksTextView = false
+            textContainer.containerSize = NSSize(width: printableWidth, height: CGFloat.greatestFiniteMagnitude)
+            textContainer.lineFragmentPadding = 0
+        }
+        
+        // Create print operation
+        let printOperation = NSPrintOperation(view: printTextView, printInfo: printInfo)
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        
+        // Set job title
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            printOperation.jobTitle = "Baker Street - \(windowTitle)"
+        } else {
+            printOperation.jobTitle = "Baker Street Proof"
+        }
+        
+        // Run the print operation
+        printOperation.run()
+    }
+    
+    func createPrintOperation(with printInfo: NSPrintInfo) -> NSPrintOperation {
+        // Calculate the printable area
+        let paperSize = printInfo.paperSize
+        let printableWidth = paperSize.width - printInfo.leftMargin - printInfo.rightMargin
+        let printableHeight = paperSize.height - printInfo.topMargin - printInfo.bottomMargin
+        
+        // Create a text view specifically for printing with proper frame
+        let printFrame = NSRect(x: 0, y: 0, width: printableWidth, height: printableHeight)
+        let printTextView = NSTextView(frame: printFrame)
+        
+        // Set the content to print
+        let contentToPrint = createPrintableContent()
+        
+        // Configure the print text view for proper wrapping
+        printTextView.textStorage?.setAttributedString(contentToPrint)
+        printTextView.isEditable = false
+        printTextView.isSelectable = false
+        printTextView.isVerticallyResizable = true
+        printTextView.isHorizontallyResizable = false
+        
+        // Configure text container for proper line wrapping
+        if let textContainer = printTextView.textContainer {
+            textContainer.widthTracksTextView = true
+            textContainer.heightTracksTextView = false
+            textContainer.containerSize = NSSize(width: printableWidth, height: CGFloat.greatestFiniteMagnitude)
+            textContainer.lineFragmentPadding = 0
+        }
+        
+        // Create and return print operation
+        let printOperation = NSPrintOperation(view: printTextView, printInfo: printInfo)
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        
+        // Set job title
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            printOperation.jobTitle = "Baker Street - \(windowTitle)"
+        } else {
+            printOperation.jobTitle = "Baker Street Proof"
+        }
+        
+        return printOperation
+    }
+    
+    private func setupPrintHandling() {
+        // Ensure this view controller can handle print commands
+        // by making it part of the responder chain
+        view.window?.nextResponder = self
+    }
+    
+    func showPageSetup() {
+        let printInfo = NSPrintInfo.shared
+        let pageLayout = NSPageLayout()
+        
+        if let window = view.window {
+            pageLayout.beginSheet(with: printInfo, modalFor: window, delegate: nil, didEnd: nil, contextInfo: nil)
+        }
+    }
+    
+    private func createPrintableContent() -> NSAttributedString {
+        let printContent = NSMutableAttributedString()
+        
+        // Add document title if available
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            let titleAttributes: [NSAttributedString.Key: Any] = [
+                .font: NSFont.boldSystemFont(ofSize: 16),
+                .paragraphStyle: createCenteredParagraphStyle()
+            ]
+            let title = NSAttributedString(string: "\(windowTitle)\n\n", attributes: titleAttributes)
+            printContent.append(title)
+        }
+        
+        // Get the main proof content - try different sources to find the proof text
+        var mainContentString = ""
+        
+        // First, try to get from the document directly
+        if let document = representedObject as? Document, !document.mainText.isEmpty {
+            mainContentString = document.mainText
+        }
+        // If that's empty or not available, try mainTextView (the NSTextView)
+        else if !mainTextView.string.isEmpty && !mainTextView.string.trimmingCharacters(in: .whitespacesAndNewlines).allSatisfy({ $0.isNumber || $0.isWhitespace }) {
+            mainContentString = mainTextView.string
+        }
+        // Fallback to mainText (the NSText)
+        else {
+            mainContentString = mainText.string
+        }
+        
+        // Apply consistent font for printing - use smaller size to fit better
+        let printFont = NSFont(name: "Menlo", size: 8) ?? NSFont.systemFont(ofSize: 8)
+        
+        // Create paragraph style for proper text wrapping
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byCharWrapping
+        paragraphStyle.alignment = .left
+        
+        let printableContent = NSMutableAttributedString(string: mainContentString, attributes: [
+            .font: printFont,
+            .paragraphStyle: paragraphStyle
+        ])
+        
+        printContent.append(printableContent)
+        
+        return printContent
+    }
+    
+    private func createCenteredParagraphStyle() -> NSParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.paragraphSpacing = 10
+        return paragraphStyle
+    }
 }

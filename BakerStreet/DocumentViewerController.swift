@@ -193,3 +193,121 @@ extension DocumentViewController: BKZoomable {
 
 }
 
+// MARK: Printing
+extension DocumentViewController {
+    
+    @IBAction func print(_ sender: Any) {
+        printDocument()
+    }
+    
+    @IBAction func runPageLayout(_ sender: Any) {
+        showPageSetup()
+    }
+    
+    func printDocument() {
+        // Set up print info first
+        let printInfo = NSPrintInfo.shared
+        printInfo.topMargin = 50.0
+        printInfo.bottomMargin = 50.0
+        printInfo.leftMargin = 50.0
+        printInfo.rightMargin = 50.0
+        printInfo.isHorizontallyCentered = false
+        printInfo.isVerticallyCentered = false
+        
+        // Calculate the printable area
+        let paperSize = printInfo.paperSize
+        let printableWidth = paperSize.width - printInfo.leftMargin - printInfo.rightMargin
+        let printableHeight = paperSize.height - printInfo.topMargin - printInfo.bottomMargin
+        
+        // Create a text view specifically for printing with proper frame
+        let printFrame = NSRect(x: 0, y: 0, width: printableWidth, height: printableHeight)
+        let printTextView = NSTextView(frame: printFrame)
+        
+        // Set the content to print
+        let contentToPrint = createPrintableContent()
+        
+        // Configure the print text view for proper wrapping
+        printTextView.textStorage?.setAttributedString(contentToPrint)
+        printTextView.isEditable = false
+        printTextView.isSelectable = false
+        printTextView.isVerticallyResizable = true
+        printTextView.isHorizontallyResizable = false
+        
+        // Configure text container for proper line wrapping
+        if let textContainer = printTextView.textContainer {
+            textContainer.widthTracksTextView = true
+            textContainer.heightTracksTextView = false
+            textContainer.containerSize = NSSize(width: printableWidth, height: CGFloat.greatestFiniteMagnitude)
+            textContainer.lineFragmentPadding = 0
+        }
+        
+        // Create print operation
+        let printOperation = NSPrintOperation(view: printTextView, printInfo: printInfo)
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        
+        // Set job title based on window title
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            printOperation.jobTitle = windowTitle
+        } else {
+            printOperation.jobTitle = "Baker Street Document"
+        }
+        
+        // Run the print operation
+        printOperation.run()
+    }
+    
+    func showPageSetup() {
+        let printInfo = NSPrintInfo.shared
+        let pageLayout = NSPageLayout()
+        
+        if let window = view.window {
+            pageLayout.beginSheet(with: printInfo, modalFor: window, delegate: nil, didEnd: nil, contextInfo: nil)
+        }
+    }
+    
+    private func createPrintableContent() -> NSAttributedString {
+        let printContent = NSMutableAttributedString()
+        
+        // Add document title if available
+        if let windowTitle = view.window?.title, !windowTitle.isEmpty {
+            let titleAttributes: [NSAttributedString.Key: Any] = [
+                .font: NSFont.boldSystemFont(ofSize: 16),
+                .paragraphStyle: createCenteredParagraphStyle()
+            ]
+            let title = NSAttributedString(string: "\(windowTitle)\n\n", attributes: titleAttributes)
+            printContent.append(title)
+        }
+        
+        // Get the document content
+        let documentContent = documentTextView.attributedString()
+        
+        // Create a copy with print-friendly formatting
+        let printableContent = NSMutableAttributedString(attributedString: documentContent)
+        
+        // Apply consistent font for printing - use smaller size to fit better
+        let printFont = NSFont(name: "Menlo", size: 8) ?? NSFont.systemFont(ofSize: 8)
+        
+        // Create paragraph style for proper text wrapping
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byCharWrapping
+        paragraphStyle.alignment = .left
+        
+        // Apply the font and paragraph style to the entire content
+        let range = NSRange(location: 0, length: printableContent.length)
+        printableContent.addAttribute(.font, value: printFont, range: range)
+        printableContent.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+        
+        printContent.append(printableContent)
+        
+        return printContent
+    }
+    
+    private func createCenteredParagraphStyle() -> NSParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.paragraphSpacing = 10
+        return paragraphStyle
+    }
+}
+
