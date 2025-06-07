@@ -32,6 +32,9 @@ enum BKPrefConstants {
     // when showing; this can be overridden by the user
     static let adviceWindowSize = CGFloat(0.26) // 0 min, 1 max
 
+    // Accessibility preference for non-color mode
+    static let accessibilityModeEnabled: Bool = false
+
 }
 
 enum BKColors {
@@ -157,6 +160,16 @@ enum BKColors {
 enum UserPrefVariables {
 
     static var globalFont: CGFloat = BKPrefConstants.globalFontSize
+    
+    // Accessibility mode with UserDefaults persistence
+    static var accessibilityMode: Bool {
+        get {
+            UserDefaults.standard.object(forKey: "accessibilityMode") as? Bool ?? BKPrefConstants.accessibilityModeEnabled
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "accessibilityMode")
+        }
+    }
 
 }
 
@@ -192,12 +205,16 @@ public struct LinkStyle {
 
     static func getAttributes(withTarget target: String) -> [NSAttributedString.Key : Any]{
 
+        var lFont = NSFont.systemFont(ofSize: FontStyle.globalFont.value)
+        var hyperlinkForeground = BKColors.indianYellow.color
+        var hyperlinkUnderline = BKColors.deepSpaceSparkle.color
 
-        let lFont = NSFont.systemFont(
-            ofSize: FontStyle.globalFont.value)
-
-        let hyperlinkForeground = BKColors.indianYellow.color
-        let hyperlinkUnderline = BKColors.deepSpaceSparkle.color
+        // In accessibility mode, use bold font and system colors for better accessibility
+        if UserPrefVariables.accessibilityMode {
+            lFont = NSFont.boldSystemFont(ofSize: FontStyle.globalFont.value)
+            hyperlinkForeground = NSColor.linkColor
+            hyperlinkUnderline = NSColor.linkColor
+        }
 
         let linkAttributes: [NSAttributedString.Key : Any] = [
             NSAttributedString.Key.font: lFont,
@@ -293,24 +310,36 @@ public enum OverallStyle {
         _ font: NSFont = NSFont.systemFont(ofSize: FontStyle.globalFont.value),
 
         _ paragraphStyle: NSMutableParagraphStyle =
-        ParagraphStyle.standard.style
+        ParagraphStyle.standard.style,
+
+        _ accessibilityFont: NSFont? = nil
 
     )
         -> Dictionary<NSAttributedString.Key, Any>{
 
             var myFont = font
 
-            if #available(OSX 10.15, *) {
-                if myFont == NSFont.systemFont(ofSize: FontStyle.globalFont.value) {
-                    myFont = NSFont.monospacedSystemFont(
-                        ofSize: FontStyle.globalFont.value,
-                        weight: NSFont.Weight.regular)
+            // Use accessibility font if provided and accessibility mode is enabled
+            if UserPrefVariables.accessibilityMode && accessibilityFont != nil {
+                myFont = accessibilityFont!
+            } else {
+                // Original font logic
+                if #available(OSX 10.15, *) {
+                    if myFont == NSFont.systemFont(ofSize: FontStyle.globalFont.value) {
+                        myFont = NSFont.monospacedSystemFont(
+                            ofSize: FontStyle.globalFont.value,
+                            weight: NSFont.Weight.regular)
+                    }
                 }
             }
 
+            // In accessibility mode, use system colors for better contrast
+            let finalForegroundColor = UserPrefVariables.accessibilityMode ? 
+                NSColor.labelColor : foregroundColor
+
             return [
                 .font: myFont,
-                .foregroundColor: foregroundColor,
+                .foregroundColor: finalForegroundColor,
                 .backgroundColor: backgroundColor,
                 .paragraphStyle: paragraphStyle,
             ]
@@ -388,7 +417,8 @@ public enum OverallStyle {
 
             case .mainTextAssertionTurnstile:
                 let color = BKColors.indianYellow.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.boldSystemFont(ofSize: FontStyle.globalFont.value)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .mainTextAssertionScopeBar:
                 let fColor = NSColor.systemRed
@@ -397,19 +427,23 @@ public enum OverallStyle {
 
             case .mainTextAssertionOperand:
                 let color = BKColors.rosewood.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.italicSystemFont(ofSize: FontStyle.globalFont.value)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .mainTextAssertionOperator:
                 let color = BKColors.rosewood.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.boldSystemFont(ofSize: FontStyle.globalFont.value)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .mainTextAssertionBracket:
                 let color = BKColors.rosewood.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.systemFont(ofSize: FontStyle.globalFont.value, weight: .heavy)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .mainTextAssertionPunctuation:
                 let color = BKColors.rosewood.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.systemFont(ofSize: FontStyle.globalFont.value, weight: .medium)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .mainTextAssertionTheoremText:
                 return makeAttributes()
@@ -420,7 +454,8 @@ public enum OverallStyle {
 
             case .mainTextAssertionJustificationNumber:
                 let color = BKColors.indianYellow.color
-                return makeAttributes(color)
+                let accessibilityFont = NSFont.boldSystemFont(ofSize: FontStyle.globalFont.value)
+                return makeAttributes(color, .clear, aFont, ParagraphStyle.standard.style, accessibilityFont)
 
             case .documentText:
                 let fColor = NSColor.labelColor
@@ -433,4 +468,26 @@ public enum OverallStyle {
     }
 
 
+}
+
+// MARK: - Accessibility Utilities
+public struct AccessibilityPreferences {
+    
+    /// Toggle accessibility mode on/off
+    public static func toggleAccessibilityMode() {
+        UserPrefVariables.accessibilityMode.toggle()
+        
+        // Post notification to update UI
+        NotificationCenter.default.post(name: .accessibilityModeChanged, object: nil)
+    }
+    
+    /// Check if accessibility mode is currently enabled
+    public static var isEnabled: Bool {
+        return UserPrefVariables.accessibilityMode
+    }
+}
+
+// MARK: - Notification Names
+extension Notification.Name {
+    static let accessibilityModeChanged = Notification.Name("accessibilityModeChanged")
 }

@@ -172,6 +172,10 @@ class ViewController: NSViewController {
         setViewsScrollSync()
 
         setThemeChangeNotification()
+        
+        setAccessibilityModeNotification()
+        
+        setupAccessibilityMenuItem()
 
     }
 
@@ -207,6 +211,103 @@ extension ViewController {
             selector: #selector(interfaceModeChanged(sender:)),
             name: NSNotification.Name(rawValue: "AppleInterfaceThemeChangedNotification"),
             object: nil)
+    }
+
+}
+
+// MARK: Accessibility Mode
+extension ViewController {
+
+    func setAccessibilityModeNotification() {
+        // Listen for accessibility mode changes
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(accessibilityModeChanged(sender:)),
+            name: .accessibilityModeChanged,
+            object: nil)
+    }
+
+    @objc func accessibilityModeChanged(sender: NSNotification) {
+        // Refresh all styling to apply accessibility changes
+        DispatchQueue.main.async {
+            // Refresh the main text view with new styling
+            self.refreshAllViewStyling()
+        }
+    }
+
+    func refreshAllViewStyling() {
+        // Refresh main text view styling
+        if let currentContent = mainTextView.textStorage {
+            // Get current cursor position
+            let currentRange = mainTextView.selectedRange()
+            
+            // Re-apply styling to all text
+            let fullRange = NSRange(location: 0, length: currentContent.length)
+            currentContent.setAttributes(OverallStyle.mainText.attributes, range: fullRange)
+            
+            // Restore cursor position
+            mainTextView.setSelectedRange(currentRange)
+        }
+        
+        // Refresh line text view styling
+        if let lineContent = lineTextView.textStorage {
+            let fullRange = NSRange(location: 0, length: lineContent.length)
+            lineContent.setAttributes(OverallStyle.lineText.attributes, range: fullRange)
+        }
+        
+        // Refresh advice text view styling
+        if let adviceContent = adviceTextView.textStorage {
+            let fullRange = NSRange(location: 0, length: adviceContent.length)
+            adviceContent.setAttributes(OverallStyle.adviceText.attributes, range: fullRange)
+        }
+        
+        // If there's an active proof, re-validate to refresh syntax highlighting
+        if isProofActive {
+            validate()
+        }
+    }
+
+    @IBAction func toggleAccessibilityMode(_ sender: Any) {
+        AccessibilityPreferences.toggleAccessibilityMode()
+    }
+
+    func setupAccessibilityMenuItem() {
+        // Find the View menu
+        if let viewMenu = findViewMenu() {
+            // Create accessibility mode menu item
+            let accessibilityMenuItem = NSMenuItem(
+                title: "Accessibility Mode (Typography Based)",
+                action: #selector(toggleAccessibilityMode(_:)),
+                keyEquivalent: ""
+            )
+            accessibilityMenuItem.target = self
+            accessibilityMenuItem.state = AccessibilityPreferences.isEnabled ? .on : .off
+            
+            // Add separator and accessibility item after the zoom submenu
+            viewMenu.addItem(NSMenuItem.separator())
+            viewMenu.addItem(accessibilityMenuItem)
+            
+            // Store reference for later updates
+            NotificationCenter.default.addObserver(
+                forName: .accessibilityModeChanged,
+                object: nil,
+                queue: .main
+            ) { _ in
+                accessibilityMenuItem.state = AccessibilityPreferences.isEnabled ? .on : .off
+            }
+        }
+    }
+    
+    func findViewMenu() -> NSMenu? {
+        // Navigate the main menu to find the View menu
+        guard let mainMenu = NSApp.mainMenu else { return nil }
+        
+        for item in mainMenu.items {
+            if item.title == "View" {
+                return item.submenu
+            }
+        }
+        return nil
     }
 
 }
