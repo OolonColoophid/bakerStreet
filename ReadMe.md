@@ -18,6 +18,8 @@ exporting them to a variety of formats, all within a native macOS experience.
 Baker Street was developed by Ian Hocking under the supervision of Dr Olaf Chitil at the
 School of Computing, University of Kent, UK, as an MSc Computer Science summer project.
 
+**[Download from the App Store](https://apps.apple.com/gb/app/baker-street/id1528304157)**
+
 ## Key Features
 
 - Proof validation
